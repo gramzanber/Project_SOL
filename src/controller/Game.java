@@ -5,6 +5,8 @@
  */
 package controller;
 
+import view.GUI;
+
 /**
  *
  * @author sean
@@ -15,7 +17,7 @@ public class Game {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        new GUI();
     }
     
 }
