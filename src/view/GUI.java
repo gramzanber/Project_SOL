@@ -1,26 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.HeadlessException;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
-/**
- *
- * @author sean
- */
-public class GUI extends JFrame{
-
-    public GUI() throws HeadlessException {
+public abstract class GUI extends JFrame
+{
+    private final String title;
+    
+    public GUI()
+    {
+        title = "Team SATAS Awesome Project";
+    }
+    
+    public void start() throws HeadlessException
+    {
+        this.loadComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(500,500);
-        this.add(new JLabel("Hello World"));
+        this.setTitle(title);
+        this.setSize(800,600);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
     
-    
+    abstract void loadComponents();
 }

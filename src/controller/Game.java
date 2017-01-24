@@ -1,23 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
-import view.GUI;
+import view.GameScreen;
+import view.MainMenu;
 
-/**
- *
- * @author sean
- */
-public class Game {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        new GUI();
+public class Game
+{
+    // 0 = Main Screen, 1 = Game Screen
+    private int currentScreen;
+    
+    public Game()
+    {
+        currentScreen = 0;
     }
     
+    public static void main(String[] args)
+    {
+        Game currentObject = new Game();
+        currentObject.runGame();
+    }
+    
+    public void runGame()
+    {
+        MainMenu menu = new MainMenu();
+        GameScreen game = new GameScreen();
+        
+        switch(this.currentScreen)
+        {
+            case(0):
+                menu.start();
+                break;
+            case(1):
+                game.start();
+                break;
+            default:
+                System.out.println("Someone forgot to get the screen!");
+                break;
+        }
+    }
+    
+    public void changeGameScreen(int screen){this.currentScreen = screen;}
 }
