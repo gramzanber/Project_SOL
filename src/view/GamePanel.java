@@ -1,8 +1,6 @@
-// Author:	Tyrel Tachibana
-// Course:	CMSC 3103 - Object Oriented SW Design & Construction
-// Semester:    Fall, 2015
-// Project:	Term Project
-// Created:     October 31, 2015
+// Author:	SATAS
+// Course:	SDD
+// Semester:    Spring, 2017
 
 package view;
 
@@ -33,11 +31,12 @@ public class GamePanel extends JPanel
     
     public GamePanel()
     {
-        this.backgroundImage = new Image[2];
+        this.backgroundImage = new Image[3];
         try
         {
             backgroundImage[0] = ImageIO.read(getClass().getResource("/Images/corona_bk.png"));
             backgroundImage[1] = ImageIO.read(getClass().getResource("/Images/redeclipse_bk.png"));
+            backgroundImage[2] = ImageIO.read(getClass().getResource("/Images/world_map_1.png"));
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error: Cannot open background.png");
             System.exit(-1);
@@ -72,15 +71,88 @@ public class GamePanel extends JPanel
         String levelString = "High Score";
         g2.drawString(levelString, (width / 2) - 50, (height / 2));
         // Score
-        String scoreString = String.format("Quit");
+        String scoreString = String.format("Controls");
         g2.drawString(scoreString, (width / 2) - 50, (height / 2) + 50);
+        //help screen
+        String quitString = String.format("Quit");
+        g2.drawString(quitString, (width / 2) - 50, (height / 2) + 100);
         
         // Show selection
         if(this.mainMenuHover == 0) { g2.drawRect((width / 2) - 60, (height / 2) - 70, 120, 30); }
         else if(this.mainMenuHover == 1) { g2.drawRect((width / 2) - 60, (height / 2) - 20, 120, 30); }
         else if(this.mainMenuHover == 2) { g2.drawRect((width / 2) - 60, (height / 2) + 30, 120, 30); }
+        else if(this.mainMenuHover == 3) { g2.drawRect((width / 2) - 60, (height / 2) + 80, 120, 30); }
     }
+    
+    public void worldRender() {
+        width = getSize().width;
+        height = getSize().height;
+        
+        g2 = (Graphics2D)this.getGraphics();
+        g2.setColor(Color.WHITE);
+        
+        g2.drawImage(backgroundImage[2], 0, 0,getWidth(), getHeight(), this);
+        
+        g2.setFont(new Font("TimesRoman", Font.BOLD, 50));
+        String gameNameString = "SOL";
+        g2.drawString(gameNameString, (width / 2) - 125, 100);
+        
+        //draw rect arround planets 
+        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        
+        //render spaceship
+        width = getSize().width;
+        height = getSize().height;
+        
+        if (Main.animator.running)
+        { 
+            synchronized (Main.gameData.enemyFigures)
+            {
+                try{
+            Main.gameData.friendFigures.stream().forEach((f) -> {
+                    f.render(g2);
+                });
+            }
+            catch(Exception e) { System.out.println("GamePanel Line 82: " + e.getMessage()); }
+            }
 
+        }
+        
+    }
+    
+    public void helpScreenRender() {
+        width = getSize().width;
+        height = getSize().height;
+        
+        g2 = (Graphics2D)this.getGraphics();
+        g2.setColor(Color.RED);
+        
+        if(Math.abs(this.backgroundLocation) >= 350) { this.backgroundLocation = 0; }
+        else { this.backgroundLocation = this.backgroundLocation - 5; }
+        g2.drawImage(backgroundImage[0], this.backgroundLocation, 0, backgroundImage[0].getWidth(null), backgroundImage[0].getHeight(null), null);
+        
+        g2.setFont(new Font("TimesRoman", Font.PLAIN, 50));
+        String gameNameString = "Star Gazer";
+        g2.drawString(gameNameString, (width / 2) - 125, 100);
+        
+        
+            g2.setFont(new Font("TimesRoman", Font.PLAIN, 22));
+            g2.drawString("How to Play", (width / 2)- 75, 170);
+            g2.drawString("Control", (width / 2)- 50, 230);
+            g2.drawString("Up, Down, Left, Right::W,A,S,D ", (width / 2)- 160, 270);
+        
+        // Back Button
+        String scoreString = String.format("Main Menu");
+        g2.drawString(scoreString, (width / 2) - 65, (height / 2) + 50);
+        
+        // Highlight back button
+        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+    }
+    
     public void scoreScreenRender()
     {
         width = getSize().width;
@@ -205,12 +277,13 @@ public class GamePanel extends JPanel
         if(movement > 0)
         {
             if(this.mainMenuHover > 0){ this.mainMenuHover = this.mainMenuHover - 1; }
-            else if(this.mainMenuHover == 0){ this.mainMenuHover = 2; }
+            else if(this.mainMenuHover == 0){ this.mainMenuHover = 3; }
         }
         if(movement < 0)
         {
-            if(this.mainMenuHover < 2){ this.mainMenuHover = this.mainMenuHover + 1; }
-            else if(this.mainMenuHover == 2){ this.mainMenuHover = 0; }
+            if(this.mainMenuHover < 3){ this.mainMenuHover = this.mainMenuHover + 1; }
+            else if(this.mainMenuHover == 3){ this.mainMenuHover = 0; }
         }
     }
+
 }
