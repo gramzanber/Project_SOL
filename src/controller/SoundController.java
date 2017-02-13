@@ -1,9 +1,4 @@
-// Author:	Tyrel Tachibana
-// Course:	CMSC 3103 - Object Oriented SW Design & Construction
-// Semester:    Fall, 2015
-// Project:	Term Project
-// Created:     November 15, 2015
-
+// Last edited by Cameron Droke -- 2/12/2017
 package controller;
 
 import java.io.File;
@@ -17,7 +12,138 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SoundController 
 {
-    public void backgroundMusic()
+    public void menuBGM()
+    {
+        try
+        {
+            File file = new File("src/Sounds/sol-menu2.wav");
+            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            // Get a sound clip resource.
+            Clip clip = AudioSystem.getClip();
+            // Open audio clip and load samples from the audio input stream.
+            clip.open(audioIn);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }
+    
+    public void selectConfirm()
+    {
+        try
+        {
+            File file = new File("src/Sounds/sol-confirm.wav");
+            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            // Get a sound clip resource.
+            Clip clip = AudioSystem.getClip();
+            // Open audio clip and load samples from the audio input stream.
+            clip.open(audioIn);
+            //clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }
+    
+    public void selectDeny()
+    {
+        try
+        {
+            File file = new File("src/Sounds/sol-deny.wav");
+            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            // Get a sound clip resource.
+            Clip clip = AudioSystem.getClip();
+            // Open audio clip and load samples from the audio input stream.
+            clip.open(audioIn);
+            //clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }
+    
+    public void openWorldBGM()
+    {
+        try
+        {
+            File file = new File("src/Sounds/sol-worldmap.wav");
+            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            // Get a sound clip resource.
+            Clip clip = AudioSystem.getClip();
+            // Open audio clip and load samples from the audio input stream.
+            clip.open(audioIn);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }
+    
+    public void earthBGM()
+    {
+        
+    }
+    
+    public void moonBGM()
+    {
+        
+    }
+    
+    public void venusBGM()
+    {
+        
+    }
+    
+    public void mercuryBGM()
+    {
+        
+    }
+    
+    public void sunBGM()
+    {
+        
+    }
+    
+    public void primaryWeaponFire()
+    {
+        
+    }
+    
+    public void grenadeLauncherFire()
+    {
+        
+    }
+    
+    public void seekerMissileFire()
+    {
+        
+    }
+    
+    public void flakeCannonFire()
+    {
+        
+    }
+    
+    public void forceBlasterFire()
+    {
+        
+    }
+    
+    public void weaponPickUp()
+    {
+        
+    }
+    
+    /*public void backgroundMusic()
     {
         try
         {
@@ -34,62 +160,5 @@ public class SoundController
         {
             System.out.printf("Error: %s \n", e.toString());
         }
-    }
-    
-    public void fireLaser()
-    {
-        try
-        {
-            File file = new File("src/model/bgm_hyperspace.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            Clip clip = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
-            clip.open(audioIn);
-            clip.start();
-        }
-        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
-        {
-            System.out.printf("Error: %s \n", e.toString());
-        }
-    }
-    
-    public void fireMissile()
-    {
-        try
-        {
-            File file = new File("src/model/bgm_hyperspace.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            Clip clip = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
-            clip.open(audioIn);
-            clip.start();
-        }
-        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
-        {
-            System.out.printf("Error: %s \n", e.toString());
-        }
-    }
-    
-    public void explosion()
-    {
-        try
-        {
-            File file = new File("src/model/bgm_hyperspace.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            Clip clip = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
-            clip.open(audioIn);
-            clip.start();
-        }
-        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
-        {
-            System.out.printf("Error: %s \n", e.toString());
-        }
-    }
+    }*/
 }

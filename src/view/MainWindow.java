@@ -37,7 +37,7 @@ public class MainWindow extends JFrame {
         Main.gamePanel.addMouseListener(mouseController);
         
         SoundController soundController = new SoundController();
-        soundController.backgroundMusic();
+        soundController.menuBGM();
 
         KeyController keyListener = new KeyController();
         Main.gamePanel.addKeyListener(keyListener);
