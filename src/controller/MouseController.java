@@ -1,9 +1,6 @@
-// Author:	Tyrel Tachibana
-// Course:	CMSC 3103 - Object Oriented SW Design & Construction
-// Semester:    Fall, 2015
-// Project:	Term Project
-// Created:     October 31, 2015
-
+// Author:	SATAS
+// Course:	SDD
+// Semester:    Spring, 2017
 package controller;
 
 import java.awt.Color;
@@ -13,6 +10,7 @@ import javax.swing.SwingUtilities;
 import model.Laser;
 import model.Missile;
 import model.Shooter;
+import view.GamePanel;
 
 public class MouseController extends MouseAdapter {
 
@@ -24,6 +22,31 @@ public class MouseController extends MouseAdapter {
     {
         px = me.getX();
         py = me.getY();
+        
+        if(Main.animator.isAtMainMenu()){//mouse clicks set to location of start highscore and quit
+            if(px >= (GamePanel.width/2) - 50 && py >=(GamePanel.height/2)-75 && py <= (GamePanel.height/2)-15){
+                //System.out.println("START");
+                Main.animator.startGame();
+            }else if(px >= (GamePanel.width/2) - 50 && py >=(GamePanel.height/2)-10 && py <= (GamePanel.height/2)+15){
+                //System.out.println("HIGH 123");
+                Main.animator.scoreScreen();
+            }else if(px >= (GamePanel.width/2) - 50 && py >=(GamePanel.height/2)+25 && py <= (GamePanel.height/2)+50){
+                //System.out.println("Help ");
+                Main.animator.helpScreen();
+            }else if(px >= (GamePanel.width/2) - 50 && py >=(GamePanel.height/2)+60){
+                //System.out.println("QUIT ");
+                if (Main.animator.running) { Main.animator.running = false; }
+                else { System.exit(0); }
+            }
+        }else if(Main.animator.isAtHelpScreen()){
+            if(px >= (GamePanel.width/2) - 20 && py >=(GamePanel.height/2)+25 && py <= (GamePanel.height/2)+60){
+                Main.animator.mainMenu();
+            }
+        }else if(Main.animator.isAtScoreScreen()){
+            if(px >= (GamePanel.width/2) - 40 && py >=(GamePanel.height/2)+25 && py <= (GamePanel.height/2)+60){
+                Main.animator.mainMenu();
+            }
+        }
 
         Shooter shooter = (Shooter) Main.gameData.friendFigures.get(0);
         
