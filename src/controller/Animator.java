@@ -1,22 +1,23 @@
-// Author:	Tyrel Tachibana
-// Course:	CMSC 3103 - Object Oriented SW Design & Construction
-// Semester:    Fall, 2015
-// Project:	Term Project
-// Created:     October 31, 2015
+// Author:	SATAS
+// Course:	SDD
+// Semester:    Spring, 2017
 
 package controller;
 
 import java.awt.geom.Rectangle2D;
 import model.Blackhole;
 import model.GameFigure;
+import model.Shooter;
 
 public class Animator implements Runnable
 {
     public boolean running = true;
     private boolean mainMenu = true;
+    private boolean mainWorld = false;
     private boolean scoreScreen = false;
     private final int FRAMES_PER_SECOND = 60;
-
+    private boolean helpScreen;
+    
     @Override
     public void run()
     {
@@ -28,9 +29,15 @@ public class Animator implements Runnable
             {
                 Main.gamePanel.menuRender();
             }
+            else if(this.mainWorld){
+                Main.gamePanel.worldRender();
+            }
             else if(this.scoreScreen)
             {
                 Main.gamePanel.scoreScreenRender();
+            }
+            else if(this.helpScreen){
+                Main.gamePanel.helpScreenRender();
             }
             else
             {
@@ -39,6 +46,7 @@ public class Animator implements Runnable
                 Main.gameData.update();
                 Main.gamePanel.gameRender();
                 Main.gamePanel.printScreen();
+                
             }
             //long endTime = System.currentTimeMillis();
             int sleepTime = (int) (1.0 / FRAMES_PER_SECOND * 3000);// - (int) (endTime - startTime);
@@ -86,21 +94,51 @@ public class Animator implements Runnable
         return this.scoreScreen;
     }
     
+    boolean isAtMainWorld() {
+        return this.mainWorld;
+    }
+    
+    boolean isAtHelpScreen() {
+        return this.helpScreen;
+    }
+    
     public void startGame()
     {
         this.mainMenu = false;
         this.scoreScreen = false;
+        //test code to try to get the world map to showup after you hit start
+        this.mainWorld = true;
+        this.helpScreen = false;
     }
     
     public void scoreScreen()
     {
         this.mainMenu = false;
         this.scoreScreen = true;
+        this.mainWorld = false;
+        this.helpScreen = false;
     }
     
     public void mainMenu()
     {
         this.mainMenu = true;
         this.scoreScreen = false;
+        this.mainWorld = false;
+        this.helpScreen = false;
     }
+    
+    public void worldmap(){
+        this.mainWorld = false;
+        this.mainMenu = false;
+        this.scoreScreen = false;
+        this.helpScreen = false;
+    }
+
+    void helpScreen() {
+        this.mainWorld = false;
+        this.mainMenu = false;
+        this.scoreScreen = false;
+        this.helpScreen = true;
+    }
+
 }
