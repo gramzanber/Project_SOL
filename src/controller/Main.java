@@ -30,7 +30,7 @@ public class Main
         score = new Scoretracker();
 
         JFrame game = new MainWindow();
-        game.setTitle("Tachibana Final Project");
+        game.setTitle("SDD SATAS");
         game.setSize(WIN_WIDTH, WIN_HEIGHT);
         game.setLocation(100, 0);
         game.setResizable(false);                                               // Window size cannot change

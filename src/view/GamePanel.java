@@ -3,7 +3,7 @@
 // Semester:    Spring, 2017
 
 package view;
-
+import controller.KeyController;
 import controller.Main;
 import java.awt.Color;
 import java.awt.Font;
@@ -28,6 +28,7 @@ public class GamePanel extends JPanel
     private Image backgroundImage[];                                       // Double buffer image
     private int backgroundLocation;
     private int mainMenuHover;
+    private boolean enterKeyPressed = false;
     
     public GamePanel()
     {
@@ -47,6 +48,7 @@ public class GamePanel extends JPanel
     
     public void menuRender()
     {
+        enterKeyPressed = KeyController.getEnterKeyPressed();
         width = getSize().width;
         height = getSize().height;
         
@@ -66,22 +68,44 @@ public class GamePanel extends JPanel
         
         // Game Information
         String informationString = "Start";
-        g2.drawString(informationString, (width / 2) - 50, (height / 2) - 50);
-        // Level Information
         String levelString = "High Score";
-        g2.drawString(levelString, (width / 2) - 50, (height / 2));
-        // Score
         String scoreString = String.format("Controls");
-        g2.drawString(scoreString, (width / 2) - 50, (height / 2) + 50);
-        //help screen
         String quitString = String.format("Quit");
-        g2.drawString(quitString, (width / 2) - 50, (height / 2) + 100);
         
-        // Show selection
-        if(this.mainMenuHover == 0) { g2.drawRect((width / 2) - 60, (height / 2) - 70, 120, 30); }
-        else if(this.mainMenuHover == 1) { g2.drawRect((width / 2) - 60, (height / 2) - 20, 120, 30); }
-        else if(this.mainMenuHover == 2) { g2.drawRect((width / 2) - 60, (height / 2) + 30, 120, 30); }
-        else if(this.mainMenuHover == 3) { g2.drawRect((width / 2) - 60, (height / 2) + 80, 120, 30); }
+        if(!enterKeyPressed){
+            g2.drawString(informationString, (width / 2) - 50, (height / 2) - 50);
+            // Level Information
+            g2.drawString(levelString, (width / 2) - 50, (height / 2));
+            // Score
+            g2.drawString(scoreString, (width / 2) - 50, (height / 2) + 50);
+            //help screen
+            g2.drawString(quitString, (width / 2) - 50, (height / 2) + 100);
+            //animateButton(g2);
+            // Show selection
+            if(this.mainMenuHover == 0) { g2.drawRect((width / 2) - 60, (height / 2) - 70, 120, 30); }
+            else if(this.mainMenuHover == 1) { g2.drawRect((width / 2) - 60, (height / 2) - 20, 120, 30); }
+            else if(this.mainMenuHover == 2) { g2.drawRect((width / 2) - 60, (height / 2) + 30, 120, 30); }
+            else if(this.mainMenuHover == 3) { g2.drawRect((width / 2) - 60, (height / 2) + 80, 120, 30); }
+        }
+        else{
+            if(this.mainMenuHover == 0) { 
+                g2.drawString(informationString, (width / 2) - 50, (height / 2) - 50);
+                g2.drawRect((width / 2) - 60, (height / 2) - 70, 120, 30); 
+            }
+            else if(this.mainMenuHover == 1) { 
+                g2.drawString(levelString, (width / 2) - 50, (height / 2));
+                g2.drawRect((width / 2) - 60, (height / 2) - 20, 120, 30); 
+            }
+            else if(this.mainMenuHover == 2) { 
+                 g2.drawString(scoreString, (width / 2) - 50, (height / 2) + 50);
+                g2.drawRect((width / 2) - 60, (height / 2) + 30, 120, 30); 
+            }
+            else if(this.mainMenuHover == 3) { 
+                g2.drawString(quitString, (width / 2) - 50, (height / 2) + 100);
+                g2.drawRect((width / 2) - 60, (height / 2) + 80, 120, 30); 
+            }
+            
+        }
     }
     
     public void worldRender() {
@@ -285,5 +309,18 @@ public class GamePanel extends JPanel
             else if(this.mainMenuHover == 3){ this.mainMenuHover = 0; }
         }
     }
-
+    
+    public void animateButton(Graphics2D g3){
+        if(KeyController.getEnterKeyPressed()){
+            try{ 
+                Thread.sleep(200);
+            }
+            catch(Exception c){
+                
+            }
+            
+            
+        }
+    }
+    
 }

@@ -15,7 +15,7 @@ public class Animator implements Runnable
     private boolean mainMenu = true;
     private boolean mainWorld = false;
     private boolean scoreScreen = false;
-    private final int FRAMES_PER_SECOND = 60;
+    private final int FRAMES_PER_SECOND = 30;
     private boolean helpScreen;
     
     @Override
