@@ -7,10 +7,13 @@
 package model;
 
 import controller.Main;
+import java.awt.Rectangle;
 import view.GamePanel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import view.Background;
+import view.RenderableObject;
 
 public class GameData
 {
@@ -23,6 +26,8 @@ public class GameData
     private int enemyAmount;
     private boolean boss;
     private int level;
+    public List<RenderableObject> gameObjects;
+    public Rectangle viewport = new Rectangle(0,0,500,500);
 
     public GameData()
     {
@@ -36,6 +41,11 @@ public class GameData
         this.blackholeTime = false;
         this.level = 0;
         this.enemyAmount = (this.level + 1) * 5;
+        
+        
+        gameObjects = Collections.synchronizedList(new ArrayList<RenderableObject>());
+        gameObjects.add(new Background(50,50,50,50, "/Images/corona_bk.png"));
+        
     }
     
     public void addUFOBoss()
