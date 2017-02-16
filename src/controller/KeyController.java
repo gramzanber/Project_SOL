@@ -12,9 +12,11 @@ import model.Shooter;
 
 public class KeyController implements KeyListener
 {
+    
+    public static boolean enterKeyPressed = false;
     @Override
-    public void keyPressed(KeyEvent e)
-    {
+    public void keyPressed(KeyEvent e) 
+    {   
         SoundController soundController = new SoundController();
         if(Main.animator.isAtMainMenu())
         {
@@ -27,6 +29,13 @@ public class KeyController implements KeyListener
                     Main.gamePanel.mainMenuSelectOption(-1);
                     break;
                 case KeyEvent.VK_ENTER:
+                    this.enterKeyPressed = true;
+                    try{
+                        sleepNow();
+                    }
+                    catch(Exception a){
+                        
+                    }
                     switch(Main.gamePanel.getMainMenuSelection())
                     {
                         case 0:
@@ -44,13 +53,16 @@ public class KeyController implements KeyListener
                     }
                     break;
             }
+            if(getEnterKeyPressed()){
+                enterKeyPressed = false;
+            }
+             
         }
         else if(Main.animator.isAtScoreScreen())
         {
             switch (e.getKeyCode())
             {
                 case KeyEvent.VK_ENTER:
-                    soundController.selectConfirm();
                     Main.animator.mainMenu();
                     break;
             }
@@ -91,4 +103,14 @@ public class KeyController implements KeyListener
     @Override
     public void keyReleased(KeyEvent e) {
     }
+    
+    public static boolean getEnterKeyPressed(){
+        return enterKeyPressed;
+    }
+    
+    public void sleepNow() throws InterruptedException{
+        Thread.sleep(1000);
+    }
 }
+
+
