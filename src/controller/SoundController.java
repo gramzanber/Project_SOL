@@ -42,6 +42,7 @@ public class SoundController
             Clip clip = AudioSystem.getClip();
             // Open audio clip and load samples from the audio input stream.
             clip.open(audioIn);
+            clip.start();
             //clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
@@ -61,6 +62,7 @@ public class SoundController
             Clip clip = AudioSystem.getClip();
             // Open audio clip and load samples from the audio input stream.
             clip.open(audioIn);
+            clip.start();
             //clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 

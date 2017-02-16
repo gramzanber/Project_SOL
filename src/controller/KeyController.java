@@ -15,6 +15,7 @@ public class KeyController implements KeyListener
     @Override
     public void keyPressed(KeyEvent e)
     {
+        SoundController soundController = new SoundController();
         if(Main.animator.isAtMainMenu())
         {
             switch (e.getKeyCode())
@@ -29,9 +30,11 @@ public class KeyController implements KeyListener
                     switch(Main.gamePanel.getMainMenuSelection())
                     {
                         case 0:
+                            soundController.selectConfirm();
                             Main.animator.startGame();
                             break;
                         case 1:
+                            soundController.selectConfirm();
                             Main.animator.scoreScreen();
                             break;
                         case 2:
@@ -47,6 +50,7 @@ public class KeyController implements KeyListener
             switch (e.getKeyCode())
             {
                 case KeyEvent.VK_ENTER:
+                    soundController.selectConfirm();
                     Main.animator.mainMenu();
                     break;
             }
