@@ -1,8 +1,6 @@
-// Author:	Tyrel Tachibana
-// Course:	CMSC 3103 - Object Oriented SW Design & Construction
-// Semester:    Fall, 2015
-// Project:	Term Project
-// Created:     October 31, 2015
+// Author:	SATAS
+// Course:	SDD
+// Semester:    Spring, 2017
 
 package model;
 
@@ -29,7 +27,7 @@ public class GameData
         enemyFigures = Collections.synchronizedList(new ArrayList<GameFigure>());
         friendFigures = Collections.synchronizedList(new ArrayList<GameFigure>());
 
-        shooter = new Shooter(5, 250);
+        shooter = new Shooter(420, 220);
 
         friendFigures.add(shooter);
         this.boss = false;
