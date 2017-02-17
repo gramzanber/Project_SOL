@@ -62,11 +62,10 @@ public class GamePanel extends JPanel
             if (dbImage == null) {
                 System.out.println("Critical Error: dbImage is null");
                 System.exit(1);
-            } else {
-                //create graphics2d object from off screen image
-                g2 = (Graphics2D) dbImage.getGraphics();
             }
         }
+        //create graphics2d object from off screen image
+        g2 = (Graphics2D) dbImage.getGraphics();
         
         //draw everything on dbimage
         
@@ -150,11 +149,10 @@ public class GamePanel extends JPanel
             if (dbImage == null) {
                 System.out.println("Critical Error: dbImage is null");
                 System.exit(1);
-            } else {
-                //create graphics2d object from off screen image
-                g2 = (Graphics2D) dbImage.getGraphics();
             }
         }
+        //create graphics2d object from off screen image
+        g2 = (Graphics2D) dbImage.getGraphics();
         
         //draw everything on dbimage
         
@@ -201,10 +199,30 @@ public class GamePanel extends JPanel
     }
     
     public void helpScreenRender() {
+        
+        //The traditional notion of double-buffering in Java applications is 
+        //fairly straightforward: create an offscreen image, draw to that image 
+        //using the image's graphics object, then, in one step, call drawImage 
+        //using the target window's graphics object and the offscreen image.
+        //this will reduce flicker because the slower process of rendering each 
+        //object is done off screen
+        
+        //make sure the off screen image is defined
+        if (dbImage == null) {
+            // Creates an off-screen drawable image
+            dbImage = createImage(this.getSize().width, this.getSize().height);
+            if (dbImage == null) {
+                System.out.println("Critical Error: dbImage is null");
+                System.exit(1);
+            }
+        }
+        //create graphics2d object from off screen image
+        g2 = (Graphics2D) dbImage.getGraphics();
+        
         width = getSize().width;
         height = getSize().height;
         
-        g2 = (Graphics2D)this.getGraphics();
+        //g2 = (Graphics2D)this.getGraphics();
         g2.setColor(Color.RED);
         
         if(Math.abs(this.backgroundLocation) >= 350) { this.backgroundLocation = 0; }
@@ -227,14 +245,37 @@ public class GamePanel extends JPanel
         
         // Highlight back button
         g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        
+        //draw the dbimage to the panel
+        this.getGraphics().drawImage(dbImage, 0, 0, this);
     }
     
     public void scoreScreenRender()
     {
+        //The traditional notion of double-buffering in Java applications is 
+        //fairly straightforward: create an offscreen image, draw to that image 
+        //using the image's graphics object, then, in one step, call drawImage 
+        //using the target window's graphics object and the offscreen image.
+        //this will reduce flicker because the slower process of rendering each 
+        //object is done off screen
+        
+        //make sure the off screen image is defined
+        if (dbImage == null) {
+            // Creates an off-screen drawable image
+            dbImage = createImage(this.getSize().width, this.getSize().height);
+            if (dbImage == null) {
+                System.out.println("Critical Error: dbImage is null");
+                System.exit(1);
+            }
+        }
+        //create graphics2d object from off screen image
+        g2 = (Graphics2D) dbImage.getGraphics();
+        
+        
         width = getSize().width;
         height = getSize().height;
         
-        g2 = (Graphics2D)this.getGraphics();
+        //g2 = (Graphics2D)this.getGraphics();
         g2.setColor(Color.RED);
         
         if(Math.abs(this.backgroundLocation) >= 350) { this.backgroundLocation = 0; }
@@ -267,6 +308,9 @@ public class GamePanel extends JPanel
         
         // Highlight back button
         g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        
+        //draw the dbimage to the panel
+        this.getGraphics().drawImage(dbImage, 0, 0, this);
     }
     
     
