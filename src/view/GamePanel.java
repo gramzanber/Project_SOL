@@ -62,11 +62,10 @@ public class GamePanel extends JPanel
             if (dbImage == null) {
                 System.out.println("Critical Error: dbImage is null");
                 System.exit(1);
-            } else {
-                //create graphics2d object from off screen image
-                g2 = (Graphics2D) dbImage.getGraphics();
             }
         }
+        //create graphics2d object from off screen image
+        g2 = (Graphics2D) dbImage.getGraphics();
         
         //draw everything on dbimage
         
@@ -82,9 +81,9 @@ public class GamePanel extends JPanel
         //System.out.println("Size: " + backgroundImage[0].getWidth(null) + " Location: " + Math.abs(this.backgroundLocation));
         g2.drawImage(backgroundImage[0], this.backgroundLocation, 0, backgroundImage[0].getWidth(null), backgroundImage[0].getHeight(null), null);
         
-        g2.setFont(new Font("TimesRoman", Font.BOLD, 50));
-        String gameNameString = "Star Gazer";
-        g2.drawString(gameNameString, (width / 2) - 125, 100);
+        g2.setFont(new Font("TimesRoman", Font.BOLD, 75));
+        String gameNameString = "SOL";
+        g2.drawString(gameNameString, (width / 2) - 80, 100);
         
         g2.setFont(new Font("TimesRoman", Font.PLAIN, 15));
         
@@ -150,11 +149,10 @@ public class GamePanel extends JPanel
             if (dbImage == null) {
                 System.out.println("Critical Error: dbImage is null");
                 System.exit(1);
-            } else {
-                //create graphics2d object from off screen image
-                g2 = (Graphics2D) dbImage.getGraphics();
             }
         }
+        //create graphics2d object from off screen image
+        g2 = (Graphics2D) dbImage.getGraphics();
         
         //draw everything on dbimage
         
@@ -166,9 +164,9 @@ public class GamePanel extends JPanel
         
         g2.drawImage(backgroundImage[2], 0, 0,getWidth(), getHeight(), this);
         
-        g2.setFont(new Font("TimesRoman", Font.BOLD, 50));
-        String gameNameString = "SOL";
-        g2.drawString(gameNameString, (width / 2) - 125, 100);
+        g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
+        String gameNameString = "SYSTEM MAP - Select assault point";
+        g2.drawString(gameNameString, (width / 2) - 250, 40);
         
         //draw rect arround planets 
         g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
@@ -201,49 +199,108 @@ public class GamePanel extends JPanel
     }
     
     public void helpScreenRender() {
+        
+        //The traditional notion of double-buffering in Java applications is 
+        //fairly straightforward: create an offscreen image, draw to that image 
+        //using the image's graphics object, then, in one step, call drawImage 
+        //using the target window's graphics object and the offscreen image.
+        //this will reduce flicker because the slower process of rendering each 
+        //object is done off screen
+        
+        //make sure the off screen image is defined
+        if (dbImage == null) {
+            // Creates an off-screen drawable image
+            dbImage = createImage(this.getSize().width, this.getSize().height);
+            if (dbImage == null) {
+                System.out.println("Critical Error: dbImage is null");
+                System.exit(1);
+            }
+        }
+        //create graphics2d object from off screen image
+        g2 = (Graphics2D) dbImage.getGraphics();
+        
         width = getSize().width;
         height = getSize().height;
         
-        g2 = (Graphics2D)this.getGraphics();
+        //g2 = (Graphics2D)this.getGraphics();
         g2.setColor(Color.RED);
         
         if(Math.abs(this.backgroundLocation) >= 350) { this.backgroundLocation = 0; }
         else { this.backgroundLocation = this.backgroundLocation - 5; }
         g2.drawImage(backgroundImage[0], this.backgroundLocation, 0, backgroundImage[0].getWidth(null), backgroundImage[0].getHeight(null), null);
         
-        g2.setFont(new Font("TimesRoman", Font.PLAIN, 50));
-        String gameNameString = "Star Gazer";
-        g2.drawString(gameNameString, (width / 2) - 125, 100);
+        g2.setFont(new Font("TimesRoman", Font.BOLD, 75));
+        String gameNameString = "SOL";
+        g2.drawString(gameNameString, (width / 2) - 80, 100);
         
         
-            g2.setFont(new Font("TimesRoman", Font.PLAIN, 22));
-            g2.drawString("How to Play", (width / 2)- 75, 170);
-            g2.drawString("Control", (width / 2)- 50, 230);
-            g2.drawString("Up, Down, Left, Right::W,A,S,D ", (width / 2)- 160, 270);
+            g2.setFont(new Font("TimesRoman", Font.BOLD, 22));
+            g2.drawString("Controls:", ((width+40)-width), 150);
+            g2.setFont(new Font("TimesRoman", Font.PLAIN, 18));            
+            g2.drawString("Move Left:", ((width+40)-width), 200);
+            g2.drawString("Move Right:", ((width+40)-width), 225);
+            g2.drawString("Look Up:", ((width+40)-width), 250);
+            g2.drawString("Crouch:", ((width+40)-width), 275);
+            g2.drawString("Jump:", ((width+40)-width), 300);
+            g2.drawString("Boost:", ((width+40)-width), 325);
+            g2.drawString("Fire Primary Wepon:", ((width+40)-width), 350);
+            g2.drawString("Fire Secondary Weapon:", ((width+40)-width), 375);    
+            
+            g2.drawString("Left Arrow / A", (width-200), 200);
+            g2.drawString("Right Arrow / D", (width-200), 225);
+            g2.drawString("Up Arrow / W", (width-200), 250);
+            g2.drawString("Down Arrow / S", (width-200), 275);
+            g2.drawString("Space", (width-200), 300);
+            g2.drawString("Space (while midair)", (width-200), 325);
+            g2.drawString("Left Mouse", (width-200), 350);
+            g2.drawString("Right Mouse", (width-200), 375);             
         
         // Back Button
         String scoreString = String.format("Main Menu");
-        g2.drawString(scoreString, (width / 2) - 65, (height / 2) + 50);
+        g2.drawString(scoreString, (width / 2) - 55, (height / 2) + 222);
         
         // Highlight back button
-        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        g2.drawRect((width / 2) - 70, (height / 2) + 200, 120, 30);
+        
+        //draw the dbimage to the panel
+        this.getGraphics().drawImage(dbImage, 0, 0, this);
     }
     
     public void scoreScreenRender()
     {
+        //The traditional notion of double-buffering in Java applications is 
+        //fairly straightforward: create an offscreen image, draw to that image 
+        //using the image's graphics object, then, in one step, call drawImage 
+        //using the target window's graphics object and the offscreen image.
+        //this will reduce flicker because the slower process of rendering each 
+        //object is done off screen
+        
+        //make sure the off screen image is defined
+        if (dbImage == null) {
+            // Creates an off-screen drawable image
+            dbImage = createImage(this.getSize().width, this.getSize().height);
+            if (dbImage == null) {
+                System.out.println("Critical Error: dbImage is null");
+                System.exit(1);
+            }
+        }
+        //create graphics2d object from off screen image
+        g2 = (Graphics2D) dbImage.getGraphics();
+        
+        
         width = getSize().width;
         height = getSize().height;
         
-        g2 = (Graphics2D)this.getGraphics();
+        //g2 = (Graphics2D)this.getGraphics();
         g2.setColor(Color.RED);
         
         if(Math.abs(this.backgroundLocation) >= 350) { this.backgroundLocation = 0; }
         else { this.backgroundLocation = this.backgroundLocation - 5; }
         g2.drawImage(backgroundImage[0], this.backgroundLocation, 0, backgroundImage[0].getWidth(null), backgroundImage[0].getHeight(null), null);
         
-        g2.setFont(new Font("TimesRoman", Font.BOLD, 50));
-        String gameNameString = "Star Gazer";
-        g2.drawString(gameNameString, (width / 2) - 125, 100);
+        g2.setFont(new Font("TimesRoman", Font.BOLD, 75));
+        String gameNameString = "SOL";
+        g2.drawString(gameNameString, (width / 2) - 80, 100);
         
         g2.setFont(new Font("TimesRoman", Font.PLAIN, 15));
         
@@ -251,8 +308,8 @@ public class GamePanel extends JPanel
         String levelString = "High Scores";
         g2.drawString(levelString, (width / 2) - 50, (height / 2) - 140);
         // Score
-        String scoreString01 = "1. Tyrel Tachibana 4526 11/27/2015";
-        String scoreString02 = "2. Shay Piper 4515 11/28/2015";
+        String scoreString01 = "1. Tyrel Tachibana 4526 1/27/2017";
+        String scoreString02 = "2. Sam Sopp 4515 1/28/2017";
         String scoreString03 = "3. N/A";
         String scoreString04 = "4. N/A";
         String scoreString05 = "5. N/A";
@@ -267,6 +324,9 @@ public class GamePanel extends JPanel
         
         // Highlight back button
         g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        
+        //draw the dbimage to the panel
+        this.getGraphics().drawImage(dbImage, 0, 0, this);
     }
     
     
@@ -334,7 +394,7 @@ public class GamePanel extends JPanel
         g2.setFont(new Font("TimesRoman", Font.PLAIN, 15));
         
         // Game Information
-        String informationString = "Star Gazer";
+        String informationString = "SOL";
         g2.drawString(informationString, 20, 20);
         // Level Information
         String levelString = "Level: " + (Main.gameData.getLevel() + 1);

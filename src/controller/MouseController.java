@@ -25,31 +25,37 @@ public class MouseController extends MouseAdapter {
         SoundController soundController = new SoundController();
         
         if(Main.animator.isAtMainMenu()){//mouse clicks set to location of start highscore and quit
-            if(px >= (GamePanel.width/2) - 50 && py >=(GamePanel.height/2)-75 && py <= (GamePanel.height/2)-15){
+            if(px >= (GamePanel.width/2) - 60 && px <= (GamePanel.width/2) + 60 &&
+                    py >=(GamePanel.height/2)-70 && py <= (GamePanel.height/2)-40){
                 //System.out.println("START");
                 soundController.selectConfirm();
                 Main.animator.startGame();
-            }else if(px >= (GamePanel.width/2) - 50 && py >=(GamePanel.height/2)-10 && py <= (GamePanel.height/2)+15){
+            }else if(px >= (GamePanel.width/2) - 60 && px <= (GamePanel.width/2) + 60 && 
+                    py >=(GamePanel.height/2)-20 && py <= (GamePanel.height/2)+10){
                 //System.out.println("HIGH 123");
                 soundController.selectConfirm();
                 Main.animator.scoreScreen();
-            }else if(px >= (GamePanel.width/2) - 50 && py >=(GamePanel.height/2)+25 && py <= (GamePanel.height/2)+50){
+            }else if(px >= (GamePanel.width/2) - 60 && px <= (GamePanel.width/2) + 60 && 
+                    py >=(GamePanel.height/2)+30 && py <= (GamePanel.height/2)+60){
                 //System.out.println("Help ");
                 soundController.selectConfirm();
                 Main.animator.helpScreen();
-            }else if(px >= (GamePanel.width/2) - 50 && py >=(GamePanel.height/2)+60){
+            }else if(px >= (GamePanel.width/2) - 60 && px <= (GamePanel.width/2) + 60 && 
+                    py >=(GamePanel.height/2)+80 && py <= (GamePanel.height/2)+110){
                 //System.out.println("QUIT ");
                 soundController.selectConfirm();
                 if (Main.animator.running) { Main.animator.running = false; }
                 else { System.exit(0); }
             }
         }else if(Main.animator.isAtHelpScreen()){
-            if(px >= (GamePanel.width/2) - 20 && py >=(GamePanel.height/2)+25 && py <= (GamePanel.height/2)+60){
+            if(px >= (GamePanel.width/2) - 70 && px <= (GamePanel.width/2) + 50 && 
+                    py >=(GamePanel.height/2)+200 && py <= (GamePanel.height/2)+230){
                 soundController.selectConfirm();
                 Main.animator.mainMenu();
             }
         }else if(Main.animator.isAtScoreScreen()){
-            if(px >= (GamePanel.width/2) - 40 && py >=(GamePanel.height/2)+25 && py <= (GamePanel.height/2)+60){
+            if(px >= (GamePanel.width/2) - 70 && px <= (GamePanel.width/2) + 50 && 
+                    py >=(GamePanel.height/2)+25 && py <= (GamePanel.height/2)+60){
                 soundController.selectConfirm();
                 Main.animator.mainMenu();
             }
