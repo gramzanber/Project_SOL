@@ -45,6 +45,10 @@ public class KeyController implements KeyListener
                             Main.animator.scoreScreen();
                             break;
                         case 2:
+                            soundController.selectConfirm();
+                            Main.animator.helpScreen();
+                            break;
+                        case 3:
                             if (Main.animator.running) { Main.animator.running = false; }
                             else { System.exit(0); }
                             break;
