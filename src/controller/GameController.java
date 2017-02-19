@@ -1,9 +1,13 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import model.Laser;
+import model.Missile;
+import model.Shooter;
 import view.Background;
 import view.GameButton;
 import static view.GamePanel.height;
@@ -34,9 +38,7 @@ public class GameController implements ActionListener{
     
     private void clear(){
         for(int i=0; i<Main.gameData.gameObjects.size(); i++){
-            Main.gamePanel.removeMouseListener(Main.gameData.gameObjects.get(i));
-            Main.gamePanel.removeKeyListener(Main.gameData.gameObjects.get(i));
-            Main.gamePanel.removeMouseMotionListener(Main.gameData.gameObjects.get(i));
+            Main.gameData.gameObjects.get(i).clear();
         }
         Main.gameData.gameObjects.clear();
     }
@@ -93,9 +95,23 @@ public class GameController implements ActionListener{
         //add background
         Main.gameData.gameObjects.add(new Background("/Images/world_map_1.png", true, false));
         
+        //g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
+        Font font = new Font("TimesRoman", Font.BOLD, 30);
+        String gameNameString = "SYSTEM MAP - Select assault point";
+        //g2.drawString(gameNameString, (width / 2) - 250, 40);
+        Text text = new Text(new Point(Main.gameData.viewport.width/2, 10),gameNameString, font, true);
+        text.setColor(Color.WHITE);
+        Main.gameData.addGameObject(text);
+        
+        //draw rect arround planets 
+        //g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        //g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        //g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        //g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+        //g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
         
         
-        
+        Main.gameData.addGameObject(new Shooter(new Point(100, 100)));
         
     }
     
@@ -241,6 +257,19 @@ public class GameController implements ActionListener{
             showControls();
         }
         
+        
+    }
+
+    public void addMissile(float sx, float sy, int px, int py, Color color) {
+        
+        Missile m = new Missile(sx, sy, px, py, color); 
+        Main.gameData.addGameObject(m);
+        
+    }
+    public void addLaser(float x, float y, Color color, boolean direction) {
+        
+        Laser l = new Laser(x, y, color, direction); 
+        Main.gameData.addGameObject(l);
         
     }
     

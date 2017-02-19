@@ -135,67 +135,67 @@ public class GamePanel extends JPanel
     
     public void worldRender() {
         
-        //The traditional notion of double-buffering in Java applications is 
-        //fairly straightforward: create an offscreen image, draw to that image 
-        //using the image's graphics object, then, in one step, call drawImage 
-        //using the target window's graphics object and the offscreen image.
-        //this will reduce flicker because the slower process of rendering each 
-        //object is done off screen
-        
-        //make sure the off screen image is defined
-        if (dbImage == null) {
-            // Creates an off-screen drawable image
-            dbImage = createImage(this.getSize().width, this.getSize().height);
-            if (dbImage == null) {
-                System.out.println("Critical Error: dbImage is null");
-                System.exit(1);
-            }
-        }
-        //create graphics2d object from off screen image
-        g2 = (Graphics2D) dbImage.getGraphics();
-        
-        //draw everything on dbimage
-        
-        width = getSize().width;
-        height = getSize().height;
-        
-        //g2 = (Graphics2D)this.getGraphics();
-        g2.setColor(Color.WHITE);
-        
-        g2.drawImage(backgroundImage[2], 0, 0,getWidth(), getHeight(), this);
-        
-        g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
-        String gameNameString = "SYSTEM MAP - Select assault point";
-        g2.drawString(gameNameString, (width / 2) - 250, 40);
-        
-        //draw rect arround planets 
-        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
-        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
-        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
-        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
-        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
-        
-        //render spaceship
-        width = getSize().width;
-        height = getSize().height;
-        
-        if (Main.animator.running)
-        { 
-            synchronized (Main.gameData.enemyFigures)
-            {
-                try{
-            Main.gameData.friendFigures.stream().forEach((f) -> {
-                    f.render(g2);
-                });
-            }
-            catch(Exception e) { System.out.println("GamePanel Line 82: " + e.getMessage()); }
-            }
-
-        }
-        
-        //draw the dbimage to the panel
-        this.getGraphics().drawImage(dbImage, 0, 0, this);
-        
+//        //The traditional notion of double-buffering in Java applications is 
+//        //fairly straightforward: create an offscreen image, draw to that image 
+//        //using the image's graphics object, then, in one step, call drawImage 
+//        //using the target window's graphics object and the offscreen image.
+//        //this will reduce flicker because the slower process of rendering each 
+//        //object is done off screen
+//        
+//        //make sure the off screen image is defined
+//        if (dbImage == null) {
+//            // Creates an off-screen drawable image
+//            dbImage = createImage(this.getSize().width, this.getSize().height);
+//            if (dbImage == null) {
+//                System.out.println("Critical Error: dbImage is null");
+//                System.exit(1);
+//            }
+//        }
+//        //create graphics2d object from off screen image
+//        g2 = (Graphics2D) dbImage.getGraphics();
+//        
+//        //draw everything on dbimage
+//        
+//        width = getSize().width;
+//        height = getSize().height;
+//        
+//        //g2 = (Graphics2D)this.getGraphics();
+//        g2.setColor(Color.WHITE);
+//        
+//        g2.drawImage(backgroundImage[2], 0, 0,getWidth(), getHeight(), this);
+//        
+//        g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
+//        String gameNameString = "SYSTEM MAP - Select assault point";
+//        g2.drawString(gameNameString, (width / 2) - 250, 40);
+//        
+//        //draw rect arround planets 
+//        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+//        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+//        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+//        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+//        g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
+//        
+//        //render spaceship
+//        width = getSize().width;
+//        height = getSize().height;
+//        
+//        if (Main.animator.running)
+//        { 
+//            synchronized (Main.gameData.enemyFigures)
+//            {
+//                try{
+//            Main.gameData.friendFigures.stream().forEach((f) -> {
+//                    f.render(g2);
+//                });
+//            }
+//            catch(Exception e) { System.out.println("GamePanel Line 82: " + e.getMessage()); }
+//            }
+//
+//        }
+//        
+//        //draw the dbimage to the panel
+//        this.getGraphics().drawImage(dbImage, 0, 0, this);
+//        
     }
     
     public void helpScreenRender() {
@@ -332,42 +332,42 @@ public class GamePanel extends JPanel
     
     public void gameRender()
     {
-        width = getSize().width;
-        height = getSize().height;
-        if (dbImage == null) {
-            // Creates an off-screen drawable image to be used for double buffering
-            dbImage = createImage(width, height);
-            if (dbImage == null) {
-                System.out.println("Critical Error: dbImage is null");
-                System.exit(1);
-            } else {
-                g2 = (Graphics2D) dbImage.getGraphics();
-            }
-        }
-        
-        if(Math.abs(this.backgroundLocation) >= 350) { this.backgroundLocation = 0; }
-        else { this.backgroundLocation = this.backgroundLocation - 5; }
-        g2.drawImage(backgroundImage[Main.gameData.getLevel()], this.backgroundLocation, 0, backgroundImage[Main.gameData.getLevel()].getWidth(null), backgroundImage[Main.gameData.getLevel()].getHeight(null), null);
-        
-        this.drawStatistics();
-
-        if (Main.animator.running)
-        {
-            synchronized (Main.gameData.enemyFigures)
-            {
-                Main.gameData.enemyFigures.stream().forEach((f) -> { f.render(g2); });
-
-                try{
-            Main.gameData.friendFigures.stream().forEach((f) -> {
-                    f.render(g2);
-                });
-            }
-            catch(Exception e) { System.out.println("GamePanel Line 82: " + e.getMessage()); }
-                
-
-            }
-
-        }
+//        width = getSize().width;
+//        height = getSize().height;
+//        if (dbImage == null) {
+//            // Creates an off-screen drawable image to be used for double buffering
+//            dbImage = createImage(width, height);
+//            if (dbImage == null) {
+//                System.out.println("Critical Error: dbImage is null");
+//                System.exit(1);
+//            } else {
+//                g2 = (Graphics2D) dbImage.getGraphics();
+//            }
+//        }
+//        
+//        if(Math.abs(this.backgroundLocation) >= 350) { this.backgroundLocation = 0; }
+//        else { this.backgroundLocation = this.backgroundLocation - 5; }
+//        g2.drawImage(backgroundImage[Main.gameData.getLevel()], this.backgroundLocation, 0, backgroundImage[Main.gameData.getLevel()].getWidth(null), backgroundImage[Main.gameData.getLevel()].getHeight(null), null);
+//        
+//        this.drawStatistics();
+//
+//        if (Main.animator.running)
+//        {
+//            synchronized (Main.gameData.enemyFigures)
+//            {
+//                Main.gameData.enemyFigures.stream().forEach((f) -> { f.render(g2); });
+//
+//                try{
+//            Main.gameData.friendFigures.stream().forEach((f) -> {
+//                    f.render(g2);
+//                });
+//            }
+//            catch(Exception e) { System.out.println("GamePanel Line 82: " + e.getMessage()); }
+//                
+//
+//            }
+//
+//        }
     }
 
     // Use active rendering to put the buffered image on-screen

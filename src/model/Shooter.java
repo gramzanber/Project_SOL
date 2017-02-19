@@ -4,13 +4,21 @@
 
 package model;
 
+import controller.Main;
+import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class Shooter extends GameFigure
 {
@@ -18,49 +26,76 @@ public class Shooter extends GameFigure
     private boolean direction;
     private int health;
 
-    public Shooter(int x, int y)
-    {
-        super(x, y);
+    public Shooter(Point loc) {
+        super(loc);
+        
         super.state = STATE_ALIVE;
 
-        try { launcherImageLeft = ImageIO.read(getClass().getResource("/Images/Player_Ship_Left.png")); }
-        catch (IOException ex) { JOptionPane.showMessageDialog(null, "Error: Cannot open shooter.png" + ex.getMessage()); System.exit(-1); }
-        try { launcherImageRight = ImageIO.read(getClass().getResource("/Images/Player_Ship_Right.png")); }
-        catch (IOException ex) { JOptionPane.showMessageDialog(null, "Error: Cannot open shooter.png" + ex.getMessage()); System.exit(-1); }
+        try { 
+            launcherImageLeft = ImageIO.read(getClass().getResource("/Images/Player_Ship_Left.png")); 
+        }
+        catch (IOException ex) { 
+            JOptionPane.showMessageDialog(null, "Error: Cannot open shooter.png" + ex.getMessage()); 
+            System.exit(-1); 
+        }
+        
+        try { 
+            launcherImageRight = ImageIO.read(getClass().getResource("/Images/Player_Ship_Right.png")); 
+        }
+        catch (IOException ex) { 
+            JOptionPane.showMessageDialog(null, "Error: Cannot open shooter.png" + ex.getMessage()); 
+            System.exit(-1); 
+        }
         
         this.direction = true;
         this.health = 10;
     }
     
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public void render(Graphics2D g2,Rectangle viewport){
+        if(!this.direction) { 
+            g2.drawImage(launcherImageRight, (int) loc.x, (int) loc.y, 30, 30, null); 
+        }
+        else { 
+            g2.drawImage(launcherImageLeft, (int) loc.x, (int) loc.y, 30, 30, null); 
+        }
+    }
+    
+    
+    
     public boolean getDirection() { return this.direction; }
 
-    @Override
-    public void render(Graphics2D g)
-    {
-        if(!this.direction) { g.drawImage(launcherImageRight, (int) super.x, (int) super.y, 30, 30, null); }
-        else { g.drawImage(launcherImageLeft, (int) super.x, (int) super.y, 30, 30, null); }
-    }
-
-    @Override
-    public void update() {
-        // no periodic update is required (not animated)
-        // update is done via 'translate' when a key is pressed
-    }
+//    @Override
+//    public void render(Graphics2D g)
+//    {
+//        if(!this.direction) { g.drawImage(launcherImageRight, (int) super.x, (int) super.y, 30, 30, null); }
+//        else { g.drawImage(launcherImageLeft, (int) super.x, (int) super.y, 30, 30, null); }
+//    }
+//
+//    @Override
+//    public void update() {
+//        // no periodic update is required (not animated)
+//        // update is done via 'translate' when a key is pressed
+//    }
 
     public void translate(int dx, int dy)
     {
         if(dx >= 0) { this.direction = true; } else if(dx < 0) { this.direction = false; }
-        super.x = super.x + dx;
-        super.y = super.y + dy;
+        loc.x = loc.x + dx;
+        loc.y = loc.y + dy;
+        boundingBox.setLocation(loc);
     }
 
     // Missile shoot location: adjut x and y to the image
     public float getXofMissileShoot() {
-        return super.x + 15;
+        return loc.x + 15;
     }
 
     public float getYofMissileShoot() {
-        return super.y;
+        return loc.y;
     }
 
     public static Image getImage(String fileName) {
@@ -74,10 +109,10 @@ public class Shooter extends GameFigure
         return image;
     }
 
-    @Override
-    public Rectangle2D getCollisionBox() {
-        return new Rectangle2D.Double(this.x, this.y, 30.0, 30.0);
-    }
+//    @Override
+//    public Rectangle2D getCollisionBox() {
+//        return new Rectangle2D.Double(this.x, this.y, 30.0, 30.0);
+//    }
     
     @Override
     public String getObjectType()
@@ -96,4 +131,82 @@ public class Shooter extends GameFigure
 
     @Override
     public void damageFigure() { this.health = this.health - 1; }
+
+    @Override
+    public void update() {
+
+
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(SwingUtilities.isRightMouseButton(e)){
+            int px = e.getX();
+            int py = e.getY();
+            Main.gameController.addMissile(getXofMissileShoot(),getYofMissileShoot(), px, py, Color.RED);
+        }
+        else{
+            Main.gameController.addLaser(getXofMissileShoot(),getYofMissileShoot(), Color.RED, this.getDirection());
+        }
+    
+            
+
+        
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+            switch (e.getKeyCode())
+            {
+                case KeyEvent.VK_LEFT:
+                    translate(-10, 0);
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    translate(10, 0);
+                    break;
+                case KeyEvent.VK_UP:
+                    translate(0, -10);
+                    break;
+                case KeyEvent.VK_DOWN:
+                    translate(0, 10);
+                    break;
+            }
+        
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+    }
 }

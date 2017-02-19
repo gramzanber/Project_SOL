@@ -35,7 +35,7 @@ public class GameData
         enemyFigures = Collections.synchronizedList(new ArrayList<GameFigure>());
         friendFigures = Collections.synchronizedList(new ArrayList<GameFigure>());
 
-        shooter = new Shooter(420, 220);
+        //shooter = new Shooter(420, 220);
 
         friendFigures.add(shooter);
         this.boss = false;
@@ -71,7 +71,7 @@ public class GameData
     
     public void addRock()
     {
-        this.enemyFigures.add(new Rock((float) (GamePanel.width - 20), (float) (Math.random() * GamePanel.height)));
+       //this.enemyFigures.add(new Rock((float) (GamePanel.width - 20), (float) (Math.random() * GamePanel.height)));
     }
     
     public void addBlackhole()

@@ -37,6 +37,15 @@ public class Menu extends RenderableObject {
         //initialize listeners list
         buttons = new ArrayList();
     }
+    @Override
+    public void clear(){
+        super.clear();
+        for(int i=0; i<buttons.size(); i++){
+            Main.gamePanel.removeMouseListener(buttons.get(i));
+            Main.gamePanel.removeKeyListener(buttons.get(i));
+            Main.gamePanel.removeMouseMotionListener(buttons.get(i)); 
+        }
+    }
     
     /**
     * {@inheritDoc}

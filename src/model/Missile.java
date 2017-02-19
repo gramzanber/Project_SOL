@@ -7,6 +7,10 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
@@ -27,7 +31,7 @@ public class Missile extends GameFigure
     public Color color;
     public Point2D.Float target;
 
-    private static final int UNIT_TRAVEL_DISTANCE = 10; // per frame move
+    private static final int UNIT_TRAVEL_DISTANCE = 2; // per frame move
 
     private int size = SIZE;
 
@@ -41,8 +45,9 @@ public class Missile extends GameFigure
      */
     public Missile(float sx, float sy, float tx, float ty, Color color)
     {
-        super(sx, sy);
-        super.state = STATE_ALIVE;
+        super(new Point((int)sx, (int)sy));
+        
+        state = STATE_ALIVE;
         target = new Point2D.Float(tx, ty);
         this.color = color;
         double angle = Math.atan2(Math.abs(ty - sy), Math.abs(tx - sx));
@@ -70,16 +75,24 @@ public class Missile extends GameFigure
             System.exit(-1);
         }
     }
-
+    
+    /**
+    * {@inheritDoc}
+    */
     @Override
-    public void render(Graphics2D g)
-    {
-        g.drawImage(missileImage, (int) (super.x - size / 2), (int) (super.y - size / 2), 10, 10, null);
+    public void render(Graphics2D g2,Rectangle viewport){
+            g2.drawImage(missileImage, (int) loc.x, (int) loc.y, 30, 30, null); 
     }
+
+//    @Override
+//    public void render(Graphics2D g)
+//    {
+//        g.drawImage(missileImage, (int) (super.x - size / 2), (int) (super.y - size / 2), 10, 10, null);
+//    }
 
     @Override
     public void update() {
-        updateState();
+        //updateState();
         if (state == STATE_ALIVE) {
             updateLocation();
         } else if (state == STATE_DYING) {
@@ -89,8 +102,10 @@ public class Missile extends GameFigure
 
     public void updateLocation() {
 
-        super.x += dx;
-        super.y += dy;
+        loc.x = loc.x + (int)dx;
+        loc.y = loc.y + (int)dy;
+        super.boundingBox.setLocation(loc);
+
     }
 
     public void updateSize() {
@@ -98,23 +113,23 @@ public class Missile extends GameFigure
     }
 
     public void updateState() {
-        if (state == STATE_ALIVE) {
-            double distance = target.distance(super.x, super.y);
-            boolean targetReached = distance <= 2.0;
-            if (targetReached) {
-                state = STATE_DYING;
-            }
-        } else if (state == STATE_DYING) {
-            if (size >= MAX_EXPLOSION_SIZE) {
-                state = STATE_DONE;
-            }
-        }
+//        if (state == STATE_ALIVE) {
+//            double distance = target.distance(super.x, super.y);
+//            boolean targetReached = distance <= 2.0;
+//            if (targetReached) {
+//                state = STATE_DYING;
+//            }
+//        } else if (state == STATE_DYING) {
+//            if (size >= MAX_EXPLOSION_SIZE) {
+//                state = STATE_DONE;
+//            }
+//        }
     }
 
-    @Override
-    public Rectangle2D getCollisionBox() {
-        return new Rectangle2D.Double(this.x - this.size / 2, this.y - this.size / 2, .9 * this.size, .9 * this.size);
-    }
+//    @Override
+//    public Rectangle2D getCollisionBox() {
+//        return new Rectangle2D.Double(this.x - this.size / 2, this.y - this.size / 2, .9 * this.size, .9 * this.size);
+//    }
     
     @Override
     public String getObjectType()
@@ -133,4 +148,44 @@ public class Missile extends GameFigure
 
     @Override
     public void damageFigure() { this.health = this.health - 1; }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+    }
 }

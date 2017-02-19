@@ -33,6 +33,10 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
             g2.drawRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
         }
     }
-    
+    public void clear(){
+        Main.gamePanel.removeMouseListener(this);
+        Main.gamePanel.removeKeyListener(this);
+        Main.gamePanel.removeMouseMotionListener(this);
+    }
 
 }

@@ -5,8 +5,10 @@
 package model;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
+import view.RenderableObject;
 
-public abstract class GameFigure implements CollisionBox
+public abstract class GameFigure extends RenderableObject
 {
     // public for a faster access during animation
     public float x;
@@ -18,17 +20,17 @@ public abstract class GameFigure implements CollisionBox
     public static final int STATE_DESTROYED = 2;
     public static final int STATE_DONE = 0;
 
-    public GameFigure(float x, float y)
-    {
-        this.x = x;
-        this.y = y;
+    public GameFigure(Point loc) {
+        super(loc);
     }
 
+
+
     // How to render on the canvas
-    public abstract void render(Graphics2D g);
+    //public abstract void render(Graphics2D g);
 
     // Changes per frame
-    public abstract void update();
+    //public abstract void update();
     
     // Object type
     public abstract String getObjectType();
