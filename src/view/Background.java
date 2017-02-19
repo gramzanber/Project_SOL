@@ -25,9 +25,15 @@ public class Background extends RenderableObject {
     
     private Image backgroundImage;
     private double backgroundLocation;
+    private int width;
+    private int height;
+    boolean stretch;
+    boolean scroll;
     
-    public Background(String imagePath) {
+    public Background(String imagePath, boolean stretch, boolean scroll) {
         super(new Point(0, 0));
+        this.stretch = stretch;
+        this.scroll = scroll;
         backgroundLocation = 0;
         try{
             this.backgroundImage = ImageIO.read(getClass().getResource(imagePath));
@@ -38,15 +44,26 @@ public class Background extends RenderableObject {
         
     }
     public void update(){
-        if(Math.abs(this.backgroundLocation) >= 350) { this.backgroundLocation = 0; }
-        else { this.backgroundLocation = this.backgroundLocation - (0.1); }
+        if(scroll){
+            if(Math.abs(this.backgroundLocation) >= 350) { 
+                this.backgroundLocation = 0; 
+            }
+            else { 
+                this.backgroundLocation = this.backgroundLocation - (0.1); 
+            }  
+        }
     }
     public void render(Graphics2D g2, Rectangle viewport){
 
-        
+        int width = backgroundImage.getWidth(null);
+        int height = backgroundImage.getHeight(null);
+        if(stretch){
+            width = (int)viewport.getWidth();
+            height = (int)viewport.getHeight();
+        }
         
         //System.out.println("Size: " + backgroundImage[0].getWidth(null) + " Location: " + Math.abs(this.backgroundLocation));
-        g2.drawImage(backgroundImage, (int)this.backgroundLocation, 0, backgroundImage.getWidth(null), backgroundImage.getHeight(null), null);
+        g2.drawImage(backgroundImage, (int)this.backgroundLocation, 0, width, height, null);
         
         
     }

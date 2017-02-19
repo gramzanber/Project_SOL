@@ -29,7 +29,7 @@ public class GameController implements ActionListener{
     private Background menuBackground;
     
     public GameController(){
-        menuBackground = new Background("/Images/corona_bk.png");
+        menuBackground = new Background("/Images/corona_bk.png", false, true);
     }
     
     private void clear(){
@@ -82,6 +82,22 @@ public class GameController implements ActionListener{
         mainMenu.addButton(quitButton);
         
     }
+
+
+
+
+    public void showWorld(){
+        //clear all game objects
+        clear();
+        
+        //add background
+        Main.gameData.gameObjects.add(new Background("/Images/world_map_1.png", true, false));
+        
+        
+        
+        
+        
+    }
     
     public void showScores(){
         
@@ -131,7 +147,7 @@ public class GameController implements ActionListener{
         Menu scoresMenu = new Menu(new Point(x,y));
         Main.gameData.addGameObject(scoresMenu);
         
-        mainMenuButton = new GameButton(new Point(x,y+350),width,height, "Main Menu");
+        mainMenuButton = new GameButton(new Point(x,y+450),width,height, "Main Menu");
         mainMenuButton.addActionListener(this);
         scoresMenu.addButton(mainMenuButton);
         
@@ -153,26 +169,44 @@ public class GameController implements ActionListener{
         //add controls text
         font = new Font("TimesRoman", Font.BOLD, 22); 
         //g2.drawString("Controls:", ((width+40)-width), 150);
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/2, 175),"Controls:", font, true));    
-//            
-//            g2.setFont(new Font("TimesRoman", Font.PLAIN, 18));            
-//            g2.drawString("Move Left:", ((width+40)-width), 200);
-//            g2.drawString("Move Right:", ((width+40)-width), 225);
-//            g2.drawString("Look Up:", ((width+40)-width), 250);
-//            g2.drawString("Crouch:", ((width+40)-width), 275);
-//            g2.drawString("Jump:", ((width+40)-width), 300);
-//            g2.drawString("Boost:", ((width+40)-width), 325);
-//            g2.drawString("Fire Primary Wepon:", ((width+40)-width), 350);
-//            g2.drawString("Fire Secondary Weapon:", ((width+40)-width), 375);    
-//            
-//            g2.drawString("Left Arrow / A", (width-200), 200);
-//            g2.drawString("Right Arrow / D", (width-200), 225);
-//            g2.drawString("Up Arrow / W", (width-200), 250);
-//            g2.drawString("Down Arrow / S", (width-200), 275);
-//            g2.drawString("Space", (width-200), 300);
-//            g2.drawString("Space (while midair)", (width-200), 325);
-//            g2.drawString("Left Mouse", (width-200), 350);
-//            g2.drawString("Right Mouse", (width-200), 375);  
+        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 175),"Controls:", font, false));    
+            
+            //g2.setFont(new Font("TimesRoman", Font.PLAIN, 18));   
+            font = new Font("TimesRoman", Font.PLAIN, 18); 
+            
+            //g2.drawString("Move Left:", ((width+40)-width), 200);
+            Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 225),"Move Left:", font, false));
+            //g2.drawString("Move Right:", ((width+40)-width), 225);
+            Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 250),"Move Right:", font, false));
+            //g2.drawString("Look Up:", ((width+40)-width), 250);
+            Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 275),"Look Up:", font, false));
+            //g2.drawString("Crouch:", ((width+40)-width), 275);
+            Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 300),"Crouch:", font, false));
+            //g2.drawString("Jump:", ((width+40)-width), 300);
+            Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 325),"Jump:", font, false));
+            //g2.drawString("Boost:", ((width+40)-width), 325);
+            Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 350),"Boost:", font, false));
+            //g2.drawString("Fire Primary Wepon:", ((width+40)-width), 350);
+            Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 375),"Fire Primary Wepon:", font, false));
+            //g2.drawString("Fire Secondary Weapon:", ((width+40)-width), 375);
+            Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 400),"Fire Secondary Weapon:", font, false));
+            
+            //g2.drawString("Left Arrow / A", (width-200), 200);
+            Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 225),"Left Arrow / A", font, false));
+            //g2.drawString("Right Arrow / D", (width-200), 225);
+            Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 250),"Right Arrow / D", font, false));
+            //g2.drawString("Up Arrow / W", (width-200), 250);
+            Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 275),"Up Arrow / W", font, false));
+            //g2.drawString("Down Arrow / S", (width-200), 275);
+            Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 300),"Down Arrow / S", font, false));
+            //g2.drawString("Space", (width-200), 300);
+            Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 325),"Space", font, false));
+            //g2.drawString("Space (while midair)", (width-200), 325);
+            Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 350),"Space (while midair)", font, false));
+            //g2.drawString("Left Mouse", (width-200), 350);
+            Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 375),"Left Mouse", font, false));
+            //g2.drawString("Right Mouse", (width-200), 375);  
+            Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 400),"Right Mouse", font, false));
         
         
         
@@ -185,7 +219,7 @@ public class GameController implements ActionListener{
         Menu scoresMenu = new Menu(new Point(x,y));
         Main.gameData.addGameObject(scoresMenu);
         
-        mainMenuButton = new GameButton(new Point(x,y+350),width,height, "Main Menu");
+        mainMenuButton = new GameButton(new Point(x,y+450),width,height, "Main Menu");
         mainMenuButton.addActionListener(this);
         scoresMenu.addButton(mainMenuButton);
         
@@ -194,7 +228,10 @@ public class GameController implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == scoresButton){
+        if(e.getSource() == startButton){
+            showWorld();
+        }
+        else if(e.getSource() == scoresButton){
             showScores();
         }
         else if(e.getSource() == mainMenuButton){
@@ -203,6 +240,8 @@ public class GameController implements ActionListener{
         else if(e.getSource() == controlsButton){
             showControls();
         }
+        
+        
     }
     
 }

@@ -19,6 +19,7 @@ public class Main
     public static Animator animator;
     public static Scoretracker score;
     public static MainWindow game;
+    public static SoundController soundController;
 
     public static int WIN_WIDTH = 700;
     public static int WIN_HEIGHT = 600;
@@ -30,6 +31,7 @@ public class Main
         gameData = new GameData();
         gamePanel = new GamePanel();
         score = new Scoretracker();
+        soundController = new SoundController();
 
         game = new MainWindow();
         game.setTitle("SOL - SDD SATAS");

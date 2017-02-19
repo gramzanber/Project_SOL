@@ -1,6 +1,7 @@
 package view;
 
 import controller.ButtonListener;
+import controller.Main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -100,6 +101,7 @@ public class GameButton extends RenderableObject {
         for(int i=0; i<listeners.size(); i++){
             listeners.get(i).actionPerformed(e);
         }
+        Main.soundController.selectConfirm();
     }
 
     public String getText() {
