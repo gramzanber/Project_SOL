@@ -5,12 +5,15 @@
 package model;
 
 import controller.Main;
+import java.awt.Button;
 import java.awt.Rectangle;
 import view.GamePanel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import view.Background;
+import view.GameButton;
+import view.Menu;
 import view.RenderableObject;
 
 public class GameData
@@ -25,7 +28,7 @@ public class GameData
     private boolean boss;
     private int level;
     public List<RenderableObject> gameObjects;
-    public Rectangle viewport = new Rectangle(0,0,500,500);
+    public Rectangle viewport;
 
     public GameData()
     {
@@ -41,9 +44,18 @@ public class GameData
         this.enemyAmount = (this.level + 1) * 5;
         
         
-        gameObjects = Collections.synchronizedList(new ArrayList<RenderableObject>());
-        gameObjects.add(new Background(50,50,50,50, "/Images/corona_bk.png"));
         
+        gameObjects = Collections.synchronizedList(new ArrayList<RenderableObject>());
+        
+        
+        
+        
+    }
+    public void addGameObject(RenderableObject gameObject){
+        Main.gamePanel.addMouseListener(gameObject);
+        Main.gamePanel.addKeyListener(gameObject);
+        Main.gamePanel.addMouseMotionListener(gameObject);
+        gameObjects.add(gameObject);
     }
     
     public void addUFOBoss()

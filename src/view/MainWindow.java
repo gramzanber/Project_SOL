@@ -32,13 +32,13 @@ public class MainWindow extends JFrame {
         //southPanel.add(quitButton);
 
         MouseController mouseController = new MouseController();
-        Main.gamePanel.addMouseListener(mouseController);
+        //Main.gamePanel.addMouseListener(mouseController);
         
         SoundController soundController = new SoundController();
         soundController.menuBGM();
 
         KeyController keyListener = new KeyController();
-        Main.gamePanel.addKeyListener(keyListener);
+        //Main.gamePanel.addKeyListener(keyListener);
         Main.gamePanel.setFocusable(true);
 
         Container c = getContentPane();

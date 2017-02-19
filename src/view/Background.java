@@ -8,7 +8,10 @@ package view;
 import controller.Main;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -23,8 +26,8 @@ public class Background extends RenderableObject {
     private Image backgroundImage;
     private double backgroundLocation;
     
-    public Background(int x, int y, int width, int height, String imagePath) {
-        super(x, y, width, height);
+    public Background(String imagePath) {
+        super(new Point(0, 0));
         backgroundLocation = 0;
         try{
             this.backgroundImage = ImageIO.read(getClass().getResource(imagePath));
@@ -46,6 +49,48 @@ public class Background extends RenderableObject {
         g2.drawImage(backgroundImage, (int)this.backgroundLocation, 0, backgroundImage.getWidth(null), backgroundImage.getHeight(null), null);
         
         
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
