@@ -30,12 +30,13 @@ public class Text extends RenderableObject {
     private Color color; //he color of the text
     private FontMetrics fm;
     private Point loc;
+    private boolean centered;
     
-    public Text(Point loc, String text, Font font) {
+    public Text(Point loc, String text, Font font, boolean centered) {
         super(loc);
         this.font = font;
         color = Color.RED;
-        
+        this.centered = centered;
         
         this.loc = loc;
         setText(text);
@@ -50,7 +51,7 @@ public class Text extends RenderableObject {
         g2.setFont(getFont());
         g2.setColor(getColor());
         
-        //calculate the x and y to draw the text centered in the button
+        //calculate the x and y to draw the text centered in the bounding box
         int strX = (int)(boundingBox.x + (boundingBox.getWidth() / 2) - getWidth()/2);
         int strY = (int)(boundingBox.y + (boundingBox.getHeight() / 2) + (getHeight()/2) - 5);
         
@@ -79,7 +80,12 @@ public class Text extends RenderableObject {
     public void setText(String text) {
         this.text = text;
         updateFontMetrics();
-        this.boundingBox = new Rectangle(loc.x, loc.y, getWidth(), getHeight());
+        if(centered){
+            this.boundingBox = new Rectangle(loc.x - getWidth()/2, loc.y, getWidth(), getHeight());
+        }
+        else{
+            this.boundingBox = new Rectangle(loc.x, loc.y, getWidth(), getHeight());
+        }
     }
 
     public Font getFont() {
@@ -89,7 +95,12 @@ public class Text extends RenderableObject {
     public void setFont(Font font) {
         this.font = font;
         updateFontMetrics();
-        this.boundingBox = new Rectangle(loc.x, loc.y, getWidth(), getHeight());
+        if(centered){
+            this.boundingBox = new Rectangle(loc.x - getWidth()/2, loc.y, getWidth(), getHeight());
+        }
+        else{
+            this.boundingBox = new Rectangle(loc.x, loc.y, getWidth(), getHeight());
+        }
     }
 
     public Color getColor() {
