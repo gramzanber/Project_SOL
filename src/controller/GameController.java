@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import view.Background;
 import view.GameButton;
+import static view.GamePanel.height;
+import static view.GamePanel.width;
 import view.Menu;
 import view.Text;
 
@@ -39,20 +41,6 @@ public class GameController implements ActionListener{
         Main.gameData.gameObjects.clear();
     }
     
-    private void addGameTitle(){
-        //add game title
-        //TODO: do we really need 2 Text objects for this?
-        //font use for gmae title
-        Font font = new Font("TimesRoman", Font.BOLD, 75); 
-        //calculate the width of the text for centering
-        int widthOfText = new Text(new Point(0, 0),"SOL", font).getWidth();
-        //need to calculate the centered x position for the text
-        int textX = Main.gameData.viewport.width/2 - widthOfText/2;
-        //now build the actual text object centered
-        Text text = new Text(new Point(textX, 50),"SOL", font);
-        //add Text object
-        Main.gameData.addGameObject(text);
-    }
     public void showMainMenu(){
         
         //clear all game objects
@@ -61,9 +49,11 @@ public class GameController implements ActionListener{
         //add background
         Main.gameData.gameObjects.add(menuBackground);
         
-        //addGameTitle
-        addGameTitle();
-
+        
+        //add game title
+        Font font = new Font("TimesRoman", Font.BOLD, 75); 
+        Text text = new Text(new Point(Main.gameData.viewport.width/2, 50),"SOL", font, true);
+        Main.gameData.addGameObject(text);
         
         
         //create and add a menu object
@@ -101,8 +91,35 @@ public class GameController implements ActionListener{
         //add background
         Main.gameData.gameObjects.add(menuBackground);
         
-        //addGameTitle
-        addGameTitle();
+        
+        //add game title
+        Font font = new Font("TimesRoman", Font.BOLD, 75); 
+        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/2, 50),"SOL", font, true));
+        
+        //add score text
+        font = new Font("TimesRoman", Font.PLAIN, 15); 
+        // Level Information
+        String levelString = "High Scores";
+        //g2.drawString(levelString, (width / 2) - 50, (height / 2) - 140);'
+        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/2, 175),levelString, font, true));
+        // Score
+        String scoreString01 = "1. Tyrel Tachibana 4526 1/27/2017";
+        String scoreString02 = "2. Sam Sopp 4515 1/28/2017";
+        String scoreString03 = "3. N/A";
+        String scoreString04 = "4. N/A";
+        String scoreString05 = "5. N/A";
+        //g2.drawString(scoreString01, (width / 2) - 70, (height / 2) - 100);
+        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/3, 225),scoreString01, font, false));
+        //g2.drawString(scoreString02, (width / 2) - 70, (height / 2) - 80);
+        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/3, 250),scoreString02, font, false));
+        //g2.drawString(scoreString03, (width / 2) - 70, (height / 2) - 60);
+        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/3, 275),scoreString03, font, false));
+        //g2.drawString(scoreString04, (width / 2) - 70, (height / 2) - 40);
+        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/3, 300),scoreString04, font, false));
+        //g2.drawString(scoreString05, (width / 2) - 70, (height / 2) - 20);
+        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/3, 325),scoreString05, font, false));
+        
+        
         
         
         int width = 120;
@@ -120,6 +137,61 @@ public class GameController implements ActionListener{
         
     }
 
+    
+    public void showControls(){
+        
+        //clear all game objects
+        clear();
+        
+        //add background
+        Main.gameData.gameObjects.add(menuBackground);
+        
+        //add game title
+        Font font = new Font("TimesRoman", Font.BOLD, 75); 
+        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/2, 50),"SOL", font, true));
+        
+        //add controls text
+        font = new Font("TimesRoman", Font.BOLD, 22); 
+        //g2.drawString("Controls:", ((width+40)-width), 150);
+        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/2, 175),"Controls:", font, true));    
+//            
+//            g2.setFont(new Font("TimesRoman", Font.PLAIN, 18));            
+//            g2.drawString("Move Left:", ((width+40)-width), 200);
+//            g2.drawString("Move Right:", ((width+40)-width), 225);
+//            g2.drawString("Look Up:", ((width+40)-width), 250);
+//            g2.drawString("Crouch:", ((width+40)-width), 275);
+//            g2.drawString("Jump:", ((width+40)-width), 300);
+//            g2.drawString("Boost:", ((width+40)-width), 325);
+//            g2.drawString("Fire Primary Wepon:", ((width+40)-width), 350);
+//            g2.drawString("Fire Secondary Weapon:", ((width+40)-width), 375);    
+//            
+//            g2.drawString("Left Arrow / A", (width-200), 200);
+//            g2.drawString("Right Arrow / D", (width-200), 225);
+//            g2.drawString("Up Arrow / W", (width-200), 250);
+//            g2.drawString("Down Arrow / S", (width-200), 275);
+//            g2.drawString("Space", (width-200), 300);
+//            g2.drawString("Space (while midair)", (width-200), 325);
+//            g2.drawString("Left Mouse", (width-200), 350);
+//            g2.drawString("Right Mouse", (width-200), 375);  
+        
+        
+        
+        int width = 120;
+        int height = 30;
+        int x = Main.gameData.viewport.width/2 - width/2;
+        int y = 50;
+        
+        //create and add a menu object
+        Menu scoresMenu = new Menu(new Point(x,y));
+        Main.gameData.addGameObject(scoresMenu);
+        
+        mainMenuButton = new GameButton(new Point(x,y+350),width,height, "Main Menu");
+        mainMenuButton.addActionListener(this);
+        scoresMenu.addButton(mainMenuButton);
+        
+    }
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == scoresButton){
@@ -127,6 +199,9 @@ public class GameController implements ActionListener{
         }
         else if(e.getSource() == mainMenuButton){
             showMainMenu();
+        }
+        else if(e.getSource() == controlsButton){
+            showControls();
         }
     }
     
