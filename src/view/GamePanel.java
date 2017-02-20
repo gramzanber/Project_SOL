@@ -3,7 +3,6 @@
 // Semester:    Spring, 2017
 
 package view;
-import controller.KeyController;
 import controller.Main;
 import java.awt.Color;
 import java.awt.Font;
@@ -69,7 +68,7 @@ public class GamePanel extends JPanel
         
         //draw everything on dbimage
         
-        enterKeyPressed = KeyController.getEnterKeyPressed();
+        //enterKeyPressed = KeyController.getEnterKeyPressed();
         width = getSize().width;
         height = getSize().height;
         
@@ -397,11 +396,11 @@ public class GamePanel extends JPanel
         String informationString = "SOL";
         g2.drawString(informationString, 20, 20);
         // Level Information
-        String levelString = "Level: " + (Main.gameData.getLevel() + 1);
-        g2.drawString(levelString, (width / 2) - 50, 20);
+        //String levelString = "Level: " + (Main.gameData.getLevel() + 1);
+        //g2.drawString(levelString, (width / 2) - 50, 20);
         // Score
-        String scoreString = String.format("Score: %010d", Main.score.getScore());
-        g2.drawString(scoreString, width - 135, 20);
+        //String scoreString = String.format("Score: %010d", Main.score.getScore());
+        //g2.drawString(scoreString, width - 135, 20);
     }
     
     public int getMainMenuSelection()
@@ -424,16 +423,16 @@ public class GamePanel extends JPanel
     }
     
     public void animateButton(Graphics2D g3){
-        if(KeyController.getEnterKeyPressed()){
-            try{ 
-                Thread.sleep(200);
-            }
-            catch(Exception c){
-                
-            }
-            
-            
-        }
+//        if(KeyController.getEnterKeyPressed()){
+//            try{ 
+//                Thread.sleep(200);
+//            }
+//            catch(Exception c){
+//                
+//            }
+//            
+//            
+//        }
     }
     
 }

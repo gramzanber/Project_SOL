@@ -49,7 +49,7 @@ public class Background extends RenderableObject {
                 this.backgroundLocation = 0; 
             }
             else { 
-                this.backgroundLocation = this.backgroundLocation - (0.1); 
+                this.backgroundLocation = this.backgroundLocation - (1); 
             }  
         }
     }

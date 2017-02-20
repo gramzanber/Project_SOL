@@ -4,10 +4,7 @@
 
 package view;
 
-import controller.ButtonListener;
-import controller.KeyController;
 import controller.Main;
-import controller.MouseController;
 import controller.SoundController;
 import java.awt.Container;
 import javax.swing.JButton;
@@ -21,23 +18,23 @@ public class MainWindow extends JFrame {
 
     public MainWindow()
     {
-        quitButton = new JButton("Quit");
+        //quitButton = new JButton("Quit");
 
-        quitButton.setFocusable(false);
+        //quitButton.setFocusable(false);
 
-        ButtonListener buttonListener = new ButtonListener();
-        quitButton.addActionListener(buttonListener);
+        //ButtonListener buttonListener = new ButtonListener();
+        //quitButton.addActionListener(buttonListener);
 
         //JPanel southPanel = new JPanel();
         //southPanel.add(quitButton);
 
-        MouseController mouseController = new MouseController();
+        //MouseController mouseController = new MouseController();
         //Main.gamePanel.addMouseListener(mouseController);
         
         SoundController soundController = new SoundController();
         soundController.menuBGM();
 
-        KeyController keyListener = new KeyController();
+        //KeyController keyListener = new KeyController();
         //Main.gamePanel.addKeyListener(keyListener);
         Main.gamePanel.setFocusable(true);
 

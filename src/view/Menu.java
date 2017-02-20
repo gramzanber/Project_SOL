@@ -1,16 +1,14 @@
 package view;
 
-import controller.ButtonListener;
+import view.GameButton;
 import controller.Main;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import view.RenderableObject;
 
 /**
 * The GameButton class is responsible for rendering an on-screen button to a

@@ -2,8 +2,9 @@
 // Course:	SDD
 // Semester:    Spring, 2017
 
-package model;
+package view;
 
+import view.GameFigure;
 import controller.Main;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -102,8 +103,8 @@ public class Laser extends GameFigure
     @Override
     public String getObjectType() { return "Laser"; }
     
-    @Override
-    public int getSize() { return 3; }
+    //@Override
+    //public int getSize() { return 3; }
 
     @Override
     public int getHealth() { return this.health; }

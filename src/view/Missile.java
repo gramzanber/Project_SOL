@@ -2,8 +2,9 @@
 // Course:	SDD
 // Semester:    Spring, 2017
 
-package model;
+package view;
 
+import view.GameFigure;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -137,11 +138,11 @@ public class Missile extends GameFigure
         return "Missile";
     }
     
-    @Override
-    public int getSize()
-    {
-        return 3;
-    }
+    //@Override
+    //public int getSize()
+    //{
+    //    return 3;
+    //}
 
     @Override
     public int getHealth() { return this.health; }

@@ -2,8 +2,9 @@
 // Course:	SDD
 // Semester:    Spring, 2017
 
-package model;
+package view;
 
+import view.GameFigure;
 import controller.Main;
 import java.awt.Color;
 import java.awt.FontMetrics;
@@ -120,11 +121,11 @@ public class Shooter extends GameFigure
         return "Player";
     }
 
-    @Override
-    public int getSize()
-    {
-        return 5;
-    }
+//    @Override
+//    public int getSize()
+//    {
+//        return 5;
+//    }
 
     @Override
     public int getHealth() { return this.health; }
