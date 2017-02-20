@@ -54,7 +54,7 @@ public class GameController implements ActionListener{
    * listeners.
    * This method is called every time a new screen is loaded such as menus or levels
    */
-    private void clear(){
+    public void clear(){
         //call clear() on each game object
         for(int i=0; i<Main.gameData.gameObjects.size(); i++){
             Main.gameData.gameObjects.get(i).clear();

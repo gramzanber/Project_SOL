@@ -29,6 +29,10 @@ public class GameButton extends RenderableObject {
     private boolean mouseHover,highlighted = false;
     private ArrayList<ActionListener> listeners; //action listeners for this button
     
+    //for adding a delay effect when the button is clicked
+    private int selectTime;
+    private boolean selected;
+    
     /**
     * Constructor 
     * 
@@ -46,6 +50,10 @@ public class GameButton extends RenderableObject {
         font = new Font("TimesRoman", Font.PLAIN, 15);
         color = Color.RED;
         
+        //for the delay effect when a button is clicked
+        selected = false;
+        selectTime = 20;
+        
         //initialize listeners list
         listeners = new ArrayList();
         
@@ -58,6 +66,15 @@ public class GameButton extends RenderableObject {
     */
     @Override
     public void update(){
+        
+        //for the delay effect 
+        if(selectTime == 0){
+            activate();
+        }
+        if(selected){
+            selectTime = selectTime - 1;
+            System.out.println(selectTime);
+        }
     }
     
     /**
@@ -94,6 +111,28 @@ public class GameButton extends RenderableObject {
     * Notify all listeners
     */
     public void select(){
+        this.selected = true;
+           
+        //grab current background
+        Background background = null;
+        for(int i=0; i<Main.gameData.gameObjects.size(); i++){
+            if(Main.gameData.gameObjects.get(i).getClass() == Background.class){
+                background = (Background)Main.gameData.gameObjects.get(i);
+            }
+        }
+
+        Main.gameController.clear();
+
+        Main.gameData.addGameObject(background);
+        Main.gameData.addGameObject(this);
+
+    }
+    
+    /**
+    * This method is called whenever the button is clicked or selected. 
+    * Notify all listeners
+    */
+    public void activate(){
         ActionEvent e = new ActionEvent(this, 1, "select");
         for(int i=0; i<listeners.size(); i++){
             listeners.get(i).actionPerformed(e);
@@ -144,7 +183,7 @@ public class GameButton extends RenderableObject {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(boundingBox.contains(e.getPoint())){
-             this.select();
+           this.select();
         }
     }
 

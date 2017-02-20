@@ -52,6 +52,9 @@ public class Menu extends RenderableObject {
     */
     @Override
     public void update(){
+        for(int i=0; i<buttons.size(); i++){
+            buttons.get(i).update();
+        }
     }
     
     /**
@@ -92,9 +95,6 @@ public class Menu extends RenderableObject {
     */
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(boundingBox.contains(e.getPoint())){
-             System.out.println("clcick");
-        }
     }
 
     /**
@@ -116,8 +116,6 @@ public class Menu extends RenderableObject {
     */
     @Override
     public void mouseEntered(MouseEvent e) {
-        if(boundingBox.contains(e.getPoint())){
-        }
     }
 
     /**
