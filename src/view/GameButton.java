@@ -73,7 +73,6 @@ public class GameButton extends RenderableObject {
         }
         if(selected){
             selectTime = selectTime - 1;
-            System.out.println(selectTime);
         }
     }
     

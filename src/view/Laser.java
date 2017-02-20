@@ -42,7 +42,6 @@ public class Laser extends GameFigure
         if (state == STATE_ALIVE)
         {
             updateLocation();
-            System.out.println("test");
         }
     }
     
