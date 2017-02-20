@@ -5,7 +5,6 @@
 package view;
 
 import controller.Main;
-import controller.SoundController;
 import java.awt.Container;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,8 +30,8 @@ public class MainWindow extends JFrame {
         //MouseController mouseController = new MouseController();
         //Main.gamePanel.addMouseListener(mouseController);
         
-        SoundController soundController = new SoundController();
-        soundController.menuBGM();
+        //SoundController soundController = new SoundController();
+        //soundController.menuBGM();
 
         //KeyController keyListener = new KeyController();
         //Main.gamePanel.addKeyListener(keyListener);

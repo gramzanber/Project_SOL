@@ -4,17 +4,14 @@
 
 package view;
 
-import view.GameFigure;
 import controller.Main;
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -65,22 +62,7 @@ public class Shooter extends GameFigure
         }
     }
     
-    
-    
     public boolean getDirection() { return this.direction; }
-
-//    @Override
-//    public void render(Graphics2D g)
-//    {
-//        if(!this.direction) { g.drawImage(launcherImageRight, (int) super.x, (int) super.y, 30, 30, null); }
-//        else { g.drawImage(launcherImageLeft, (int) super.x, (int) super.y, 30, 30, null); }
-//    }
-//
-//    @Override
-//    public void update() {
-//        // no periodic update is required (not animated)
-//        // update is done via 'translate' when a key is pressed
-//    }
 
     public void translate(int dx, int dy)
     {
@@ -135,11 +117,11 @@ public class Shooter extends GameFigure
 
     @Override
     public void update() {
-
-
-
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseClicked(MouseEvent e) {
         if(SwingUtilities.isRightMouseButton(e)){
@@ -150,33 +132,46 @@ public class Shooter extends GameFigure
         else{
             Main.gameController.addLaser(getXofMissileShoot(),getYofMissileShoot(), Color.RED, this.getDirection());
         }
-    
-            
-
-        
-        
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseReleased(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyPressed(KeyEvent e) {
         
@@ -199,14 +194,23 @@ public class Shooter extends GameFigure
         
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyReleased(KeyEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseDragged(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseMoved(MouseEvent e) {
     }

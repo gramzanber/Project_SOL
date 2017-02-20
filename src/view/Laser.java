@@ -4,8 +4,6 @@
 
 package view;
 
-import view.GameFigure;
-import controller.Main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -13,8 +11,6 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import view.GamePanel;
 
 public class Laser extends GameFigure
 {
@@ -35,20 +31,9 @@ public class Laser extends GameFigure
         this.color = color;
         this.health = 1;
         this.direction = direction;
-//        Shooter shooter = (Shooter) Main.gameData.friendFigures.get(0);
-//        float shooterX = shooter.getXofMissileShoot();
-//        if(this.x == shooterX) { this.direction = !shooter.getDirection(); } else { this.direction = super.x-shooterX > 0; }
     }
 
-//    @Override
-//    public void render(Graphics2D g)
-//    {
-//        g.setColor(color);
-//        // Top Laser
-//        g.fillOval((int) (super.x - size / 2), (int) (super.y - size / 2) + 3, size * 5, size);
-//        // Bottom Laser
-//        g.fillOval((int) (super.x - size / 2), (int) (super.y - size / 2) + 20, size * 5, size);
-//    }
+
 
     @Override
     public void update()
@@ -60,7 +45,8 @@ public class Laser extends GameFigure
             System.out.println("test");
         }
     }
-/**
+    
+    /**
     * {@inheritDoc}
     */
     @Override
@@ -99,7 +85,7 @@ public class Laser extends GameFigure
 //    {
 //        return new Rectangle2D.Double(this.x - this.size / 2, (this.y - this.size / 2) + 5, this.size * 5, this.size * 4);
 //    }
-//    
+
     @Override
     public String getObjectType() { return "Laser"; }
     
@@ -112,42 +98,72 @@ public class Laser extends GameFigure
     @Override
     public void damageFigure() { this.health = this.health - 1; }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseClicked(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseReleased(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyPressed(KeyEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyReleased(KeyEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseDragged(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseMoved(MouseEvent e) {
     }

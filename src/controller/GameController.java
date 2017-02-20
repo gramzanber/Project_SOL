@@ -61,6 +61,8 @@ public class GameController implements ActionListener{
         }
         //clear the game object list
         Main.gameData.gameObjects.clear();
+        //stop sounds
+        Main.soundController.stop();
     }
     
    /**
@@ -72,6 +74,9 @@ public class GameController implements ActionListener{
         
         //add background
         Main.gameData.gameObjects.add(menuBackground);
+        
+        //play background music
+        Main.soundController.menuBGM();
         
         //add game title
         Font font = new Font("TimesRoman", Font.BOLD, 75); 
@@ -123,6 +128,9 @@ public class GameController implements ActionListener{
         //add background
         Main.gameData.gameObjects.add(new Background("/Images/world_map_1.png", true, false));
         
+        //play background music
+        Main.soundController.openWorldBGM();
+        
         //Add informational text at the top of the map
         Font font = new Font("TimesRoman", Font.BOLD, 30);
         String gameNameString = "SYSTEM MAP - Select assault point";
@@ -150,6 +158,9 @@ public class GameController implements ActionListener{
         
         //add background
         Main.gameData.gameObjects.add(menuBackground);
+        
+        //play background music
+        Main.soundController.menuBGM();
         
         //add game title
         Font font = new Font("TimesRoman", Font.BOLD, 75); 
@@ -193,6 +204,9 @@ public class GameController implements ActionListener{
         
         //add background
         Main.gameData.gameObjects.add(menuBackground);
+        
+        //play background music
+        Main.soundController.menuBGM();
         
         //add game title
         Font font = new Font("TimesRoman", Font.BOLD, 75); 
@@ -252,6 +266,11 @@ public class GameController implements ActionListener{
         else if(e.getSource() == controlsButton){
             showControls();
         }
+        else if(e.getSource() == quitButton){
+            System.exit(0);
+        }
+        
+        
     }
 
    /**

@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import view.RenderableObject;
 
 /**
 * The GameButton class is responsible for rendering an on-screen button to a
@@ -27,26 +26,20 @@ public class GameButton extends RenderableObject {
     private String text; //this is the text of the button
     private Font font; //the font for drawing the text
     private Color color; //he color of the text
-    private int width;
-    private int height;
     private boolean mouseHover,highlighted = false;
     private ArrayList<ActionListener> listeners; //action listeners for this button
     
-   /**
-   * A simple constructor 
-   * 
-   * @param width This will be the width of the button
-   * @param height This will be the height of the button
-   * @param text This is the text for the button.
-   */
+    /**
+    * Constructor 
+    * 
+    * @param loc
+    * @param text This is the text for the button.
+    */
     public GameButton(Point loc, int width, int height, String text) {
         //call superclass constructor
         super(loc);
         
-        
-        this.width = width;
-        this.height = height;
-        
+        //update bounding box for the object
         this.boundingBox = new Rectangle(loc.x, loc.y, width, height);
         
         //set a default font and color for the text
@@ -74,8 +67,8 @@ public class GameButton extends RenderableObject {
     public void render(Graphics2D g2,Rectangle viewport){
         
         //set the font and color
-        g2.setFont(getFont());
-        g2.setColor(getColor());
+        g2.setFont(font);
+        g2.setColor(color);
         
         //calculate the width of the text for centering
         FontMetrics fm = g2.getFontMetrics();
@@ -96,6 +89,10 @@ public class GameButton extends RenderableObject {
         
     }
     
+    /**
+    * This method is called whenever the button is clicked or selected. 
+    * Notify all listeners
+    */
     public void select(){
         ActionEvent e = new ActionEvent(this, 1, "select");
         for(int i=0; i<listeners.size(); i++){
@@ -104,34 +101,46 @@ public class GameButton extends RenderableObject {
         Main.soundController.selectConfirm();
     }
 
-    public String getText() {
-        return text;
-    }
-
+    /**
+    * Set the button text
+    * @param text The text
+    */
     public void setText(String text) {
         this.text = text;
     }
 
-    public Font getFont() {
-        return font;
-    }
-
+    /**
+    * Update the font
+    * 
+    * @param font The new font to use
+    */
     public void setFont(Font font) {
         this.font = font;
     }
-
-    public Color getColor() {
-        return color;
+    
+    /**
+    * Mark this button as highlighted in a menu,
+    * This will case it to be selected when the enter key is pressed
+    * 
+    * @param highlighted Is this button highlighted or not
+    */
+    void setHighlighted(boolean highlighted) {
+        this.highlighted = highlighted;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
 
+    /**
+    * Add an action listener for this button
+    * 
+    * @param listener The action listener to add.
+    */
     public void addActionListener(ActionListener listener) {
         this.listeners.add(listener);
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseClicked(MouseEvent e) {
         if(boundingBox.contains(e.getPoint())){
@@ -139,25 +148,40 @@ public class GameButton extends RenderableObject {
         }
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseReleased(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseEntered(MouseEvent e) {
         if(boundingBox.contains(e.getPoint())){
         }
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseExited(MouseEvent e) {
         this.mouseHover = false;
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -166,14 +190,23 @@ public class GameButton extends RenderableObject {
     public void keyPressed(KeyEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyReleased(KeyEvent e) {
     }
-
+    
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseDragged(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseMoved(MouseEvent e) {
         if(boundingBox.contains(e.getPoint())){
@@ -183,9 +216,4 @@ public class GameButton extends RenderableObject {
             this.mouseHover = false;
         }
     }
-
-    void setHighlighted(boolean highlighted) {
-        this.highlighted = highlighted;
-    }
-
 }

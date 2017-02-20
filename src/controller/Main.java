@@ -2,8 +2,8 @@ package controller;
 
 import java.awt.Rectangle;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import model.GameData;
-import view.GamePanel;
 import view.MainWindow;
 
 /**
@@ -15,7 +15,7 @@ import view.MainWindow;
 */
 public class Main
 {
-    public static GamePanel gamePanel; //the canvas for rendering
+    public static JPanel gamePanel; //the canvas for rendering
     public static GameController gameController; //for adding game objects
     public static GameData gameData; //data model, game stats and object list
     public static Animator animator; //rendering engine and main game loop
@@ -35,7 +35,7 @@ public class Main
         animator = new Animator();
         gameController = new GameController();
         gameData = new GameData();
-        gamePanel = new GamePanel();
+        gamePanel = new JPanel(); 
         soundController = new SoundController();
 
         //build and display the gui

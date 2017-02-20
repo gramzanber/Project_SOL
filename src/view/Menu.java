@@ -1,6 +1,5 @@
 package view;
 
-import view.GameButton;
 import controller.Main;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -8,7 +7,6 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import view.RenderableObject;
 
 /**
 * The GameButton class is responsible for rendering an on-screen button to a
@@ -20,14 +18,14 @@ import view.RenderableObject;
 */
 public class Menu extends RenderableObject {
     
-    private int highlightedIndex = 0;
-    private ArrayList<GameButton> buttons; 
+    private int highlightedIndex = 0; //which button is currently highlighted
+    private ArrayList<GameButton> buttons; //the list of buttons in this menu
     
-   /**
-   * A simple constructor 
-   * 
-   * @param text This is the text for the button.
-   */
+    /**
+    * A simple constructor 
+    * 
+    * @param loc The location of the button
+    */
     public Menu(Point loc) {
         //call superclass constructor
         super(loc);
@@ -35,6 +33,10 @@ public class Menu extends RenderableObject {
         //initialize listeners list
         buttons = new ArrayList();
     }
+    
+    /**
+    * Remove this button from all listener lists
+    */
     @Override
     public void clear(){
         super.clear();
@@ -50,7 +52,6 @@ public class Menu extends RenderableObject {
     */
     @Override
     public void update(){
-        
     }
     
     /**
@@ -58,8 +59,9 @@ public class Menu extends RenderableObject {
     */
     @Override
     public void render(Graphics2D g2,Rectangle viewport){
-        
+        //loop over every button
         for(int i=0; i<buttons.size(); i++){
+            //update highlighted status
             if(i == highlightedIndex){
                 buttons.get(i).setHighlighted(true);
             }
@@ -67,12 +69,17 @@ public class Menu extends RenderableObject {
                 buttons.get(i).setHighlighted(false);
             }
             
+            //render the button
             buttons.get(i).render(g2, viewport);
         }
-        
     }
 
 
+    /**
+    * Add a button to the menu
+    * 
+    * @param button The button to add
+    */
     public void addButton(GameButton button) {
         Main.gamePanel.addMouseListener(button);
         Main.gamePanel.addKeyListener(button);
@@ -80,6 +87,9 @@ public class Menu extends RenderableObject {
         this.buttons.add(button);
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseClicked(MouseEvent e) {
         if(boundingBox.contains(e.getPoint())){
@@ -87,28 +97,46 @@ public class Menu extends RenderableObject {
         }
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseReleased(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseEntered(MouseEvent e) {
         if(boundingBox.contains(e.getPoint())){
         }
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == e.VK_UP){
@@ -128,14 +156,23 @@ public class Menu extends RenderableObject {
         }
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyReleased(KeyEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseDragged(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseMoved(MouseEvent e) {
         if(boundingBox.contains(e.getPoint())){

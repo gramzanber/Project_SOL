@@ -150,42 +150,72 @@ public class Missile extends GameFigure
     @Override
     public void damageFigure() { this.health = this.health - 1; }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseClicked(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseReleased(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyPressed(KeyEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void keyReleased(KeyEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseDragged(MouseEvent e) {
     }
 
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void mouseMoved(MouseEvent e) {
     }
