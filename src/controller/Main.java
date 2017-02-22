@@ -38,6 +38,7 @@ public class Main
         gamePanel = new JPanel(); 
         soundController = new SoundController();
 
+        
         //build and display the gui
         game = new MainWindow();
         game.setTitle("SOL - SDD SATAS");
@@ -46,6 +47,10 @@ public class Main
         game.setResizable(false);// Window size cannot change
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.setVisible(true);
+        
+        
+        gamePanel.addKeyListener(gameController);
+        
         
         //initialize the viewport
         gameData.viewport = new Rectangle(gamePanel.getWidth(),gamePanel.getHeight());

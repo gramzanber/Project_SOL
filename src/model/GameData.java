@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import view.Hero;
 import view.RenderableObject;
 
 /**
@@ -19,7 +20,6 @@ public class GameData{
     
     public List<RenderableObject> gameObjects; //everything that is rendered is in this list
     public Rectangle viewport; //the current location of the viewport
-
     
     /**
     * A simple constructor.
@@ -42,6 +42,30 @@ public class GameData{
         
         //add object to list
         gameObjects.add(gameObject);
+    }
+
+    /**
+    * Check if any solid game objects intersect a given rectangle
+    * 
+    * @param boundingBox The rectangle to check.
+    */
+    public boolean checkCollision(Rectangle boundingBox, RenderableObject obj) {
+        synchronized (gameObjects){
+            try{
+                //loop over every game object
+                for(int i=0; i < gameObjects.size(); i++){
+                    if(obj != gameObjects.get(i) && gameObjects.get(i).isSolid()){
+                        if(boundingBox.intersects(gameObjects.get(i).getBoundingBox())){
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch(Exception e) {
+                System.out.println(e.getMessage()); 
+            }
+        }
+        return false;
     }
     
 }

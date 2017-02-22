@@ -137,19 +137,19 @@ public class Menu extends RenderableObject {
     */
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == e.VK_UP){
+        if(e.getKeyCode() == KeyEvent.VK_UP){
             highlightedIndex -= 1;
             if(highlightedIndex < 0){
                 highlightedIndex = buttons.size()-1;
             }
         }
-        else if(e.getKeyCode() == e.VK_DOWN){
+        else if(e.getKeyCode() == KeyEvent.VK_DOWN){
             highlightedIndex += 1;
             if(highlightedIndex > buttons.size()-1){
                 highlightedIndex = 0;
             }
         }
-        else if(e.getKeyCode() == e.VK_ENTER){
+        else if(e.getKeyCode() == KeyEvent.VK_ENTER){
             buttons.get(highlightedIndex).select();
         }
     }

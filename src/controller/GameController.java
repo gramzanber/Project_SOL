@@ -5,11 +5,15 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import view.Laser;
 import view.Missile;
 import view.Shooter;
 import view.Background;
+import view.Block;
 import view.GameButton;
+import view.Hero;
 import view.Menu;
 import view.Text;
 
@@ -23,7 +27,7 @@ import view.Text;
 * @version 1.0
 * @since   2017-02-18 
 */
-public class GameController implements ActionListener{
+public class GameController implements ActionListener, KeyListener{
   
     //define any menu buttons here so we can reference them in the action events
     private GameButton mainMenuButton;
@@ -63,6 +67,9 @@ public class GameController implements ActionListener{
         Main.gameData.gameObjects.clear();
         //stop sounds
         Main.soundController.stop();
+        
+        //reset viewport
+        Main.gameData.viewport.setLocation(new Point(0,0));
     }
     
    /**
@@ -248,6 +255,58 @@ public class GameController implements ActionListener{
     }
     
     /**
+   * Clear everything and load the first level
+   */
+    public void showLevel1(){
+        
+        //clear all game objects
+        clear();
+        
+        //add background
+        Main.gameData.gameObjects.add(menuBackground);
+        
+        //play background music
+        Main.soundController.menuBGM();
+        
+        
+        //add ground blocks
+        for(int i=0; i<50; i++){
+            int width = 25;
+            int height = 25;
+            int y = Main.WIN_HEIGHT-100;
+            int x = i*width;
+            Main.gameData.addGameObject(new Block(new Point(x, y), width, height));
+        }
+        
+        
+        //add left edge
+        for(int i=0; i<20; i++){
+            int width = 25;
+            int height = 25;
+            int y = i*height;
+            int x = 0;
+            Main.gameData.addGameObject(new Block(new Point(x, y), width, height));
+        }
+        
+        
+        
+        //add obsticle for testing
+        for(int i=0; i<5; i++){
+            for(int j=0; j<i; j++){
+                int width = 50;
+                int height = 50;
+                int y = Main.WIN_HEIGHT -150 - 50*j;
+                int x = 300+ j*width;
+                Main.gameData.addGameObject(new Block(new Point(x, y), width, height));
+            }
+        }
+        
+        //add hero
+        Main.gameData.addGameObject(new Hero(new Point(50, Main.WIN_HEIGHT-500), 50, 100));
+    }
+    
+    
+    /**
     * {@inheritDoc}
     */
     @Override
@@ -300,6 +359,34 @@ public class GameController implements ActionListener{
         //add object
         Laser l = new Laser(x, y, color, direction); 
         Main.gameData.addGameObject(l);
+    }
+
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_1){
+            showLevel1();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_0){
+            showMainMenu();
+        }
+    }
+
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
     
 }

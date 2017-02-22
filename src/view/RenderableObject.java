@@ -19,6 +19,7 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
     
     protected Point loc; //the location of this object
     protected Rectangle boundingBox;
+    protected boolean solid;
     
     /**
     * A simple constructor 
@@ -27,6 +28,7 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
     */
     public RenderableObject(Point loc){
         this.loc = loc;
+        solid = false;
         boundingBox = new Rectangle(loc.x, loc.y, 10, 10);
     }
     
@@ -56,4 +58,10 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
         Main.gamePanel.removeMouseMotionListener(this);
     }
 
+    public Rectangle getBoundingBox(){
+        return boundingBox;
+    }
+    public boolean isSolid(){
+        return solid;
+    }
 }
