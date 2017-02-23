@@ -61,6 +61,11 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
     public Rectangle getBoundingBox(){
         return boundingBox;
     }
+    
+    public void setLocation(Point loc){
+        boundingBox.setLocation(loc);
+    }
+    
     public boolean isSolid(){
         return solid;
     }

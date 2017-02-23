@@ -13,6 +13,7 @@ import view.Shooter;
 import view.Background;
 import view.Block;
 import view.GameButton;
+import view.Goal;
 import view.Hero;
 import view.Menu;
 import view.Text;
@@ -35,6 +36,8 @@ public class GameController implements ActionListener, KeyListener{
     private GameButton scoresButton;
     private GameButton controlsButton;
     private GameButton quitButton;
+    
+    Goal goal;
     
     //we can either create a new background obj each time we load a new menu
     //which will cause the animation to restart and look awkward
@@ -302,7 +305,13 @@ public class GameController implements ActionListener, KeyListener{
         }
         
         //add hero
-        Main.gameData.addGameObject(new Hero(new Point(50, Main.WIN_HEIGHT-500), 50, 100));
+        Main.gameData.getHero().setLocation(new Point(50, 100));
+        Main.gameData.addGameObject(Main.gameData.getHero());
+        
+        //add goal
+        goal = new Goal(new Point(800,Main.WIN_HEIGHT-400), 100, 300);
+        goal.addActionListener(this);
+        Main.gameData.addGameObject(goal);
     }
     
     
@@ -327,6 +336,9 @@ public class GameController implements ActionListener, KeyListener{
         }
         else if(e.getSource() == quitButton){
             System.exit(0);
+        }
+        else if(e.getSource() == goal){
+            showMainMenu();
         }
         
         
