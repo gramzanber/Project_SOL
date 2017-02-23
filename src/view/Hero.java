@@ -2,16 +2,11 @@ package view;
 
 import controller.Main;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 /**
 * Render a block to the screen.
@@ -22,9 +17,11 @@ import java.util.ArrayList;
 */
 public class Hero extends RenderableObject {
     
-    private int speed;
-    private boolean jumping;
-    private int jumpHeight;
+    private int upForce; //the amount of upwards force on the object
+    private int downForce; //the amount of downwards force on the object
+    private int leftForce; //the amount of left force on the object
+    private int rightForce; //the amount of right force on the object
+    private int step; //how many pixals get moved each frame
     
     /**
     * Constructor 
@@ -36,9 +33,11 @@ public class Hero extends RenderableObject {
         super(loc);
         
         //initialize variables
-        speed = 0;
-        jumping = false;
-        jumpHeight = 100;
+        upForce = 0;
+        downForce = 0;
+        leftForce = 0;
+        rightForce = 0;
+        step = 5;
         
         //update bounding box for the object
         super.boundingBox = new Rectangle(loc.x, loc.y, width, height);
@@ -49,27 +48,61 @@ public class Hero extends RenderableObject {
     */
     @Override
     public void update(){
-        if(jumping){
-            //need to translate in steps of 1 px to prevent overlapping
-            if(jumpHeight >0){
-                for(int i=0; i<2; i++){
-                    translate(0, -1);
-                }
-                jumpHeight -= 2;
-            }
-            else{
-                jumpHeight = 100;
-                jumping = false;
-            }
-        }
-        else{
-            //gravity
-            //need to translate in steps of 1 px to prevent overlapping
-            for(int i=0; i<10; i++){
-                translate(0, 1);
-            }
+        
+        //System.out.println("UPF: "+upForce+" DNF:"+downForce);
+        
+        //add gravity
+        if(translate(0, 1, true)){
+            downForce += 1; //gravity
         }
         
+        //opposite forces cancel out eachother
+        if(upForce > downForce){
+            upForce -= downForce;
+        }
+        else if(downForce > upForce){
+            downForce -= upForce;
+        }
+        if(leftForce > rightForce){
+            leftForce -= rightForce;
+        }
+        else if(rightForce > leftForce){
+            rightForce -= leftForce;
+        }
+        
+        //need to set max values to limit speed 
+        upForce = Math.min(upForce, 100);
+        downForce = Math.min(downForce, 100);
+        leftForce = Math.min(leftForce, 100);
+        rightForce = Math.min(rightForce, 100);
+        
+        
+        //apply forces
+        if(upForce > 0){
+            for(int i=0; i<step; i++){
+                translate(0, -1);
+            }
+            upForce -= step;
+        }
+        if(downForce > 0){
+            for(int i=0; i<step; i++){
+                translate(0, 1);
+            }
+            downForce -= step;
+        }
+        if(leftForce > 0){
+            for(int i=0; i<step; i++){
+                translate(-1, 0);
+            }
+            leftForce -= step;
+        }
+        if(rightForce > 0){
+            for(int i=0; i<step; i++){
+                translate(1, 0);
+            }
+            rightForce -= step;
+        }
+      
         //move the viewport when we get close to the edge of the screen
         if(boundingBox.getX() + 50 >= Main.gameData.viewport.getX()+(int) Main.gameData.viewport.getWidth()){
             Main.gameData.viewport.setLocation((int)boundingBox.getX() + 150 - (int)Main.gameData.viewport.getWidth(), (int)Main.gameData.viewport.getY());
@@ -77,19 +110,23 @@ public class Hero extends RenderableObject {
         else if(boundingBox.getX() - 50 <= Main.gameData.viewport.getX()){
             Main.gameData.viewport.setLocation((int)boundingBox.getX() - 100 , (int)Main.gameData.viewport.getY());
         }
-        
-        
     }
-    
-    public void translate(int dx, int dy){
+    public boolean translate(int dx, int dy){
+        return translate( dx, dy, false);
+    }
+    public boolean translate(int dx, int dy, boolean testOnly){
         Point newLoc = new Point(boundingBox.x+dx, boundingBox.y + dy);
         Point testLoc = new Point(boundingBox.x+dx, boundingBox.y + dy - 1);
         Rectangle testRect = new Rectangle(boundingBox.width, boundingBox.height);
         
         testRect.setLocation(testLoc);
         if(!Main.gameData.checkCollision(testRect, this)){
-            boundingBox.setLocation(newLoc);
+            if(!testOnly){
+                boundingBox.setLocation(newLoc);
+            }
+            return true;
         }
+        return false;
     }
     
     
@@ -161,20 +198,23 @@ public class Hero extends RenderableObject {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            //need to translate in steps of 1 px to prevent overlapping
-            for(int i=0; i<50; i++){
-                translate(1, 0);
-            }
+            //can't move in air
+            //if(!translate(0, 1, true)){
+                rightForce += 100;
+            //}
         }
         else if(e.getKeyCode() == KeyEvent.VK_LEFT){
-            //need to translate in steps of 1 px to prevent overlapping
-            for(int i=0; i<50; i++){
-                translate(-1, 0);
-            }
+            //can't move in air
+            //if(!translate(0, 1, true)){
+                leftForce += 100;
+            //}
         }
         else if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            //need to translate in steps of 1 px to prevent overlapping
-            jumping = true;
+            //can't jump if you're not standing on something solid
+            if(!translate(0, 1, true)){
+                upForce += 100; 
+            }
+            
         }
     }
 
