@@ -273,12 +273,15 @@ public class GameController implements ActionListener, KeyListener{
         
         
         //add ground blocks
-        for(int i=0; i<50; i++){
+        for(int i=0; i<100; i++){
             int width = 25;
             int height = 25;
             int y = Main.WIN_HEIGHT-100;
             int x = i*width;
-            Main.gameData.addGameObject(new Block(new Point(x, y), width, height));
+            
+            if(!(i>8 && i<14)){
+                Main.gameData.addGameObject(new Block(new Point(x, y), width, height));
+            }
         }
         
         
@@ -299,17 +302,18 @@ public class GameController implements ActionListener, KeyListener{
                 int width = 50;
                 int height = 50;
                 int y = Main.WIN_HEIGHT -150 - 50*j;
-                int x = 300+ j*width;
+                int x = 800+ j*width;
                 Main.gameData.addGameObject(new Block(new Point(x, y), width, height));
             }
         }
         
         //add hero
+        Main.gameData.getHero().clear();
         Main.gameData.getHero().setLocation(new Point(50, 100));
         Main.gameData.addGameObject(Main.gameData.getHero());
         
         //add goal
-        goal = new Goal(new Point(800,Main.WIN_HEIGHT-400), 100, 300);
+        goal = new Goal(new Point(1500,Main.WIN_HEIGHT-400), 100, 300);
         goal.addActionListener(this);
         Main.gameData.addGameObject(goal);
     }
