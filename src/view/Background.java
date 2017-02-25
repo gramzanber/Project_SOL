@@ -75,10 +75,10 @@ public class Background extends RenderableObject {
         int height = backgroundImage.getHeight(null);
         
         //if stretch set size to the size of the viewport
-        if(stretch){
-            width = (int)viewport.getWidth();
-            height = (int)viewport.getHeight();
-        }
+//        if(stretch){
+//            width = (int)viewport.getWidth();
+//            height = (int)viewport.getHeight();
+//        }
 
         //draw the image
         g2.drawImage(backgroundImage, (int)this.backgroundLocation, 0, width, height, null);

@@ -1,10 +1,15 @@
 package controller;
 
+import static controller.Main.gameData;
+import static controller.Main.gamePanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import view.Laser;
@@ -28,7 +33,7 @@ import view.Text;
 * @version 1.0
 * @since   2017-02-18 
 */
-public class GameController implements ActionListener, KeyListener{
+public class GameController implements ActionListener, KeyListener, ComponentListener{
   
     //define any menu buttons here so we can reference them in the action events
     private GameButton mainMenuButton;
@@ -72,7 +77,7 @@ public class GameController implements ActionListener, KeyListener{
         Main.soundController.stop();
         
         //reset viewport
-        Main.gameData.viewport.setLocation(new Point(0,0));
+        resetViewport();
     }
     
    /**
@@ -319,6 +324,11 @@ public class GameController implements ActionListener, KeyListener{
     }
     
     
+    public void resetViewport(){
+        Main.gameData.viewport = new Rectangle(0,600-Main.gamePanel.getHeight(),Main.gamePanel.getWidth(),Main.gamePanel.getHeight());
+        Main.animator.init();
+    }
+    
     /**
     * {@inheritDoc}
     */
@@ -403,6 +413,23 @@ public class GameController implements ActionListener, KeyListener{
     */
     @Override
     public void keyReleased(KeyEvent e) {
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        this.resetViewport();
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
     }
     
 }
