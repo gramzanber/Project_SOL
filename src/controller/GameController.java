@@ -1,5 +1,6 @@
 package controller;
 
+import view.Earth;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
@@ -14,9 +15,14 @@ import view.Background;
 import view.Block;
 import view.GameButton;
 import view.Goal;
+import view.Earth;
 import view.Hero;
 import view.Menu;
+import view.Mercury;
+import view.Moon;
+import view.Sun;
 import view.Text;
+import view.Venus;
 
 /**
 * The GameController class is responsible for making changes to the GameModel.
@@ -38,7 +44,11 @@ public class GameController implements ActionListener, KeyListener{
     private GameButton quitButton;
     
     Goal goal;
-    
+    Earth earth;
+    Sun sun;
+    Moon moon;
+    Venus venus;
+    Mercury mercury;
     //we can either create a new background obj each time we load a new menu
     //which will cause the animation to restart and look awkward
     //or we can define the background as a class var and reuse the same one that
@@ -148,15 +158,33 @@ public class GameController implements ActionListener, KeyListener{
         text.setColor(Color.WHITE);
         Main.gameData.addGameObject(text);
         
-        //draw rect arround planets
-        //g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
-        //g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
-        //g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
-        //g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
-        //g2.drawRect((width / 2) - 70, (height / 2) + 30, 120, 30);
-        
         //add the shooter object
-        Main.gameData.addGameObject(new Shooter(new Point(100, 100)));
+        Main.gameData.getShooter();
+        Main.gameData.addGameObject(Main.gameData.getShooter());
+        //draw rect arround planets
+        //Earth on world map
+        earth = new Earth(new Point(800,Main.WIN_HEIGHT-400),50,50);
+        Main.gameData.addGameObject(earth);
+        earth.addActionListener(this);
+        //Sun on world map
+        sun = new Sun(new Point(800,Main.WIN_HEIGHT-400),50,50);
+        Main.gameData.addGameObject(sun);
+        sun.addActionListener(this); 
+        //Moon on world map
+        moon = new Moon(new Point(800,Main.WIN_HEIGHT-400),50,50);
+        Main.gameData.addGameObject(moon);
+        moon.addActionListener(this);
+        //Venus on world map
+        venus = new Venus(new Point(800,Main.WIN_HEIGHT-400),50,50);
+        Main.gameData.addGameObject(venus);
+        venus.addActionListener(this);
+        //Mercury on world map
+        mercury = new Mercury(new Point(800,Main.WIN_HEIGHT-400),50,50);
+        Main.gameData.addGameObject(mercury);
+        mercury.addActionListener(this);
+        
+        
+        //Main.gameData.addGameObject(new Shooter(new Point(100, 100)));
     }
     
    /**
@@ -273,15 +301,12 @@ public class GameController implements ActionListener, KeyListener{
         
         
         //add ground blocks
-        for(int i=0; i<100; i++){
+        for(int i=0; i<50; i++){
             int width = 25;
             int height = 25;
             int y = Main.WIN_HEIGHT-100;
             int x = i*width;
-            
-            if(!(i>8 && i<14)){
-                Main.gameData.addGameObject(new Block(new Point(x, y), width, height));
-            }
+            Main.gameData.addGameObject(new Block(new Point(x, y), width, height));
         }
         
         
@@ -302,21 +327,24 @@ public class GameController implements ActionListener, KeyListener{
                 int width = 50;
                 int height = 50;
                 int y = Main.WIN_HEIGHT -150 - 50*j;
-                int x = 800+ j*width;
+                int x = 300+ j*width;
                 Main.gameData.addGameObject(new Block(new Point(x, y), width, height));
             }
         }
         
         //add hero
-        Main.gameData.getHero().clear();
         Main.gameData.getHero().setLocation(new Point(50, 100));
         Main.gameData.addGameObject(Main.gameData.getHero());
         
         //add goal
-        goal = new Goal(new Point(1500,Main.WIN_HEIGHT-400), 100, 300);
+        goal = new Goal(new Point(800,Main.WIN_HEIGHT-400), 100, 300);
         goal.addActionListener(this);
         Main.gameData.addGameObject(goal);
     }
+    public void showLevel2(){}
+    public void showLevel3(){}
+    public void showLevel4(){}
+    public void showLevel5(){}
     
     
     /**
@@ -390,6 +418,7 @@ public class GameController implements ActionListener, KeyListener{
     */
     @Override
     public void keyPressed(KeyEvent e) {
+        //if(){}
         if(e.getKeyCode() == KeyEvent.VK_1){
             showLevel1();
         }

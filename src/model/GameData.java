@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import view.Hero;
 import view.RenderableObject;
+import view.Shooter;
 
 /**
 * The GameData class is responsible for holding the state of the game.
@@ -22,6 +23,7 @@ public class GameData{
     public List<RenderableObject> gameObjects; //everything that is rendered is in this list
     public Rectangle viewport; //the current location of the viewport
     private Hero hero;
+    private Shooter shooter;
     
     /**
     * A simple constructor.
@@ -30,10 +32,15 @@ public class GameData{
         //initialize the game objects list
         gameObjects = Collections.synchronizedList(new ArrayList<RenderableObject>());
         hero = new Hero(new Point(50, Main.WIN_HEIGHT-500), 50, 100);
+        shooter = new Shooter(new Point(50, Main.WIN_HEIGHT - 500));
     }
     
     public Hero getHero(){
         return hero;
+    }
+    
+    public Shooter getShooter(){
+        return shooter;
     }
     
     /**
