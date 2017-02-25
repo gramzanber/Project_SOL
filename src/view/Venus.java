@@ -29,9 +29,7 @@ public class Venus extends StarMap{
 
     @Override
     public void update() {
-        if(Main.gameData.getShooter().getBoundingBox().intersects(boundingBox)){
-            System.out.println("TESTED!!");
-        }
+        
     }
     
     public void addActionListener(ActionListener listener){
@@ -54,8 +52,10 @@ public class Venus extends StarMap{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            gameController.showLevel3();
+        if(Main.gameData.getShooter().getBoundingBox().intersects(boundingBox)){
+            if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                gameController.showLevel3();
+            }
         }
     }
 

@@ -341,10 +341,18 @@ public class GameController implements ActionListener, KeyListener{
         goal.addActionListener(this);
         Main.gameData.addGameObject(goal);
     }
-    public void showLevel2(){}
-    public void showLevel3(){}
-    public void showLevel4(){}
-    public void showLevel5(){}
+    public void showLevel2(){
+        System.out.println("Level 2 under construction");
+    }
+    public void showLevel3(){
+        System.out.println("Level 3 under construction");
+    }
+    public void showLevel4(){
+        System.out.println("Level 4 under construction");
+    }
+    public void showLevel5(){
+        System.out.println("Level 5 under construction");
+    }
     
     
     /**

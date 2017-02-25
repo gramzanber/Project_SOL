@@ -30,9 +30,7 @@ public class Earth extends StarMap{
 
     @Override
     public void update() {
-        if(Main.gameData.getShooter().getBoundingBox().intersects(boundingBox)){
-            System.out.println("TESTED!!");
-        }
+        
     }
     
     public void addActionListener(ActionListener listener){
@@ -55,9 +53,12 @@ public class Earth extends StarMap{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+        if(Main.gameData.getShooter().getBoundingBox().intersects(boundingBox)){
+            if(e.getKeyCode() == KeyEvent.VK_ENTER){
             gameController.showLevel1();
+            }
         }
+        
     }
 
     
