@@ -21,7 +21,7 @@ public class Main
     public static Animator animator; //rendering engine and main game loop
     public static MainWindow game; //gui window
     public static SoundController soundController;//all sounds controlled here
-    public static int WIN_WIDTH = 720; //the width of the gui window
+    public static int WIN_WIDTH = 700; //the width of the gui window
     public static int WIN_HEIGHT = 600; //the height of the gui window
 
    /**
