@@ -63,7 +63,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         //Initialize the menu background.
         //note that other backgrounds can be created as needed. this is only here
         //because multiple screens use this background and it is animated
-        menuBackground = new Background("/Images/corona_bk.png", Background.Stretch.NONE, false, true);
+        menuBackground = new Background("/Images/corona_bk.png", Background.Stretch.NONE, true, true);
     }
     
    /**
