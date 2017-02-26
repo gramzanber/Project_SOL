@@ -153,6 +153,7 @@ public abstract class Actor extends RenderableObject {
             //can only jump if you are standing on the ground, can't fly lol
             if(!canMove(DIRECTION.DOWN) && canMove(DIRECTION.UP)){
                 upForce += 300; //jump height
+                spaceKeyDown = false; //only jump once per key down event
             }
         }
 
