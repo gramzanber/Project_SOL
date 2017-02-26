@@ -1,10 +1,15 @@
 package controller;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import model.GameData;
 import view.MainWindow;
+
+
+
 
 /**
 * Main class, all shared objects are accessed through this class.
@@ -15,6 +20,10 @@ import view.MainWindow;
 */
 public class Main
 {
+    
+    static GraphicsDevice device = GraphicsEnvironment
+        .getLocalGraphicsEnvironment().getScreenDevices()[0];
+    
     public static JPanel gamePanel; //the canvas for rendering
     public static GameController gameController; //for adding game objects
     public static GameData gameData; //data model, game stats and object list

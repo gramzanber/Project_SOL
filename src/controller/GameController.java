@@ -3,6 +3,8 @@ package controller;
 import static controller.Main.gamePanel;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -11,6 +13,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JFrame;
 import view.Laser;
 import view.Missile;
 import view.Background;
@@ -44,6 +47,8 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     private GameButton controlsButton;
     private GameButton quitButton;
     
+    private boolean fullscreen;
+    
     Goal goal;
     Earth earth;
     Sun sun;
@@ -64,6 +69,8 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         //note that other backgrounds can be created as needed. this is only here
         //because multiple screens use this background and it is animated
         menuBackground = new Background("/Images/corona_bk.png", Background.Stretch.NONE, true, true);
+        
+        fullscreen = false;
     }
     
    /**
@@ -423,6 +430,28 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         }
         else if(e.getKeyCode() == KeyEvent.VK_0){
             showMainMenu();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_F11){
+            fullscreen = !fullscreen;
+            if(fullscreen){
+                //GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+                //device.setFullScreenWindow(Main.game);
+                
+                Main.game.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+                Main.game.dispose();
+                Main.game.setUndecorated(true);
+                
+                Main.game.setVisible(true);
+            }
+            else{
+                 
+                
+                Main.game.dispose();
+                Main.game.setSize(700, 600);
+                Main.game.setExtendedState(JFrame.NORMAL);
+                Main.game.setUndecorated(false);
+                Main.game.setVisible(true);
+            }
         }
     }
 
