@@ -24,6 +24,7 @@ public class GameData{
     public Rectangle viewport; //the current location of the viewport
     private Hero hero;
     private Shooter shooter;
+    public Rectangle world;
     
     /**
     * A simple constructor.
@@ -33,6 +34,7 @@ public class GameData{
         gameObjects = Collections.synchronizedList(new ArrayList<RenderableObject>());
         hero = new Hero(new Point(50, Main.WIN_HEIGHT-500), 50, 100);
         shooter = new Shooter(new Point(50, Main.WIN_HEIGHT - 500));
+        world = new Rectangle(0,0,2048, 1536);
     }
     
     public Hero getHero(){

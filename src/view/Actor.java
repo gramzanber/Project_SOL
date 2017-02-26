@@ -229,6 +229,14 @@ public abstract class Actor extends RenderableObject {
         else if(boundingBox.getX() - 100 <= Main.gameData.viewport.getX()){
             Main.gameData.viewport.setLocation((int)boundingBox.getX() - 100 , (int)Main.gameData.viewport.getY());
         }
+        
+        if(boundingBox.getY() + 200 >= Main.gameData.viewport.getY()+(int) Main.gameData.viewport.getHeight()){
+            Main.gameData.viewport.setLocation((int)Main.gameData.viewport.getX(), (int)boundingBox.getY() + 200 - (int)Main.gameData.viewport.getHeight());
+        }
+        else if(boundingBox.getY() - 200 <= Main.gameData.viewport.getY()){
+            Main.gameData.viewport.setLocation((int)Main.gameData.viewport.getX(), (int)boundingBox.getY() - 200);
+        }
+        
     }
     
     /**

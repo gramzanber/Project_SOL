@@ -15,16 +15,24 @@ import java.awt.event.MouseEvent;
 * @since   2017-02-18 
 */
 public class Block extends RenderableObject {
+
+    
+    
+    public enum Style {
+        TRANSPARENT, GROUND, BLUE
+    }
+    
+    private final Style style;
     
     /**
     * Constructor 
     * 
     * @param loc
     */
-    public Block(Point loc, int width, int height) {
+    public Block(Style style, Point loc, int width, int height) {
         //call superclass constructor
         super(loc);
-        
+        this.style = style;
         solid = true;
         
         //update bounding box for the object
@@ -43,17 +51,32 @@ public class Block extends RenderableObject {
     */
     @Override
     public void render(Graphics2D g2,Rectangle viewport){
-        if(viewport.contains(boundingBox.getLocation())){
+        if(viewport.intersects(boundingBox)){
             
             //draw the block in relation to the viewport
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
             
-            int border = 2;
-            g2.setColor(Color.GRAY);
-            g2.fillRect(translatedX, translatedY, (int)boundingBox.getWidth(), (int)boundingBox.getHeight());
-            g2.setColor(Color.blue);
-            g2.fillRect(translatedX+border, translatedY+border, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2);
+            if(style == Style.TRANSPARENT){
+                //dont render
+            }
+            else if(style == Style.BLUE){
+                //render blue block
+                int border = 2;
+                g2.setColor(Color.GRAY);
+                g2.fillRect(translatedX, translatedY, (int)boundingBox.getWidth(), (int)boundingBox.getHeight());
+                g2.setColor(Color.BLUE);
+                g2.fillRect(translatedX+border, translatedY+border, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2);
+
+            }
+            else if(style == Style.GROUND){
+                //render ground texture
+                g2.setColor(Color.GRAY);
+                g2.fillRect(translatedX, translatedY, (int)boundingBox.getWidth(), (int)boundingBox.getHeight());
+            }
+            
+            
+            
         }
     }
     

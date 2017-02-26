@@ -1,22 +1,23 @@
 package controller;
 
-import view.Earth;
+import static controller.Main.gamePanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import view.Laser;
 import view.Missile;
-import view.Shooter;
 import view.Background;
 import view.Block;
 import view.GameButton;
 import view.Goal;
 import view.Earth;
-import view.Hero;
 import view.Menu;
 import view.Mercury;
 import view.Moon;
@@ -34,7 +35,7 @@ import view.Venus;
 * @version 1.0
 * @since   2017-02-18 
 */
-public class GameController implements ActionListener, KeyListener{
+public class GameController implements ActionListener, KeyListener, ComponentListener{
   
     //define any menu buttons here so we can reference them in the action events
     private GameButton mainMenuButton;
@@ -62,7 +63,7 @@ public class GameController implements ActionListener, KeyListener{
         //Initialize the menu background.
         //note that other backgrounds can be created as needed. this is only here
         //because multiple screens use this background and it is animated
-        menuBackground = new Background("/Images/corona_bk.png", false, true);
+        menuBackground = new Background("/Images/corona_bk.png", Background.Stretch.NONE, false, true);
     }
     
    /**
@@ -82,7 +83,13 @@ public class GameController implements ActionListener, KeyListener{
         Main.soundController.stop();
         
         //reset viewport
-        Main.gameData.viewport.setLocation(new Point(0,0));
+        //Main.gameData.viewport.setLocation(new Point(0,0));
+        resetViewport();
+    }
+    
+    public void resetViewport(){
+        Main.gameData.viewport = new Rectangle(0,Main.gameData.world.height-Main.gamePanel.getHeight(),Main.gamePanel.getWidth(),Main.gamePanel.getHeight());
+        Main.animator.init();
     }
     
    /**
@@ -146,7 +153,7 @@ public class GameController implements ActionListener, KeyListener{
         clear();
         
         //add background
-        Main.gameData.gameObjects.add(new Background("/Images/world_map_1.png", true, false));
+        Main.gameData.gameObjects.add(new Background("/Images/world_map_1.png", Background.Stretch.VIEWPORT, false, false));
         
         //play background music
         Main.soundController.openWorldBGM();
@@ -294,50 +301,34 @@ public class GameController implements ActionListener, KeyListener{
         clear();
         
         //add background
-        Main.gameData.gameObjects.add(menuBackground);
+        Main.gameData.gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
         
         //play background music
         Main.soundController.menuBGM();
         
+        int rightEdge = 0;
+        int groundLevel = Main.gameData.world.height - 150;
         
-        //add ground blocks
-        for(int i=0; i<50; i++){
-            int width = 25;
-            int height = 25;
-            int y = Main.WIN_HEIGHT-100;
-            int x = i*width;
-            Main.gameData.addGameObject(new Block(new Point(x, y), width, height));
-        }
-        
-        
+        //add ground
+        Main.gameData.addGameObject(new Block(Block.Style.TRANSPARENT, new Point(0, groundLevel), 99999, 50));
+
         //add left edge
-        for(int i=0; i<20; i++){
-            int width = 25;
-            int height = 25;
-            int y = i*height;
-            int x = 0;
-            Main.gameData.addGameObject(new Block(new Point(x, y), width, height));
+        Main.gameData.addGameObject(new Block(Block.Style.TRANSPARENT, new Point(0, 0), 50, Main.gameData.world.height));
+        
+
+        //stairs
+        for(int i=0; i<11; i++){
+            Main.gameData.addGameObject(new Block(Block.Style.BLUE, new Point(rightEdge+500+150*i, groundLevel-80-80*i), 150, 8));
         }
-        
-        
-        
-        //add obsticle for testing
-        for(int i=0; i<5; i++){
-            for(int j=0; j<i; j++){
-                int width = 50;
-                int height = 50;
-                int y = Main.WIN_HEIGHT -150 - 50*j;
-                int x = 300+ j*width;
-                Main.gameData.addGameObject(new Block(new Point(x, y), width, height));
-            }
-        }
+        Main.gameData.addGameObject(new Block(Block.Style.BLUE, new Point(rightEdge+500+150*5 - 150-100-1000, groundLevel-80-80*5),1000, 8));
+
         
         //add hero
-        Main.gameData.getHero().setLocation(new Point(50, 100));
+        Main.gameData.getHero().setLocation(new Point(50, groundLevel-100));
         Main.gameData.addGameObject(Main.gameData.getHero());
         
         //add goal
-        goal = new Goal(new Point(800,Main.WIN_HEIGHT-400), 100, 300);
+        goal = new Goal(new Point(1000,groundLevel-200), 20, 200);
         goal.addActionListener(this);
         Main.gameData.addGameObject(goal);
     }
@@ -440,6 +431,25 @@ public class GameController implements ActionListener, KeyListener{
     */
     @Override
     public void keyReleased(KeyEvent e) {
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        resetViewport();
+        //Main.gameData.viewport = new Rectangle(0, 600-Main.gamePanel.getHeight(), Main.gamePanel.getWidth(),Main.gamePanel.getHeight());
+        //Main.animator.init();
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
     }
     
 }

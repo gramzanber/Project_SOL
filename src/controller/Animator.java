@@ -18,12 +18,7 @@ public class Animator implements Runnable
     private Image dbImage = null; //An offscreen image used for Double buffering
     
     
-    /**
-    * {@inheritDoc}
-    */
-    @Override
-    public void run()
-    {
+    public void init(){
         //The traditional notion of double-buffering in Java applications is 
         //fairly straightforward: create an offscreen image, draw to that image 
         //using the image's graphics object, then, in one step, call drawImage 
@@ -32,21 +27,38 @@ public class Animator implements Runnable
         //object is done off screen
         
         //make sure the off screen image is defined
-        if (dbImage == null) {
+        //if (dbImage == null) {
             // Creates an off-screen drawable image
             dbImage = Main.gamePanel.createImage(Main.gamePanel.getSize().width, Main.gamePanel.getSize().height);
             if (dbImage == null) {
                 System.out.println("Critical Error: dbImage is null");
                 System.exit(1);
             }
-        }
+        //}
+    }
+    
+    
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public void run()
+    {
+        init();
         
-        //create the graphics object from the offscreen image
-        Graphics2D g2 = (Graphics2D) dbImage.getGraphics();
+        
         
         //start the main game loop
         while (running)
         {
+            
+            //create the graphics object from the offscreen image
+            Graphics2D g2 = (Graphics2D) dbImage.getGraphics();
+            
+            //clear
+            g2.fillRect(0,0,dbImage.getWidth(null), dbImage.getHeight(null));
+            
+            
             //start time for calculating how long to sleep between frames
             long startTime = System.currentTimeMillis();
             

@@ -4,6 +4,7 @@ import controller.Main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -85,6 +86,9 @@ public class Goal extends RenderableObject {
             g2.fillRect(translatedX, translatedY, (int)boundingBox.getWidth(), (int)boundingBox.getHeight());
             g2.setColor(Color.GREEN);
             g2.fillRect(translatedX+border, translatedY+border, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2);
+            
+            g2.setColor(Color.RED);
+            g2.fillRect(translatedX, translatedY, 100, 50);
         }
     }
     

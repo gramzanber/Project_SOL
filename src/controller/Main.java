@@ -21,7 +21,7 @@ public class Main
     public static Animator animator; //rendering engine and main game loop
     public static MainWindow game; //gui window
     public static SoundController soundController;//all sounds controlled here
-    public static int WIN_WIDTH = 700; //the width of the gui window
+    public static int WIN_WIDTH = 720; //the width of the gui window
     public static int WIN_HEIGHT = 600; //the height of the gui window
 
    /**
@@ -44,16 +44,17 @@ public class Main
         game.setTitle("SOL - SDD SATAS");
         game.setSize(WIN_WIDTH, WIN_HEIGHT);
         game.setLocation(100, 0);
-        game.setResizable(false);// Window size cannot change
+        //game.setResizable(false);// Window size cannot change
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.setVisible(true);
         
         
         gamePanel.addKeyListener(gameController);
+        gamePanel.addComponentListener(gameController);
         
         
         //initialize the viewport
-        gameData.viewport = new Rectangle(gamePanel.getWidth(),gamePanel.getHeight());
+        //gameData.viewport = new Rectangle(gamePanel.getWidth(),gamePanel.getHeight());
         
         //initially show the main menu screen
         gameController.showMainMenu();

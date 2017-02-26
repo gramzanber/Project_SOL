@@ -53,7 +53,7 @@ public class SoundController
             //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
             // Get a sound clip resource.
-            Clip clip = AudioSystem.getClip();
+            //clip = AudioSystem.getClip();
             // Open audio clip and load samples from the audio input stream.
             clip.open(audioIn);
             clip.start();
@@ -73,7 +73,7 @@ public class SoundController
             //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
             // Get a sound clip resource.
-            Clip clip = AudioSystem.getClip();
+            //clip = AudioSystem.getClip();
             // Open audio clip and load samples from the audio input stream.
             clip.open(audioIn);
             clip.start();
@@ -93,7 +93,7 @@ public class SoundController
             //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
             // Get a sound clip resource.
-            Clip clip = AudioSystem.getClip();
+            //clip = AudioSystem.getClip();
             // Open audio clip and load samples from the audio input stream.
             clip.open(audioIn);
             clip.loop(Clip.LOOP_CONTINUOUSLY);

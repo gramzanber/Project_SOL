@@ -1,5 +1,6 @@
 package view;
 
+import controller.Main;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -19,10 +20,15 @@ import javax.swing.JOptionPane;
 */
 public class Background extends RenderableObject {
     
+    public enum Stretch {
+        NONE, WORLD, VIEWPORT
+    }
+    
     private Image backgroundImage; //the image
     private double backgroundLocation; //for scroll animation, this is the current step
-    boolean stretch; //is the images stretched or cliped?
+    private Stretch stretch; //is the images stretched?
     boolean scroll; //should the background be animated to scroll?
+    boolean repeat;
     
     /**
     * Constructor for the Background object
@@ -31,11 +37,12 @@ public class Background extends RenderableObject {
     * @param stretch Should the image be stretched
     * @param scroll Should the image be animated
     */
-    public Background(String imagePath, boolean stretch, boolean scroll) {
+    public Background(String imagePath, Stretch stretch, boolean repeat, boolean scroll) {
         super(new Point(0, 0)); //all backgrounds start at 0,0
         
         this.stretch = stretch; //set stretched
         this.scroll = scroll; //set scroll
+        this.repeat = repeat;
         
         //initialize offset for animated backgrounds
         backgroundLocation = 0;
@@ -74,14 +81,53 @@ public class Background extends RenderableObject {
         int width = backgroundImage.getWidth(null);
         int height = backgroundImage.getHeight(null);
         
+        int x = 0;
+        int y = 0;
+        
+
+        
+        
         //if stretch set size to the size of the viewport
-        if(stretch){
+        if(stretch == Stretch.VIEWPORT){
             width = (int)viewport.getWidth();
             height = (int)viewport.getHeight();
         }
+        else if(stretch == Stretch.WORLD){
+            width = (int)Main.gameData.world.getWidth();
+            height = (int)Main.gameData.world.getHeight();
+            //draw in relation to the viewport
+            x =  (int)boundingBox.getX() - (int)viewport.getX() - 600;
+            y =  (int)boundingBox.getY() - (int)viewport.getY();
+        }
+        else if(stretch == Stretch.NONE){
+            
+        }
+        
+        if(scroll){
+            x += backgroundLocation;
+        }
 
         //draw the image
-        g2.drawImage(backgroundImage, (int)this.backgroundLocation, 0, width, height, null);
+        //g2.drawImage(backgroundImage, (int)this.backgroundLocation, 0, width, height, null);
+        if(repeat){
+            
+            int m = 0;
+            while(viewport.getX()+viewport.getWidth() > x + width*m){
+               g2.drawImage(backgroundImage, x + width*m, y, width, height, null); 
+               m++;
+            }
+            
+//            
+//            while(m == 1 || viewport.getX()+viewport.getWidth() > x*m + width){
+//               g2.drawImage(backgroundImage, x*m, y, width, height, null); 
+//               m++;
+//               System.out.println("test: "+m);
+//            }
+        }
+        else{
+            g2.drawImage(backgroundImage, x, y, width, height, null);
+        }
+        
     }
 
     /**
