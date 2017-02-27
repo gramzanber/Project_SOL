@@ -7,6 +7,8 @@ public abstract class GameFigure extends RenderableObject
     // public for a faster access during animation
     public float x;
     public float y;
+    protected float velX, velY;
+    protected boolean boolEarth = true,boolMoon,boolSun,boolMercury,boolVenus;
     
     public int state;
     public static final int STATE_ALIVE = 1;
@@ -24,4 +26,19 @@ public abstract class GameFigure extends RenderableObject
     // Involves Figures health
     public abstract int getHealth();
     public abstract void damageFigure();
+    
+    //velocity X&Y are used to move the ship in the update function to make the point to point look smooth
+    public void setVelX(int velX){
+        this.velX = velX;
+    }
+    public void setVelY(int velY){
+        this.velY = velY;
+    }
+    public float getVelX(){
+        return velX;
+    }
+    public float getVelY(){
+        return velY;
+    }
+    
 }
