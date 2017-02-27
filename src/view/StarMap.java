@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
  */
 public class StarMap extends RenderableObject {
     
+    
     public StarMap(Point loc) {
         super(loc);
     }
@@ -51,7 +52,7 @@ public class StarMap extends RenderableObject {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        
     }
 
     @Override

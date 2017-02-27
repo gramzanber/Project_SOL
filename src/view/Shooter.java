@@ -71,6 +71,13 @@ public class Shooter extends GameFigure
         loc.y = loc.y + dy;
         boundingBox.setLocation(loc);
     }
+    
+    public float getx(){
+        return (float)loc.x;
+    }
+    public float gety(){
+        return (float)loc.y;
+    }
 
     // Missile shoot location: adjut x and y to the image
     public float getXofMissileShoot() {
@@ -117,8 +124,84 @@ public class Shooter extends GameFigure
 
     @Override
     public void update() {
+        gotoEarth(boolEarth);
+        gotoMoon(boolMoon);
+        gotoVenus(boolVenus);
+        gotoMercury(boolMercury);
+        gotoSun(boolSun);
     }
+    //auto navigate
+    //EARTH
+    public void gotoEarth(boolean bool){
+        if(bool){
+            float diffX = (float) (loc.x - 437 - 7.5);
+            float diffY = (float) (loc.y - 243 - 7.5);
+            float distance = (float) Math.sqrt((loc.x - 437) * (loc.x - 437) + (loc.y - 243) * (loc.y - 243));
 
+            velX = (float) (diffX * (-1.0/distance));  
+            velY = (float) (diffY * (-1.0/distance));
+            
+            loc.x += (1.5 * velX);
+            loc.y += (1.5 * velY);
+        }    
+    }
+    //MOON
+    public void gotoMoon(boolean bool){
+        if(bool){
+            float diffX = (float) (loc.x - 505 - 7.5);
+            float diffY = (float) (loc.y - 165 - 7.5);
+            float distance = (float) Math.sqrt((loc.x - 505) * (loc.x - 505) + (loc.y - 165) * (loc.y - 165));
+
+            velX = (float) (diffX * (-1.0/distance));  
+            velY = (float) (diffY * (-1.0/distance));
+            
+            loc.x += (1.5 * velX);
+            loc.y += (1.5 * velY);
+        }    
+    }
+    //VENUS
+    public void gotoVenus(boolean bool){
+        if(bool){
+            float diffX = (float) (loc.x - 320 - 7.5);
+            float diffY = (float) (loc.y - 385 - 7.5);
+            float distance = (float) Math.sqrt((loc.x - 320) * (loc.x - 320) + (loc.y - 385) * (loc.y - 385));
+
+            velX = (float) (diffX * (-1.0/distance));  
+            velY = (float) (diffY * (-1.0/distance));
+            
+            loc.x += (1.5 * velX);
+            loc.y += (1.5 * velY);
+        }    
+    }
+    //MERCURY
+    public void gotoMercury(boolean bool){
+        if(bool){
+            float diffX = (float) (loc.x - 204 - 7.5);
+            float diffY = (float) (loc.y - 317 - 7.5);
+            float distance = (float) Math.sqrt((loc.x - 204) * (loc.x - 204) + (loc.y - 317) * (loc.y - 317));
+
+            velX = (float) (diffX * (-1.0/distance));  
+            velY = (float) (diffY * (-1.0/distance));
+            
+            loc.x += (1.5 * velX);
+            loc.y += (1.5 * velY);
+        }    
+    }
+    //SUN
+    public void gotoSun(boolean bool){
+        if(bool){
+            float diffX = (float) (loc.x - 49 - 7.5);
+            float diffY = (float) (loc.y - 261 - 7.5);
+            float distance = (float) Math.sqrt((loc.x - 49) * (loc.x - 49) + (loc.y - 261) * (loc.y - 261));
+
+            velX = (float) (diffX * (-1.0/distance));  
+            velY = (float) (diffY * (-1.0/distance));
+            
+            loc.x += (1.5 * velX);
+            loc.y += (1.5 * velY);
+        }    
+    }
+    
     /**
     * {@inheritDoc}
     */
@@ -189,6 +272,46 @@ public class Shooter extends GameFigure
                 case KeyEvent.VK_DOWN:
                     translate(0, 10);
                     break;
+            }
+            //if(e.getKeyCode() != null){
+                //System.out.println("KEY PRESSED");
+                //boolVenus = true;   
+            //}
+            if(boolEarth == true && e.getKeyCode() == KeyEvent.VK_RIGHT){
+                System.out.println("KEY PRESSED");
+                boolEarth = false;
+                boolMoon = true;
+            }else if(boolMoon == true && e.getKeyCode() == KeyEvent.VK_LEFT){
+                System.out.println("KEY PRESSED");
+                boolMoon = false;
+                boolEarth = true;
+            }else if(boolEarth == true && e.getKeyCode() == KeyEvent.VK_LEFT){
+                System.out.println("KEY PRESSED");
+                boolEarth = false;
+                boolVenus = true;
+            }else if(boolVenus == true && e.getKeyCode() == KeyEvent.VK_LEFT){
+                System.out.println("KEY PRESSED");
+                boolMercury = true;
+                boolVenus = false;
+            }else if(boolMercury == true && e.getKeyCode() == KeyEvent.VK_LEFT){
+                System.out.println("KEY PRESSED");
+                boolMercury = false;
+                boolSun = true;
+            }else if(boolSun == true && e.getKeyCode() == KeyEvent.VK_RIGHT){
+                System.out.println("KEY PRESSED");
+                boolSun = false;
+                boolMercury = true;
+            }else if(boolMercury == true && e.getKeyCode() == KeyEvent.VK_RIGHT){
+                System.out.println("KEY PRESSED");
+                boolMercury = false;
+                boolVenus = true;
+            }else if(boolVenus == true && e.getKeyCode() == KeyEvent.VK_RIGHT){
+                System.out.println("KEY PRESSED");
+                boolSun = false;
+                boolMercury = false;
+                boolVenus = false;
+                boolEarth = true;
+                boolMoon = false;
             }
         
         
