@@ -71,13 +71,6 @@ public class Shooter extends GameFigure
         loc.y = loc.y + dy;
         boundingBox.setLocation(loc);
     }
-    
-    public float getx(){
-        return (float)loc.x;
-    }
-    public float gety(){
-        return (float)loc.y;
-    }
 
     // Missile shoot location: adjut x and y to the image
     public float getXofMissileShoot() {
@@ -124,6 +117,7 @@ public class Shooter extends GameFigure
 
     @Override
     public void update() {
+        boundingBox.setLocation(loc);
         gotoEarth(boolEarth);
         gotoMoon(boolMoon);
         gotoVenus(boolVenus);
@@ -307,11 +301,8 @@ public class Shooter extends GameFigure
                 boolVenus = true;
             }else if(boolVenus == true && e.getKeyCode() == KeyEvent.VK_RIGHT){
                 System.out.println("KEY PRESSED");
-                boolSun = false;
-                boolMercury = false;
                 boolVenus = false;
                 boolEarth = true;
-                boolMoon = false;
             }
         
         
@@ -337,4 +328,5 @@ public class Shooter extends GameFigure
     @Override
     public void mouseMoved(MouseEvent e) {
     }
+
 }

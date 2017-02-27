@@ -27,6 +27,7 @@ public abstract class GameFigure extends RenderableObject
     public abstract int getHealth();
     public abstract void damageFigure();
     
+    //velocity X&Y are used to move the ship in the update function to make the point to point look smooth
     public void setVelX(int velX){
         this.velX = velX;
     }
