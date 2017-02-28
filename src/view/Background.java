@@ -93,10 +93,10 @@ public class Background extends RenderableObject {
             height = (int)viewport.getHeight();
         }
         else if(stretch == Stretch.WORLD){
-            width = (int)Main.gameData.world.getWidth();
-            height = (int)Main.gameData.world.getHeight();
+            width = (int)Main.gameData.world.getWidth()+50;
+            height = (int)Main.gameData.world.getHeight()+50;
             //draw in relation to the viewport
-            x =  (int)boundingBox.getX() - (int)viewport.getX() - 600;
+            x =  (int)boundingBox.getX() - (int)viewport.getX() - 50;
             y =  (int)boundingBox.getY() - (int)viewport.getY();
         }
         else if(stretch == Stretch.NONE){
@@ -104,6 +104,8 @@ public class Background extends RenderableObject {
         }
         
         if(scroll){
+            width+=350;
+            height+=350;
             x += backgroundLocation;
         }
 

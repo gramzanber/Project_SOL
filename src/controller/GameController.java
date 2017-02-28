@@ -47,6 +47,8 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     private GameButton controlsButton;
     private GameButton quitButton;
     
+    private String screen; //keeping track of what screen is being shown. 
+    
     private boolean fullscreen;
     
     Goal goal;
@@ -68,7 +70,9 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         //Initialize the menu background.
         //note that other backgrounds can be created as needed. this is only here
         //because multiple screens use this background and it is animated
-        menuBackground = new Background("/Images/corona_bk.png", Background.Stretch.NONE, true, true);
+        menuBackground = new Background("/Images/corona_bk.png", Background.Stretch.VIEWPORT, true, true);
+        
+        screen = "";
         
         fullscreen = false;
     }
@@ -91,18 +95,35 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         
         //reset viewport
         //Main.gameData.viewport.setLocation(new Point(0,0));
-        resetViewport();
+        //resetViewport();
     }
     
     public void resetViewport(){
         Main.gameData.viewport = new Rectangle(0,Main.gameData.world.height-Main.gamePanel.getHeight(),Main.gamePanel.getWidth(),Main.gamePanel.getHeight());
         Main.animator.init();
+        
+        //reload menu screens because they need to be centered.
+        if(screen.equals("MainMenu")){
+            showMainMenu();
+        }
+        else if(screen == "World"){
+            showWorld();
+        }
+        else if(screen == "Scores"){
+            showScores();
+        }
+        else if(screen == "Controls"){
+            showControls();
+        }
+
     }
     
    /**
    * Clear everything and load the main menu. 
    */
     public void showMainMenu(){
+        screen = "MainMenu";
+        
         //clear all game objects
         clear();
         
@@ -156,6 +177,8 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
    * This is the screen where players select their level.
    */
     public void showWorld(){
+        screen = "World";
+        
         //clear all game objects
         clear();
         
@@ -205,6 +228,8 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
    * Clear everything and load the score screen. 
    */
     public void showScores(){
+        screen = "Scores";
+        
         //clear all game objects
         clear();
         
@@ -250,6 +275,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
    * Clear everything and load the controls screen. 
    */
     public void showControls(){
+        screen = "Controls";
         
         //clear all game objects
         clear();
@@ -303,6 +329,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
    * Clear everything and load the first level
    */
     public void showLevel1(){
+        screen = "Level1";
         
         //clear all game objects
         clear();
@@ -340,15 +367,23 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         Main.gameData.addGameObject(goal);
     }
     public void showLevel2(){
+        screen = "Level2";
+        
         System.out.println("Level 2 under construction");
     }
     public void showLevel3(){
+        screen = "Level3";
+        
         System.out.println("Level 3 under construction");
     }
     public void showLevel4(){
+        screen = "Level4";
+        
         System.out.println("Level 4 under construction");
     }
     public void showLevel5(){
+        screen = "Level5";
+        
         System.out.println("Level 5 under construction");
     }
     

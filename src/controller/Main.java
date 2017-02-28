@@ -66,6 +66,7 @@ public class Main
         //gameData.viewport = new Rectangle(gamePanel.getWidth(),gamePanel.getHeight());
         
         //initially show the main menu screen
+        gameController.resetViewport();
         gameController.showMainMenu();
         
         // Start rendering engine

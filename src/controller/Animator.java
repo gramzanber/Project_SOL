@@ -80,7 +80,14 @@ public class Animator implements Runnable
             
             //to finish up the double buffer process draw the offscreen image to 
             //the panel
-            Main.gamePanel.getGraphics().drawImage(dbImage, 0, 0, Main.gamePanel);
+            //adding try/catch because of null pointer error sometimes when changing window size
+            try{
+                Main.gamePanel.getGraphics().drawImage(dbImage, 0, 0, Main.gamePanel);
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            
             
             //sleep the remaining amount of time based on the FPS
             long endTime = System.currentTimeMillis();
