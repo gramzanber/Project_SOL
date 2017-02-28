@@ -102,17 +102,18 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         Main.gameData.viewport = new Rectangle(0,Main.gameData.world.height-Main.gamePanel.getHeight(),Main.gamePanel.getWidth(),Main.gamePanel.getHeight());
         Main.animator.init();
         
+        System.out.println("Screen: "+screen);
         //reload menu screens because they need to be centered.
         if(screen.equals("MainMenu")){
             showMainMenu();
         }
-        else if(screen == "World"){
+        else if(screen.equals("World")){
             showWorld();
         }
-        else if(screen == "Scores"){
+        else if(screen.equals("Scores")){
             showScores();
         }
-        else if(screen == "Controls"){
+        else if(screen.equals("Controls")){
             showControls();
         }
 
@@ -341,7 +342,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         Main.soundController.menuBGM();
         
         int rightEdge = 0;
-        int groundLevel = Main.gameData.world.height - 150;
+        int groundLevel = Main.gameData.world.height - 100;
         
         //add ground
         Main.gameData.addGameObject(new Block(Block.Style.TRANSPARENT, new Point(0, groundLevel), 99999, 50));

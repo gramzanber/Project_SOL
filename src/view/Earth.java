@@ -19,7 +19,7 @@ public class Earth extends StarMap{
     public Earth(Point loc, int width, int height) {
         //call superclass constructor
         super(loc);
-        this.gameController = new GameController();
+        this.gameController = Main.gameController;
         
         //initialize listeners list
         listeners = new ArrayList();
