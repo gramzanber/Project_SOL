@@ -311,7 +311,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         Main.gameData.gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
         
         //play background music
-        Main.soundController.menuBGM();
+        Main.soundController.earthBGM();
         
         int rightEdge = 0;
         int groundLevel = Main.gameData.world.height - 150;
