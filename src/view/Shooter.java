@@ -23,6 +23,7 @@ public class Shooter extends GameFigure
     private Image launcherImageLeft, launcherImageRight;
     private boolean direction;
     private int health;
+    private float extraSpeed = 2.5f;
 
     public Shooter(Point loc) {
         super(loc);
@@ -91,11 +92,6 @@ public class Shooter extends GameFigure
         }
         return image;
     }
-
-//    @Override
-//    public Rectangle2D getCollisionBox() {
-//        return new Rectangle2D.Double(this.x, this.y, 30.0, 30.0);
-//    }
     
     @Override
     public String getObjectType()
@@ -103,11 +99,6 @@ public class Shooter extends GameFigure
         return "Player";
     }
 
-//    @Override
-//    public int getSize()
-//    {
-//        return 5;
-//    }
 
     @Override
     public int getHealth() { return this.health; }
@@ -125,74 +116,74 @@ public class Shooter extends GameFigure
         gotoSun(boolSun);
     }
     //auto navigate
-    //EARTH
+    //EARTH 
     public void gotoEarth(boolean bool){
         if(bool){
-            float diffX = (float) (loc.x - 437 - 7.5);
-            float diffY = (float) (loc.y - 243 - 7.5);
-            float distance = (float) Math.sqrt((loc.x - 437) * (loc.x - 437) + (loc.y - 243) * (loc.y - 243));
-
+            float diffX = (float) (loc.x - (Main.game.getWidth()/1.65) - 7.5);
+            float diffY = (float) (loc.y - (Main.game.getHeight()/3) - 7.5);
+            float distance = (float) Math.sqrt((loc.x - (Main.game.getWidth()/1.65)) * (loc.x - (Main.game.getWidth()/1.65)) + (loc.y - (Main.game.getHeight()/3)) * (loc.y - (Main.game.getHeight()/3)));
+            //System.out.println(Main.game.getWidth());
             velX = (float) (diffX * (-1.0/distance));  
             velY = (float) (diffY * (-1.0/distance));
             
-            loc.x += (1.5 * velX);
-            loc.y += (1.5 * velY);
+            loc.x += (extraSpeed * velX);
+            loc.y += (extraSpeed * velY);
         }    
     }
-    //MOON
+    //MOON 
     public void gotoMoon(boolean bool){
         if(bool){
-            float diffX = (float) (loc.x - 505 - 7.5);
-            float diffY = (float) (loc.y - 165 - 7.5);
-            float distance = (float) Math.sqrt((loc.x - 505) * (loc.x - 505) + (loc.y - 165) * (loc.y - 165));
-
+            float diffX = (float) (loc.x - (Main.game.getWidth()/1.4) - 7.5);
+            float diffY = (float) (loc.y - (Main.game.getHeight()/4) - 7.5);
+            float distance = (float) Math.sqrt((loc.x - (Main.game.getWidth()/1.4)) * (loc.x - (Main.game.getWidth()/1.4)) + (loc.y - (Main.game.getHeight()/4)) * (loc.y - (Main.game.getHeight()/4)));
+            //System.out.println(Main.game.getWidth());
             velX = (float) (diffX * (-1.0/distance));  
             velY = (float) (diffY * (-1.0/distance));
             
-            loc.x += (1.5 * velX);
-            loc.y += (1.5 * velY);
+            loc.x += (extraSpeed * velX);
+            loc.y += (extraSpeed * velY);
         }    
     }
-    //VENUS
+    //VENUS 
     public void gotoVenus(boolean bool){
         if(bool){
-            float diffX = (float) (loc.x - 320 - 7.5);
-            float diffY = (float) (loc.y - 385 - 7.5);
-            float distance = (float) Math.sqrt((loc.x - 320) * (loc.x - 320) + (loc.y - 385) * (loc.y - 385));
-
+            float diffX = (float) (loc.x - (Main.game.getWidth()/2.3) - 7.5);
+            float diffY = (float) (loc.y - (Main.game.getHeight()/1.65) - 7.5);
+            float distance = (float) Math.sqrt((loc.x - (Main.game.getWidth()/2.3)) * (loc.x - (Main.game.getWidth()/2.3)) + (loc.y - (Main.game.getHeight()/1.65)) * (loc.y - (Main.game.getHeight()/1.65)));
+            //System.out.println(Main.game.getWidth());
             velX = (float) (diffX * (-1.0/distance));  
             velY = (float) (diffY * (-1.0/distance));
             
-            loc.x += (1.5 * velX);
-            loc.y += (1.5 * velY);
+            loc.x += (extraSpeed * velX);
+            loc.y += (extraSpeed * velY);
         }    
     }
-    //MERCURY
+    //MERCURY 
     public void gotoMercury(boolean bool){
         if(bool){
-            float diffX = (float) (loc.x - 204 - 7.5);
-            float diffY = (float) (loc.y - 317 - 7.5);
-            float distance = (float) Math.sqrt((loc.x - 204) * (loc.x - 204) + (loc.y - 317) * (loc.y - 317));
-
+            float diffX = (float) (loc.x - (Main.game.getWidth()/4) - 7.5);
+            float diffY = (float) (loc.y - (Main.game.getHeight()/2) - 7.5);
+            float distance = (float) Math.sqrt((loc.x - (Main.game.getWidth()/4)) * (loc.x - (Main.game.getWidth()/4)) + (loc.y - (Main.game.getHeight()/2)) * (loc.y - (Main.game.getHeight()/2)));
+            //System.out.println(Main.game.getWidth());
             velX = (float) (diffX * (-1.0/distance));  
             velY = (float) (diffY * (-1.0/distance));
             
-            loc.x += (1.5 * velX);
-            loc.y += (1.5 * velY);
+            loc.x += (extraSpeed * velX);
+            loc.y += (extraSpeed * velY);
         }    
     }
     //SUN
     public void gotoSun(boolean bool){
         if(bool){
-            float diffX = (float) (loc.x - 49 - 7.5);
-            float diffY = (float) (loc.y - 261 - 7.5);
-            float distance = (float) Math.sqrt((loc.x - 49) * (loc.x - 49) + (loc.y - 261) * (loc.y - 261));
-
+            float diffX = (float) (loc.x - (Main.game.getWidth()/12) - 7.5);
+            float diffY = (float) (loc.y - (Main.game.getHeight()/2) - 7.5);
+            float distance = (float) Math.sqrt((loc.x - (Main.game.getWidth()/10)) * (loc.x - (Main.game.getWidth()/10)) + (loc.y - (Main.game.getHeight()/2)) * (loc.y - (Main.game.getHeight()/2)));
+            System.out.println(Main.game.getWidth());
             velX = (float) (diffX * (-1.0/distance));  
             velY = (float) (diffY * (-1.0/distance));
             
-            loc.x += (1.5 * velX);
-            loc.y += (1.5 * velY);
+            loc.x += (extraSpeed * velX);
+            loc.y += (extraSpeed * velY);
         }    
     }
     
