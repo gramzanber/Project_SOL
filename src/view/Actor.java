@@ -1,6 +1,7 @@
 package view;
 
 import controller.Main;
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -353,6 +354,19 @@ public abstract class Actor extends RenderableObject {
                 break;
             case KeyEvent.VK_SPACE:
                 spaceKeyDown = true;
+                break;
+            case KeyEvent.VK_C:
+                MenuWindow dialogMenu = new MenuWindow(Main.game, false);
+                int parentX = Main.game.getX();
+                int parentY = Main.game.getY();
+                int parentWidth = Main.game.getWidth();
+                int parentHeight = Main.game.getHeight();
+                dialogMenu.setLocation(parentX + parentWidth/2 - dialogMenu.getWidth()/2, parentY + parentHeight/2 - dialogMenu.getHeight()/2);
+                dialogMenu.getContentPane().setBackground(Color.BLACK);
+                dialogMenu.setResizable(true);
+                dialogMenu.setAlwaysOnTop(true);
+                dialogMenu.setVisible(true);
+                
                 break;
         }
     }
