@@ -1,10 +1,7 @@
 package controller;
 
-import static controller.Main.gamePanel;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -15,7 +12,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import view.Laser;
-import view.Missile;
 import view.Background;
 import view.Block;
 import view.GameButton;
@@ -419,21 +415,6 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     }
 
    /**
-   * A missile to the game object list
-   * 
-   * @param sx The starting x position
-   * @param sy The starting y position
-   * @param px The target x position
-   * @param py The target y position
-   * @param color The color
-   */
-    public void addMissile(float sx, float sy, int px, int py, Color color) {
-        //create object
-        Missile m = new Missile(sx, sy, px, py, color); 
-        Main.gameData.addGameObject(m);
-    }
-   
-   /**
    * A laser to the game object list
    * 
    * @param x The starting x position
@@ -467,6 +448,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         else if(e.getKeyCode() == KeyEvent.VK_0){
             showMainMenu();
         }
+        else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){Main.soundController.pauseSound();}
         else if(e.getKeyCode() == KeyEvent.VK_F11){
             fullscreen = !fullscreen;
             if(fullscreen){

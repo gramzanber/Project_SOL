@@ -20,7 +20,7 @@ import view.Shooter;
 */
 public class GameData{
     
-    public List<RenderableObject> gameObjects; //everything that is rendered is in this list
+    public final List<RenderableObject> gameObjects; //everything that is rendered is in this list
     public Rectangle viewport; //the current location of the viewport
     private Hero hero;
     private Shooter shooter;

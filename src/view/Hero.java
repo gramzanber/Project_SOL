@@ -1,7 +1,6 @@
 package view;
 
 import controller.Main;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -59,18 +58,16 @@ public class Hero extends Actor {
     @Override
     public void mouseClicked(MouseEvent e)
     {
-        int border = 2;
-        int translatedX =  ((int)boundingBox.getX() - (int)viewportMain.getX())-(int)boundingBox.getWidth()-border*2;
-        int translatedY =  ((int)boundingBox.getY() - (int)viewportMain.getY())-(int)boundingBox.getHeight()-border*2;
+        int translatedX =  ((int)boundingBox.getX() - (int)viewportMain.getX())+(int)boundingBox.getWidth();
+        int translatedY =  ((int)boundingBox.getY() - (int)viewportMain.getY())+(int)boundingBox.getHeight()/2;
         if(SwingUtilities.isRightMouseButton(e))
         {
-            Missile m = new Missile((int)boundingBox.getX(), (int)boundingBox.getY());
-            synchronized (Main.gameData.gameObjects) { Main.gameData.addGameObject(m); }
+            System.out.println("Secondary Weapon!");
         }
         else if(SwingUtilities.isLeftMouseButton(e))
         {
             Missile m = new Missile(translatedX, translatedY);
-            System.out.println("X:" + translatedX + " Y:" + translatedY);
+            Main.soundController.primaryWeaponFire();
             synchronized (Main.gameData.gameObjects) { Main.gameData.addGameObject(m); }
         }
         else { System.out.printf("Mouse click error, Package: Controller; Class: view.Hero.java"); }
@@ -89,14 +86,7 @@ public class Hero extends Actor {
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
 
-            //right now just draw a filled rectangle as a placeholder
-            //TODO: implement sprite
             int border = 2;
-            //g2.setColor(Color.GRAY);
-            //g2.fillRect(translatedX, translatedY, (int)boundingBox.getWidth(), (int)boundingBox.getHeight());
-            //g2.setColor(Color.YELLOW);
-            //g2.fillRect(translatedX+border, translatedY+border, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2);
-            
             g2.drawImage(heroImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null); 
         }
     }

@@ -14,11 +14,24 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class SoundController 
 {
     private Clip clip;
+    private boolean paused = false;
     public SoundController(){
         try {
             clip = AudioSystem.getClip();
         } catch (LineUnavailableException ex) {
         }
+    }
+    
+    /**
+    * Method for music toggle - Tyrel Tachibana
+    */
+    public void pauseSound()
+    {
+        if(paused)
+            clip.start();
+        else
+            clip.stop();
+        this.paused = !this.paused;
     }
     
     public void stop(){
@@ -30,13 +43,10 @@ public class SoundController
         try
         {
             File file = new File("src/Sounds/sol-menu2.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            //Clip clip = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
             clip.open(audioIn);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
+            if(paused)clip.stop();
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
         {
@@ -49,14 +59,13 @@ public class SoundController
         try
         {
             File file = new File("src/Sounds/sol-confirm.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            Clip clip1 = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
-            clip1.open(audioIn);
-            clip1.start();
-            //clip.loop(Clip.LOOP_CONTINUOUSLY);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
         {
@@ -69,14 +78,13 @@ public class SoundController
         try
         {
             File file = new File("src/Sounds/sol-deny.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            Clip clip1 = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
-            clip1.open(audioIn);
-            clip1.start();
-            //clip.loop(Clip.LOOP_CONTINUOUSLY);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
         {
@@ -89,13 +97,10 @@ public class SoundController
         try
         {
             File file = new File("src/Sounds/sol-worldmap.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            //clip = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
             clip.open(audioIn);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
+            if(paused)clip.stop();
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
         {
@@ -108,13 +113,10 @@ public class SoundController
         try
         {
             File file = new File("src/Sounds/sol-earthBGM.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            //clip = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
             clip.open(audioIn);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
+            if(paused)clip.stop();
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
         {
@@ -147,14 +149,13 @@ public class SoundController
         try
         {
             File file = new File("src/Sounds/sol-laser.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            Clip clip1 = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
-            clip1.open(audioIn);
-            clip1.start();
-            //clip.loop(Clip.LOOP_CONTINUOUSLY);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
         {
@@ -192,14 +193,13 @@ public class SoundController
         try
         {
             File file = new File("src/Sounds/sol-repurposedFlesh.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            Clip clip1 = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
-            clip1.open(audioIn);
-            clip1.start();
-            //clip.loop(Clip.LOOP_CONTINUOUSLY);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
         {
@@ -212,14 +212,13 @@ public class SoundController
         try
         {
             File file = new File("src/Sounds/sol-harvesterDrone.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            Clip clip1 = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
-            clip1.open(audioIn);
-            clip1.start();
-            //clip.loop(Clip.LOOP_CONTINUOUSLY);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
         {
@@ -232,14 +231,13 @@ public class SoundController
         try
         {
             File file = new File("src/Sounds/sol-assaultCommander.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            Clip clip1 = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
-            clip1.open(audioIn);
-            clip1.start();
-            //clip.loop(Clip.LOOP_CONTINUOUSLY);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
         {
@@ -252,37 +250,17 @@ public class SoundController
         try
         {
             File file = new File("src/Sounds/sol-player.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            Clip clip1 = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
-            clip1.open(audioIn);
-            clip1.start();
-            //clip.loop(Clip.LOOP_CONTINUOUSLY);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
         {
             System.out.printf("Error: %s \n", e.toString());
         }
     }
-    
-    /*public void backgroundMusic()
-    {
-        try
-        {
-            File file = new File("src/Sounds/bgm_hyperspace.wav");
-            //URL url = this.getClass().getClassLoader().getResource("explosion.wav");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            // Get a sound clip resource.
-            Clip clip = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
-            clip.open(audioIn);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-        }
-        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
-        {
-            System.out.printf("Error: %s \n", e.toString());
-        }
-    }*/
 }
