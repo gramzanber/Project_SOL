@@ -192,14 +192,6 @@ public class Shooter extends GameFigure
     */
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(SwingUtilities.isRightMouseButton(e)){
-            int px = e.getX();
-            int py = e.getY();
-            Main.gameController.addMissile(getXofMissileShoot(),getYofMissileShoot(), px, py, Color.RED);
-        }
-        else{
-            Main.gameController.addLaser(getXofMissileShoot(),getYofMissileShoot(), Color.RED, this.getDirection());
-        }
     }
 
     /**
