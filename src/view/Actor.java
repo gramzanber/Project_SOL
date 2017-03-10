@@ -1,5 +1,6 @@
 package view;
 
+import controller.GameController;
 import controller.Main;
 import java.awt.Color;
 import java.awt.Point;
@@ -363,6 +364,7 @@ public abstract class Actor extends RenderableObject {
                 int parentHeight = Main.game.getHeight();
                 dialogMenu.setLocation(parentX + parentWidth/2 - dialogMenu.getWidth()/2, parentY + parentHeight/2 - dialogMenu.getHeight()/2);
                 dialogMenu.getContentPane().setBackground(Color.BLACK);
+                dialogMenu.levellbl.setText(GameController.getScreen());
                 dialogMenu.setResizable(true);
                 dialogMenu.setAlwaysOnTop(true);
                 dialogMenu.setVisible(true);

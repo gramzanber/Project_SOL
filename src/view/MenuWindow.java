@@ -6,7 +6,7 @@
 package view;
 
 import java.awt.Color;
-
+import controller.GameController;
 /**
  *
  * @author alebel
@@ -41,6 +41,7 @@ public class MenuWindow extends javax.swing.JDialog {
         secondWeapLabel = new javax.swing.JLabel();
         okButton = new javax.swing.JButton();
         currLevelLabel = new javax.swing.JLabel();
+        levellbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Character Menu");
@@ -77,6 +78,9 @@ public class MenuWindow extends javax.swing.JDialog {
         currLevelLabel.setForeground(new java.awt.Color(240, 0, 0));
         currLevelLabel.setText("Current Level: ");
 
+        levellbl.setForeground(new java.awt.Color(240, 0, 0));
+        levellbl.setText("Level");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,7 +97,9 @@ public class MenuWindow extends javax.swing.JDialog {
                             .addComponent(info1Label)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(130, 130, 130)
-                        .addComponent(currLevelLabel))
+                        .addComponent(currLevelLabel)
+                        .addGap(56, 56, 56)
+                        .addComponent(levellbl))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(147, 147, 147)
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -103,7 +109,9 @@ public class MenuWindow extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(currLevelLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(currLevelLabel)
+                    .addComponent(levellbl))
                 .addGap(26, 26, 26)
                 .addComponent(info1Label)
                 .addGap(27, 27, 27)
@@ -118,6 +126,8 @@ public class MenuWindow extends javax.swing.JDialog {
                 .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        levellbl.getAccessibleContext().setAccessibleName("levellbl");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -154,7 +164,7 @@ public class MenuWindow extends javax.swing.JDialog {
         }
         //</editor-fold>
            
-        /* Create and display the dialog */
+        /* Create and display the dialog */    
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 MenuWindow dialog = new MenuWindow(new javax.swing.JFrame(), true);
@@ -175,6 +185,7 @@ public class MenuWindow extends javax.swing.JDialog {
     private javax.swing.JLabel info1Label;
     private javax.swing.JLabel info2Label;
     private javax.swing.JLabel info3Label;
+    public javax.swing.JLabel levellbl;
     private javax.swing.JButton okButton;
     private javax.swing.JLabel primWeapLabel;
     private javax.swing.JLabel secondWeapLabel;
