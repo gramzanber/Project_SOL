@@ -43,7 +43,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     private GameButton controlsButton;
     private GameButton quitButton;
     
-    private String screen; //keeping track of what screen is being shown. 
+    private static String screen; //keeping track of what screen is being shown. 
     
     private boolean fullscreen;
     
@@ -100,7 +100,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         
         System.out.println("Screen: "+screen);
         //reload menu screens because they need to be centered.
-        if(screen.equals("MainMenu")){
+        if(screen.equals("Main Menu")){
             showMainMenu();
         }
         else if(screen.equals("World")){
@@ -119,7 +119,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
    * Clear everything and load the main menu. 
    */
     public void showMainMenu(){
-        screen = "MainMenu";
+        screen = "Main Menu";
         
         //clear all game objects
         clear();
@@ -301,6 +301,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 350),"Boost:", font, false));
         Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 375),"Fire Primary Wepon:", font, false));
         Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 400),"Fire Secondary Weapon:", font, false));
+        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 400),"Show Character Menu:", font, false));
 
         Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 225),"Left Arrow / A", font, false));
         Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 250),"Right Arrow / D", font, false));
@@ -310,6 +311,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 350),"Space (while midair)", font, false));
         Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 375),"Left Mouse", font, false));
         Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 400),"Right Mouse", font, false));
+        Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 400),"C", font, false));
         
         //create a new menu object, this is a container that will handle highlighting
         //and adding of buttons to the object list
@@ -326,7 +328,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
    * Clear everything and load the first level
    */
     public void showLevel1(){
-        screen = "Level1";
+        screen = "Level 1";
         
         //clear all game objects
         clear();
@@ -364,22 +366,22 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         Main.gameData.addGameObject(goal);
     }
     public void showLevel2(){
-        screen = "Level2";
+        screen = "Level 2";
         
         System.out.println("Level 2 under construction");
     }
     public void showLevel3(){
-        screen = "Level3";
+        screen = "Level 3";
         
         System.out.println("Level 3 under construction");
     }
     public void showLevel4(){
-        screen = "Level4";
+        screen = "Level 4";
         
         System.out.println("Level 4 under construction");
     }
     public void showLevel5(){
-        screen = "Level5";
+        screen = "Level 5";
         
         System.out.println("Level 5 under construction");
     }
@@ -499,4 +501,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     public void componentHidden(ComponentEvent e) {
     }
     
+    public static String getScreen(){
+        return screen;
+    }
 }
