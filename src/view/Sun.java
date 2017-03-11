@@ -24,7 +24,7 @@ public class Sun extends StarMap{
         listeners = new ArrayList();
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle(1, 70, 100, 450);
+        super.boundingBox = new Rectangle(Main.game.getWidth()/12, Main.game.getHeight()/2, 100, 450);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Sun extends StarMap{
     public void render(Graphics2D g2, Rectangle bounds){
         //Sun
         g2.setColor(Color.GREEN);
-        g2.drawRect(1, 70, 100, 450);
+        //g2.drawRect(1, 70, 100, 450);
     }
 
     @Override

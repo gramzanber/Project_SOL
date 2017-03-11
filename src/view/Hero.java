@@ -1,6 +1,7 @@
 package view;
 
 import controller.Main;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -22,6 +23,9 @@ public class Hero extends Actor {
     
     private Image heroImage;
     private Rectangle viewportMain;
+    private float health = 100;
+    private float greenValue = 255;
+    private int healthPacks =0;
     
     /**
     * Constructor 
@@ -52,6 +56,10 @@ public class Hero extends Actor {
     @Override
     public void update(){
       super.update();
+      //health -= 1;
+      greenValue = health*3;
+      healthBound();     
+      
     }
     
     // Tyrel wrote this method
@@ -89,5 +97,40 @@ public class Hero extends Actor {
             int border = 2;
             g2.drawImage(heroImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null); 
         }
+        float tempHealth = health;
+        if(tempHealth > 100) tempHealth =100;
+
+        g2.setColor(Color.darkGray);
+        g2.fillRect(2,5,(int)(100 * 2.5), 15);
+        g2.setColor(new Color(150,(int)greenValue,0));
+        g2.fillRect(2, 5, (int) (tempHealth * 2.5), 15);
+        g2.setColor(Color.white);
+        g2.drawRect(2,5,(int)(100 *2.5), 15);
+        
+        for(int i=0; i<healthPacks; i++){
+         g2.setColor(Color.red);
+         g2.drawRect(1, 22, 10, 15);
+         if(healthPacks > 1 && i>0){
+             g2.drawRect((2*i)*7, 22, 10, 15);
+         }
+        }
+    }
+
+    private void healthBound() {
+        if(health <=0){
+            health =0;
+        }
+        if(greenValue > 255){
+            greenValue = 255;
+        }
+        
+        healthPacks = (int)health/100;
+    }
+    
+    public float getHealth(){
+        return health;
+    }
+    public void setHealth(float powerUp){
+        this.health += powerUp;
     }
 }

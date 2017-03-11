@@ -3,9 +3,11 @@ package controller;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import model.GameData;
+import view.BufferedImageLoader;
 import view.MainWindow;
 
 
@@ -32,7 +34,7 @@ public class Main
     public static SoundController soundController;//all sounds controlled here
     public static int WIN_WIDTH = 700; //the width of the gui window
     public static int WIN_HEIGHT = 600; //the height of the gui window
-
+    public static BufferedImageLoader bufferedImageLoader;// buffered(simple) image loader
    /**
    * This is the main entry point for the application
    * 
@@ -41,6 +43,7 @@ public class Main
     public static void main(String[] args)
     {
         //initialize all global objects
+        bufferedImageLoader = new BufferedImageLoader();
         animator = new Animator();
         gameController = new GameController();
         gameData = new GameData();

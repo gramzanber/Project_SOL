@@ -1,5 +1,6 @@
 package controller;
 
+import static controller.Main.bufferedImageLoader;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
@@ -10,6 +11,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import view.Laser;
 import view.Background;
@@ -58,6 +60,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     //or we can define the background as a class var and reuse the same one that
     //way switching between menus is smooth.
     private Background menuBackground;
+    private BufferedImage levelTest = bufferedImageLoader.loadImage("/Images/level.png");//loading the level
     
    /**
    * A simple constructor.
@@ -67,7 +70,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         //note that other backgrounds can be created as needed. this is only here
         //because multiple screens use this background and it is animated
         menuBackground = new Background("/Images/corona_bk.png", Background.Stretch.VIEWPORT, true, true);
-        
+        //levelTest = bufferedImageLoader.loadImage("/Images/level.png");//loading the level
         screen = "";
         
         fullscreen = false;
@@ -353,6 +356,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         }
         Main.gameData.addGameObject(new Block(Block.Style.BLUE, new Point(rightEdge+500+150*5 - 150-100-1000, groundLevel-80-80*5),1000, 8));
 
+        //loadImageLevel(levelTest);
         
         //add hero
         Main.gameData.getHero().setLocation(new Point(50, groundLevel-100));
@@ -365,7 +369,8 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     }
     public void showLevel2(){
         screen = "Level2";
-        
+        clear();
+        loadImageLevel(levelTest);
         System.out.println("Level 2 under construction");
     }
     public void showLevel3(){
@@ -445,6 +450,9 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         if(e.getKeyCode() == KeyEvent.VK_1){
             showLevel1();
         }
+        else if(e.getKeyCode() == KeyEvent.VK_2){
+            showLevel2();
+        }
         else if(e.getKeyCode() == KeyEvent.VK_0){
             showMainMenu();
         }
@@ -497,6 +505,37 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
 
     @Override
     public void componentHidden(ComponentEvent e) {
+    }
+    
+    private void loadImageLevel(BufferedImage image){
+        int w = image.getWidth();
+        int h = image.getHeight();
+        
+        System.out.println("W"+w+" "+"H"+h);
+        
+        for(int xx =0; xx< h; xx++){
+            for(int yy=0; yy<w; yy++){
+                int pixel = image.getRGB(xx, yy);
+                int red = (pixel >> 16) & 0xff; //use bit-operator to get pixel color
+                int green=(pixel >> 8) & 0xff;
+                int blue =(pixel)& 0xff;
+                
+                if(red == 255 && green == 255 & blue == 255){
+                    Main.gameData.addGameObject(new Block(Block.Style.BLUE,new Point(xx*32, yy*32),32,32));
+                }
+                else if(blue == 255){
+                    Main.gameData.getHero().setLocation(new Point(xx*32, yy*32));
+                    Main.gameData.addGameObject(Main.gameData.getHero());
+                    //Main.gameData.gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
+                }
+                else if(green == 255){
+                    goal = new Goal(new Point(xx*32,yy*32), 20, 200);
+                    goal.addActionListener(this);
+                    Main.gameData.addGameObject(goal);
+                }
+                     
+            }
+        }
     }
     
 }

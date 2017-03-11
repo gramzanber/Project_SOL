@@ -24,7 +24,7 @@ public class Venus extends StarMap{
         listeners = new ArrayList();
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle(282, 333, 81, 96);
+        super.boundingBox = new Rectangle((int) (Main.game.getWidth()/2.3), (int) (Main.game.getHeight()/1.65), 81, 96);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Venus extends StarMap{
     public void render(Graphics2D g2, Rectangle bounds){
         //Venus
         g2.setColor(Color.WHITE);
-        g2.drawRect(282, 333, 81, 96);
+        //g2.drawRect(282, 333, 81, 96);
     }
 
     @Override
