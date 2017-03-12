@@ -19,7 +19,7 @@ public class Block extends RenderableObject {
     
     
     public enum Style {
-        TRANSPARENT, GROUND, BLUE
+        TRANSPARENT, GROUND, BLUE, SIMPLE
     }
     
     private final Style style;

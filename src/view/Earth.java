@@ -25,7 +25,7 @@ public class Earth extends StarMap{
         listeners = new ArrayList();
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle(385, 175, 112, 130);
+        super.boundingBox = new Rectangle((int) (Main.game.getWidth()/1.65), Main.game.getHeight()/3, 112, 130);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Earth extends StarMap{
     public void render(Graphics2D g2, Rectangle bounds){
         //Earth
         g2.setColor(Color.RED);
-        g2.drawRect(385, 175, 112, 130);
+        //g2.drawRect(385, 175, 112, 130);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class Moon extends StarMap{
         listeners = new ArrayList();
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle(503, 158, 22, 25);
+        super.boundingBox = new Rectangle((int) (Main.game.getWidth()/1.4), Main.game.getHeight()/4, 30, 25);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Moon extends StarMap{
     
         //Moon
         g2.setColor(Color.BLUE);
-        g2.drawRect(503, 158, 22, 25);
+        //g2.drawRect(503, 158, 22, 25);
     }
 
     @Override

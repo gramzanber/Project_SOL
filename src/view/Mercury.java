@@ -24,7 +24,7 @@ public class Mercury extends StarMap{
         listeners = new ArrayList();
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle(170, 279, 70, 78);
+        super.boundingBox = new Rectangle(Main.game.getWidth()/4, Main.game.getHeight()/2, 70, 78);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Mercury extends StarMap{
     public void render(Graphics2D g2, Rectangle bounds){
         //Mercury
         g2.setColor(Color.YELLOW);
-        g2.drawRect(170, 279, 70, 78);
+        //g2.drawRect(170, 279, 70, 78);
     }
 
     @Override

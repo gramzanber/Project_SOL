@@ -1,5 +1,6 @@
 package controller;
 
+import static controller.Main.bufferedImageLoader;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
@@ -10,6 +11,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import view.Laser;
 import view.Background;
@@ -43,7 +45,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     private GameButton controlsButton;
     private GameButton quitButton;
     
-    private static String screen; //keeping track of what screen is being shown. 
+    private String screen; //keeping track of what screen is being shown. 
     
     private boolean fullscreen;
     
@@ -58,6 +60,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     //or we can define the background as a class var and reuse the same one that
     //way switching between menus is smooth.
     private Background menuBackground;
+    private BufferedImage levelTest = bufferedImageLoader.loadImage("/Images/level.png");//loading the level
     
    /**
    * A simple constructor.
@@ -67,7 +70,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         //note that other backgrounds can be created as needed. this is only here
         //because multiple screens use this background and it is animated
         menuBackground = new Background("/Images/corona_bk.png", Background.Stretch.VIEWPORT, true, true);
-        
+        //levelTest = bufferedImageLoader.loadImage("/Images/level.png");//loading the level
         screen = "";
         
         fullscreen = false;
@@ -100,7 +103,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         
         System.out.println("Screen: "+screen);
         //reload menu screens because they need to be centered.
-        if(screen.equals("Main Menu")){
+        if(screen.equals("MainMenu")){
             showMainMenu();
         }
         else if(screen.equals("World")){
@@ -119,7 +122,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
    * Clear everything and load the main menu. 
    */
     public void showMainMenu(){
-        screen = "Main Menu";
+        screen = "MainMenu";
         
         //clear all game objects
         clear();
@@ -301,7 +304,6 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 350),"Boost:", font, false));
         Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 375),"Fire Primary Wepon:", font, false));
         Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 400),"Fire Secondary Weapon:", font, false));
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 400),"Show Character Menu:", font, false));
 
         Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 225),"Left Arrow / A", font, false));
         Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 250),"Right Arrow / D", font, false));
@@ -311,7 +313,6 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 350),"Space (while midair)", font, false));
         Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 375),"Left Mouse", font, false));
         Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 400),"Right Mouse", font, false));
-        Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 400),"C", font, false));
         
         //create a new menu object, this is a container that will handle highlighting
         //and adding of buttons to the object list
@@ -328,7 +329,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
    * Clear everything and load the first level
    */
     public void showLevel1(){
-        screen = "Level 1";
+        screen = "Level1";
         
         //clear all game objects
         clear();
@@ -355,6 +356,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         }
         Main.gameData.addGameObject(new Block(Block.Style.BLUE, new Point(rightEdge+500+150*5 - 150-100-1000, groundLevel-80-80*5),1000, 8));
 
+        //loadImageLevel(levelTest);
         
         //add hero
         Main.gameData.getHero().setLocation(new Point(50, groundLevel-100));
@@ -366,22 +368,23 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         Main.gameData.addGameObject(goal);
     }
     public void showLevel2(){
-        screen = "Level 2";
-        
+        screen = "Level2";
+        clear();
+        loadImageLevel(levelTest);
         System.out.println("Level 2 under construction");
     }
     public void showLevel3(){
-        screen = "Level 3";
+        screen = "Level3";
         
         System.out.println("Level 3 under construction");
     }
     public void showLevel4(){
-        screen = "Level 4";
+        screen = "Level4";
         
         System.out.println("Level 4 under construction");
     }
     public void showLevel5(){
-        screen = "Level 5";
+        screen = "Level5";
         
         System.out.println("Level 5 under construction");
     }
@@ -447,6 +450,9 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         if(e.getKeyCode() == KeyEvent.VK_1){
             showLevel1();
         }
+        else if(e.getKeyCode() == KeyEvent.VK_2){
+            showLevel2();
+        }
         else if(e.getKeyCode() == KeyEvent.VK_0){
             showMainMenu();
         }
@@ -501,7 +507,35 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     public void componentHidden(ComponentEvent e) {
     }
     
-    public static String getScreen(){
-        return screen;
+    private void loadImageLevel(BufferedImage image){
+        int w = image.getWidth();
+        int h = image.getHeight();
+        
+        System.out.println("W"+w+" "+"H"+h);
+        
+        for(int xx =0; xx< h; xx++){
+            for(int yy=0; yy<w; yy++){
+                int pixel = image.getRGB(xx, yy);
+                int red = (pixel >> 16) & 0xff; //use bit-operator to get pixel color
+                int green=(pixel >> 8) & 0xff;
+                int blue =(pixel)& 0xff;
+                
+                if(red == 255 && green == 255 & blue == 255){
+                    Main.gameData.addGameObject(new Block(Block.Style.BLUE,new Point(xx*32, yy*32),32,32));
+                }
+                else if(blue == 255){
+                    Main.gameData.getHero().setLocation(new Point(xx*32, yy*32));
+                    Main.gameData.addGameObject(Main.gameData.getHero());
+                    //Main.gameData.gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
+                }
+                else if(green == 255){
+                    goal = new Goal(new Point(xx*32,yy*32), 20, 200);
+                    goal.addActionListener(this);
+                    Main.gameData.addGameObject(goal);
+                }
+                     
+            }
+        }
     }
+    
 }
