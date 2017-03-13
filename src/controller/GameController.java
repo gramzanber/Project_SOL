@@ -45,7 +45,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     private GameButton controlsButton;
     private GameButton quitButton;
     
-    private String screen; //keeping track of what screen is being shown. 
+    private static String screen; //keeping track of what screen is being shown. 
     
     private boolean fullscreen;
     
@@ -536,6 +536,11 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                      
             }
         }
+    }
+    
+    
+    public static String getScreen(){
+        return screen;
     }
     
 }
