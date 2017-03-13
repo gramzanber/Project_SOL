@@ -533,7 +533,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 Point tileLoc = new Point(x*Tile.TILESIZE, y*Tile.TILESIZE);
                 
                 
-                //position the here on the blue pixal
+                //position the hero on the blue pixal
                 if(red == 0 && green == 0 && blue == 255){
                     Main.gameData.getHero().setLocation(tileLoc);
                     Main.gameData.addGameObject(Main.gameData.getHero());
