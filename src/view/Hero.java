@@ -34,16 +34,16 @@ public class Hero extends Actor {
     * @param width
     * @param height
     */
-    public Hero(Point loc, int width, int height) {
+    public Hero(Point loc) {
         //call superclass constructor
         super(loc);
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle(loc.x, loc.y, width, height);
+        super.boundingBox = new Rectangle(loc.x, loc.y, 32, 83);
         
         heroImage = null;
         try {
-            heroImage = ImageIO.read(getClass().getResource("/Images/robot_9_right-psd.png"));
+            heroImage = ImageIO.read(getClass().getResource("/Images/robot_9_right-psd_32x83.png"));
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error: Cannot open hero.png");
             System.exit(-1);

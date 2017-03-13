@@ -129,7 +129,7 @@ public abstract class Actor extends RenderableObject {
                 }
                 else{
                     //in air you move slower and dont accelerate
-                    leftForce += 2;
+                    leftForce += 5;
                 }
             }
         }
@@ -145,7 +145,7 @@ public abstract class Actor extends RenderableObject {
                 }
                 else {
                     //in air you move slower and dont accelerate
-                    rightForce += 2;
+                    rightForce += 5;
                 }
             }
         }
@@ -154,7 +154,7 @@ public abstract class Actor extends RenderableObject {
         if(spaceKeyDown){
             //can only jump if you are standing on the ground, can't fly lol
             if(!canMove(DIRECTION.DOWN) && canMove(DIRECTION.UP)){
-                upForce += 300; //jump height
+                upForce += 450; //jump height
                 spaceKeyDown = false; //only jump once per key down event
             }
         }
@@ -176,7 +176,7 @@ public abstract class Actor extends RenderableObject {
         }
         
         //now I need to set some maximum speeds and make sure force isnt out of controll
-        upForce = Math.min(upForce, 300);
+        upForce = Math.min(upForce, 600);
         downForce = Math.min(downForce, 200);
         leftForce = Math.min(leftForce, 50);
         rightForce = Math.min(rightForce, 50);

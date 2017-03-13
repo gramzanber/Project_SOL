@@ -24,6 +24,7 @@ import view.Mercury;
 import view.Moon;
 import view.Sun;
 import view.Text;
+import view.Tile;
 import view.Venus;
 
 /**
@@ -98,7 +99,8 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     }
     
     public void resetViewport(){
-        Main.gameData.viewport = new Rectangle(0,Main.gameData.world.height-Main.gamePanel.getHeight(),Main.gamePanel.getWidth(),Main.gamePanel.getHeight());
+        //Main.gameData.viewport = new Rectangle(0,Main.gameData.world.height-Main.gamePanel.getHeight(),Main.gamePanel.getWidth(),Main.gamePanel.getHeight());
+        Main.gameData.viewport = new Rectangle(0,0,Main.gamePanel.getWidth(),Main.gamePanel.getHeight());
         Main.animator.init();
         
         System.out.println("Screen: "+screen);
@@ -340,32 +342,37 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         //play background music
         Main.soundController.earthBGM();
         
-        int rightEdge = 0;
-        int groundLevel = Main.gameData.world.height - 100;
+        //loading the level
+        BufferedImage levelMap = bufferedImageLoader.loadImage("/Images/level1_map.png");
         
-        //add ground
-        Main.gameData.addGameObject(new Block(Block.Style.TRANSPARENT, new Point(0, groundLevel), 99999, 50));
-
-        //add left edge
-        Main.gameData.addGameObject(new Block(Block.Style.TRANSPARENT, new Point(0, 0), 50, Main.gameData.world.height));
+        loadImageLevel(levelMap);
         
-
-        //stairs
-        for(int i=0; i<11; i++){
-            Main.gameData.addGameObject(new Block(Block.Style.BLUE, new Point(rightEdge+500+150*i, groundLevel-80-80*i), 150, 8));
-        }
-        Main.gameData.addGameObject(new Block(Block.Style.BLUE, new Point(rightEdge+500+150*5 - 150-100-1000, groundLevel-80-80*5),1000, 8));
-
-        //loadImageLevel(levelTest);
-        
-        //add hero
-        Main.gameData.getHero().setLocation(new Point(50, groundLevel-100));
-        Main.gameData.addGameObject(Main.gameData.getHero());
-        
-        //add goal
-        goal = new Goal(new Point(1000,groundLevel-200), 20, 200);
-        goal.addActionListener(this);
-        Main.gameData.addGameObject(goal);
+//        int rightEdge = 0;
+//        int groundLevel = Main.gameData.world.height - 100;
+//        
+//        //add ground
+//        Main.gameData.addGameObject(new Block(Block.Style.TRANSPARENT, new Point(0, groundLevel), 99999, 50));
+//
+//        //add left edge
+//        Main.gameData.addGameObject(new Block(Block.Style.TRANSPARENT, new Point(0, 0), 50, Main.gameData.world.height));
+//        
+//
+//        //stairs
+//        for(int i=0; i<11; i++){
+//            Main.gameData.addGameObject(new Block(Block.Style.BLUE, new Point(rightEdge+500+150*i, groundLevel-80-80*i), 150, 8));
+//        }
+//        Main.gameData.addGameObject(new Block(Block.Style.BLUE, new Point(rightEdge+500+150*5 - 150-100-1000, groundLevel-80-80*5),1000, 8));
+//
+//        //loadImageLevel(levelTest);
+//        
+//        //add hero
+//        Main.gameData.getHero().setLocation(new Point(50, groundLevel-100));
+//        Main.gameData.addGameObject(Main.gameData.getHero());
+//        
+//        //add goal
+//        goal = new Goal(new Point(1000,groundLevel-200), 20, 200);
+//        goal.addActionListener(this);
+//        Main.gameData.addGameObject(goal);
     }
     public void showLevel2(){
         screen = "Level2";
@@ -511,29 +518,74 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         int w = image.getWidth();
         int h = image.getHeight();
         
-        System.out.println("W"+w+" "+"H"+h);
-        
-        for(int xx =0; xx< h; xx++){
-            for(int yy=0; yy<w; yy++){
-                int pixel = image.getRGB(xx, yy);
-                int red = (pixel >> 16) & 0xff; //use bit-operator to get pixel color
+        //loop over every pixal from left to right, top to bottom
+        for(int x =0; x< w; x++){
+            for(int y=0; y<h; y++){
+                
+                //use bit-operator to get pixel color
+                int pixel = image.getRGB(x, y);
+                int red = (pixel >> 16) & 0xff; 
                 int green=(pixel >> 8) & 0xff;
                 int blue =(pixel)& 0xff;
                 
-                if(red == 255 && green == 255 & blue == 255){
-                    Main.gameData.addGameObject(new Block(Block.Style.BLUE,new Point(xx*32, yy*32),32,32));
-                }
-                else if(blue == 255){
-                    Main.gameData.getHero().setLocation(new Point(xx*32, yy*32));
+                //the translated location
+                Point tileLoc = new Point(x*Tile.TILESIZE, y*Tile.TILESIZE);
+                
+                
+                //position the here on the blue pixal
+                if(red == 0 && green == 0 && blue == 255){
+                    Main.gameData.getHero().setLocation(tileLoc);
                     Main.gameData.addGameObject(Main.gameData.getHero());
-                    //Main.gameData.gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
                 }
-                else if(green == 255){
-                    goal = new Goal(new Point(xx*32,yy*32), 20, 200);
+                
+                //position goal on green pixal
+                //TODO: this goes away after we implement the boss right?
+                else if(red == 0 && green == 255 && blue == 0){
+                    goal = new Goal(tileLoc, 20, 200);
                     goal.addActionListener(this);
                     Main.gameData.addGameObject(goal);
                 }
-                     
+
+                //border
+                //white pixal
+                else if(red == 255 && green == 255 && blue == 255){
+                    Tile tile = new Tile(tileLoc); //Create tile object
+                    Main.gameData.addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(3, 0); //brown block looks like dirt
+                    tile.setSolid(true);
+                }
+                
+                //platform
+                //Rose color pixal
+                if(red == 255 && green == 128 && blue == 128){
+                    Tile tile = new Tile(tileLoc); //Create tile object
+                    Main.gameData.addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(7, 8); //green platform center
+                    tile.setTrim(1); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }
+
+                //platform left end
+                //Rose color pixal
+                if(red == 254 && green == 128 && blue == 128){
+                    Tile tile = new Tile(tileLoc); //Create tile object
+                    Main.gameData.addGameObject(tile); //Add tile to game object array
+                    
+                    tile.setSprite(8, 9); //green platform left
+                    tile.setTrim(1); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }
+                
+                //platform right end
+                //Rose color pixal
+                if(red == 253 && green == 128 && blue == 128){
+                    Tile tile = new Tile(tileLoc); //Create tile object
+                    Main.gameData.addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(8, 7); //green platform right
+                    tile.setTrim(1); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }
+                
             }
         }
     }

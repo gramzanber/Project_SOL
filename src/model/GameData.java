@@ -32,7 +32,7 @@ public class GameData{
     public GameData(){
         //initialize the game objects list
         gameObjects = Collections.synchronizedList(new ArrayList<RenderableObject>());
-        hero = new Hero(new Point(50, Main.WIN_HEIGHT-500), 50, 100);
+        hero = new Hero(new Point(50, Main.WIN_HEIGHT-500));
         shooter = new Shooter(new Point(50, Main.WIN_HEIGHT - 500));
         world = new Rectangle(0,0,2048, 1536);
     }

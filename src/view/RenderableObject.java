@@ -69,4 +69,8 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
     public boolean isSolid(){
         return solid;
     }
+    public void setSolid(boolean solid){
+        this.solid = solid;
+    }
+    
 }
