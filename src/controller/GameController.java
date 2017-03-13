@@ -19,6 +19,7 @@ import view.Block;
 import view.GameButton;
 import view.Goal;
 import view.Earth;
+import view.Gold;
 import view.Menu;
 import view.Mercury;
 import view.Moon;
@@ -584,6 +585,15 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     tile.setSprite(8, 7); //green platform right
                     tile.setTrim(1); //over size the tile to hide the gap
                     tile.setSolid(true);
+                }
+                
+                
+                //gold coin
+                //yellow color pixal
+                if(red == 255 && green == 242 && blue == 0){
+                    Tile tile = new Gold(tileLoc); //Create tile object
+                    Main.gameData.addGameObject(tile); //Add tile to game object array
+
                 }
                 
             }
