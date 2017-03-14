@@ -52,6 +52,8 @@ public abstract class Actor extends RenderableObject {
         leftKeyDown = false;
         rightKeyDown = false;
         spaceKeyDown = false;
+        
+        
     }
     
     
@@ -97,7 +99,10 @@ public abstract class Actor extends RenderableObject {
     * This method clears all force and resets the object to defaults.
     * Its useful when the same objects are reused in different levels such as the hero.
     */
+    @Override
     public void clear(){
+        super.clear();
+        
         //clear force on object
         upForce = 0;
         downForce = 0;
