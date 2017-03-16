@@ -126,6 +126,7 @@ public abstract class Actor extends RenderableObject {
                 if(!canMove(DIRECTION.DOWN)){
                     //acceleration is the sqrt of the current force
                     leftForce += 3+Math.sqrt(leftForce);
+                    Main.soundController.playerMove();
                 }
                 else{
                     //in air you move slower and dont accelerate
@@ -142,6 +143,7 @@ public abstract class Actor extends RenderableObject {
                 if(!canMove(DIRECTION.DOWN)){
                     //acceleration is the sqrt of the current force
                     rightForce += 3+Math.sqrt(rightForce);
+                    Main.soundController.playerMove();
                 }
                 else {
                     //in air you move slower and dont accelerate

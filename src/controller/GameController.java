@@ -30,7 +30,7 @@ import view.Venus;
 
 /**
 * The GameController class is responsible for making changes to the GameModel.
-* This is whare the logic goes for handling user interaction with the game.
+* This is where the logic goes for handling user interaction with the game.
 * Any new objects are created here.
 * Levels and menus are loaded here
 * 
