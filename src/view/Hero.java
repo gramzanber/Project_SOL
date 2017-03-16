@@ -23,7 +23,8 @@ public class Hero extends Actor {
     
     private Image heroImage;
     private Rectangle viewportMain;
-    private float health = 100;
+    private float health = 400;
+    private float displayHealth =100;
     private float greenValue = 255;
     private int healthPacks =0;
     
@@ -56,8 +57,6 @@ public class Hero extends Actor {
     @Override
     public void update(){
       super.update();
-      //health -= 1;
-      greenValue = health*3;
       healthBound();     
       
     }
@@ -97,7 +96,7 @@ public class Hero extends Actor {
             int border = 2;
             g2.drawImage(heroImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null); 
         }
-        float tempHealth = health;
+        float tempHealth = displayHealth;
         if(tempHealth > 100) tempHealth =100;
 
         g2.setColor(Color.darkGray);
@@ -107,16 +106,29 @@ public class Hero extends Actor {
         g2.setColor(Color.white);
         g2.drawRect(2,5,(int)(100 *2.5), 15);
         
-        for(int i=0; i<healthPacks; i++){
-         g2.setColor(Color.red);
-         g2.drawRect(1, 22, 10, 15);
+        for(int i=0; i<healthPacks-1; i++){
+         //g2.setColor(Color.red);
+         g2.setColor(new Color(150,(int)greenValue,0)); //the rectangles below the health bar have same color as health bar
+         g2.fillRect(1, 22, 10, 15);
          if(healthPacks > 1 && i>0){
-             g2.drawRect((2*i)*7, 22, 10, 15);
+             g2.fillRect((2*i)*7, 22, 10, 15);
          }
         }
     }
 
     private void healthBound() {
+        //the health is depleated constatntly but just as a demo. will be changed when there are enemies in the game
+        if(displayHealth > 100){
+            displayHealth = 100;
+        }
+        if(displayHealth > 0){
+            displayHealth -=1;
+        }else if(displayHealth <=0 && health>0){
+            health -= 100;
+            displayHealth = health;
+        }
+        System.out.println("Display::"+displayHealth+" :: Health::"+health);
+        greenValue = displayHealth*3;
         if(health <=0){
             health =0;
         }
@@ -128,9 +140,10 @@ public class Hero extends Actor {
     }
     
     public float getHealth(){
-        return health;
+        return displayHealth;
     }
     public void setHealth(float powerUp){
+        this.displayHealth += powerUp;
         this.health += powerUp;
     }
 }
