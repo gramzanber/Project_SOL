@@ -14,30 +14,62 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class SoundController 
 {
     private Clip clip;
+    private Clip playerWalkClip;
+    private Clip smallEnemyWalkClip;
+    private Clip mediumEnemyWalkClip;
+    private Clip largeEnemyWalkClip;
     private boolean paused = false;
+    
     public SoundController(){
         try {
             clip = AudioSystem.getClip();
+            playerWalkClip = AudioSystem.getClip();
+            smallEnemyWalkClip = AudioSystem.getClip();
+            mediumEnemyWalkClip = AudioSystem.getClip();
+            largeEnemyWalkClip = AudioSystem.getClip();
         } catch (LineUnavailableException ex) {
         }
     }
     
     /**
     * Method for music toggle - Tyrel Tachibana
+    * updated by Cameron Droke
     */
     public void pauseSound()
     {
         if(paused)
+        {
             clip.start();
+            playerWalkClip.start();
+            smallEnemyWalkClip.start();
+            mediumEnemyWalkClip.start();
+            largeEnemyWalkClip.start();
+        }
         else
+        {
             clip.stop();
+            playerWalkClip.stop();
+            smallEnemyWalkClip.stop();
+            mediumEnemyWalkClip.stop();
+            largeEnemyWalkClip.stop();
+        }
         this.paused = !this.paused;
     }
     
     public void stop(){
         clip.stop();
+        playerWalkClip.stop();
+        smallEnemyWalkClip.stop();
+        mediumEnemyWalkClip.stop();
+        largeEnemyWalkClip.stop();
+        
         clip.close();
+        playerWalkClip.close();
+        smallEnemyWalkClip.close();
+        mediumEnemyWalkClip.close();
+        largeEnemyWalkClip.close();
     }
+    
     public void menuBGM()
     {
         try
@@ -144,6 +176,22 @@ public class SoundController
         
     }
     
+    public void bossBGM()
+    {
+        try
+        {
+            File file = new File("src/Sounds/sol-bossBGM.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            clip.open(audioIn);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            if(paused)clip.stop();
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }
+    
     public void primaryWeaponFire()
     {
         try
@@ -188,17 +236,49 @@ public class SoundController
         
     }
     
-    public void repurposedFleshMove()
+    public void coinPickUp()
     {
         try
         {
-            File file = new File("src/Sounds/sol-repurposedFlesh.wav");
+            File file = new File("src/Sounds/sol-coin.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
             Clip clipNew = AudioSystem.getClip();
             if(!paused)
             {
                 clipNew.open(audioIn);
                 clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }
+    
+    public void repurposedFleshMove()
+    {
+        try
+        {
+            File file = new File("src/Sounds/sol-repurposedFlesh.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            if(!paused)
+            {
+                // If clip is not already running and has not been opened yet,
+                // open the clip and start play. Else reset the clip to play
+                // from the beginning then play.
+                if(!smallEnemyWalkClip.isRunning())
+                {
+                    if(!smallEnemyWalkClip.isOpen())
+                    {
+                        smallEnemyWalkClip.open(audioIn);
+                        smallEnemyWalkClip.start();
+                    }
+                    else
+                    {
+                        smallEnemyWalkClip.setFramePosition(0);
+                        smallEnemyWalkClip.start();
+                    }
+                }
             }
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
@@ -213,11 +293,24 @@ public class SoundController
         {
             File file = new File("src/Sounds/sol-harvesterDrone.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            Clip clipNew = AudioSystem.getClip();
             if(!paused)
             {
-                clipNew.open(audioIn);
-                clipNew.start();
+                // If clip is not already running and has not been opened yet,
+                // open the clip and start play. Else reset the clip to play
+                // from the beginning then play.
+                if(!mediumEnemyWalkClip.isRunning())
+                {
+                    if(!mediumEnemyWalkClip.isOpen())
+                    {
+                        mediumEnemyWalkClip.open(audioIn);
+                        mediumEnemyWalkClip.start();
+                    }
+                    else
+                    {
+                        mediumEnemyWalkClip.setFramePosition(0);
+                        mediumEnemyWalkClip.start();
+                    }
+                }
             }
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
@@ -232,11 +325,24 @@ public class SoundController
         {
             File file = new File("src/Sounds/sol-assaultCommander.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            Clip clipNew = AudioSystem.getClip();
             if(!paused)
             {
-                clipNew.open(audioIn);
-                clipNew.start();
+                // If clip is not already running and has not been opened yet,
+                // open the clip and start play. Else reset the clip to play
+                // from the beginning then play.
+                if(!largeEnemyWalkClip.isRunning())
+                {
+                    if(!largeEnemyWalkClip.isOpen())
+                    {
+                        largeEnemyWalkClip.open(audioIn);
+                        largeEnemyWalkClip.start();
+                    }
+                    else
+                    {
+                        largeEnemyWalkClip.setFramePosition(0);
+                        largeEnemyWalkClip.start();
+                    }
+                }
             }
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
@@ -251,11 +357,25 @@ public class SoundController
         {
             File file = new File("src/Sounds/sol-player.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            Clip clipNew = AudioSystem.getClip();
             if(!paused)
             {
-                clipNew.open(audioIn);
-                clipNew.start();
+                // If clip is not already running and has not been opened yet,
+                // open the clip and start play. Else reset the clip to play
+                // from the beginning then play.
+                if(!playerWalkClip.isRunning())
+                {
+                    if(!playerWalkClip.isOpen())
+                    {
+                        playerWalkClip.open(audioIn);
+                        playerWalkClip.start();
+                    }
+                    else
+                    {
+                        //playerWalkClip.stop();
+                        playerWalkClip.setFramePosition(0);
+                        playerWalkClip.start();
+                    }
+                }
             }
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 

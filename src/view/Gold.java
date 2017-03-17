@@ -70,6 +70,7 @@ public class Gold extends Tile {
         
         if(Main.gameData.getHero().getBoundingBox().intersects(boundingBox)){
             System.out.println("collected gold!");
+            Main.soundController.coinPickUp();
             
             this.clear();
             Main.gameData.gameObjects.remove(this);
