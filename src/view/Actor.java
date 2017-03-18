@@ -2,6 +2,8 @@ package view;
 
 import controller.GameController;
 import controller.Main;
+import controller.PhysicsController;
+import controller.PhysicsController.DIRECTION;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -19,15 +21,12 @@ import java.awt.event.MouseEvent;
 public abstract class Actor extends RenderableObject {
 
     //directions that this object can be moved
-    public enum DIRECTION {
-        LEFT, RIGHT, UP, DOWN
-    }
+//    public enum DIRECTION {
+//        LEFT, RIGHT, UP, DOWN
+//    }
     
-    private int upForce; //the amount of upwards force on the object
-    private int downForce; //the amount of downwards force on the object
-    private int leftForce; //the amount of left force on the object
-    private int rightForce; //the amount of right force on the object
-
+    private PhysicsController pyc;
+    
     //which keys are currently being pressed, when pressed we add movement
     private boolean leftKeyDown;
     private boolean rightKeyDown;
@@ -42,58 +41,16 @@ public abstract class Actor extends RenderableObject {
         //call superclass constructor
         super(loc);
         
-        //initialize force variables
-        upForce = 0;
-        downForce = 0;
-        leftForce = 0;
-        rightForce = 0;
+        pyc = new PhysicsController(this);
+        
 
         //no keys start out pressed pressed
         leftKeyDown = false;
         rightKeyDown = false;
         spaceKeyDown = false;
         
-        
     }
     
-    
-    /**
-    * This method checks if the object can move in any given direction 
-    * 
-    * @param direction The direction to check
-    */
-    private boolean canMove(DIRECTION direction){
-        
-        //basically I create a new boundingBox object and move it to the new location
-        //then I check collision on the test bounding box to see if the movement would have
-        //been possible. if no collision then we can return true
-        Rectangle testRect = (Rectangle)boundingBox.clone();
-        
-        if(null != direction) //because the collision detection will also check edges I am cheating
-        //by making the testRect a pixal smaller on the edges that im not testing.
-        //this way you can still move up even if youre standing next to a wall.
-        switch (direction) {
-            case UP:
-                testRect.setSize(boundingBox.width-2, boundingBox.height);
-                testRect.setLocation(new Point(boundingBox.x+1, boundingBox.y - 1));
-                break;
-            case DOWN:
-                testRect.setSize(boundingBox.width-2, boundingBox.height);
-                testRect.setLocation(new Point(boundingBox.x+1, boundingBox.y + 1));
-                break;
-            case LEFT:
-                testRect.setSize(boundingBox.width, boundingBox.height-2);
-                testRect.setLocation(new Point(boundingBox.x - 1, boundingBox.y+1));
-                break;
-            case RIGHT:
-                testRect.setSize(boundingBox.width, boundingBox.height-2);
-                testRect.setLocation(new Point(boundingBox.x + 1, boundingBox.y+1));
-                break;
-        }
-        
-        //check collision and return
-        return !Main.gameData.checkCollision(testRect, this);
-    }
     
     /**
     * This method clears all force and resets the object to defaults.
@@ -103,11 +60,8 @@ public abstract class Actor extends RenderableObject {
     public void clear(){
         super.clear();
         
-        //clear force on object
-        upForce = 0;
-        downForce = 0;
-        leftForce = 0;
-        rightForce = 0;
+        pyc.clear();
+        
     }
     
     
@@ -119,23 +73,19 @@ public abstract class Actor extends RenderableObject {
     @Override
     public void update(){
 
-        //Add gravity effect by applying downward force at each update
-        if(canMove(DIRECTION.DOWN)){
-            downForce += 5; //gravity
-        }
-        
         //if the left key is down add some left force
         if(leftKeyDown){
-            if(canMove(DIRECTION.LEFT)){
+            if(pyc.canMove(DIRECTION.LEFT)){
                 //if you're standing on the ground you can run faster and accelerate
-                if(!canMove(DIRECTION.DOWN)){
+                if(!pyc.canMove(DIRECTION.DOWN)){
                     //acceleration is the sqrt of the current force
-                    leftForce += 3+Math.sqrt(leftForce);
+                    //leftForce += 3+Math.sqrt(leftForce);
+                    pyc.addForce(PhysicsController.DIRECTION.LEFT, 3);
                     Main.soundController.playerMove();
                 }
                 else{
                     //in air you move slower and dont accelerate
-                    leftForce += 5;
+                    pyc.addForce(PhysicsController.DIRECTION.LEFT, 5);
                 }
             }
         }
@@ -143,94 +93,61 @@ public abstract class Actor extends RenderableObject {
         //if the right key is down add some right force
         if(rightKeyDown){
             
-            if(canMove(DIRECTION.RIGHT)){
+            if(pyc.canMove(DIRECTION.RIGHT)){
                 //if you're standing on the ground you can run faster and accelerate
-                if(!canMove(DIRECTION.DOWN)){
+                if(!pyc.canMove(DIRECTION.DOWN)){
                     //acceleration is the sqrt of the current force
-                    rightForce += 3+Math.sqrt(rightForce);
+                    //rightForce += 3+Math.sqrt(rightForce);
+                    pyc.addForce(PhysicsController.DIRECTION.RIGHT, 3);
                     Main.soundController.playerMove();
                 }
                 else {
                     //in air you move slower and dont accelerate
-                    rightForce += 5;
+                    //rightForce += 5;
+                    pyc.addForce(PhysicsController.DIRECTION.RIGHT, 5);
                 }
             }
         }
         
-        //if the space key is down add som upward force to jump
+        //if the space key is down add some upward force to jump
         if(spaceKeyDown){
             //can only jump if you are standing on the ground, can't fly lol
-            if(!canMove(DIRECTION.DOWN) && canMove(DIRECTION.UP)){
-                upForce += 450; //jump height
+            if(!pyc.canMove(DIRECTION.DOWN) && pyc.canMove(DIRECTION.UP)){
+                //upForce += 450; //jump height
+                pyc.addForce(PhysicsController.DIRECTION.UP, 450);
                 spaceKeyDown = false; //only jump once per key down event
             }
         }
 
-        //just like in the real world two opposite forces cancel out eachother
-        //here I resolve all of that.
-        //exampe if you move left and right at the same time you shouldnt move
-        if(upForce > downForce){
-            upForce -= downForce;
-        }
-        else if(downForce > upForce){
-            downForce -= upForce;
-        }
-        if(leftForce > rightForce){
-            leftForce -= rightForce;
-        }
-        else if(rightForce > leftForce){
-            rightForce -= leftForce;
-        }
+        //update physics controller
+        pyc.update();
+       
+        //get translation from physics controller
+        Point p = pyc.getNextTranslation();
         
-        //now I need to set some maximum speeds and make sure force isnt out of controll
-        upForce = Math.min(upForce, 600);
-        downForce = Math.min(downForce, 200);
-        leftForce = Math.min(leftForce, 50);
-        rightForce = Math.min(rightForce, 50);
-        
-        
-        //now to actually apply the force
-        //the step is how many pixals to move at one time and increases as the force grows
-        //this means that if you apply a ton of force to the object it will move faster
-        //a little force will move slower
-        int step; //step
-        
-        //move up
-        if(upForce > 0){
-            step = (int)(Math.sqrt(upForce));
-            for(int i=0; i<step; i++){
-                translate(0, -1);
-            }
-            upForce -= step;
-        }
-        
-        //move down
-        if(downForce > 0){
-            step = (int)(Math.sqrt(downForce));
-            for(int i=0; i<step; i++){
-                translate(0, 1);
-            }
-            downForce -= step;
-        }
-        
-        //move left
-        if(leftForce > 0){
-            step = (int)(Math.sqrt(leftForce));
-            for(int i=0; i<step; i++){
-                translate(-1, 0);
-            }
-            leftForce -= step;
-        }
-        
-        //move right
-        if(rightForce > 0){
-            step = (int)(Math.sqrt(rightForce));
-            for(int i=0; i<step; i++){
+        //translate object
+        if(p.x >0){
+            for(int i=0; i<p.x; i++){
                 translate(1, 0);
             }
-            rightForce -= step;
         }
-      
+        else if(p.x < 0){
+            for(int i=0; i<-p.x; i++){
+                translate(-1, 0);
+            }
+        }
+        if(p.y >0){
+            for(int i=0; i<p.y; i++){
+                translate(0, 1);
+            }
+        }
+        else if(p.y < 0){
+            for(int i=0; i<-p.y; i++){
+                translate(0, -1);
+            }
+        }
+        
+        
         //one last thing, since this is a side scroller we need to move the
         //viewport when we get close to the edge of the screen
         if(boundingBox.getX() + 300 >= Main.gameData.viewport.getX()+(int) Main.gameData.viewport.getWidth()){
