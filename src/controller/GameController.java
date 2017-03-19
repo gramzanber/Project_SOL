@@ -540,7 +540,6 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 if(red == 0 && green == 0 && blue == 255){
                     Main.gameData.getHero().setLocation(tileLoc);
                     Main.gameData.addGameObject(Main.gameData.getHero());
-                    Main.gameData.getHero().setHealth(400);
                 }
                 
                 //position goal on green pixal
