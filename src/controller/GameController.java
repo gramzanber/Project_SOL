@@ -464,6 +464,9 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         else if(e.getKeyCode() == KeyEvent.VK_0){
             showMainMenu();
         }
+        else if(e.getKeyCode() == KeyEvent.VK_F2){
+            Main.debug = !Main.debug;
+        }
         else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){Main.soundController.pauseSound();}
         else if(e.getKeyCode() == KeyEvent.VK_F11){
             fullscreen = !fullscreen;

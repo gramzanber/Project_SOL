@@ -35,6 +35,8 @@ public class Main
     public static int WIN_WIDTH = 700; //the width of the gui window
     public static int WIN_HEIGHT = 600; //the height of the gui window
     public static BufferedImageLoader bufferedImageLoader;// buffered(simple) image loader
+    
+    public static boolean debug = false;
    /**
    * This is the main entry point for the application
    * 
