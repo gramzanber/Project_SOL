@@ -122,7 +122,16 @@ public class EarthSmallEnemy extends RenderableObject
         
         if(Main.gameData.getHero().getBoundingBox().intersects(boundingBox))
         {
-            System.out.println("Killed Enemy!");
+            System.out.println("Killed Enemy! By walking into it.");
+            
+            this.clear();
+            Main.gameData.gameObjects.remove(this);
+        }
+        for(int i = 0; i < Main.gameData.gameObjects.size(); i++)
+        if(Main.gameData.gameObjects.get(i) instanceof PrimaryWeapon &&
+                Main.gameData.gameObjects.get(i).boundingBox.intersects(boundingBox))
+        {
+            System.out.println("Killed Enemy! By missle.");
             
             this.clear();
             Main.gameData.gameObjects.remove(this);
