@@ -599,6 +599,13 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
 
                 }
                 
+		// Small enemy type
+                // Pinkish color pixal
+                if(red == 249 && green == 45 && blue == 227)
+                {
+                    EarthSmallEnemy smallEnemy = new EarthSmallEnemy(tileLoc); //Create tile object
+                    Main.gameData.addGameObject(smallEnemy); //Add tile to game object array
+                }
             }
         }
     }
