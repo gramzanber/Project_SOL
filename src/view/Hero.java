@@ -25,9 +25,9 @@ public class Hero extends Actor {
     private Image heroRightImage;
     private Image heroLeftImage;
     private Rectangle viewportMain;
-    private float health = 400;
-    private float displayHealth =100;
-    private float greenValue = 255;
+    private float health = 0;
+    private float displayHealth =0;
+    private float blueValue = 255;
     private int healthPacks =0;
     private static BufferedImage heroRunRightSpriteSheet = null;
     private static BufferedImage heroRunLeftSpriteSheet = null;
@@ -211,14 +211,14 @@ public class Hero extends Actor {
 
         g2.setColor(Color.darkGray);
         g2.fillRect(2,5,(int)(100 * 2.5), 15);
-        g2.setColor(new Color(150,(int)greenValue,0));
+        g2.setColor(new Color(10,50,(int)blueValue));
         g2.fillRect(2, 5, (int) (tempHealth * 2.5), 15);
         g2.setColor(Color.white);
         g2.drawRect(2,5,(int)(100 *2.5), 15);
         
         for(int i=0; i<healthPacks-1; i++){
          //g2.setColor(Color.red);
-         g2.setColor(new Color(150,(int)greenValue,0)); //the rectangles below the health bar have same color as health bar
+         g2.setColor(new Color(150,(int)blueValue,0)); //the rectangles below the health bar have same color as health bar
          g2.fillRect(1, 22, 10, 15);
          if(healthPacks > 1 && i>0){
              g2.fillRect((2*i)*7, 22, 10, 15);
@@ -238,12 +238,15 @@ public class Hero extends Actor {
             displayHealth = health;
         }
         //System.out.println("Display::"+displayHealth+" :: Health::"+health);
-        greenValue = displayHealth*3;
+        blueValue = displayHealth*5;
         if(health <=0){
             health =0;
         }
-        if(greenValue > 255){
-            greenValue = 255;
+        if(blueValue > 255){
+            blueValue = 255;
+        }
+        if(blueValue < 75){
+            blueValue =75;
         }
         
         healthPacks = (int)health/100;
