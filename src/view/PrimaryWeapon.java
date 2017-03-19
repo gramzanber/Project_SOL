@@ -23,7 +23,7 @@ public class PrimaryWeapon extends GameFigure
     // missile size
     private Image missileImage;
     private int health;
-    private int weaponLevel = 1;
+    private static int weaponLevel = 1;
 
     private static final int UNIT_TRAVEL_DISTANCE = 2; // per frame move
 
@@ -182,5 +182,9 @@ public class PrimaryWeapon extends GameFigure
     */
     @Override
     public void mouseMoved(MouseEvent e) {
+    }
+    
+    public static int getWeaponType(){
+        return weaponLevel;
     }
 }
