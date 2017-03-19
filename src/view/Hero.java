@@ -218,7 +218,7 @@ public class Hero extends Actor {
         
         for(int i=0; i<healthPacks-1; i++){
          //g2.setColor(Color.red);
-         g2.setColor(new Color(150,(int)blueValue,0)); //the rectangles below the health bar have same color as health bar
+         g2.setColor(new Color(10,50,(int)blueValue)); //the rectangles below the health bar have same color as health bar
          g2.fillRect(1, 22, 10, 15);
          if(healthPacks > 1 && i>0){
              g2.fillRect((2*i)*7, 22, 10, 15);

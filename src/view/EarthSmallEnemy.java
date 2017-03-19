@@ -26,10 +26,10 @@ public class EarthSmallEnemy extends RenderableObject
 {
     
     private Image enemyImage;
-    private float health = 400;
-    private float displayHealth =100;
-    private float greenValue = 255;
-    private int healthPacks =0;
+    //private float health = 400;
+    //private float displayHealth =100;
+    //private float greenValue = 255;
+    //private int healthPacks =0;
     private PhysicsController pyc = new PhysicsController(this);
     boolean directionLeft = true;
     
@@ -90,7 +90,6 @@ public class EarthSmallEnemy extends RenderableObject
         
         if(directionLeft)pyc.addForce(PhysicsController.DIRECTION.LEFT, 2);
         else pyc.addForce(PhysicsController.DIRECTION.RIGHT, 2);
-        healthBound();
         
         //update physics controller
         pyc.update();
@@ -158,57 +157,10 @@ public class EarthSmallEnemy extends RenderableObject
             int border = 2;
             g2.drawImage(enemyImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null); 
         }
-        float tempHealth = displayHealth;
-        if(tempHealth > 100) tempHealth =100;
-
-        g2.setColor(Color.darkGray);
-        g2.fillRect(2,5,(int)(100 * 2.5), 15);
-        g2.setColor(new Color(150,(int)greenValue,0));
-        g2.fillRect(2, 5, (int) (tempHealth * 2.5), 15);
-        g2.setColor(Color.white);
-        g2.drawRect(2,5,(int)(100 *2.5), 15);
         
-        for(int i=0; i<healthPacks-1; i++){
-         //g2.setColor(Color.red);
-         g2.setColor(new Color(150,(int)greenValue,0)); //the rectangles below the health bar have same color as health bar
-         g2.fillRect(1, 22, 10, 15);
-         if(healthPacks > 1 && i>0){
-             g2.fillRect((2*i)*7, 22, 10, 15);
-         }
-        }
     }
 
-    private void healthBound() {
-        //the health is depleated constatntly but just as a demo. will be changed when there are enemies in the game
-        if(displayHealth > 100){
-            displayHealth = 100;
-        }
-        if(displayHealth > 0){
-            displayHealth -=1;
-        }else if(displayHealth <=0 && health>0){
-            health -= 100;
-            displayHealth = health;
-        }
-        System.out.println("Display::"+displayHealth+" :: Health::"+health);
-        greenValue = displayHealth*3;
-        if(health <=0){
-            health =0;
-        }
-        if(greenValue > 255){
-            greenValue = 255;
-        }
-        
-        healthPacks = (int)health/100;
-    }
-    
-    public float getHealth(){
-        return displayHealth;
-    }
-    public void setHealth(float powerUp){
-        this.displayHealth += powerUp;
-        this.health += powerUp;
-    }
-
+   
     @Override
     public void mousePressed(MouseEvent e) {
     }
