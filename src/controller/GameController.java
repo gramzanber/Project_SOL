@@ -13,7 +13,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
-import model.EarthSmallEnemy;
 import view.Laser;
 import view.Background;
 import view.Block;
