@@ -188,6 +188,18 @@ public abstract class Actor extends RenderableObject {
         
         //if test rect was successful its safe to move the real object
         if(!Main.gameData.checkCollision(testRect, this)){
+            if(dx == -1){
+                Hero.movingLeft = true;
+            }
+            else if(dx == 1){
+                Hero.movingRight = true;
+            }
+            if(dy == -1){
+                Hero.movingUp = true;
+            }
+            else if(dy == 1){
+                Hero.movingDown = true;
+            }
             boundingBox.setLocation(newLoc);
         }
     }
@@ -274,9 +286,15 @@ public abstract class Actor extends RenderableObject {
             case KeyEvent.VK_RIGHT:
                 rightKeyDown = true;
                 break;
+            case KeyEvent.VK_D:
+                rightKeyDown = true;
+                break;                
             case KeyEvent.VK_LEFT:
                 leftKeyDown = true;
                 break;
+            case KeyEvent.VK_A:
+                leftKeyDown = true;
+                break;                
             case KeyEvent.VK_SPACE:
                 spaceKeyDown = true;
                 break;
@@ -307,9 +325,15 @@ public abstract class Actor extends RenderableObject {
             case KeyEvent.VK_RIGHT:
                 rightKeyDown = false;
                 break;
+            case KeyEvent.VK_D:
+                rightKeyDown = false;
+                break;                
             case KeyEvent.VK_LEFT:
                 leftKeyDown = false;
                 break;
+            case KeyEvent.VK_A:
+                leftKeyDown = false;
+                break;                
             case KeyEvent.VK_SPACE:
                 spaceKeyDown = false;
                 break;

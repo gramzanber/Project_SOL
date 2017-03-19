@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -22,11 +23,21 @@ import javax.swing.SwingUtilities;
 public class Hero extends Actor {
     
     private Image heroImage;
+    private Image heroLeftImage;
     private Rectangle viewportMain;
     private float health = 400;
     private float displayHealth =100;
     private float greenValue = 255;
     private int healthPacks =0;
+    private static BufferedImage heroRunRightSpriteSheet = null;
+    private static BufferedImage heroRunLeftSpriteSheet = null;
+    private int rowStep;
+    private int columnStep;
+    static boolean movingLeft = false;
+    static boolean movingRight = false;
+    static boolean movingUp = false;
+    static boolean movingDown = false;
+    static boolean facingRight;
     
     /**
     * Constructor 
@@ -38,6 +49,7 @@ public class Hero extends Actor {
     public Hero(Point loc) {
         //call superclass constructor
         super(loc);
+        facingRight = true;
         
         //update bounding box for the object
         super.boundingBox = new Rectangle(loc.x, loc.y, 32, 83);
@@ -49,6 +61,35 @@ public class Hero extends Actor {
             JOptionPane.showMessageDialog(null, "Error: Cannot open hero.png");
             System.exit(-1);
         }
+        
+        if(heroRunRightSpriteSheet == null){
+            try {
+                heroRunRightSpriteSheet = ImageIO.read(getClass().getResource("/Images/hero_run_right.png"));
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Error: Cannot open tile sprite sheet");
+                System.exit(-1);
+            }
+        }
+        
+        heroLeftImage = null;
+        try {
+            heroLeftImage = ImageIO.read(getClass().getResource("/Images/hero_stand_left.png"));
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error: Cannot open hero.png");
+            System.exit(-1);
+        }
+        
+        if(heroRunLeftSpriteSheet == null){
+            try {
+                heroRunLeftSpriteSheet = ImageIO.read(getClass().getResource("/Images/hero_run_left.png"));
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Error: Cannot open tile sprite sheet");
+                System.exit(-1);
+            }
+        }        
+        
+        rowStep = 0;
+        columnStep = -1;
     }
     
     /**
@@ -73,7 +114,7 @@ public class Hero extends Actor {
         }
         else if(SwingUtilities.isLeftMouseButton(e))
         {
-            Missile m = new Missile(translatedX, translatedY);
+            PrimaryWeapon m = new PrimaryWeapon(translatedX, translatedY);
             Main.soundController.primaryWeaponFire();
             synchronized (Main.gameData.gameObjects) { Main.gameData.addGameObject(m); }
         }
@@ -92,9 +133,57 @@ public class Hero extends Actor {
             //draw in relation to the viewport
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
+            
+            //System.out.println("tx::"+translatedX+" :: ty::"+translatedY);            
 
             int border = 2;
-            g2.drawImage(heroImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null); 
+            
+            if(movingRight){
+                if(rowStep == 3 && columnStep == 5){
+                    rowStep = 0;
+                    columnStep = 0;
+                }
+                else if(columnStep == 5){
+                    columnStep = 0;
+                    rowStep++;
+                }
+                else{
+                    columnStep++;
+                }
+                facingRight = true;
+                Image sprite = heroRunRightSpriteSheet.getSubimage(166*columnStep, 155*rowStep, 166, 155); 
+                g2.drawImage(sprite, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null); 
+                movingRight = false;
+                //System.out.println("run horiz::"+columnStep+" :: vert::"+rowStep);  
+            }
+            else if(movingLeft){
+                if(rowStep == 3 && columnStep == 5){
+                    rowStep = 0;
+                    columnStep = 0;
+                }
+                else if(columnStep == 5){
+                    columnStep = 0;
+                    rowStep++;
+                }
+                else{
+                    columnStep++;
+                }
+                facingRight = false;
+                Image sprite = heroRunLeftSpriteSheet.getSubimage(166*columnStep, 155*rowStep, 166, 155); 
+                g2.drawImage(sprite, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null); 
+                movingLeft = false;
+                //System.out.println("run horiz::"+columnStep+" :: vert::"+rowStep);  
+            }            
+            else{
+                rowStep = 0;
+                columnStep = 0;
+                if(facingRight){
+                    g2.drawImage(heroImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null);  
+                }
+                else{
+                    g2.drawImage(heroLeftImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null);
+                }                      
+            }
         }
         float tempHealth = displayHealth;
         if(tempHealth > 100) tempHealth =100;
@@ -127,7 +216,7 @@ public class Hero extends Actor {
             health -= 100;
             displayHealth = health;
         }
-        System.out.println("Display::"+displayHealth+" :: Health::"+health);
+        //System.out.println("Display::"+displayHealth+" :: Health::"+health);
         greenValue = displayHealth*3;
         if(health <=0){
             health =0;
