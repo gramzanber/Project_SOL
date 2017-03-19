@@ -35,6 +35,7 @@ public class PrimaryWeapon extends GameFigure
     public PrimaryWeapon(float sx, float sy)
     {
         super(new Point((int)sx, (int)sy));
+        super.boundingBox = new Rectangle(loc.x, loc.y, 20, 10);
         
         state = STATE_ALIVE;
 
