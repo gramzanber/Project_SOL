@@ -22,7 +22,7 @@ import javax.swing.SwingUtilities;
 */
 public class Hero extends Actor {
     
-    private Image heroImage;
+    private Image heroRightImage;
     private Image heroLeftImage;
     private Rectangle viewportMain;
     private float health = 400;
@@ -53,11 +53,11 @@ public class Hero extends Actor {
         facingRight = true;
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle(loc.x, loc.y, 32, 83);
+        super.boundingBox = new Rectangle(loc.x, loc.y, 166, 155);
         
-        heroImage = null;
+        heroRightImage = null;
         try {
-            heroImage = ImageIO.read(getClass().getResource("/Images/robot_9_right-psd_32x83.png"));
+            heroRightImage = ImageIO.read(getClass().getResource("/Images/hero_stand_right.png"));
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error: Cannot open hero.png");
             System.exit(-1);
@@ -182,7 +182,7 @@ public class Hero extends Actor {
                 rowStep = 0;
                 columnStep = 0;
                 if(facingRight){
-                    g2.drawImage(heroImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null);  
+                    g2.drawImage(heroRightImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null);  
                 }
                 else{
                     g2.drawImage(heroLeftImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null);
