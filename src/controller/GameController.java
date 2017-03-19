@@ -349,32 +349,6 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         
         loadImageLevel(levelMap);
         
-//        int rightEdge = 0;
-//        int groundLevel = Main.gameData.world.height - 100;
-//        
-//        //add ground
-//        Main.gameData.addGameObject(new Block(Block.Style.TRANSPARENT, new Point(0, groundLevel), 99999, 50));
-//
-//        //add left edge
-//        Main.gameData.addGameObject(new Block(Block.Style.TRANSPARENT, new Point(0, 0), 50, Main.gameData.world.height));
-//        
-//
-//        //stairs
-//        for(int i=0; i<11; i++){
-//            Main.gameData.addGameObject(new Block(Block.Style.BLUE, new Point(rightEdge+500+150*i, groundLevel-80-80*i), 150, 8));
-//        }
-//        Main.gameData.addGameObject(new Block(Block.Style.BLUE, new Point(rightEdge+500+150*5 - 150-100-1000, groundLevel-80-80*5),1000, 8));
-//
-//        //loadImageLevel(levelTest);
-//        
-//        //add hero
-//        Main.gameData.getHero().setLocation(new Point(50, groundLevel-100));
-//        Main.gameData.addGameObject(Main.gameData.getHero());
-//        
-//        //add goal
-//        goal = new Goal(new Point(1000,groundLevel-200), 20, 200);
-//        goal.addActionListener(this);
-//        Main.gameData.addGameObject(goal);
     }
     public void showLevel2(){
         screen = "Level2";
@@ -542,7 +516,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     Main.gameData.getHero().setLocation(tileLoc);
                     Main.gameData.addGameObject(Main.gameData.getHero());
                     //hero starts with 400 sheild points
-                    Main.gameData.getHero().setShield(400);
+                    Main.gameData.getHero().setShield(300);
                 }
                 
                 //position goal on green pixal
