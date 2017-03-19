@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
+import model.EarthSmallEnemy;
 import view.Laser;
 import view.Background;
 import view.Block;
@@ -540,6 +541,8 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 if(red == 0 && green == 0 && blue == 255){
                     Main.gameData.getHero().setLocation(tileLoc);
                     Main.gameData.addGameObject(Main.gameData.getHero());
+                    //hero starts with 400 sheild points
+                    Main.gameData.getHero().setShield(400);
                 }
                 
                 //position goal on green pixal

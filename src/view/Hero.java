@@ -255,7 +255,7 @@ public class Hero extends Actor {
     public float getHealth(){
         return displayHealth;
     }
-    public void setHealth(float powerUp){
+    public void setShield(float powerUp){
         this.displayHealth += powerUp;
         this.health += powerUp;
     }
