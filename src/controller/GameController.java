@@ -19,6 +19,7 @@ import view.Block;
 import view.GameButton;
 import view.Goal;
 import view.Earth;
+import view.EarthSmallEnemy;
 import view.Gold;
 import view.Menu;
 import view.Mercury;
