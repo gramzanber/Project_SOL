@@ -38,6 +38,7 @@ public class Hero extends Actor {
     static boolean movingUp = false;
     static boolean movingDown = false;
     static boolean facingRight;
+    private int frames = 2;
     
     /**
     * Constructor 
@@ -139,15 +140,16 @@ public class Hero extends Actor {
             int border = 2;
             
             if(movingRight){
-                if(rowStep == 3 && columnStep == 5){
+                frames++;
+                if(rowStep == 3 && columnStep == 5 && frames % 3 == 0){
                     rowStep = 0;
                     columnStep = 0;
                 }
-                else if(columnStep == 5){
+                else if(columnStep == 5 && frames % 3 == 0){
                     columnStep = 0;
                     rowStep++;
                 }
-                else{
+                else if(frames % 3 == 0){
                     columnStep++;
                 }
                 facingRight = true;
@@ -157,15 +159,16 @@ public class Hero extends Actor {
                 //System.out.println("run horiz::"+columnStep+" :: vert::"+rowStep);  
             }
             else if(movingLeft){
-                if(rowStep == 3 && columnStep == 5){
+                frames++;
+                if(rowStep == 3 && columnStep == 5 && frames % 3 == 0){
                     rowStep = 0;
                     columnStep = 0;
                 }
-                else if(columnStep == 5){
+                else if(columnStep == 5 && frames % 3 == 0){
                     columnStep = 0;
                     rowStep++;
                 }
-                else{
+                else if(frames % 3 == 0){
                     columnStep++;
                 }
                 facingRight = false;
@@ -175,6 +178,7 @@ public class Hero extends Actor {
                 //System.out.println("run horiz::"+columnStep+" :: vert::"+rowStep);  
             }            
             else{
+                frames = 2;
                 rowStep = 0;
                 columnStep = 0;
                 if(facingRight){
