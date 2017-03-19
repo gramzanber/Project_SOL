@@ -52,8 +52,10 @@ public class Hero extends Actor {
         super(loc);
         facingRight = true;
         
+        
+        
         //update bounding box for the object
-        super.boundingBox = new Rectangle(loc.x, loc.y, 166, 155);
+        super.boundingBox = new Rectangle(loc.x, loc.y, 60, 155);
         
         heroRightImage = null;
         try {
@@ -128,12 +130,15 @@ public class Hero extends Actor {
     @Override
     public void render(Graphics2D g2,Rectangle viewport)
     {
+        
+        Rectangle boundingBoxForRendering = new Rectangle(boundingBox.x-boundingBox.width/2, boundingBox.y, 166, 155);
+        
         if(viewport.contains(boundingBox.getLocation()))
         {
             this.viewportMain = viewport;
             //draw in relation to the viewport
-            int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
-            int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
+            int translatedX =  (int)boundingBoxForRendering.getX() - (int)viewport.getX();
+            int translatedY =  (int)boundingBoxForRendering.getY() - (int)viewport.getY();
             
             //System.out.println("tx::"+translatedX+" :: ty::"+translatedY);            
 
@@ -154,7 +159,7 @@ public class Hero extends Actor {
                 }
                 facingRight = true;
                 Image sprite = heroRunRightSpriteSheet.getSubimage(166*columnStep, 155*rowStep, 166, 155); 
-                g2.drawImage(sprite, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null); 
+                g2.drawImage(sprite, translatedX, translatedY, (int)boundingBoxForRendering.getWidth()-border*2, (int)boundingBoxForRendering.getHeight()-border*2, null); 
                 movingRight = false;
                 //System.out.println("run horiz::"+columnStep+" :: vert::"+rowStep);  
             }
@@ -173,7 +178,7 @@ public class Hero extends Actor {
                 }
                 facingRight = false;
                 Image sprite = heroRunLeftSpriteSheet.getSubimage(166*columnStep, 155*rowStep, 166, 155); 
-                g2.drawImage(sprite, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null); 
+                g2.drawImage(sprite, translatedX, translatedY, (int)boundingBoxForRendering.getWidth()-border*2, (int)boundingBoxForRendering.getHeight()-border*2, null); 
                 movingLeft = false;
                 //System.out.println("run horiz::"+columnStep+" :: vert::"+rowStep);  
             }            
@@ -182,10 +187,10 @@ public class Hero extends Actor {
                 rowStep = 0;
                 columnStep = 0;
                 if(facingRight){
-                    g2.drawImage(heroRightImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null);  
+                    g2.drawImage(heroRightImage, translatedX, translatedY, (int)boundingBoxForRendering.getWidth()-border*2, (int)boundingBoxForRendering.getHeight()-border*2, null);  
                 }
                 else{
-                    g2.drawImage(heroLeftImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null);
+                    g2.drawImage(heroLeftImage, translatedX, translatedY, (int)boundingBoxForRendering.getWidth()-border*2, (int)boundingBoxForRendering.getHeight()-border*2, null);
                 }                      
             }
         }
