@@ -1,12 +1,12 @@
 package view.gameobjects;
 
-import controller.Main;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import view.swingcomponents.MainWindow;
 
 /**
 * An abstract class to define needed methods for the rendering engine
@@ -53,9 +53,9 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
     * Remove this object from all listener lists
     */
     public void clear(){
-        Main.gamePanel.removeMouseListener(this);
-        Main.gamePanel.removeKeyListener(this);
-        Main.gamePanel.removeMouseMotionListener(this);
+        MainWindow.getInstance().getGamePanel().removeMouseListener(this);
+        MainWindow.getInstance().getGamePanel().removeKeyListener(this);
+        MainWindow.getInstance().getGamePanel().removeMouseMotionListener(this);
     }
 
     public Rectangle getBoundingBox(){

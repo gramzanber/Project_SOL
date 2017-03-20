@@ -1,6 +1,5 @@
 package controller;
 
-import static controller.Main.bufferedImageLoader;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
@@ -13,9 +12,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
+import model.GameData;
+import view.BufferedImageLoader;
 import view.gameobjects.Laser;
 import view.gameobjects.Background;
-import view.gameobjects.Block;
 import view.menus.GameButton;
 import view.gameobjects.Goal;
 import view.worldmap.Earth;
@@ -27,6 +27,7 @@ import view.worldmap.Moon;
 import view.worldmap.Sun;
 import view.gameobjects.Text;
 import view.gameobjects.Tile;
+import view.swingcomponents.MainWindow;
 import view.worldmap.Venus;
 
 /**
@@ -41,6 +42,24 @@ import view.worldmap.Venus;
 */
 public class GameController implements ActionListener, KeyListener, ComponentListener{
   
+    //singleton instance
+    private static GameController instance;
+    
+    /**
+     * Singleton class
+     * 
+     * @return the singleton instance of this class
+     */
+    public static GameController getInstance(){
+        //initialize instance on first use
+        if(instance == null){
+            instance = new GameController();
+        }
+        //return the instance
+        return instance;
+    }
+    
+    
     //define any menu buttons here so we can reference them in the action events
     private GameButton mainMenuButton;
     private GameButton startButton;
@@ -63,17 +82,17 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     //or we can define the background as a class var and reuse the same one that
     //way switching between menus is smooth.
     private Background menuBackground;
-    private BufferedImage levelTest = bufferedImageLoader.loadImage("/Images/level.png");//loading the level
+    private BufferedImage levelTest = BufferedImageLoader.getInstance().loadImage("/Images/level.png");//loading the level
     
-   /**
-   * A simple constructor.
-   */
-    public GameController(){
+    /**
+     * private constructor prevents bypassing singleton pattern
+    */
+    private GameController(){
         //Initialize the menu background.
         //note that other backgrounds can be created as needed. this is only here
         //because multiple screens use this background and it is animated
         menuBackground = new Background("/Images/corona_bk.png", Background.Stretch.VIEWPORT, true, true);
-        //levelTest = bufferedImageLoader.loadImage("/Images/level.png");//loading the level
+        //levelTest = BufferedImageLoader.getInstance().loadImage("/Images/level.png");//loading the level
         screen = "";
         
         fullscreen = false;
@@ -87,23 +106,23 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
    */
     public void clear(){
         //call clear() on each game object
-        for(int i=0; i<Main.gameData.gameObjects.size(); i++){
-            Main.gameData.gameObjects.get(i).clear();
+        for(int i=0; i<GameData.getInstance().gameObjects.size(); i++){
+            GameData.getInstance().gameObjects.get(i).clear();
         }
         //clear the game object list
-        Main.gameData.gameObjects.clear();
+        GameData.getInstance().gameObjects.clear();
         //stop sounds
-        Main.soundController.stop();
+        SoundController.getInstance().stop();
         
         //reset viewport
-        //Main.gameData.viewport.setLocation(new Point(0,0));
+        //GameData.getInstance().viewport.setLocation(new Point(0,0));
         //resetViewport();
     }
     
     public void resetViewport(){
-        //Main.gameData.viewport = new Rectangle(0,Main.gameData.world.height-Main.gamePanel.getHeight(),Main.gamePanel.getWidth(),Main.gamePanel.getHeight());
-        Main.gameData.viewport = new Rectangle(0,0,Main.gamePanel.getWidth(),Main.gamePanel.getHeight());
-        Main.animator.init();
+        //GameData.getInstance().viewport = new Rectangle(0,GameData.getInstance().world.height-MainWindow.getInstance().getGamePanel().getHeight(),MainWindow.getInstance().getGamePanel().getWidth(),MainWindow.getInstance().getGamePanel().getHeight());
+        GameData.getInstance().viewport = new Rectangle(0,0,MainWindow.getInstance().getGamePanel().getWidth(),MainWindow.getInstance().getGamePanel().getHeight());
+        Animator.getInstance().init();
         
         System.out.println("Screen: "+screen);
         //reload menu screens because they need to be centered.
@@ -132,27 +151,27 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        Main.gameData.gameObjects.add(menuBackground);
+        GameData.getInstance().gameObjects.add(menuBackground);
         
         //play background music
-        Main.soundController.menuBGM();
+        SoundController.getInstance().menuBGM();
         
         //add game title
         Font font = new Font("TimesRoman", Font.BOLD, 75); 
-        Text text = new Text(new Point(Main.gameData.viewport.width/2, 50),"SOL", font, true);
-        Main.gameData.addGameObject(text);
+        Text text = new Text(new Point(GameData.getInstance().viewport.width/2, 50),"SOL", font, true);
+        GameData.getInstance().addGameObject(text);
         
         //create and add a menu object
         int width = 120; //width of the buttons
         int height = 30; //height of the buttons
-        int x = Main.gameData.viewport.width/2 - width/2; //center buttons
+        int x = GameData.getInstance().viewport.width/2 - width/2; //center buttons
         int y = 150; //y position of first button
         int gap = 50; //the verticle gap between buttons
         
         //create a new menu object, this is a container that will handle highlighting
         //and adding of buttons to the object list
         Menu mainMenu = new Menu(new Point(x,y));
-        Main.gameData.addGameObject(mainMenu);
+        GameData.getInstance().addGameObject(mainMenu);
         
         //add start button to the menu
         startButton = new GameButton(new Point(x,y+gap),width,height, "Start");
@@ -187,45 +206,45 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        Main.gameData.gameObjects.add(new Background("/Images/world_map_1.png", Background.Stretch.VIEWPORT, false, false));
+        GameData.getInstance().gameObjects.add(new Background("/Images/world_map_1.png", Background.Stretch.VIEWPORT, false, false));
         
         //play background music
-        Main.soundController.openWorldBGM();
+        SoundController.getInstance().openWorldBGM();
         
         //Add informational text at the top of the map
         Font font = new Font("TimesRoman", Font.BOLD, 30);
         String gameNameString = "SYSTEM MAP - Select assault point";
-        Text text = new Text(new Point(Main.gameData.viewport.width/2, 10),gameNameString, font, true);
+        Text text = new Text(new Point(GameData.getInstance().viewport.width/2, 10),gameNameString, font, true);
         text.setColor(Color.WHITE);
-        Main.gameData.addGameObject(text);
+        GameData.getInstance().addGameObject(text);
         
         //add the shooter object
-        Main.gameData.getShooter();
-        Main.gameData.addGameObject(Main.gameData.getShooter());
+        GameData.getInstance().getShooter();
+        GameData.getInstance().addGameObject(GameData.getInstance().getShooter());
         //draw rect arround planets
         //Earth on world map
         earth = new Earth(new Point(800,Main.WIN_HEIGHT-400),50,50);
-        Main.gameData.addGameObject(earth);
+        GameData.getInstance().addGameObject(earth);
         earth.addActionListener(this);
         //Sun on world map
         sun = new Sun(new Point(800,Main.WIN_HEIGHT-400),50,50);
-        Main.gameData.addGameObject(sun);
+        GameData.getInstance().addGameObject(sun);
         sun.addActionListener(this); 
         //Moon on world map
         moon = new Moon(new Point(800,Main.WIN_HEIGHT-400),50,50);
-        Main.gameData.addGameObject(moon);
+        GameData.getInstance().addGameObject(moon);
         moon.addActionListener(this);
         //Venus on world map
         venus = new Venus(new Point(800,Main.WIN_HEIGHT-400),50,50);
-        Main.gameData.addGameObject(venus);
+        GameData.getInstance().addGameObject(venus);
         venus.addActionListener(this);
         //Mercury on world map
         mercury = new Mercury(new Point(800,Main.WIN_HEIGHT-400),50,50);
-        Main.gameData.addGameObject(mercury);
+        GameData.getInstance().addGameObject(mercury);
         mercury.addActionListener(this);
         
         
-        //Main.gameData.addGameObject(new Shooter(new Point(100, 100)));
+        //GameData.getInstance().addGameObject(new Shooter(new Point(100, 100)));
     }
     
    /**
@@ -238,19 +257,19 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        Main.gameData.gameObjects.add(menuBackground);
+        GameData.getInstance().gameObjects.add(menuBackground);
         
         //play background music
-        Main.soundController.menuBGM();
+        SoundController.getInstance().menuBGM();
         
         //add game title
         Font font = new Font("TimesRoman", Font.BOLD, 75); 
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/2, 50),"SOL", font, true));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/2, 50),"SOL", font, true));
 
         //screen title
         font = new Font("TimesRoman", Font.PLAIN, 15); 
         String levelString = "High Scores";
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/2, 175),levelString, font, true));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/2, 175),levelString, font, true));
 
         // Score board
         String scoreString01 = "1. Tyrel Tachibana 4526 1/27/2017";
@@ -258,19 +277,19 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         String scoreString03 = "3. N/A";
         String scoreString04 = "4. N/A";
         String scoreString05 = "5. N/A";
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/3, 225),scoreString01, font, false));
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/3, 250),scoreString02, font, false));
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/3, 275),scoreString03, font, false));
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/3, 300),scoreString04, font, false));
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/3, 325),scoreString05, font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/3, 225),scoreString01, font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/3, 250),scoreString02, font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/3, 275),scoreString03, font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/3, 300),scoreString04, font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/3, 325),scoreString05, font, false));
         
         //create a new menu object, this is a container that will handle highlighting
         //and adding of buttons to the object list
         Menu scoresMenu = new Menu(new Point(0,0));
-        Main.gameData.addGameObject(scoresMenu);
+        GameData.getInstance().addGameObject(scoresMenu);
         
         //add button for returning to main menu
-        mainMenuButton = new GameButton(new Point(Main.gameData.viewport.width/2 - 120/2,500),120,30, "Main Menu");
+        mainMenuButton = new GameButton(new Point(GameData.getInstance().viewport.width/2 - 120/2,500),120,30, "Main Menu");
         mainMenuButton.addActionListener(this);
         scoresMenu.addButton(mainMenuButton);
     }
@@ -285,46 +304,46 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        Main.gameData.gameObjects.add(menuBackground);
+        GameData.getInstance().gameObjects.add(menuBackground);
         
         //play background music
-        Main.soundController.menuBGM();
+        SoundController.getInstance().menuBGM();
         
         //add game title
         Font font = new Font("TimesRoman", Font.BOLD, 75); 
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/2, 50),"SOL", font, true));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/2, 50),"SOL", font, true));
         
         //add controls text
         font = new Font("TimesRoman", Font.BOLD, 22); 
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 175),"Controls:", font, false));    
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/16, 175),"Controls:", font, false));    
             
         font = new Font("TimesRoman", Font.PLAIN, 18); 
 
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 225),"Move Left:", font, false));
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 250),"Move Right:", font, false));
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 275),"Look Up:", font, false));
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 300),"Crouch:", font, false));
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 325),"Jump:", font, false));
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 350),"Boost:", font, false));
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 375),"Fire Primary Wepon:", font, false));
-        Main.gameData.addGameObject(new Text(new Point(Main.gameData.viewport.width/16, 400),"Fire Secondary Weapon:", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/16, 225),"Move Left:", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/16, 250),"Move Right:", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/16, 275),"Look Up:", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/16, 300),"Crouch:", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/16, 325),"Jump:", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/16, 350),"Boost:", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/16, 375),"Fire Primary Wepon:", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point(GameData.getInstance().viewport.width/16, 400),"Fire Secondary Weapon:", font, false));
 
-        Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 225),"Left Arrow / A", font, false));
-        Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 250),"Right Arrow / D", font, false));
-        Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 275),"Up Arrow / W", font, false));
-        Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 300),"Down Arrow / S", font, false));
-        Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 325),"Space", font, false));
-        Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 350),"Space (while midair)", font, false));
-        Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 375),"Left Mouse", font, false));
-        Main.gameData.addGameObject(new Text(new Point((Main.gameData.viewport.width/16)*12, 400),"Right Mouse", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point((GameData.getInstance().viewport.width/16)*12, 225),"Left Arrow / A", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point((GameData.getInstance().viewport.width/16)*12, 250),"Right Arrow / D", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point((GameData.getInstance().viewport.width/16)*12, 275),"Up Arrow / W", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point((GameData.getInstance().viewport.width/16)*12, 300),"Down Arrow / S", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point((GameData.getInstance().viewport.width/16)*12, 325),"Space", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point((GameData.getInstance().viewport.width/16)*12, 350),"Space (while midair)", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point((GameData.getInstance().viewport.width/16)*12, 375),"Left Mouse", font, false));
+        GameData.getInstance().addGameObject(new Text(new Point((GameData.getInstance().viewport.width/16)*12, 400),"Right Mouse", font, false));
         
         //create a new menu object, this is a container that will handle highlighting
         //and adding of buttons to the object list
         Menu scoresMenu = new Menu(new Point(0,0));
-        Main.gameData.addGameObject(scoresMenu);
+        GameData.getInstance().addGameObject(scoresMenu);
         
         //add button for returning to main menu
-        mainMenuButton = new GameButton(new Point(Main.gameData.viewport.width/2 - 120/2,500),120,30, "Main Menu");
+        mainMenuButton = new GameButton(new Point(GameData.getInstance().viewport.width/2 - 120/2,500),120,30, "Main Menu");
         mainMenuButton.addActionListener(this);
         scoresMenu.addButton(mainMenuButton);
     }
@@ -339,13 +358,13 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        Main.gameData.gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
+        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
         
         //play background music
-        Main.soundController.earthBGM();
+        SoundController.getInstance().earthBGM();
         
         //loading the level
-        BufferedImage levelMap = bufferedImageLoader.loadImage("/Images/level1_map.png");
+        BufferedImage levelMap = BufferedImageLoader.getInstance().loadImage("/Images/level1_map.png");
         
         loadImageLevel(levelMap);
         
@@ -413,7 +432,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     public void addLaser(float x, float y, Color color, boolean direction) {
         //add object
         Laser l = new Laser(x, y, color, direction); 
-        Main.gameData.addGameObject(l);
+        GameData.getInstance().addGameObject(l);
     }
 
     /**
@@ -442,27 +461,27 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         else if(e.getKeyCode() == KeyEvent.VK_F2){
             Main.debug = !Main.debug;
         }
-        else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){Main.soundController.pauseSound();}
+        else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){SoundController.getInstance().pauseSound();}
         else if(e.getKeyCode() == KeyEvent.VK_F11){
             fullscreen = !fullscreen;
             if(fullscreen){
                 //GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
                 //device.setFullScreenWindow(Main.game);
                 
-                Main.game.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-                Main.game.dispose();
-                Main.game.setUndecorated(true);
+                MainWindow.getInstance().setExtendedState(JFrame.MAXIMIZED_BOTH); 
+                MainWindow.getInstance().dispose();
+                MainWindow.getInstance().setUndecorated(true);
                 
-                Main.game.setVisible(true);
+                MainWindow.getInstance().setVisible(true);
             }
             else{
                  
                 
-                Main.game.dispose();
-                Main.game.setSize(700, 600);
-                Main.game.setExtendedState(JFrame.NORMAL);
-                Main.game.setUndecorated(false);
-                Main.game.setVisible(true);
+                MainWindow.getInstance().dispose();
+                MainWindow.getInstance().setSize(700, 600);
+                MainWindow.getInstance().setExtendedState(JFrame.NORMAL);
+                MainWindow.getInstance().setUndecorated(false);
+                MainWindow.getInstance().setVisible(true);
             }
         }
     }
@@ -477,7 +496,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     @Override
     public void componentResized(ComponentEvent e) {
         resetViewport();
-        //Main.gameData.viewport = new Rectangle(0, 600-Main.gamePanel.getHeight(), Main.gamePanel.getWidth(),Main.gamePanel.getHeight());
+        //GameData.getInstance().viewport = new Rectangle(0, 600-MainWindow.getInstance().getGamePanel().getHeight(), MainWindow.getInstance().getGamePanel().getWidth(),MainWindow.getInstance().getGamePanel().getHeight());
         //Main.animator.init();
     }
 
@@ -513,10 +532,10 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 
                 //position the hero on the blue pixal
                 if(red == 0 && green == 0 && blue == 255){
-                    Main.gameData.getHero().setLocation(tileLoc);
-                    Main.gameData.addGameObject(Main.gameData.getHero());
+                    GameData.getInstance().getHero().setLocation(tileLoc);
+                    GameData.getInstance().addGameObject(GameData.getInstance().getHero());
                     //hero starts with 400 sheild points
-                    Main.gameData.getHero().setShield(300);
+                    GameData.getInstance().getHero().setShield(300);
                 }
                 
                 //position goal on green pixal
@@ -524,14 +543,14 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 else if(red == 0 && green == 255 && blue == 0){
                     goal = new Goal(tileLoc, 20, 200);
                     goal.addActionListener(this);
-                    Main.gameData.addGameObject(goal);
+                    GameData.getInstance().addGameObject(goal);
                 }
 
                 //border
                 //white pixal
                 else if(red == 255 && green == 255 && blue == 255){
                     Tile tile = new Tile(tileLoc); //Create tile object
-                    Main.gameData.addGameObject(tile); //Add tile to game object array
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
                     tile.setSprite(3, 0); //brown block looks like dirt
                     tile.setSolid(true);
                 }
@@ -540,7 +559,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //Rose color pixal
                 if(red == 255 && green == 128 && blue == 128){
                     Tile tile = new Tile(tileLoc); //Create tile object
-                    Main.gameData.addGameObject(tile); //Add tile to game object array
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
                     tile.setSprite(7, 8); //green platform center
                     tile.setTrim(1); //over size the tile to hide the gap
                     tile.setSolid(true);
@@ -550,7 +569,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //Rose color pixal
                 if(red == 254 && green == 128 && blue == 128){
                     Tile tile = new Tile(tileLoc); //Create tile object
-                    Main.gameData.addGameObject(tile); //Add tile to game object array
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
                     
                     tile.setSprite(8, 9); //green platform left
                     tile.setTrim(1); //over size the tile to hide the gap
@@ -561,7 +580,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //Rose color pixal
                 if(red == 253 && green == 128 && blue == 128){
                     Tile tile = new Tile(tileLoc); //Create tile object
-                    Main.gameData.addGameObject(tile); //Add tile to game object array
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
                     tile.setSprite(8, 7); //green platform right
                     tile.setTrim(1); //over size the tile to hide the gap
                     tile.setSolid(true);
@@ -572,7 +591,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //yellow color pixal
                 if(red == 255 && green == 242 && blue == 0){
                     Tile tile = new Gold(tileLoc); //Create tile object
-                    Main.gameData.addGameObject(tile); //Add tile to game object array
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }
                 
@@ -581,7 +600,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 if(red == 249 && green == 45 && blue == 227)
                 {
                     EarthSmallEnemy smallEnemy = new EarthSmallEnemy(tileLoc); //Create tile object
-                    Main.gameData.addGameObject(smallEnemy); //Add tile to game object array
+                    GameData.getInstance().addGameObject(smallEnemy); //Add tile to game object array
                 }
             }
         }

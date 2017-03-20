@@ -2,14 +2,16 @@ package view.gameobjects;
 
 import view.swingcomponents.MenuWindow;
 import controller.GameController;
-import controller.Main;
 import controller.PhysicsController;
 import controller.PhysicsController.DIRECTION;
+import controller.SoundController;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import model.GameData;
+import view.swingcomponents.MainWindow;
 
 /**
 * An abstract class extended by all friendly and non friendly characters.
@@ -82,7 +84,7 @@ public abstract class Actor extends RenderableObject {
                     //acceleration is the sqrt of the current force
                     //leftForce += 3+Math.sqrt(leftForce);
                     pyc.addForce(PhysicsController.DIRECTION.LEFT, 3);
-                    Main.soundController.playerMove();
+                    SoundController.getInstance().playerMove();
                 }
                 else{
                     //in air you move slower and dont accelerate
@@ -100,7 +102,7 @@ public abstract class Actor extends RenderableObject {
                     //acceleration is the sqrt of the current force
                     //rightForce += 3+Math.sqrt(rightForce);
                     pyc.addForce(PhysicsController.DIRECTION.RIGHT, 3);
-                    Main.soundController.playerMove();
+                    SoundController.getInstance().playerMove();
                 }
                 else {
                     //in air you move slower and dont accelerate
@@ -151,18 +153,18 @@ public abstract class Actor extends RenderableObject {
         
         //one last thing, since this is a side scroller we need to move the
         //viewport when we get close to the edge of the screen
-        if(boundingBox.getX() + 300 >= Main.gameData.viewport.getX()+(int) Main.gameData.viewport.getWidth()){
-            Main.gameData.viewport.setLocation((int)boundingBox.getX() + 300 - (int)Main.gameData.viewport.getWidth(), (int)Main.gameData.viewport.getY());
+        if(boundingBox.getX() + 300 >= GameData.getInstance().viewport.getX()+(int) GameData.getInstance().viewport.getWidth()){
+            GameData.getInstance().viewport.setLocation((int)boundingBox.getX() + 300 - (int)GameData.getInstance().viewport.getWidth(), (int)GameData.getInstance().viewport.getY());
         }
-        else if(boundingBox.getX() - 100 <= Main.gameData.viewport.getX()){
-            Main.gameData.viewport.setLocation((int)boundingBox.getX() - 100 , (int)Main.gameData.viewport.getY());
+        else if(boundingBox.getX() - 100 <= GameData.getInstance().viewport.getX()){
+            GameData.getInstance().viewport.setLocation((int)boundingBox.getX() - 100 , (int)GameData.getInstance().viewport.getY());
         }
         
-        if(boundingBox.getY() + 200 >= Main.gameData.viewport.getY()+(int) Main.gameData.viewport.getHeight()){
-            Main.gameData.viewport.setLocation((int)Main.gameData.viewport.getX(), (int)boundingBox.getY() + 200 - (int)Main.gameData.viewport.getHeight());
+        if(boundingBox.getY() + 200 >= GameData.getInstance().viewport.getY()+(int) GameData.getInstance().viewport.getHeight()){
+            GameData.getInstance().viewport.setLocation((int)GameData.getInstance().viewport.getX(), (int)boundingBox.getY() + 200 - (int)GameData.getInstance().viewport.getHeight());
         }
-        else if(boundingBox.getY() - 200 <= Main.gameData.viewport.getY()){
-            Main.gameData.viewport.setLocation((int)Main.gameData.viewport.getX(), (int)boundingBox.getY() - 200);
+        else if(boundingBox.getY() - 200 <= GameData.getInstance().viewport.getY()){
+            GameData.getInstance().viewport.setLocation((int)GameData.getInstance().viewport.getX(), (int)boundingBox.getY() - 200);
         }
         
     }
@@ -188,7 +190,7 @@ public abstract class Actor extends RenderableObject {
         testRect.setLocation(testLoc);
         
         //if test rect was successful its safe to move the real object
-        if(!Main.gameData.checkCollision(testRect, this)){
+        if(!GameData.getInstance().checkCollision(testRect, this)){
             if(dx == -1){
                 Hero.movingLeft = true;
             }
@@ -300,11 +302,11 @@ public abstract class Actor extends RenderableObject {
                 spaceKeyDown = true;
                 break;
             case KeyEvent.VK_C:
-                MenuWindow dialogMenu = new MenuWindow(Main.game, false);
-                int parentX = Main.game.getX();
-                int parentY = Main.game.getY();
-                int parentWidth = Main.game.getWidth();
-                int parentHeight = Main.game.getHeight();
+                MenuWindow dialogMenu = new MenuWindow(MainWindow.getInstance(), false);
+                int parentX = MainWindow.getInstance().getX();
+                int parentY = MainWindow.getInstance().getY();
+                int parentWidth = MainWindow.getInstance().getWidth();
+                int parentHeight = MainWindow.getInstance().getHeight();
                 dialogMenu.setLocation(parentX + parentWidth/2 - dialogMenu.getWidth()/2, parentY + parentHeight/2 - dialogMenu.getHeight()/2);
                 dialogMenu.getContentPane().setBackground(Color.BLACK);
                 dialogMenu.levellbl.setText(GameController.getScreen());

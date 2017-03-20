@@ -7,7 +7,7 @@ package controller;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import view.gameobjects.Actor;
+import model.GameData;
 import view.gameobjects.RenderableObject;
 
 /**
@@ -184,7 +184,7 @@ public class PhysicsController {
         }
         
         //check collision and return
-        return !Main.gameData.checkCollision(testRect, o);
+        return !GameData.getInstance().checkCollision(testRect, o);
     }
 
     public int getUpForce() {

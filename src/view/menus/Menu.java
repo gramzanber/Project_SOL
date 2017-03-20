@@ -1,6 +1,5 @@
 package view.menus;
 
-import controller.Main;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -8,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import view.gameobjects.RenderableObject;
+import view.swingcomponents.MainWindow;
 
 /**
 * The GameButton class is responsible for rendering an on-screen button to a
@@ -42,9 +42,9 @@ public class Menu extends RenderableObject {
     public void clear(){
         super.clear();
         for(int i=0; i<buttons.size(); i++){
-            Main.gamePanel.removeMouseListener(buttons.get(i));
-            Main.gamePanel.removeKeyListener(buttons.get(i));
-            Main.gamePanel.removeMouseMotionListener(buttons.get(i)); 
+            MainWindow.getInstance().getGamePanel().removeMouseListener(buttons.get(i));
+            MainWindow.getInstance().getGamePanel().removeKeyListener(buttons.get(i));
+            MainWindow.getInstance().getGamePanel().removeMouseMotionListener(buttons.get(i)); 
         }
     }
     
@@ -85,9 +85,9 @@ public class Menu extends RenderableObject {
     * @param button The button to add
     */
     public void addButton(GameButton button) {
-        Main.gamePanel.addMouseListener(button);
-        Main.gamePanel.addKeyListener(button);
-        Main.gamePanel.addMouseMotionListener(button);
+        MainWindow.getInstance().getGamePanel().addMouseListener(button);
+        MainWindow.getInstance().getGamePanel().addKeyListener(button);
+        MainWindow.getInstance().getGamePanel().addMouseMotionListener(button);
         this.buttons.add(button);
     }
 

@@ -1,9 +1,6 @@
 package view.gameobjects;
 
-import view.*;
-import controller.Main;
 import controller.PhysicsController;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -13,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import model.GameData;
 
 /**
 * Render a hero object to the screen.
@@ -72,7 +69,7 @@ public class EarthSmallEnemy extends RenderableObject
         testRect.setLocation(testLoc);
         
         //if test rect was successful its safe to move the real object
-        if(!Main.gameData.checkCollision(testRect, this)){
+        if(!GameData.getInstance().checkCollision(testRect, this)){
             boundingBox.setLocation(newLoc);
         }
     }
@@ -119,21 +116,21 @@ public class EarthSmallEnemy extends RenderableObject
             }
         }
         
-        if(Main.gameData.getHero().getBoundingBox().intersects(boundingBox))
+        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox))
         {
             System.out.println("Killed Enemy! By walking into it.");
             
             this.clear();
-            Main.gameData.gameObjects.remove(this);
+            GameData.getInstance().gameObjects.remove(this);
         }
-        for(int i = 0; i < Main.gameData.gameObjects.size(); i++)
-        if(Main.gameData.gameObjects.get(i) instanceof PrimaryWeapon &&
-                Main.gameData.gameObjects.get(i).boundingBox.intersects(boundingBox))
+        for(int i = 0; i < GameData.getInstance().gameObjects.size(); i++)
+        if(GameData.getInstance().gameObjects.get(i) instanceof PrimaryWeapon &&
+                GameData.getInstance().gameObjects.get(i).boundingBox.intersects(boundingBox))
         {
             System.out.println("Killed Enemy! By missle.");
             
             this.clear();
-            Main.gameData.gameObjects.remove(this);
+            GameData.getInstance().gameObjects.remove(this);
         }
     }
     

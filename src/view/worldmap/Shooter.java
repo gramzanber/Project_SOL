@@ -4,8 +4,6 @@
 
 package view.worldmap;
 
-import controller.Main;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -16,8 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import view.gameobjects.GameFigure;
+import view.swingcomponents.MainWindow;
 
 public class Shooter extends GameFigure
 {
@@ -120,10 +118,10 @@ public class Shooter extends GameFigure
     //EARTH 
     public void gotoEarth(boolean bool){
         if(bool){
-            float diffX = (float) (loc.x - (Main.game.getWidth()/1.65) - 7.5);
-            float diffY = (float) (loc.y - (Main.game.getHeight()/3) - 7.5);
-            float distance = (float) Math.sqrt((loc.x - (Main.game.getWidth()/1.65)) * (loc.x - (Main.game.getWidth()/1.65)) + (loc.y - (Main.game.getHeight()/3)) * (loc.y - (Main.game.getHeight()/3)));
-            //System.out.println(Main.game.getWidth());
+            float diffX = (float) (loc.x - (MainWindow.getInstance().getWidth()/1.65) - 7.5);
+            float diffY = (float) (loc.y - (MainWindow.getInstance().getHeight()/3) - 7.5);
+            float distance = (float) Math.sqrt((loc.x - (MainWindow.getInstance().getWidth()/1.65)) * (loc.x - (MainWindow.getInstance().getWidth()/1.65)) + (loc.y - (MainWindow.getInstance().getHeight()/3)) * (loc.y - (MainWindow.getInstance().getHeight()/3)));
+            //System.out.println(MainWindow.getInstance().getWidth());
             velX = (float) (diffX * (-1.0/distance));  
             velY = (float) (diffY * (-1.0/distance));
             
@@ -134,10 +132,10 @@ public class Shooter extends GameFigure
     //MOON 
     public void gotoMoon(boolean bool){
         if(bool){
-            float diffX = (float) (loc.x - (Main.game.getWidth()/1.4) - 7.5);
-            float diffY = (float) (loc.y - (Main.game.getHeight()/4) - 7.5);
-            float distance = (float) Math.sqrt((loc.x - (Main.game.getWidth()/1.4)) * (loc.x - (Main.game.getWidth()/1.4)) + (loc.y - (Main.game.getHeight()/4)) * (loc.y - (Main.game.getHeight()/4)));
-            //System.out.println(Main.game.getWidth());
+            float diffX = (float) (loc.x - (MainWindow.getInstance().getWidth()/1.4) - 7.5);
+            float diffY = (float) (loc.y - (MainWindow.getInstance().getHeight()/4) - 7.5);
+            float distance = (float) Math.sqrt((loc.x - (MainWindow.getInstance().getWidth()/1.4)) * (loc.x - (MainWindow.getInstance().getWidth()/1.4)) + (loc.y - (MainWindow.getInstance().getHeight()/4)) * (loc.y - (MainWindow.getInstance().getHeight()/4)));
+            //System.out.println(MainWindow.getInstance().getWidth());
             velX = (float) (diffX * (-1.0/distance));  
             velY = (float) (diffY * (-1.0/distance));
             
@@ -148,10 +146,10 @@ public class Shooter extends GameFigure
     //VENUS 
     public void gotoVenus(boolean bool){
         if(bool){
-            float diffX = (float) (loc.x - (Main.game.getWidth()/2.3) - 7.5);
-            float diffY = (float) (loc.y - (Main.game.getHeight()/1.65) - 7.5);
-            float distance = (float) Math.sqrt((loc.x - (Main.game.getWidth()/2.3)) * (loc.x - (Main.game.getWidth()/2.3)) + (loc.y - (Main.game.getHeight()/1.65)) * (loc.y - (Main.game.getHeight()/1.65)));
-            //System.out.println(Main.game.getWidth());
+            float diffX = (float) (loc.x - (MainWindow.getInstance().getWidth()/2.3) - 7.5);
+            float diffY = (float) (loc.y - (MainWindow.getInstance().getHeight()/1.65) - 7.5);
+            float distance = (float) Math.sqrt((loc.x - (MainWindow.getInstance().getWidth()/2.3)) * (loc.x - (MainWindow.getInstance().getWidth()/2.3)) + (loc.y - (MainWindow.getInstance().getHeight()/1.65)) * (loc.y - (MainWindow.getInstance().getHeight()/1.65)));
+            //System.out.println(MainWindow.getInstance().getWidth());
             velX = (float) (diffX * (-1.0/distance));  
             velY = (float) (diffY * (-1.0/distance));
             
@@ -162,10 +160,10 @@ public class Shooter extends GameFigure
     //MERCURY 
     public void gotoMercury(boolean bool){
         if(bool){
-            float diffX = (float) (loc.x - (Main.game.getWidth()/4) - 7.5);
-            float diffY = (float) (loc.y - (Main.game.getHeight()/2) - 7.5);
-            float distance = (float) Math.sqrt((loc.x - (Main.game.getWidth()/4)) * (loc.x - (Main.game.getWidth()/4)) + (loc.y - (Main.game.getHeight()/2)) * (loc.y - (Main.game.getHeight()/2)));
-            //System.out.println(Main.game.getWidth());
+            float diffX = (float) (loc.x - (MainWindow.getInstance().getWidth()/4) - 7.5);
+            float diffY = (float) (loc.y - (MainWindow.getInstance().getHeight()/2) - 7.5);
+            float distance = (float) Math.sqrt((loc.x - (MainWindow.getInstance().getWidth()/4)) * (loc.x - (MainWindow.getInstance().getWidth()/4)) + (loc.y - (MainWindow.getInstance().getHeight()/2)) * (loc.y - (MainWindow.getInstance().getHeight()/2)));
+            //System.out.println(MainWindow.getInstance().getWidth());
             velX = (float) (diffX * (-1.0/distance));  
             velY = (float) (diffY * (-1.0/distance));
             
@@ -176,10 +174,10 @@ public class Shooter extends GameFigure
     //SUN
     public void gotoSun(boolean bool){
         if(bool){
-            float diffX = (float) (loc.x - (Main.game.getWidth()/12) - 7.5);
-            float diffY = (float) (loc.y - (Main.game.getHeight()/2) - 7.5);
-            float distance = (float) Math.sqrt((loc.x - (Main.game.getWidth()/10)) * (loc.x - (Main.game.getWidth()/10)) + (loc.y - (Main.game.getHeight()/2)) * (loc.y - (Main.game.getHeight()/2)));
-            System.out.println(Main.game.getWidth());
+            float diffX = (float) (loc.x - (MainWindow.getInstance().getWidth()/12) - 7.5);
+            float diffY = (float) (loc.y - (MainWindow.getInstance().getHeight()/2) - 7.5);
+            float distance = (float) Math.sqrt((loc.x - (MainWindow.getInstance().getWidth()/10)) * (loc.x - (MainWindow.getInstance().getWidth()/10)) + (loc.y - (MainWindow.getInstance().getHeight()/2)) * (loc.y - (MainWindow.getInstance().getHeight()/2)));
+            System.out.println(MainWindow.getInstance().getWidth());
             velX = (float) (diffX * (-1.0/distance));  
             velY = (float) (diffY * (-1.0/distance));
             

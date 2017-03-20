@@ -1,18 +1,17 @@
 package view.gameobjects;
 
-import controller.Main;
-import java.awt.Color;
+import controller.SoundController;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import model.GameData;
 
 /**
 *
@@ -68,12 +67,12 @@ public class Gold extends Tile {
         }
         
         
-        if(Main.gameData.getHero().getBoundingBox().intersects(boundingBox)){
+        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
             System.out.println("collected gold!");
-            Main.soundController.coinPickUp();
+            SoundController.getInstance().coinPickUp();
             
             this.clear();
-            Main.gameData.gameObjects.remove(this);
+            GameData.getInstance().gameObjects.remove(this);
 
         }
         

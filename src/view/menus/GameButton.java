@@ -1,6 +1,7 @@
 package view.menus;
 
-import controller.Main;
+import controller.GameController;
+import controller.SoundController;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import model.GameData;
 import view.gameobjects.Background;
 import view.gameobjects.RenderableObject;
 
@@ -116,16 +118,16 @@ public class GameButton extends RenderableObject {
            
         //grab current background
         Background background = null;
-        for(int i=0; i<Main.gameData.gameObjects.size(); i++){
-            if(Main.gameData.gameObjects.get(i).getClass() == Background.class){
-                background = (Background)Main.gameData.gameObjects.get(i);
+        for(int i=0; i<GameData.getInstance().gameObjects.size(); i++){
+            if(GameData.getInstance().gameObjects.get(i).getClass() == Background.class){
+                background = (Background)GameData.getInstance().gameObjects.get(i);
             }
         }
 
-        Main.gameController.clear();
+        GameController.getInstance().clear();
 
-        Main.gameData.addGameObject(background);
-        Main.gameData.addGameObject(this);
+        GameData.getInstance().addGameObject(background);
+        GameData.getInstance().addGameObject(this);
 
     }
     
@@ -138,7 +140,7 @@ public class GameButton extends RenderableObject {
         for(int i=0; i<listeners.size(); i++){
             listeners.get(i).actionPerformed(e);
         }
-        Main.soundController.selectConfirm();
+        SoundController.getInstance().selectConfirm();
     }
 
     /**

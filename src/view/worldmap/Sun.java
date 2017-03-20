@@ -7,24 +7,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import controller.Main;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import model.GameData;
+import view.swingcomponents.MainWindow;
 
 public class Sun extends StarMap{
     
     private ArrayList<ActionListener> listeners; //action listeners
-    GameController gameController;
     
     public Sun(Point loc, int width, int height) {
         //call superclass constructor
         super(loc);
-        gameController = new GameController();
         //initialize listeners list
         listeners = new ArrayList();
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle(Main.game.getWidth()/12, Main.game.getHeight()/2, 100, 450);
+        super.boundingBox = new Rectangle(MainWindow.getInstance().getWidth()/12, MainWindow.getInstance().getHeight()/2, 100, 450);
     }
 
     @Override
@@ -52,9 +51,9 @@ public class Sun extends StarMap{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(Main.gameData.getShooter().getBoundingBox().intersects(boundingBox)){
+        if(GameData.getInstance().getShooter().getBoundingBox().intersects(boundingBox)){
             if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                gameController.showLevel5();
+                GameController.getInstance().showLevel5();
             }
         }
     }

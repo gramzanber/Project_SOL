@@ -1,6 +1,7 @@
 package view.gameobjects;
 
 import controller.Main;
+import controller.SoundController;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import model.GameData;
 
 /**
 * Render a hero object to the screen.
@@ -118,8 +120,8 @@ public class Hero extends Actor {
         else if(SwingUtilities.isLeftMouseButton(e))
         {
             PrimaryWeapon m = new PrimaryWeapon(translatedX, translatedY);
-            Main.soundController.primaryWeaponFire();
-            synchronized (Main.gameData.gameObjects) { Main.gameData.addGameObject(m); }
+            SoundController.getInstance().primaryWeaponFire();
+            synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m); }
         }
         else { System.out.printf("Mouse click error, Package: Controller; Class: view.Hero.java"); }
     }

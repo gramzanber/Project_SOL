@@ -13,6 +13,25 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SoundController 
 {
+    
+    //singleton instance
+    private static SoundController instance;
+    
+    /**
+     * Singleton class
+     * 
+     * @return the singleton instance of this class
+     */
+    public static SoundController getInstance(){
+        //initialize instance on first use
+        if(instance == null){
+            instance = new SoundController();
+        }
+        //return the instance
+        return instance;
+    }
+    
+    
     private Clip clip;
     private Clip playerWalkClip;
     private Clip smallEnemyWalkClip;
@@ -20,7 +39,10 @@ public class SoundController
     private Clip largeEnemyWalkClip;
     private boolean paused = false;
     
-    public SoundController(){
+    /**
+     * private constructor prevents bypassing singleton pattern
+     */
+    private SoundController(){
         try {
             clip = AudioSystem.getClip();
             playerWalkClip = AudioSystem.getClip();

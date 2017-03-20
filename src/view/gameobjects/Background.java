@@ -1,17 +1,15 @@
 package view.gameobjects;
 
-import controller.Main;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import model.GameData;
 
 /**
 * This class renders a background image.
@@ -95,8 +93,8 @@ public class Background extends RenderableObject {
             height = (int)viewport.getHeight();
         }
         else if(stretch == Stretch.WORLD){
-            width = (int)Main.gameData.world.getWidth()+50;
-            height = (int)Main.gameData.world.getHeight()+50;
+            width = (int)GameData.getInstance().world.getWidth()+50;
+            height = (int)GameData.getInstance().world.getHeight()+50;
             //draw in relation to the viewport
             x =  (int)boundingBox.getX() - (int)viewport.getX() - 50;
             y =  (int)boundingBox.getY() - (int)viewport.getY();

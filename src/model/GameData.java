@@ -1,5 +1,6 @@
 package model;
 
+import controller.Animator;
 import controller.Main;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -8,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import view.gameobjects.Hero;
 import view.gameobjects.RenderableObject;
+import view.swingcomponents.MainWindow;
 import view.worldmap.Shooter;
 
 /**
@@ -20,6 +22,25 @@ import view.worldmap.Shooter;
 */
 public class GameData{
     
+    //singleton instance
+    private static GameData instance;
+    
+    /**
+     * Singleton class
+     * 
+     * @return the singleton instance of this class
+     */
+    public static GameData getInstance(){
+        //initialize instance on first use
+        if(instance == null){
+            instance = new GameData();
+        }
+        //return the instance
+        return instance;
+    }
+    
+    
+    
     public final List<RenderableObject> gameObjects; //everything that is rendered is in this list
     public Rectangle viewport; //the current location of the viewport
     private Hero hero;
@@ -27,8 +48,8 @@ public class GameData{
     public Rectangle world;
     
     /**
-    * A simple constructor.
-    */
+     * private constructor prevents bypassing singleton pattern
+     */
     public GameData(){
         //initialize the game objects list
         gameObjects = Collections.synchronizedList(new ArrayList<RenderableObject>());
@@ -52,9 +73,9 @@ public class GameData{
     */
     public void addGameObject(RenderableObject gameObject){
         //add object to action listeners
-        Main.gamePanel.addMouseListener(gameObject);
-        Main.gamePanel.addKeyListener(gameObject);
-        Main.gamePanel.addMouseMotionListener(gameObject);
+        MainWindow.getInstance().getGamePanel().addMouseListener(gameObject);
+        MainWindow.getInstance().getGamePanel().addKeyListener(gameObject);
+        MainWindow.getInstance().getGamePanel().addMouseMotionListener(gameObject);
         
         //add object to list
         gameObjects.add(gameObject);

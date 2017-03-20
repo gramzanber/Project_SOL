@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import model.GameData;
+import view.swingcomponents.MainWindow;
 
 /**
 * This class is the rendering engine for the game, it runs on it's own thread 
@@ -13,6 +15,32 @@ import java.awt.Image;
 */
 public class Animator implements Runnable
 {
+    
+    //singleton instance
+    private static Animator instance;
+    
+    /**
+     * Singleton class
+     * 
+     * @return the singleton instance of this class
+     */
+    public static Animator getInstance(){
+        //initialize instance on first use
+        if(instance == null){
+            instance = new Animator();
+        }
+        //return the instance
+        return instance;
+    }
+    
+    /**
+     * private constructor prevents bypassing singleton pattern
+     */
+    private Animator(){
+        
+    }
+    
+    
     public boolean running = true; //if false then stop rendering
     private final int FRAMES_PER_SECOND = 120; //the target FPS for rendering
     private Image dbImage = null; //An offscreen image used for Double buffering
@@ -29,7 +57,7 @@ public class Animator implements Runnable
         //make sure the off screen image is defined
         //if (dbImage == null) {
             // Creates an off-screen drawable image
-            dbImage = Main.gamePanel.createImage(Main.gamePanel.getSize().width, Main.gamePanel.getSize().height);
+            dbImage = MainWindow.getInstance().getGamePanel().createImage(MainWindow.getInstance().getGamePanel().getSize().width, MainWindow.getInstance().getGamePanel().getSize().height);
             if (dbImage == null) {
                 System.out.println("Critical Error: dbImage is null");
                 System.exit(1);
@@ -63,14 +91,14 @@ public class Animator implements Runnable
             long startTime = System.currentTimeMillis();
             
             //since we are on a seperate thread we need to sync the object list
-            synchronized (Main.gameData.gameObjects){
+            synchronized (GameData.getInstance().gameObjects){
                 try{
                     //loop over every game object
-                    for(int i=0; i<Main.gameData.gameObjects.size(); i++){
+                    for(int i=0; i<GameData.getInstance().gameObjects.size(); i++){
                         //call update, this advances state of any animations
-                        Main.gameData.gameObjects.get(i).update();
+                        GameData.getInstance().gameObjects.get(i).update();
                         //call render
-                        Main.gameData.gameObjects.get(i).render(g2, Main.gameData.viewport);
+                        GameData.getInstance().gameObjects.get(i).render(g2, GameData.getInstance().viewport);
                     }
                 }
                 catch(Exception e) {
@@ -82,7 +110,7 @@ public class Animator implements Runnable
             //the panel
             //adding try/catch because of null pointer error sometimes when changing window size
             try{
-                Main.gamePanel.getGraphics().drawImage(dbImage, 0, 0, Main.gamePanel);
+                MainWindow.getInstance().getGamePanel().getGraphics().drawImage(dbImage, 0, 0, MainWindow.getInstance().getGamePanel());
             }
             catch(Exception e){
                 e.printStackTrace();
@@ -107,17 +135,17 @@ public class Animator implements Runnable
 //        // detect collisions between friendFigure and enemyFigures
 //        // if detected, mark it as STATE_DONE, so that
 //        // they can be removed at update() method       
-//        for (GameFigure friendFigure : Main.gameData.friendFigures)
+//        for (GameFigure friendFigure : GameData.getInstance().friendFigures)
 //        {
 //            Rectangle2D friendBox = ((GameFigure) friendFigure).getCollisionBox();
-//            for (GameFigure enemyFigure : Main.gameData.enemyFigures)
+//            for (GameFigure enemyFigure : GameData.getInstance().enemyFigures)
 //            {
 //                GameFigure enemy = (GameFigure) enemyFigure;
 //                if (friendBox.intersects(enemy.getCollisionBox()))
 //                {
 //                    enemy.damageFigure();
 //                    if(enemy.getHealth() == 0){ enemy.state = GameFigure.STATE_DESTROYED; }
-//                    if(enemy instanceof Blackhole) { Main.score.addToScore(10000); Main.gameData.goUpLevel(); }
+//                    if(enemy instanceof Blackhole) { Main.score.addToScore(10000); GameData.getInstance().goUpLevel(); }
 //                }
 //            }
 //        }    

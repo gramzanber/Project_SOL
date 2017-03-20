@@ -7,24 +7,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import controller.Main;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import model.GameData;
+import view.swingcomponents.MainWindow;
 
 public class Mercury extends StarMap{
     
     private ArrayList<ActionListener> listeners; //action listeners
-    GameController gameController;
+    //GameController gameController;
     
     public Mercury(Point loc, int width, int height) {
         //call superclass constructor
         super(loc);
-        this.gameController = new GameController();
+        //this.gameController = new GameController();
         //initialize listeners list
         listeners = new ArrayList();
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle(Main.game.getWidth()/4, Main.game.getHeight()/2, 70, 78);
+        super.boundingBox = new Rectangle(MainWindow.getInstance().getWidth()/4, MainWindow.getInstance().getHeight()/2, 70, 78);
     }
 
     @Override
@@ -52,9 +53,9 @@ public class Mercury extends StarMap{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(Main.gameData.getShooter().getBoundingBox().intersects(boundingBox)){
+        if(GameData.getInstance().getShooter().getBoundingBox().intersects(boundingBox)){
             if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            gameController.showLevel4();
+            GameController.getInstance().showLevel4();
             }
         }
     }

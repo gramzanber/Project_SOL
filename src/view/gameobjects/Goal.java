@@ -1,16 +1,16 @@
 package view.gameobjects;
 
-import controller.Main;
+import controller.SoundController;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import model.GameData;
 
 /**
 * Render a goal to the screen.
@@ -48,14 +48,14 @@ public class Goal extends RenderableObject {
     @Override
     public void update(){
         
-        if(Main.gameData.getHero().getBoundingBox().intersects(boundingBox)){
+        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
             System.out.println("Goal reached!");
             
             ActionEvent e = new ActionEvent(this, 1, "select");
             for(int i=0; i<listeners.size(); i++){
                 listeners.get(i).actionPerformed(e);
             }
-            Main.soundController.selectConfirm();
+            SoundController.getInstance().selectConfirm();
 
         }
         

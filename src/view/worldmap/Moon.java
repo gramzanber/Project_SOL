@@ -7,29 +7,28 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import controller.Main;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import model.GameData;
+import view.swingcomponents.MainWindow;
 
 public class Moon extends StarMap{
     
     private ArrayList<ActionListener> listeners; //action listeners
-    GameController gameController;
     
     public Moon(Point loc, int width, int height) {
         //call superclass constructor
         super(loc);
-        this.gameController = new GameController();
         //initialize listeners list
         listeners = new ArrayList();
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle((int) (Main.game.getWidth()/1.4), Main.game.getHeight()/4, 30, 25);
+        super.boundingBox = new Rectangle((int) (MainWindow.getInstance().getWidth()/1.4), MainWindow.getInstance().getHeight()/4, 30, 25);
     }
 
     @Override
     public void update() {
-        /*if(Main.gameData.getShooter().getBoundingBox().intersects(boundingBox)){
+        /*if(GameData.getInstance().getShooter().getBoundingBox().intersects(boundingBox)){
             System.out.println("TESTED!!");
         }*/
     }
@@ -55,9 +54,9 @@ public class Moon extends StarMap{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(Main.gameData.getShooter().getBoundingBox().intersects(boundingBox)){
+        if(GameData.getInstance().getShooter().getBoundingBox().intersects(boundingBox)){
             if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                gameController.showLevel2();
+                GameController.getInstance().showLevel2();
             }
         }
     }

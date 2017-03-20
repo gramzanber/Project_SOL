@@ -7,24 +7,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import controller.Main;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import model.GameData;
+import view.swingcomponents.MainWindow;
 
 public class Venus extends StarMap{
     
     private ArrayList<ActionListener> listeners; //action listeners
-    GameController gameController;
 
     public Venus(Point loc, int width, int height) {
         //call superclass constructor
         super(loc);
-        this.gameController = new GameController();
         //initialize listeners list
         listeners = new ArrayList();
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle((int) (Main.game.getWidth()/2.3), (int) (Main.game.getHeight()/1.65), 81, 96);
+        super.boundingBox = new Rectangle((int) (MainWindow.getInstance().getWidth()/2.3), (int) (MainWindow.getInstance().getHeight()/1.65), 81, 96);
     }
 
     @Override
@@ -52,9 +51,9 @@ public class Venus extends StarMap{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(Main.gameData.getShooter().getBoundingBox().intersects(boundingBox)){
+        if(GameData.getInstance().getShooter().getBoundingBox().intersects(boundingBox)){
             if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                gameController.showLevel3();
+                GameController.getInstance().showLevel3();
             }
         }
     }
