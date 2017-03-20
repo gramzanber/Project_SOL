@@ -6,9 +6,9 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import view.Hero;
-import view.RenderableObject;
-import view.Shooter;
+import view.gameobjects.Hero;
+import view.gameobjects.RenderableObject;
+import view.worldmap.Shooter;
 
 /**
 * The GameData class is responsible for holding the state of the game.

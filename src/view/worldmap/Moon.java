@@ -1,4 +1,4 @@
-package view;
+package view.worldmap;
 
 import controller.GameController;
 import java.awt.Point;
@@ -11,26 +11,27 @@ import controller.Main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Earth extends StarMap{
+public class Moon extends StarMap{
     
     private ArrayList<ActionListener> listeners; //action listeners
     GameController gameController;
     
-    public Earth(Point loc, int width, int height) {
+    public Moon(Point loc, int width, int height) {
         //call superclass constructor
         super(loc);
-        this.gameController = Main.gameController;
-        
+        this.gameController = new GameController();
         //initialize listeners list
         listeners = new ArrayList();
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle((int) (Main.game.getWidth()/1.65), Main.game.getHeight()/3, 112, 130);
+        super.boundingBox = new Rectangle((int) (Main.game.getWidth()/1.4), Main.game.getHeight()/4, 30, 25);
     }
 
     @Override
     public void update() {
-        
+        /*if(Main.gameData.getShooter().getBoundingBox().intersects(boundingBox)){
+            System.out.println("TESTED!!");
+        }*/
     }
     
     public void addActionListener(ActionListener listener){
@@ -39,9 +40,10 @@ public class Earth extends StarMap{
     
     @Override
     public void render(Graphics2D g2, Rectangle bounds){
-        //Earth
-        g2.setColor(Color.RED);
-        //g2.drawRect(385, 175, 112, 130);
+    
+        //Moon
+        g2.setColor(Color.BLUE);
+        //g2.drawRect(503, 158, 22, 25);
     }
 
     @Override
@@ -55,10 +57,9 @@ public class Earth extends StarMap{
     public void keyPressed(KeyEvent e) {
         if(Main.gameData.getShooter().getBoundingBox().intersects(boundingBox)){
             if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            gameController.showLevel1();
+                gameController.showLevel2();
             }
         }
-        
     }
 
     

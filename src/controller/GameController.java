@@ -13,21 +13,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
-import view.Laser;
-import view.Background;
-import view.Block;
-import view.GameButton;
-import view.Goal;
-import view.Earth;
-import view.EarthSmallEnemy;
-import view.Gold;
-import view.Menu;
-import view.Mercury;
-import view.Moon;
-import view.Sun;
-import view.Text;
-import view.Tile;
-import view.Venus;
+import view.gameobjects.Laser;
+import view.gameobjects.Background;
+import view.gameobjects.Block;
+import view.menus.GameButton;
+import view.gameobjects.Goal;
+import view.worldmap.Earth;
+import view.gameobjects.EarthSmallEnemy;
+import view.gameobjects.Gold;
+import view.menus.Menu;
+import view.worldmap.Mercury;
+import view.worldmap.Moon;
+import view.worldmap.Sun;
+import view.gameobjects.Text;
+import view.gameobjects.Tile;
+import view.worldmap.Venus;
 
 /**
 * The GameController class is responsible for making changes to the GameModel.

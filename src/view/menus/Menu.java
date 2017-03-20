@@ -1,4 +1,4 @@
-package view;
+package view.menus;
 
 import controller.Main;
 import java.awt.Graphics2D;
@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import view.gameobjects.RenderableObject;
 
 /**
 * The GameButton class is responsible for rendering an on-screen button to a

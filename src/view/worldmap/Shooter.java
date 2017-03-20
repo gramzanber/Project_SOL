@@ -2,7 +2,7 @@
 // Course:	SDD
 // Semester:    Spring, 2017
 
-package view;
+package view.worldmap;
 
 import controller.Main;
 import java.awt.Color;
@@ -17,6 +17,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import view.gameobjects.GameFigure;
 
 public class Shooter extends GameFigure
 {

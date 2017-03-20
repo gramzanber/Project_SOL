@@ -1,4 +1,4 @@
-package view;
+package view.worldmap;
 
 import controller.GameController;
 import java.awt.Point;

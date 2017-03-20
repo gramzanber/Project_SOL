@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import model.GameData;
 import view.BufferedImageLoader;
-import view.MainWindow;
+import view.swingcomponents.MainWindow;
 
 
 

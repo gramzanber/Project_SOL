@@ -7,8 +7,8 @@ package controller;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import view.Actor;
-import view.RenderableObject;
+import view.gameobjects.Actor;
+import view.gameobjects.RenderableObject;
 
 /**
  *

@@ -2,7 +2,7 @@
 // Course:	SDD
 // Semester:    Spring, 2017
 
-package view;
+package view.gameobjects;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

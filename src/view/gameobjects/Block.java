@@ -1,56 +1,42 @@
-package view;
+package view.gameobjects;
 
-import controller.Main;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 
 /**
+* Render a block to the screen.
 *
 * @author  SATAS
 * @version 1.0
 * @since   2017-02-18 
 */
-public class Gold extends Tile {
+public class Block extends RenderableObject {
 
-
-    private static BufferedImage coinSpriteSheet = null;
-    private int step;
-    private long lastStep;
+    
+    
+    public enum Style {
+        TRANSPARENT, GROUND, BLUE, SIMPLE
+    }
+    
+    private final Style style;
     
     /**
     * Constructor 
     * 
     * @param loc
     */
-    public Gold(Point loc) {
+    public Block(Style style, Point loc, int width, int height) {
         //call superclass constructor
         super(loc);
+        this.style = style;
+        solid = true;
         
-        
-        //load spritesheet if not already loaded
-        if(coinSpriteSheet == null){
-            try {
-                coinSpriteSheet = ImageIO.read(getClass().getResource("/Images/spinning-coin-spritesheet.png"));
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Error: Cannot open tile sprite sheet");
-                System.exit(-1);
-            }
-        }
-        
-        step = 0;
-        lastStep = System.currentTimeMillis();
-        this.solid = false;
-        
+        //update bounding box for the object
+        super.boundingBox = new Rectangle(loc.x, loc.y, width, height);
     }
     
     /**
@@ -58,25 +44,6 @@ public class Gold extends Tile {
     */
     @Override
     public void update(){
-        
-        if(System.currentTimeMillis() - lastStep > 100){
-            lastStep = System.currentTimeMillis();
-            step++;
-            if(step > 13){
-                step = 0;
-            }
-        }
-        
-        
-        if(Main.gameData.getHero().getBoundingBox().intersects(boundingBox)){
-            System.out.println("collected gold!");
-            Main.soundController.coinPickUp();
-            
-            this.clear();
-            Main.gameData.gameObjects.remove(this);
-
-        }
-        
     }
     
     /**
@@ -90,12 +57,26 @@ public class Gold extends Tile {
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
             
+            if(style == Style.TRANSPARENT){
+                //dont render
+            }
+            else if(style == Style.BLUE){
+                //render blue block
+                int border = 2;
+                g2.setColor(Color.GRAY);
+                g2.fillRect(translatedX, translatedY, (int)boundingBox.getWidth(), (int)boundingBox.getHeight());
+                g2.setColor(Color.BLUE);
+                g2.fillRect(translatedX+border, translatedY+border, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2);
+
+            }
+            else if(style == Style.GROUND){
+                //render ground texture
+                g2.setColor(Color.GRAY);
+                g2.fillRect(translatedX, translatedY, (int)boundingBox.getWidth(), (int)boundingBox.getHeight());
+            }
             
-            //get sprite image from sprite sheet
-            Image sprite = coinSpriteSheet.getSubimage(171*step, 0, 171, 171);
             
-            //draw sprite
-            g2.drawImage(sprite, translatedX, translatedY, TILESIZE, TILESIZE, null);
+            
         }
     }
     

@@ -1,4 +1,4 @@
-package view;
+package view.worldmap;
 
 import controller.GameController;
 import java.awt.Point;
@@ -11,12 +11,12 @@ import controller.Main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Venus extends StarMap{
+public class Mercury extends StarMap{
     
     private ArrayList<ActionListener> listeners; //action listeners
     GameController gameController;
-
-    public Venus(Point loc, int width, int height) {
+    
+    public Mercury(Point loc, int width, int height) {
         //call superclass constructor
         super(loc);
         this.gameController = new GameController();
@@ -24,7 +24,7 @@ public class Venus extends StarMap{
         listeners = new ArrayList();
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle((int) (Main.game.getWidth()/2.3), (int) (Main.game.getHeight()/1.65), 81, 96);
+        super.boundingBox = new Rectangle(Main.game.getWidth()/4, Main.game.getHeight()/2, 70, 78);
     }
 
     @Override
@@ -38,9 +38,9 @@ public class Venus extends StarMap{
     
     @Override
     public void render(Graphics2D g2, Rectangle bounds){
-        //Venus
-        g2.setColor(Color.WHITE);
-        //g2.drawRect(282, 333, 81, 96);
+        //Mercury
+        g2.setColor(Color.YELLOW);
+        //g2.drawRect(170, 279, 70, 78);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Venus extends StarMap{
     public void keyPressed(KeyEvent e) {
         if(Main.gameData.getShooter().getBoundingBox().intersects(boundingBox)){
             if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                gameController.showLevel3();
+            gameController.showLevel4();
             }
         }
     }

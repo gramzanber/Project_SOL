@@ -2,7 +2,7 @@
 // Course:	SDD
 // Semester:    Spring, 2017
 
-package view;
+package view.swingcomponents;
 
 import controller.Main;
 import java.awt.Container;

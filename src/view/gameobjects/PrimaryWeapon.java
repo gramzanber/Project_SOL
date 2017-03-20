@@ -2,9 +2,9 @@
 // Course:	SDD
 // Semester:    Spring, 2017
 
-package view;
+package view.gameobjects;
 
-import view.GameFigure;
+import view.gameobjects.GameFigure;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;

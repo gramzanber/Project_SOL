@@ -1,10 +1,12 @@
-package view;
+package view.gameobjects;
 
+import controller.Main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -18,59 +20,63 @@ import javax.swing.JOptionPane;
 * @version 1.0
 * @since   2017-02-18 
 */
-public class Tile extends RenderableObject {
+public class Gold extends Tile {
 
-    public static final int TILESIZE = 32;
-    
-    private static BufferedImage spriteSheet = null;
-    private int spriteX;
-    private int spriteY;
-    
-    private int trim; //amount to oversize tile for hiding gaps in sprite
+
+    private static BufferedImage coinSpriteSheet = null;
+    private int step;
+    private long lastStep;
     
     /**
     * Constructor 
     * 
     * @param loc
     */
-    public Tile(Point loc) {
+    public Gold(Point loc) {
         //call superclass constructor
         super(loc);
-        solid = true;
+        
         
         //load spritesheet if not already loaded
-        if(spriteSheet == null){
+        if(coinSpriteSheet == null){
             try {
-                spriteSheet = ImageIO.read(getClass().getResource("/Images/tiles_spritesheet.png"));
+                coinSpriteSheet = ImageIO.read(getClass().getResource("/Images/spinning-coin-spritesheet.png"));
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Error: Cannot open tile sprite sheet");
                 System.exit(-1);
             }
         }
-
-        spriteX = 0;
-        spriteY = 0;
-        trim = 0;
         
-        //update bounding box for the object
-        super.boundingBox = new Rectangle(loc.x, loc.y, TILESIZE, TILESIZE);
+        step = 0;
+        lastStep = System.currentTimeMillis();
+        this.solid = false;
+        
     }
-    
-    public void setSprite(int x, int y){
-        this.spriteX = x;
-        this.spriteY = y;
-    }
-
-    public void setTrim(int trim) {
-        this.trim = trim;
-    }
-    
     
     /**
     * {@inheritDoc}
     */
     @Override
     public void update(){
+        
+        if(System.currentTimeMillis() - lastStep > 100){
+            lastStep = System.currentTimeMillis();
+            step++;
+            if(step > 13){
+                step = 0;
+            }
+        }
+        
+        
+        if(Main.gameData.getHero().getBoundingBox().intersects(boundingBox)){
+            System.out.println("collected gold!");
+            Main.soundController.coinPickUp();
+            
+            this.clear();
+            Main.gameData.gameObjects.remove(this);
+
+        }
+        
     }
     
     /**
@@ -86,10 +92,10 @@ public class Tile extends RenderableObject {
             
             
             //get sprite image from sprite sheet
-            Image sprite = spriteSheet.getSubimage(spriteX*72, spriteY*72, 72, 72);
+            Image sprite = coinSpriteSheet.getSubimage(171*step, 0, 171, 171);
             
             //draw sprite
-            g2.drawImage(sprite, translatedX-trim, translatedY-trim, TILESIZE+trim, TILESIZE+trim, null);
+            g2.drawImage(sprite, translatedX, translatedY, TILESIZE, TILESIZE, null);
         }
     }
     

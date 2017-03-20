@@ -1,43 +1,70 @@
-package view;
+package view.gameobjects;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 /**
-* Render a block to the screen.
 *
 * @author  SATAS
 * @version 1.0
 * @since   2017-02-18 
 */
-public class Block extends RenderableObject {
+public class Tile extends RenderableObject {
 
+    public static final int TILESIZE = 32;
     
+    private static BufferedImage spriteSheet = null;
+    private int spriteX;
+    private int spriteY;
     
-    public enum Style {
-        TRANSPARENT, GROUND, BLUE, SIMPLE
-    }
-    
-    private final Style style;
+    private int trim; //amount to oversize tile for hiding gaps in sprite
     
     /**
     * Constructor 
     * 
     * @param loc
     */
-    public Block(Style style, Point loc, int width, int height) {
+    public Tile(Point loc) {
         //call superclass constructor
         super(loc);
-        this.style = style;
         solid = true;
         
+        //load spritesheet if not already loaded
+        if(spriteSheet == null){
+            try {
+                spriteSheet = ImageIO.read(getClass().getResource("/Images/tiles_spritesheet.png"));
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Error: Cannot open tile sprite sheet");
+                System.exit(-1);
+            }
+        }
+
+        spriteX = 0;
+        spriteY = 0;
+        trim = 0;
+        
         //update bounding box for the object
-        super.boundingBox = new Rectangle(loc.x, loc.y, width, height);
+        super.boundingBox = new Rectangle(loc.x, loc.y, TILESIZE, TILESIZE);
     }
+    
+    public void setSprite(int x, int y){
+        this.spriteX = x;
+        this.spriteY = y;
+    }
+
+    public void setTrim(int trim) {
+        this.trim = trim;
+    }
+    
     
     /**
     * {@inheritDoc}
@@ -57,26 +84,12 @@ public class Block extends RenderableObject {
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
             
-            if(style == Style.TRANSPARENT){
-                //dont render
-            }
-            else if(style == Style.BLUE){
-                //render blue block
-                int border = 2;
-                g2.setColor(Color.GRAY);
-                g2.fillRect(translatedX, translatedY, (int)boundingBox.getWidth(), (int)boundingBox.getHeight());
-                g2.setColor(Color.BLUE);
-                g2.fillRect(translatedX+border, translatedY+border, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2);
-
-            }
-            else if(style == Style.GROUND){
-                //render ground texture
-                g2.setColor(Color.GRAY);
-                g2.fillRect(translatedX, translatedY, (int)boundingBox.getWidth(), (int)boundingBox.getHeight());
-            }
             
+            //get sprite image from sprite sheet
+            Image sprite = spriteSheet.getSubimage(spriteX*72, spriteY*72, 72, 72);
             
-            
+            //draw sprite
+            g2.drawImage(sprite, translatedX-trim, translatedY-trim, TILESIZE+trim, TILESIZE+trim, null);
         }
     }
     

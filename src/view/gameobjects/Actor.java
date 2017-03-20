@@ -1,5 +1,6 @@
-package view;
+package view.gameobjects;
 
+import view.swingcomponents.MenuWindow;
 import controller.GameController;
 import controller.Main;
 import controller.PhysicsController;

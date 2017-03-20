@@ -1,8 +1,9 @@
-package view;
+package view.worldmap;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import view.gameobjects.RenderableObject;
 
 /**
  *

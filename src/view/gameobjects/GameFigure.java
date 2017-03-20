@@ -1,4 +1,4 @@
-package view;
+package view.gameobjects;
 
 import java.awt.Point;
 
