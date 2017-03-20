@@ -122,7 +122,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     public void resetViewport(){
         //GameData.getInstance().viewport = new Rectangle(0,GameData.getInstance().world.height-MainWindow.getInstance().getGamePanel().getHeight(),MainWindow.getInstance().getGamePanel().getWidth(),MainWindow.getInstance().getGamePanel().getHeight());
         GameData.getInstance().viewport = new Rectangle(0,0,MainWindow.getInstance().getGamePanel().getWidth(),MainWindow.getInstance().getGamePanel().getHeight());
-        Animator.getInstance().init();
+        Animator.getInstance().init(GameData.getInstance().viewport.width,GameData.getInstance().viewport.height);
         
         System.out.println("Screen: "+screen);
         //reload menu screens because they need to be centered.

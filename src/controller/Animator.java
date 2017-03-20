@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import model.GameData;
 import view.swingcomponents.MainWindow;
 
@@ -13,7 +14,7 @@ import view.swingcomponents.MainWindow;
 * @version 1.0
 * @since   2017-02-20 
 */
-public class Animator implements Runnable
+public class Animator
 {
     
     //singleton instance
@@ -33,20 +34,41 @@ public class Animator implements Runnable
         return instance;
     }
     
+    public boolean running = true; //if false then stop rendering
+    private final int FRAMES_PER_SECOND = 120; //the target FPS for rendering
+    private Image dbImage = null; //An offscreen image used for Double buffering
+    private RenderingThread t;
+    
     /**
      * private constructor prevents bypassing singleton pattern
      */
     private Animator(){
-        
+        this.init(100, 100);
     }
     
     
-    public boolean running = true; //if false then stop rendering
-    private final int FRAMES_PER_SECOND = 120; //the target FPS for rendering
-    private Image dbImage = null; //An offscreen image used for Double buffering
+    public void start(){
+        if(t == null){
+            t = new RenderingThread();
+        }
+        if(!t.isAlive()){
+            t.start();
+        }
+        this.running = true;
+    }
+    public void stop(){
+        this.running = false;
+    }
+    public boolean isRunning(){
+        return this.running;
+    }
     
     
-    public void init(){
+    /**
+     * Create the double buffer image
+     */
+    public void init(int canvasWidth, int canvasHeight){
+        
         //The traditional notion of double-buffering in Java applications is 
         //fairly straightforward: create an offscreen image, draw to that image 
         //using the image's graphics object, then, in one step, call drawImage 
@@ -54,41 +76,56 @@ public class Animator implements Runnable
         //this will reduce flicker because the slower process of rendering each 
         //object is done off screen
         
-        //make sure the off screen image is defined
-        //if (dbImage == null) {
-            // Creates an off-screen drawable image
-            dbImage = MainWindow.getInstance().getGamePanel().createImage(MainWindow.getInstance().getGamePanel().getSize().width, MainWindow.getInstance().getGamePanel().getSize().height);
-            if (dbImage == null) {
-                System.out.println("Critical Error: dbImage is null");
-                System.exit(1);
-            }
-        //}
+        dbImage = new BufferedImage(canvasWidth, canvasHeight, BufferedImage.TYPE_INT_ARGB); 
+        
     }
     
-    
     /**
-    * {@inheritDoc}
-    */
-    @Override
-    public void run()
-    {
-        init();
+     * Private inner class.
+     * This is the rendering thread
+     */
+    private class RenderingThread extends Thread {
+    
+        //start time for calculating how long to sleep between frames
+        long startTime = System.currentTimeMillis();
         
-        
-        
-        //start the main game loop
-        while (running)
-        {
+        public RenderingThread(){
             
+        }
+        
+        @Override
+        public void run(){
+            while (Animator.getInstance().isRunning()){
+                
+                //render frame
+                Animator.getInstance().renderScene();
+               
+               
+                //sleep the remaining amount of time based on the FPS
+                long endTime = System.currentTimeMillis();
+                long elapsedTime = endTime - startTime;
+                long targetTime = 1000/FRAMES_PER_SECOND;
+                if(elapsedTime < targetTime){
+                    try {
+                        Thread.sleep(targetTime-elapsedTime);
+                    } 
+                    catch (InterruptedException e) {}
+                }
+            
+            }
+        }
+        
+    }
+
+    
+    public void renderScene(){
+        
             //create the graphics object from the offscreen image
             Graphics2D g2 = (Graphics2D) dbImage.getGraphics();
             
             //clear
             g2.fillRect(0,0,dbImage.getWidth(null), dbImage.getHeight(null));
             
-            
-            //start time for calculating how long to sleep between frames
-            long startTime = System.currentTimeMillis();
             
             //since we are on a seperate thread we need to sync the object list
             synchronized (GameData.getInstance().gameObjects){
@@ -117,17 +154,8 @@ public class Animator implements Runnable
             }
             
             
-            //sleep the remaining amount of time based on the FPS
-            long endTime = System.currentTimeMillis();
-            long elapsedTime = endTime - startTime;
-            long targetTime = 1000/FRAMES_PER_SECOND;
-            if(elapsedTime < targetTime){
-                try {
-                    Thread.sleep(targetTime-elapsedTime);
-                } 
-                catch (InterruptedException e) {}
-            }
-        }
+            
+        
     }
 
 //    private synchronized void processCollisions()

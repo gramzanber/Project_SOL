@@ -2,9 +2,6 @@ package controller;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import view.BufferedImageLoader;
 import view.swingcomponents.MainWindow;
 
 
@@ -20,8 +17,8 @@ import view.swingcomponents.MainWindow;
 public class Main
 {
     
-    static GraphicsDevice device = GraphicsEnvironment
-        .getLocalGraphicsEnvironment().getScreenDevices()[0];
+    //static GraphicsDevice device = GraphicsEnvironment
+    //    .getLocalGraphicsEnvironment().getScreenDevices()[0];
     
     public static int WIN_WIDTH = 700; //the width of the gui window
     public static int WIN_HEIGHT = 600; //the height of the gui window
@@ -37,15 +34,11 @@ public class Main
         //build and display the gui
         MainWindow.getInstance().setVisible(true);
 
-        
-        //initialize the viewport
-        //gameData.viewport = new Rectangle(gamePanel.getWidth(),gamePanel.getHeight());
-        
         //initially show the main menu screen
         GameController.getInstance().resetViewport();
         GameController.getInstance().showMainMenu();
         
         // Start rendering engine
-        new Thread(Animator.getInstance()).start();
+        Animator.getInstance().start();
     }
 }
