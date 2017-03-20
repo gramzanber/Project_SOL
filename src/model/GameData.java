@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import model.quadtree.QuadTree;
 import view.gameobjects.Hero;
 import view.gameobjects.RenderableObject;
 import view.swingcomponents.MainWindow;
@@ -87,21 +88,37 @@ public class GameData{
     * @param boundingBox The rectangle to check.
     */
     public boolean checkCollision(Rectangle boundingBox, RenderableObject obj) {
-        synchronized (gameObjects){
-            try{
-                //loop over every game object
-                for(int i=0; i < gameObjects.size(); i++){
-                    if(obj != gameObjects.get(i) && gameObjects.get(i).isSolid()){
-                        if(boundingBox.intersects(gameObjects.get(i).getBoundingBox())){
-                            return true;
-                        }
-                    }
+        
+        QuadTree qt = Animator.getInstance().getQuadTree();
+        
+        model.quadtree.Point[] nearByObjects = qt.searchIntersect(obj.getBoundingBox().x-100, obj.getBoundingBox().y-100, obj.getBoundingBox().x+obj.getBoundingBox().width+100, obj.getBoundingBox().y+obj.getBoundingBox().height+100);
+        for(int i=0; i < nearByObjects.length; i++){
+            
+            RenderableObject testObj = (RenderableObject) nearByObjects[i].getValue();
+            
+            if(obj != testObj && testObj.isSolid()){
+                if(boundingBox.intersects( testObj.getBoundingBox() )){
+                    return true;
                 }
             }
-            catch(Exception e) {
-                System.out.println(e.getMessage()); 
-            }
         }
+        
+        
+//        synchronized (gameObjects){
+//            try{
+//                //loop over every game object
+//                for(int i=0; i < gameObjects.size(); i++){
+//                    if(obj != gameObjects.get(i) && gameObjects.get(i).isSolid()){
+//                        if(boundingBox.intersects(gameObjects.get(i).getBoundingBox())){
+//                            return true;
+//                        }
+//                    }
+//                }
+//            }
+//            catch(Exception e) {
+//                System.out.println(e.getMessage()); 
+//            }
+//        }
         return false;
     }
     

@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import model.GameData;
+import model.quadtree.QuadTree;
+import view.gameobjects.RenderableObject;
 import view.swingcomponents.MainWindow;
 
 /**
@@ -38,12 +40,15 @@ public class Animator
     private final int FRAMES_PER_SECOND = 120; //the target FPS for rendering
     private Image dbImage = null; //An offscreen image used for Double buffering
     private RenderingThread t;
+    private QuadTree quadTree;
     
     /**
      * private constructor prevents bypassing singleton pattern
      */
     private Animator(){
         this.init(100, 100);
+        
+        quadTree = new QuadTree(0, 0, 9999.0, 9999.0);
     }
     
     
@@ -62,7 +67,9 @@ public class Animator
     public boolean isRunning(){
         return this.running;
     }
-    
+    public QuadTree getQuadTree(){
+        return quadTree;
+    }
     
     /**
      * Create the double buffer image
@@ -126,22 +133,36 @@ public class Animator
             //clear
             g2.fillRect(0,0,dbImage.getWidth(null), dbImage.getHeight(null));
             
+            //initialize a new quad tree
+            QuadTree nextQuadTree = new QuadTree(0, 0, 9999.0, 9999.0);
+            
             
             //since we are on a seperate thread we need to sync the object list
             synchronized (GameData.getInstance().gameObjects){
-                try{
+                try {
                     //loop over every game object
                     for(int i=0; i<GameData.getInstance().gameObjects.size(); i++){
+                        
+                        RenderableObject obj = GameData.getInstance().gameObjects.get(i);
+                        
+                        nextQuadTree.set(obj.getBoundingBox().getX(), obj.getBoundingBox().getY(), obj);
+                        
                         //call update, this advances state of any animations
-                        GameData.getInstance().gameObjects.get(i).update();
+                        obj.update();
+                        
                         //call render
-                        GameData.getInstance().gameObjects.get(i).render(g2, GameData.getInstance().viewport);
+                        obj.render(g2, GameData.getInstance().viewport);
                     }
                 }
                 catch(Exception e) {
                     System.out.println(e.getMessage()); 
                 }
             }
+            
+            
+            quadTree = nextQuadTree;
+            
+            
             
             //to finish up the double buffer process draw the offscreen image to 
             //the panel
