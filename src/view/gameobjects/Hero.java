@@ -40,6 +40,7 @@ public class Hero extends Actor {
     static boolean movingUp = false;
     static boolean movingDown = false;
     static boolean facingRight;
+    
     private int frames = 2;
     
     /**

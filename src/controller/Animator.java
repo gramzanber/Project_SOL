@@ -116,7 +116,9 @@ public class Animator
                     try {
                         Thread.sleep(targetTime-elapsedTime);
                     } 
-                    catch (InterruptedException e) {}
+                    catch (InterruptedException e) {
+                        System.out.println(e.getMessage()); 
+                    }
                 }
             
             }
