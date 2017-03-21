@@ -49,11 +49,10 @@ public class Gold extends Tile {
 
         //check collision
         if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
-            System.out.println("collected gold!");
             SoundController.getInstance().coinPickUp();
             
             this.clear();
-            GameData.getInstance().gameObjects.remove(this);
+            GameData.getInstance().removeGameObject(this);
         }
         
     }

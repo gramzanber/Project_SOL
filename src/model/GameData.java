@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 import model.quadtree.QuadTree;
 import view.gameobjects.Hero;
 import view.gameobjects.RenderableObject;
@@ -40,7 +41,7 @@ public class GameData{
         return instance;
     }
     
-    
+    public final ReentrantLock lock = new ReentrantLock();
     
     public final List<RenderableObject> gameObjects; //everything that is rendered is in this list
     public Rectangle viewport; //the current location of the viewport
@@ -80,6 +81,16 @@ public class GameData{
         
         //add object to list
         gameObjects.add(gameObject);
+    }
+    
+    public void removeGameObject(RenderableObject gameObject){
+        lock.lock();
+        try {
+            gameObjects.remove(gameObject);
+        }
+        finally {
+            //GameData.getInstance().lock.unlock();
+        }
     }
 
     /**

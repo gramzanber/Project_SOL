@@ -1,8 +1,15 @@
 package controller;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+import static javax.swing.Spring.height;
+import static javax.swing.Spring.width;
 import model.GameData;
 import model.quadtree.QuadTree;
 import view.gameobjects.RenderableObject;
@@ -83,7 +90,13 @@ public class Animator
         //this will reduce flicker because the slower process of rendering each 
         //object is done off screen
         
-        dbImage = new BufferedImage(canvasWidth, canvasHeight, BufferedImage.TYPE_INT_ARGB); 
+        //see: http://stackoverflow.com/questions/658059/graphics-drawimage-in-java-is-extremely-slow-on-some-computers-yet-much-faster
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice device = env.getDefaultScreenDevice();
+        GraphicsConfiguration config = device.getDefaultConfiguration();
+        dbImage = config.createCompatibleImage(canvasWidth, canvasHeight, Transparency.TRANSLUCENT);
+    
+        //dbImage = new BufferedImage(canvasWidth, canvasHeight, BufferedImage.TYPE_INT_ARGB); 
         
     }
     
@@ -104,6 +117,8 @@ public class Animator
         public void run(){
             while (Animator.getInstance().isRunning()){
                 
+                startTime = System.currentTimeMillis();
+                
                 //render frame
                 Animator.getInstance().renderScene();
                
@@ -112,6 +127,7 @@ public class Animator
                 long endTime = System.currentTimeMillis();
                 long elapsedTime = endTime - startTime;
                 long targetTime = 1000/FRAMES_PER_SECOND;
+    
                 if(elapsedTime < targetTime){
                     try {
                         Thread.sleep(targetTime-elapsedTime);
@@ -121,6 +137,8 @@ public class Animator
                     }
                 }
             
+                System.out.println(elapsedTime);
+                
             }
         }
         
@@ -129,6 +147,10 @@ public class Animator
     
     public void renderScene(){
         
+        
+        GameData.getInstance().lock.lock();
+        try {
+            
             //create the graphics object from the offscreen image
             Graphics2D g2 = (Graphics2D) dbImage.getGraphics();
             
@@ -140,26 +162,27 @@ public class Animator
             
             
             //since we are on a seperate thread we need to sync the object list
-            synchronized (GameData.getInstance().gameObjects){
+            //synchronized (GameData.getInstance().gameObjects){
                 try {
                     //loop over every game object
-                    for(int i=0; i<GameData.getInstance().gameObjects.size(); i++){
+                    RenderableObject[] objects = (RenderableObject[]) GameData.getInstance().gameObjects.toArray(new RenderableObject[GameData.getInstance().gameObjects.size()]);
+                    for(int i=0; i<objects.length; i++){
                         
-                        RenderableObject obj = GameData.getInstance().gameObjects.get(i);
+                        RenderableObject obj = (RenderableObject)objects[i];
                         
                         nextQuadTree.set(obj.getBoundingBox().getX(), obj.getBoundingBox().getY(), obj);
                         
-                        //call update, this advances state of any animations
-                        obj.update();
-                        
                         //call render
                         obj.render(g2, GameData.getInstance().viewport);
+                        
+                        //call update, this advances state of any animations
+                        obj.update();
                     }
                 }
                 catch(Exception e) {
                     System.out.println(e.getMessage()); 
                 }
-            }
+            //}
             
             
             quadTree = nextQuadTree;
@@ -177,6 +200,10 @@ public class Animator
             }
             
             
+        }
+        finally {
+            GameData.getInstance().lock.unlock();
+        }
             
         
     }
