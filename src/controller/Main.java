@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import model.ImageLibrary;
 import view.swingcomponents.MainWindow;
 
 
@@ -31,6 +32,19 @@ public class Main
    */
     public static void main(String[] args)
     {
+        
+        //load images
+        ImageLibrary.getInstance().loadSpriteSheet("gold_coin", "/Images/spinning-coin-spritesheet.png", 171, 171, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("hero_run_left", "/Images/hero_run_left.png", 166, 155, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("hero_run_right", "/Images/hero_run_right.png", 166, 155, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("hero_stand_left", "/Images/hero_stand_left.png", 166, 155, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("hero_stand_right", "/Images/hero_stand_right.png", 166, 155, 0, 0);
+
+        
+
+        
+        
+        
         //build and display the gui
         MainWindow.getInstance().setVisible(true);
 

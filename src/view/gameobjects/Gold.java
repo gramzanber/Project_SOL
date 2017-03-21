@@ -1,16 +1,13 @@
 package view.gameobjects;
 
+import controller.AnimationController;
 import controller.SoundController;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 import model.GameData;
 
 /**
@@ -26,6 +23,8 @@ public class Gold extends Tile {
     private int step;
     private long lastStep;
     
+    private AnimationController animationController;
+    
     /**
     * Constructor 
     * 
@@ -35,21 +34,10 @@ public class Gold extends Tile {
         //call superclass constructor
         super(loc);
         
+        animationController = new AnimationController(AnimationController.Mode.AUTO, "gold_coin");
+        animationController.setFps(13);
         
-        //load spritesheet if not already loaded
-        if(coinSpriteSheet == null){
-            try {
-                coinSpriteSheet = ImageIO.read(getClass().getResource("/Images/spinning-coin-spritesheet.png"));
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Error: Cannot open tile sprite sheet");
-                System.exit(-1);
-            }
-        }
-        
-        step = 0;
-        lastStep = System.currentTimeMillis();
         this.solid = false;
-        
     }
     
     /**
@@ -57,23 +45,15 @@ public class Gold extends Tile {
     */
     @Override
     public void update(){
-        
-        if(System.currentTimeMillis() - lastStep > 100){
-            lastStep = System.currentTimeMillis();
-            step++;
-            if(step > 13){
-                step = 0;
-            }
-        }
-        
-        
+        animationController.update();
+
+        //check collision
         if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
             System.out.println("collected gold!");
             SoundController.getInstance().coinPickUp();
             
             this.clear();
             GameData.getInstance().gameObjects.remove(this);
-
         }
         
     }
@@ -89,12 +69,9 @@ public class Gold extends Tile {
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
             
-            
-            //get sprite image from sprite sheet
-            Image sprite = coinSpriteSheet.getSubimage(171*step, 0, 171, 171);
-            
             //draw sprite
-            g2.drawImage(sprite, translatedX, translatedY, TILESIZE, TILESIZE, null);
+            BufferedImage frame = animationController.getFrame();
+            g2.drawImage(frame, translatedX, translatedY, TILESIZE, TILESIZE, null);
         }
     }
     

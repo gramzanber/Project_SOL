@@ -1,5 +1,6 @@
 package view.gameobjects;
 
+import controller.AnimationController;
 import controller.Main;
 import controller.SoundController;
 import java.awt.Color;
@@ -24,78 +25,35 @@ import model.GameData;
 */
 public class Hero extends Actor {
     
-    private Image heroRightImage;
-    private Image heroLeftImage;
     private Rectangle viewportMain;
     private float health = 0;
     private float displayHealth =0;
     private float blueValue = 255;
     private int healthPacks =0;
-    private static BufferedImage heroRunRightSpriteSheet = null;
-    private static BufferedImage heroRunLeftSpriteSheet = null;
-    private int rowStep;
-    private int columnStep;
     static boolean movingLeft = false;
     static boolean movingRight = false;
     static boolean movingUp = false;
     static boolean movingDown = false;
     static boolean facingRight;
     
-    private int frames = 2;
+    
+    private AnimationController animationController;
     
     /**
     * Constructor 
     * 
     * @param loc
-    * @param width
-    * @param height
     */
     public Hero(Point loc) {
         //call superclass constructor
         super(loc);
         facingRight = true;
         
-        
+        animationController = new AnimationController(AnimationController.Mode.AUTO, "hero_run_right");
+        animationController.setFps(48);
         
         //update bounding box for the object
         super.boundingBox = new Rectangle(loc.x, loc.y, 60, 155);
-        
-        heroRightImage = null;
-        try {
-            heroRightImage = ImageIO.read(getClass().getResource("/Images/hero_stand_right.png"));
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Error: Cannot open hero.png");
-            System.exit(-1);
-        }
-        
-        if(heroRunRightSpriteSheet == null){
-            try {
-                heroRunRightSpriteSheet = ImageIO.read(getClass().getResource("/Images/hero_run_right.png"));
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Error: Cannot open tile sprite sheet");
-                System.exit(-1);
-            }
-        }
-        
-        heroLeftImage = null;
-        try {
-            heroLeftImage = ImageIO.read(getClass().getResource("/Images/hero_stand_left.png"));
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Error: Cannot open hero.png");
-            System.exit(-1);
-        }
-        
-        if(heroRunLeftSpriteSheet == null){
-            try {
-                heroRunLeftSpriteSheet = ImageIO.read(getClass().getResource("/Images/hero_run_left.png"));
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Error: Cannot open tile sprite sheet");
-                System.exit(-1);
-            }
-        }        
-        
-        rowStep = 0;
-        columnStep = -1;
     }
     
     /**
@@ -133,69 +91,46 @@ public class Hero extends Actor {
     @Override
     public void render(Graphics2D g2,Rectangle viewport)
     {
-        
-        
-        
-        if(viewport.contains(boundingBox.getLocation()))
-        {
-            this.viewportMain = viewport;
             //draw in relation to the viewport
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
             
             Rectangle boundingBoxForRendering = new Rectangle(translatedX-166/3, translatedY, 166, 155);
             
-            //System.out.println("tx::"+translatedX+" :: ty::"+translatedY);            
-
-            int border = 0;
-            
             if(movingRight){
-                frames++;
-                if(rowStep == 3 && columnStep == 5 && frames % 3 == 0){
-                    rowStep = 0;
-                    columnStep = 0;
-                }
-                else if(columnStep == 5 && frames % 3 == 0){
-                    columnStep = 0;
-                    rowStep++;
-                }
-                else if(frames % 3 == 0){
-                    columnStep++;
-                }
                 facingRight = true;
-                Image sprite = heroRunRightSpriteSheet.getSubimage(166*columnStep, 155*rowStep, 166, 155); 
-                g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth()-border*2, (int)boundingBoxForRendering.getHeight()-border*2, null); 
+                
+                animationController.setSpriteSheet("hero_run_right");
+                BufferedImage sprite = animationController.getFrame();
+                g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null); 
+                
                 movingRight = false;
-                //System.out.println("run horiz::"+columnStep+" :: vert::"+rowStep);  
+                
+                animationController.update();
             }
             else if(movingLeft){
-                frames++;
-                if(rowStep == 3 && columnStep == 5 && frames % 3 == 0){
-                    rowStep = 0;
-                    columnStep = 0;
-                }
-                else if(columnStep == 5 && frames % 3 == 0){
-                    columnStep = 0;
-                    rowStep++;
-                }
-                else if(frames % 3 == 0){
-                    columnStep++;
-                }
                 facingRight = false;
-                Image sprite = heroRunLeftSpriteSheet.getSubimage(166*columnStep, 155*rowStep, 166, 155); 
-                g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth()-border*2, (int)boundingBoxForRendering.getHeight()-border*2, null); 
+
+                animationController.setSpriteSheet("hero_run_left");
+                BufferedImage sprite = animationController.getFrame();
+                
+                g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null); 
                 movingLeft = false;
-                //System.out.println("run horiz::"+columnStep+" :: vert::"+rowStep);  
+                
+                animationController.update();
             }            
             else{
-                frames = 2;
-                rowStep = 0;
-                columnStep = 0;
+                animationController.setFrame(0);
+                
                 if(facingRight){
-                    g2.drawImage(heroRightImage, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth()-border*2, (int)boundingBoxForRendering.getHeight()-border*2, null);  
+                    animationController.setSpriteSheet("hero_stand_right");
+                    BufferedImage sprite = animationController.getFrame();
+                    g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null);  
                 }
                 else{
-                    g2.drawImage(heroLeftImage, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth()-border*2, (int)boundingBoxForRendering.getHeight()-border*2, null);
+                    animationController.setSpriteSheet("hero_stand_left");
+                    BufferedImage sprite = animationController.getFrame();
+                    g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null);
                 }                      
             }
             
@@ -208,7 +143,8 @@ public class Hero extends Actor {
             }
 
             
-        }
+            
+        
         float tempHealth = displayHealth;
         if(tempHealth > 100) tempHealth =100;
 
