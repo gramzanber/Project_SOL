@@ -4,6 +4,7 @@
 
 package view.gameobjects;
 
+import controller.AnimationController;
 import view.gameobjects.GameFigure;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -14,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -26,6 +28,8 @@ public class PrimaryWeapon extends GameFigure
     private static int weaponLevel = 1;
 
     private static final int UNIT_TRAVEL_DISTANCE = 2; // per frame move
+    
+    private AnimationController animationController;
 
     /**
      *
@@ -38,14 +42,32 @@ public class PrimaryWeapon extends GameFigure
         super.boundingBox = new Rectangle(loc.x, loc.y, 20, 10);
         
         state = STATE_ALIVE;
-
-        missileImage = null;
-        try {
-            missileImage = ImageIO.read(getClass().getResource("/Images/Missile.bmp"));
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Error: Cannot open shooter.png");
-            System.exit(-1);
+        
+        animationController = new AnimationController(AnimationController.Mode.AUTO, "primary1_right");
+        animationController.setFps(2);  
+        
+        if(Hero.facingRight){
+            animationController.setSpriteSheet("primary1_right");
+            //BufferedImage sprite = animationController.getFrame(); 
+            //g2.drawImage(sprite, (int) loc.x, (int) loc.y, 30, 30, null);  
+            //animationController.update();
         }
+        else{
+            animationController.setSpriteSheet("primary1_left");
+            //BufferedImage sprite = animationController.getFrame();   
+            //g2.drawImage(sprite, (int) loc.x, (int) loc.y, 30, 30, null);
+            //animationController.update();
+        }        
+
+        
+        
+        //missileImage = null;
+        //try {
+        //    missileImage = ImageIO.read(getClass().getResource("/Images/Missile.bmp"));
+        //} catch (IOException ex) {
+        //    JOptionPane.showMessageDialog(null, "Error: Cannot open shooter.png");
+        //    System.exit(-1);
+        //}
     }
     
     /**
@@ -53,7 +75,19 @@ public class PrimaryWeapon extends GameFigure
     */
     @Override
     public void render(Graphics2D g2,Rectangle viewport){
-            g2.drawImage(missileImage, (int) loc.x, (int) loc.y, 30, 30, null); 
+        //if(Hero.facingRight){
+            //animationController.setSpriteSheet("primary1_right");
+            BufferedImage sprite = animationController.getFrame(); 
+            g2.drawImage(sprite, (int) loc.x, (int) loc.y, 30, 30, null);  
+            animationController.update();
+        //}
+        //else{
+            //animationController.setSpriteSheet("primary1_left");
+            //BufferedImage sprite = animationController.getFrame();   
+            //g2.drawImage(sprite, (int) loc.x, (int) loc.y, 30, 30, null);
+            //animationController.update();
+        //}
+            //g2.drawImage(missileImage, (int) loc.x, (int) loc.y, 30, 30, null); 
     }
 
 //    @Override
