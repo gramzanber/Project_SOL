@@ -51,6 +51,8 @@ public class SoundController
             largeEnemyWalkClip = AudioSystem.getClip();
         } catch (LineUnavailableException ex) {
         }
+        
+
     }
     
     /**
@@ -76,6 +78,18 @@ public class SoundController
             largeEnemyWalkClip.stop();
         }
         this.paused = !this.paused;
+        
+        //bug fix
+        //TODO research why this is needed
+        try {
+            clip = AudioSystem.getClip();
+            playerWalkClip = AudioSystem.getClip();
+            smallEnemyWalkClip = AudioSystem.getClip();
+            mediumEnemyWalkClip = AudioSystem.getClip();
+            largeEnemyWalkClip = AudioSystem.getClip();
+        } catch (LineUnavailableException ex) {
+        }
+        
     }
     
     public void stop(){
