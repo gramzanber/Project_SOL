@@ -99,7 +99,71 @@ public class Hero extends Actor {
             
             Rectangle boundingBoxForRendering = new Rectangle(translatedX-166/3, translatedY, 166, 155);
             
-            if(movingRight){
+            if(movingUp){
+                if(facingRight){
+                    animationController.setSpriteSheet("hero_jump_right");
+                    
+                    if(animationController.getIndex() == 4){
+                        BufferedImage sprite = animationController.getFrame();
+                        g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null);                 
+                        movingUp = false;                              
+                    }
+                    else{
+                        BufferedImage sprite = animationController.getFrame();
+                        g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null);                 
+                        movingUp = false;                
+                        animationController.update();                           
+                    }                  
+                }
+                else{
+                    animationController.setSpriteSheet("hero_jump_left");
+                    
+                    if(animationController.getIndex() == 4){
+                        BufferedImage sprite = animationController.getFrame();
+                        g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null);                 
+                        movingUp = false;                              
+                    }
+                    else{
+                        BufferedImage sprite = animationController.getFrame();
+                        g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null);                 
+                        movingUp = false;                
+                        animationController.update();                           
+                    }                     
+                }
+            }
+            else if(movingDown){
+                if(facingRight){
+                    animationController.setSpriteSheet("hero_jump_right");
+                    
+                    if(animationController.getIndex() == 23){
+                        BufferedImage sprite = animationController.getFrame();
+                        g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null);                 
+                        movingDown = false;                              
+                    }
+                    else{
+                        BufferedImage sprite = animationController.getFrame();
+                        g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null);                 
+                        movingDown = false;                
+                        animationController.update();                           
+                    }                    
+                }
+                else{
+                    animationController.setSpriteSheet("hero_jump_left");
+                    
+                    if(animationController.getIndex() == 23){
+                        BufferedImage sprite = animationController.getFrame();
+                        g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null);                 
+                        movingDown = false;                              
+                    }
+                    else{
+                        BufferedImage sprite = animationController.getFrame();
+                        g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null);                 
+                        movingDown = false;                
+                        animationController.update();                           
+                    }                    
+                }                
+            }
+            else if(movingRight){
                 facingRight = true;
                 
                 animationController.setSpriteSheet("hero_run_right");
