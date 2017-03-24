@@ -79,6 +79,7 @@ public class SoundController
     }
     
     public void stop(){
+        System.out.println("Sound Clear");
         clip.stop();
         playerWalkClip.stop();
         smallEnemyWalkClip.stop();
@@ -98,6 +99,7 @@ public class SoundController
         {
             File file = new File("src/Sounds/sol-menu2.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            clip.stop();
             clip.open(audioIn);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             if(paused)clip.stop();

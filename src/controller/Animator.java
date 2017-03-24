@@ -137,7 +137,7 @@ public class Animator
                     }
                 }
             
-                System.out.println(elapsedTime);
+               //System.out.println(elapsedTime);
                 
             }
         }

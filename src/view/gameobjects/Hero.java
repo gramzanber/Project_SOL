@@ -70,6 +70,7 @@ public class Hero extends Actor {
     @Override
     public void mouseClicked(MouseEvent e)
     {
+        Rectangle viewportMain = GameData.getInstance().viewport;
         int translatedX =  ((int)boundingBox.getX() - (int)viewportMain.getX())+(int)boundingBox.getWidth();
         int translatedY =  ((int)boundingBox.getY() - (int)viewportMain.getY())+(int)boundingBox.getHeight()/2;
         if(SwingUtilities.isRightMouseButton(e))
@@ -80,6 +81,7 @@ public class Hero extends Actor {
         {
             PrimaryWeapon m = new PrimaryWeapon(translatedX, translatedY);
             SoundController.getInstance().primaryWeaponFire();
+
             synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m); }
         }
         else { System.out.printf("Mouse click error, Package: Controller; Class: view.Hero.java"); }

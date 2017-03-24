@@ -113,6 +113,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         GameData.getInstance().gameObjects.clear();
         //stop sounds
         SoundController.getInstance().stop();
+
         
         //reset viewport
         //GameData.getInstance().viewport.setLocation(new Point(0,0));
