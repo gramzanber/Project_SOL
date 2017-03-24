@@ -58,6 +58,10 @@ public class AnimationController {
         }
         return null;
     }
+    
+    public int getIndex(){       
+        return index;
+    }
 
     public int getFps() {
         return fps;

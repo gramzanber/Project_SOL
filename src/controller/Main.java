@@ -39,7 +39,8 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("hero_run_right", "/Images/hero_run_right.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("hero_stand_left", "/Images/hero_stand_left.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("hero_stand_right", "/Images/hero_stand_right.png", 166, 155, 0, 0);
-
+        ImageLibrary.getInstance().loadSpriteSheet("hero_jump_left", "/Images/hero_jump_left.png", 166, 155, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("hero_jump_right", "/Images/hero_jump_right.png", 166, 155, 0, 0);
         
 
         
