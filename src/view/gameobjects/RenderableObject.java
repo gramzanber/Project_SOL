@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import model.GameData;
+import model.ID;
 import view.swingcomponents.MainWindow;
 
 /**
@@ -20,6 +22,7 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
     protected Point loc; //the location of this object
     protected Rectangle boundingBox;
     protected boolean solid;
+    protected ID id;
     
     /**
     * A simple constructor 
@@ -35,7 +38,9 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
     /**
     * Called once per frame, advance any animations
     */
-    public abstract void update();
+    public void update(){
+        collide();
+    }
     
     /**
     * Render to a graphics 2d object
@@ -71,6 +76,64 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
     }
     public void setSolid(boolean solid){
         this.solid = solid;
+    }
+    public ID getId(){
+        return id;
+    }
+    public void collide(){
+        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox) && getId() == ID.SmallEnemy)
+        {
+            //if(boundingBox.){
+                System.out.println("Killed Enemy! By walking into it.");
+            
+                this.clear();
+                GameData.getInstance().gameObjects.remove(this);
+                GameData.getInstance().getHero().setShield(-10);
+            
+                System.out.println("Health::"+ GameData.getInstance().getHero().getShield());
+            //}
+            
+        }
+        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox) && getId() == ID.LargeEnemyProjectile)
+        {
+            System.out.println("Killed Enemy! By walking into it.");
+            
+            this.clear();
+            GameData.getInstance().gameObjects.remove(this);
+            GameData.getInstance().getHero().setShield(-10);
+            
+            //System.out.println("Health::"+ GameData.getInstance().getHero().getShield());
+        }
+        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)&& getId() == ID.LargeEnemyCollision)
+        {
+            System.out.println("Killed Enemy! By walking into it.");
+            
+            this.clear();
+            GameData.getInstance().gameObjects.remove(this);
+            GameData.getInstance().getHero().setShield(-30);
+            
+            //System.out.println("Health::"+ GameData.getInstance().getHero().getShield());
+        }
+        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox) && getId() == ID.BossProjectile)
+        {
+            System.out.println("Killed Enemy! By walking into it.");
+            
+            this.clear();
+            GameData.getInstance().gameObjects.remove(this);
+            GameData.getInstance().getHero().setShield(-20);
+            
+            //System.out.println("Health::"+ GameData.getInstance().getHero().getShield());
+        }
+        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox) && getId() == ID.BossCollision)
+        {
+            System.out.println("Killed Enemy! By walking into it.");
+            
+            this.clear();
+            GameData.getInstance().gameObjects.remove(this);
+            GameData.getInstance().getHero().setShield(-40);
+            
+            //System.out.println("Health::"+ GameData.getInstance().getHero().getShield());
+        }
     }
     
 }

@@ -13,6 +13,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import model.GameData;
+import model.ID;
 import view.BufferedImageLoader;
 import view.gameobjects.Laser;
 import view.gameobjects.Background;
@@ -82,7 +83,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     //or we can define the background as a class var and reuse the same one that
     //way switching between menus is smooth.
     private Background menuBackground;
-    private BufferedImage levelTest = BufferedImageLoader.getInstance().loadImage("/Images/level.png");//loading the level
+    private BufferedImage levelTest = BufferedImageLoader.getInstance().loadImage("/Images/level1_map_test.png");//loading the level
     
     /**
      * private constructor prevents bypassing singleton pattern
@@ -535,8 +536,8 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 if(red == 0 && green == 0 && blue == 255){
                     GameData.getInstance().getHero().setLocation(tileLoc);
                     GameData.getInstance().addGameObject(GameData.getInstance().getHero());
-                    //hero starts with 400 sheild points
-                    GameData.getInstance().getHero().setShield(300);
+                    //hero starts with 100 sheild points
+                    GameData.getInstance().getHero().setShield(100);
                 }
                 
                 //position goal on green pixal
@@ -600,9 +601,11 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 // Pinkish color pixal
                 if(red == 249 && green == 45 && blue == 227)
                 {
-                    EarthSmallEnemy smallEnemy = new EarthSmallEnemy(tileLoc); //Create tile object
+                    EarthSmallEnemy smallEnemy = new EarthSmallEnemy(tileLoc, ID.SmallEnemy); //Create tile object
                     GameData.getInstance().addGameObject(smallEnemy); //Add tile to game object array
                 }
+                
+               
             }
         }
     }

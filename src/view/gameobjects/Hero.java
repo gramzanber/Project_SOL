@@ -53,7 +53,7 @@ public class Hero extends Actor {
         animationController.setFps(48);
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle(loc.x, loc.y, 60, 155);
+        super.boundingBox = new Rectangle(loc.x, loc.y, 50, 155);
     }
     
     /**
@@ -236,13 +236,10 @@ public class Hero extends Actor {
         if(displayHealth > 100){
             displayHealth = 100;
         }
-        if(displayHealth > 0){
-            displayHealth -=1;
-        }else if(displayHealth <=0 && health>0){
+        if(displayHealth <=0 && health>0){
             health -= 100;
             displayHealth = health;
         }
-        //System.out.println("Display::"+displayHealth+" :: Health::"+health);
         blueValue = displayHealth*5;
         if(health <=0){
             health =0;
@@ -257,7 +254,7 @@ public class Hero extends Actor {
         healthPacks = (int)health/100;
     }
     
-    public float getHealth(){
+    public float getShield(){
         return displayHealth;
     }
     public void setShield(float powerUp){
