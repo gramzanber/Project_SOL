@@ -44,19 +44,13 @@ public class PrimaryWeapon extends GameFigure
         state = STATE_ALIVE;
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "primary1_right");
-        animationController.setFps(2);  
+        animationController.setFps(8);  
         
         if(Hero.facingRight){
             animationController.setSpriteSheet("primary1_right");
-            //BufferedImage sprite = animationController.getFrame(); 
-            //g2.drawImage(sprite, (int) loc.x, (int) loc.y, 30, 30, null);  
-            //animationController.update();
         }
         else{
             animationController.setSpriteSheet("primary1_left");
-            //BufferedImage sprite = animationController.getFrame();   
-            //g2.drawImage(sprite, (int) loc.x, (int) loc.y, 30, 30, null);
-            //animationController.update();
         }        
 
         
@@ -75,19 +69,11 @@ public class PrimaryWeapon extends GameFigure
     */
     @Override
     public void render(Graphics2D g2,Rectangle viewport){
-        //if(Hero.facingRight){
-            //animationController.setSpriteSheet("primary1_right");
+
             BufferedImage sprite = animationController.getFrame(); 
-            g2.drawImage(sprite, (int) loc.x, (int) loc.y, 30, 30, null);  
+            g2.drawImage(sprite, (int) loc.x, (int) loc.y, 30, 30, null); 
             animationController.update();
-        //}
-        //else{
-            //animationController.setSpriteSheet("primary1_left");
-            //BufferedImage sprite = animationController.getFrame();   
-            //g2.drawImage(sprite, (int) loc.x, (int) loc.y, 30, 30, null);
-            //animationController.update();
-        //}
-            //g2.drawImage(missileImage, (int) loc.x, (int) loc.y, 30, 30, null); 
+
     }
 
 //    @Override
