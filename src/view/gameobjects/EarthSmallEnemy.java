@@ -90,7 +90,7 @@ public class EarthSmallEnemy extends RenderableObject
         pyc.update();
        
         //get translation from physics controller
-        Point p = pyc.getNextTranslation();
+        Point.Double p = pyc.getNextTranslation();
         
         //translate object
         if(p.x >0){

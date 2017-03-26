@@ -23,12 +23,44 @@ public class PhysicsController {
         LEFT, RIGHT, UP, DOWN
     }
     
-    private int upForce; //the amount of upwards force on the object
-    private int downForce; //the amount of downwards force on the object
-    private int leftForce; //the amount of left force on the object
-    private int rightForce; //the amount of right force on the object
+    public class Force {
+        private DIRECTION d;
+        private double forcePerNanoSecond;
+        private boolean active;
+        public Force(DIRECTION d, double forcePerNanoSecond, boolean active){
+            this.d = d;
+            this.forcePerNanoSecond = forcePerNanoSecond;
+            this.active = active;
+        }
+        public void setForcePerSecond(double forcePerNanoSecond){
+            this.forcePerNanoSecond = forcePerNanoSecond;
+        }
+        public double getForceAmount(double nanoSeconds){
+            if(active){
+                return  (nanoSeconds * forcePerNanoSecond);
+            }
+            else{
+                return 0;
+            }
+        }
+        public void setActive(boolean active){
+            this.active = active;
+        }
+    }
+    
+    private Force gravityForce;
+    private Force rightMovementForce;
+    private Force leftMovementForce;
+    private Force upMovementForce;
+    
+    private double upForceValue; //the amount of upwards force on the object
+    private double downForceValue; //the amount of downwards force on the object
+    private double leftForceValue; //the amount of left force on the object
+    private double rightForceValue; //the amount of right force on the object
     
     private RenderableObject o;
+    
+    private long lastUpdateTime;
     
     
     public PhysicsController(RenderableObject o){
@@ -36,19 +68,34 @@ public class PhysicsController {
         this.o = o; 
         
         //initialize force variables
-        upForce = 0;
-        downForce = 0;
-        leftForce = 0;
-        rightForce = 0;
+        gravityForce = new Force(DIRECTION.DOWN, .0000000000001, true);
+        rightMovementForce = new Force(DIRECTION.RIGHT, .0000000000001, false);
+        leftMovementForce = new Force(DIRECTION.LEFT, .0000000000001, false);
+        upMovementForce = new Force(DIRECTION.UP, .0000000000001, false);
+        
+        
+        upForceValue = 0;
+        downForceValue = 0;
+        leftForceValue = 0;
+        rightForceValue = 0;
+        
+        lastUpdateTime = System.nanoTime();
         
     }
     
     public void update(){
+        double timeSinceLastUpdate = ((System.nanoTime() - lastUpdateTime));
+        
+        lastUpdateTime = System.currentTimeMillis();
         
         //Add gravity effect by applying downward force at each update
         if(canMove(DIRECTION.DOWN)){
-            downForce += 5; //gravity
+            downForceValue += gravityForce.getForceAmount(timeSinceLastUpdate); //gravity
         }
+        rightForceValue += rightMovementForce.getForceAmount(timeSinceLastUpdate);
+        leftForceValue += leftMovementForce.getForceAmount(timeSinceLastUpdate);
+        
+        
         
     }
     
@@ -56,24 +103,43 @@ public class PhysicsController {
         
         switch(d){
             case UP:
-                upForce += amount;
+                upForceValue += amount;
                 break;
             case DOWN:
-                downForce += amount;
+                downForceValue += amount;
                 break;
             case LEFT:
-                leftForce += amount;
+                leftForceValue += amount;
                 break;
             case RIGHT:
-                rightForce += amount;
+                rightForceValue += amount;
+                break;
+        }
+        
+        
+    }
+    public void setForce(DIRECTION d, int amount){
+        
+        switch(d){
+            case UP:
+                upForceValue = amount;
+                break;
+            case DOWN:
+                downForceValue = amount;
+                break;
+            case LEFT:
+                leftForceValue = amount;
+                break;
+            case RIGHT:
+                rightForceValue = amount;
                 break;
         }
         
         
     }
     
-    public Point getNextTranslation(){
-        Point p = new Point(0,0);
+    public Point.Double getNextTranslation(){
+        Point.Double p = new Point.Double(0,0);
         
         
         
@@ -82,58 +148,65 @@ public class PhysicsController {
         //just like in the real world two opposite forces cancel out eachother
         //here I resolve all of that.
         //exampe if you move left and right at the same time you shouldnt move
-        if(upForce > downForce){
-            upForce -= downForce;
+        if(upForceValue > downForceValue){
+            upForceValue -= downForceValue;
         }
-        else if(downForce > upForce){
-            downForce -= upForce;
+        else if(downForceValue > upForceValue){
+            downForceValue -= upForceValue;
         }
-        if(leftForce > rightForce){
-            leftForce -= rightForce;
+        if(leftForceValue > rightForceValue){
+            leftForceValue -= rightForceValue;
         }
-        else if(rightForce > leftForce){
-            rightForce -= leftForce;
+        else if(rightForceValue > leftForceValue){
+            rightForceValue -= leftForceValue;
         }
         
+        //if standing on the ground then down force is 0
+        if(!canMove(DIRECTION.DOWN)){
+            downForceValue = 0;
+        }
+        
+        
+        
         //now I need to set some maximum speeds and make sure force isnt out of controll
-        upForce = Math.min(upForce, 600);
-        downForce = Math.min(downForce, 200);
-        leftForce = Math.min(leftForce, 50);
-        rightForce = Math.min(rightForce, 50);
+        //upForceValue = Math.min(upForceValue, 1000);
+        //downForceValue = Math.min(downForceValue, 1000);
+        //leftForceValue = Math.min(leftForceValue, 50);
+        //rightForceValue = Math.min(rightForceValue, 50);
         
         
         //now to actually apply the force
         //the step is how many pixals to move at one time and increases as the force grows
         //this means that if you apply a ton of force to the object it will move faster
         //a little force will move slower
-        int step; //step
+        double step; //step
         
         //move up
-        if(upForce > 0){
-            step = (int)(Math.sqrt(upForce));
-            p.setLocation(new Point(p.x, -step));
-            upForce -= step;
+        if(upForceValue > 0){
+            step = (Math.sqrt(upForceValue));
+            p.setLocation(new Point.Double(p.x, -step));
+            upForceValue -= step;
         }
         
         //move down
-        else if(downForce > 0){
-            step = (int)(Math.sqrt(downForce));
-            p.setLocation(new Point(p.x, step));
-            downForce -= step;
+        else if(downForceValue > 0){
+            step = (Math.sqrt(downForceValue));
+            p.setLocation(new Point.Double(p.x, step));
+            downForceValue -= step;
         }
         
         //move left
-        if(leftForce > 0){
-            step = (int)(Math.sqrt(leftForce));
-            p.setLocation(new Point(-step, p.y));
-            leftForce -= step;
+        if(leftForceValue > 0){
+            step = (Math.sqrt(leftForceValue));
+            p.setLocation(new Point.Double(-step, p.y));
+            leftForceValue -= step;
         }
         
         //move right
-        if(rightForce > 0){
-            step = (int)(Math.sqrt(rightForce));
-            p.setLocation(new Point(step, p.y));
-            rightForce -= step;
+        if(rightForceValue > 0){
+            step = (Math.sqrt(rightForceValue));
+            p.setLocation(new Point.Double(step, p.y));
+            rightForceValue -= step;
         }
         
         return p;
@@ -143,10 +216,10 @@ public class PhysicsController {
     public void clear(){
 
         //clear force on object
-        upForce = 0;
-        downForce = 0;
-        leftForce = 0;
-        rightForce = 0;
+        upForceValue = 0;
+        downForceValue = 0;
+        leftForceValue = 0;
+        rightForceValue = 0;
     }
     
     /**
@@ -187,20 +260,46 @@ public class PhysicsController {
         return !GameData.getInstance().checkCollision(testRect, o);
     }
 
-    public int getUpForce() {
-        return upForce;
+    public Force getRightMovementForce() {
+        return rightMovementForce;
     }
 
-    public int getDownForce() {
-        return downForce;
+    public void setRightMovementForce(Force rightMovementForce) {
+        this.rightMovementForce = rightMovementForce;
     }
 
-    public int getLeftForce() {
-        return leftForce;
+    public Force getLeftMovementForce() {
+        return leftMovementForce;
     }
 
-    public int getRightForce() {
-        return rightForce;
+    public void setLeftMovementForce(Force leftMovementForce) {
+        this.leftMovementForce = leftMovementForce;
+    }
+
+    public Force getUpMovementForce() {
+        return upMovementForce;
+    }
+
+    public void setUpMovementForce(Force upMovementForce) {
+        this.upMovementForce = upMovementForce;
+    }
+
+    
+    
+    public double getUpForceValue() {
+        return upForceValue;
+    }
+
+    public double getDownForceValue() {
+        return downForceValue;
+    }
+
+    public double getLeftForceValue() {
+        return leftForceValue;
+    }
+
+    public double getRightForceValue() {
+        return rightForceValue;
     }
     
     
