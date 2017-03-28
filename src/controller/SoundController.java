@@ -35,6 +35,10 @@ public class SoundController
     private String backgroundMusic;
     private Clip menuBGMClip;
     private Clip earthBGMClip;
+    private Clip moonBGMClip;
+    private Clip venusBGMClip;
+    private Clip mercuryBGMClip;
+    private Clip sunBGMClip;    
     private Clip openWorldBGMClip;
     private Clip bossBGMClip;
     
@@ -51,6 +55,10 @@ public class SoundController
         try {
             menuBGMClip = AudioSystem.getClip();
             earthBGMClip = AudioSystem.getClip();
+            moonBGMClip = AudioSystem.getClip();
+            venusBGMClip = AudioSystem.getClip();
+            mercuryBGMClip = AudioSystem.getClip();
+            sunBGMClip = AudioSystem.getClip();            
             openWorldBGMClip = AudioSystem.getClip();
             bossBGMClip = AudioSystem.getClip();
             
@@ -71,6 +79,22 @@ public class SoundController
             file = new File("src/Sounds/sol-earthBGM.wav");
             audioIn = AudioSystem.getAudioInputStream(file);
             earthBGMClip.open(audioIn);
+            
+            file = new File("src/Sounds/sol-moonBGM.wav");
+            audioIn = AudioSystem.getAudioInputStream(file);
+            moonBGMClip.open(audioIn);
+
+            file = new File("src/Sounds/sol-venusBGM.wav");
+            audioIn = AudioSystem.getAudioInputStream(file);
+            venusBGMClip.open(audioIn);
+
+            file = new File("src/Sounds/sol-mercuryBGM.wav");
+            audioIn = AudioSystem.getAudioInputStream(file);
+            mercuryBGMClip.open(audioIn);
+
+            file = new File("src/Sounds/sol-sunBGM.wav");
+            audioIn = AudioSystem.getAudioInputStream(file);
+            sunBGMClip.open(audioIn);            
             
             file = new File("src/Sounds/sol-worldmap.wav");
             audioIn = AudioSystem.getAudioInputStream(file);
@@ -104,6 +128,18 @@ public class SoundController
             else if(backgroundMusic == "EARTH"){
                 earthBGMClip.start();
             }
+            else if(backgroundMusic == "MOON"){
+                moonBGMClip.start();
+            }
+            else if(backgroundMusic == "VENUS"){
+                venusBGMClip.start();
+            }
+            else if(backgroundMusic == "MERCURY"){
+                mercuryBGMClip.start();
+            }
+            else if(backgroundMusic == "SUN"){
+                sunBGMClip.start();
+            }            
             else if(backgroundMusic == "WORLD"){
                 openWorldBGMClip.start();
             }
@@ -120,6 +156,10 @@ public class SoundController
         {
             menuBGMClip.stop();
             earthBGMClip.stop();
+            moonBGMClip.stop();
+            venusBGMClip.stop();
+            mercuryBGMClip.stop();
+            sunBGMClip.stop();            
             openWorldBGMClip.stop();
             bossBGMClip.stop();
             
@@ -137,6 +177,10 @@ public class SoundController
         System.out.println("Sound Clear");
         menuBGMClip.stop();
         earthBGMClip.stop();
+        moonBGMClip.stop();
+        venusBGMClip.stop();
+        mercuryBGMClip.stop();
+        sunBGMClip.stop();        
         openWorldBGMClip.stop();
         bossBGMClip.stop();
         
@@ -248,22 +292,34 @@ public class SoundController
     
     public void moonBGM()
     {
-        
+        backgroundMusic = "MOON";
+        moonBGMClip.loop(Clip.LOOP_CONTINUOUSLY);
+        moonBGMClip.start();
+        if(paused)stop();        
     }
     
     public void venusBGM()
     {
-        
+        backgroundMusic = "VENUS";
+        venusBGMClip.loop(Clip.LOOP_CONTINUOUSLY);
+        venusBGMClip.start();
+        if(paused)stop();        
     }
     
     public void mercuryBGM()
     {
-        
+        backgroundMusic = "MERCURY";
+        mercuryBGMClip.loop(Clip.LOOP_CONTINUOUSLY);
+        mercuryBGMClip.start();
+        if(paused)stop();        
     }
     
     public void sunBGM()
     {
-        
+        backgroundMusic = "SUN";
+        sunBGMClip.loop(Clip.LOOP_CONTINUOUSLY);
+        sunBGMClip.start();
+        if(paused)stop();        
     }
     
     public void bossBGM()
