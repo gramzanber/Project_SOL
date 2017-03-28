@@ -393,7 +393,7 @@ public class SoundController
     {
         try
         {
-            File file = new File("src/Sounds/sol-player.wav");
+            File file = new File("src/Sounds/sol-player-ver2.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
             if(!paused)
             {
@@ -409,7 +409,6 @@ public class SoundController
                     }
                     else
                     {
-                        //playerWalkClip.stop();
                         playerWalkClip.setFramePosition(0);
                         playerWalkClip.start();
                     }

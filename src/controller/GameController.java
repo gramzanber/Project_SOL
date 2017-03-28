@@ -372,17 +372,40 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     }
     public void showLevel2(){
         screen = "Level2";
+        
+        //clear all game objects
         clear();
-        loadImageLevel(levelTest);
+        
+        //loading the level
+        BufferedImage levelMap = BufferedImageLoader.getInstance().loadImage("/Images/level2_map.png");
+        
+        loadImageLevel(levelMap);
+        
         System.out.println("Level 2 under construction");
     }
     public void showLevel3(){
         screen = "Level3";
         
+        //clear all game objects
+        clear();
+        
+        //loading the level
+        BufferedImage levelMap = BufferedImageLoader.getInstance().loadImage("/Images/level3_map.png");
+        
+        loadImageLevel(levelMap);
+        
         System.out.println("Level 3 under construction");
     }
     public void showLevel4(){
         screen = "Level4";
+        
+        //clear all game objects
+        clear();
+        
+        //loading the level
+        BufferedImage levelMap = BufferedImageLoader.getInstance().loadImage("/Images/level4_map.png");
+        
+        loadImageLevel(levelMap);
         
         System.out.println("Level 4 under construction");
     }
