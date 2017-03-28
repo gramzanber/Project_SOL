@@ -76,57 +76,86 @@ public abstract class Actor extends RenderableObject {
     @Override
     public void update(){
 
-        //if the left key is down add some left force
         if(leftKeyDown){
-            if(pyc.canMove(DIRECTION.LEFT)){
-                //if you're standing on the ground you can run faster and accelerate
-                if(!pyc.canMove(DIRECTION.DOWN)){
-                    //acceleration is the sqrt of the current force
-                    //leftForce += 3+Math.sqrt(leftForce);
-                    pyc.addForce(PhysicsController.DIRECTION.LEFT, 3);
-                    SoundController.getInstance().playerMove();
+                if(pyc.canMove(DIRECTION.LEFT)){
+                    pyc.getLeftMovementForce().setForcePerSecond(.00000000000005);
                 }
                 else{
-                    //in air you move slower and dont accelerate
-                    pyc.addForce(PhysicsController.DIRECTION.LEFT, 5);
+                    pyc.getLeftMovementForce().setForcePerSecond(.00000000000001);
                 }
-            }
+                pyc.getLeftMovementForce().setActive(true);
+        }
+        else{
+             pyc.getLeftMovementForce().setActive(false);
+             pyc.setForce(DIRECTION.LEFT, 0);
         }
         
-        //if the right key is down add some right force
         if(rightKeyDown){
-            
-            if(pyc.canMove(DIRECTION.RIGHT)){
-                //if you're standing on the ground you can run faster and accelerate
-                if(!pyc.canMove(DIRECTION.DOWN)){
-                    //acceleration is the sqrt of the current force
-                    //rightForce += 3+Math.sqrt(rightForce);
-                    pyc.addForce(PhysicsController.DIRECTION.RIGHT, 3);
-                    SoundController.getInstance().playerMove();
+                if(pyc.canMove(DIRECTION.RIGHT)){
+                    pyc.getRightMovementForce().setForcePerSecond(.00000000000005);
                 }
-                else {
-                    //in air you move slower and dont accelerate
-                    //rightForce += 5;
-                    pyc.addForce(PhysicsController.DIRECTION.RIGHT, 5);
+                else{
+                    pyc.getRightMovementForce().setForcePerSecond(.00000000000001);
                 }
-            }
+                pyc.getRightMovementForce().setActive(true);
+        }
+        else{
+             pyc.getRightMovementForce().setActive(false);
+             pyc.setForce(DIRECTION.RIGHT, 0);
         }
         
-        //if the space key is down add some upward force to jump
-        if(spaceKeyDown){
-            //can only jump if you are standing on the ground, can't fly lol
-            if(!pyc.canMove(DIRECTION.DOWN) && pyc.canMove(DIRECTION.UP)){
-                //upForce += 450; //jump height
-                pyc.addForce(PhysicsController.DIRECTION.UP, 450);
-                spaceKeyDown = false; //only jump once per key down event
-            }
-        }
+        
+//        //if the left key is down add some left force
+//        if(leftKeyDown){
+//            if(pyc.canMove(DIRECTION.LEFT)){
+//                //if you're standing on the ground you can run faster and accelerate
+//                if(!pyc.canMove(DIRECTION.DOWN)){
+//                    //acceleration is the sqrt of the current force
+//                    //leftForce += 3+Math.sqrt(leftForce);
+//                    pyc.addForce(PhysicsController.DIRECTION.LEFT, 3);
+//                    SoundController.getInstance().playerMove();
+//                }
+//                else{
+//                    //in air you move slower and dont accelerate
+//                    pyc.addForce(PhysicsController.DIRECTION.LEFT, 5);
+//                }
+//            }
+//        }
+//        
+//        //if the right key is down add some right force
+//        if(rightKeyDown){
+//            
+//            if(pyc.canMove(DIRECTION.RIGHT)){
+//                //if you're standing on the ground you can run faster and accelerate
+//                if(!pyc.canMove(DIRECTION.DOWN)){
+//                    //acceleration is the sqrt of the current force
+//                    //rightForce += 3+Math.sqrt(rightForce);
+//                    pyc.addForce(PhysicsController.DIRECTION.RIGHT, 3);
+//                    SoundController.getInstance().playerMove();
+//                }
+//                else {
+//                    //in air you move slower and dont accelerate
+//                    //rightForce += 5;
+//                    pyc.addForce(PhysicsController.DIRECTION.RIGHT, 5);
+//                }
+//            }
+//        }
+//        
+//        //if the space key is down add some upward force to jump
+//        if(spaceKeyDown){
+//            //can only jump if you are standing on the ground, can't fly lol
+//            if(!pyc.canMove(DIRECTION.DOWN) && pyc.canMove(DIRECTION.UP)){
+//                //upForce += 450; //jump height
+//                pyc.addForce(PhysicsController.DIRECTION.UP, 450);
+//                spaceKeyDown = false; //only jump once per key down event
+//            }
+//        }
 
         //update physics controller
         pyc.update();
        
         //get translation from physics controller
-        Point p = pyc.getNextTranslation();
+        Point.Double p = pyc.getNextTranslation();
         
         //translate object
         if(p.x >0){
@@ -300,6 +329,10 @@ public abstract class Actor extends RenderableObject {
                 break;                
             case KeyEvent.VK_SPACE:
                 spaceKeyDown = true;
+                if(!pyc.canMove(DIRECTION.DOWN)){
+                    pyc.setForce(DIRECTION.UP, 1000);
+                }
+                
                 break;
             case KeyEvent.VK_C:
                 MenuWindow dialogMenu = new MenuWindow(MainWindow.getInstance(), false);

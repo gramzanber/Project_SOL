@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import model.GameData;
+import model.ID;
 
 /**
 * Render a hero object to the screen.
@@ -23,10 +24,7 @@ public class EarthSmallEnemy extends RenderableObject
 {
     
     private Image enemyImage;
-    //private float health = 400;
-    //private float displayHealth =100;
-    //private float greenValue = 255;
-    //private int healthPacks =0;
+
     private PhysicsController pyc = new PhysicsController(this);
     boolean directionLeft = true;
     
@@ -37,11 +35,11 @@ public class EarthSmallEnemy extends RenderableObject
     * @param width
     * @param height
     */
-    public EarthSmallEnemy(Point loc)
+    public EarthSmallEnemy(Point loc, ID id)
     {
         //call superclass constructor
         super(loc);
-        
+        this.id = id;
         //update bounding box for the object
         super.boundingBox = new Rectangle(loc.x, loc.y, 32, 83);
         
@@ -92,7 +90,7 @@ public class EarthSmallEnemy extends RenderableObject
         pyc.update();
        
         //get translation from physics controller
-        Point p = pyc.getNextTranslation();
+        Point.Double p = pyc.getNextTranslation();
         
         //translate object
         if(p.x >0){
@@ -115,14 +113,15 @@ public class EarthSmallEnemy extends RenderableObject
                 translate(0, -1);
             }
         }
-        
-        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox))
+        super.collide();
+        /*if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox))
         {
             System.out.println("Killed Enemy! By walking into it.");
             
             this.clear();
             GameData.getInstance().gameObjects.remove(this);
-        }
+            GameData.getInstance().getHero().setShield(-10);
+        }*/
         for(int i = 0; i < GameData.getInstance().gameObjects.size(); i++)
         if(GameData.getInstance().gameObjects.get(i) instanceof PrimaryWeapon &&
                 GameData.getInstance().gameObjects.get(i).boundingBox.intersects(boundingBox))

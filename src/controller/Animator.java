@@ -44,7 +44,7 @@ public class Animator
     }
     
     public boolean running = true; //if false then stop rendering
-    private final int FRAMES_PER_SECOND = 120; //the target FPS for rendering
+    private final int FRAMES_PER_SECOND = 60; //the target FPS for rendering
     private Image dbImage = null; //An offscreen image used for Double buffering
     private RenderingThread t;
     private QuadTree quadTree;

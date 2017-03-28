@@ -103,6 +103,12 @@ public class GameData{
         QuadTree qt = Animator.getInstance().getQuadTree();
         
         model.quadtree.Point[] nearByObjects = qt.searchIntersect(obj.getBoundingBox().x-100, obj.getBoundingBox().y-100, obj.getBoundingBox().x+obj.getBoundingBox().width+100, obj.getBoundingBox().y+obj.getBoundingBox().height+100);
+        //detecting collision anywhere here causes a bit of a problem
+        /*if(hero.getBoundingBox().contains(obj.getBoundingBox()) && obj.getId() == ID.SmallEnemy){
+                GameData.getInstance().gameObjects.remove(obj);//testObj.
+                System.out.println("SMALL ENEMY::10");
+                GameData.getInstance().getHero().setShield(-10);//hero.setShield(-10);
+            }*/
         for(int i=0; i < nearByObjects.length; i++){
             
             RenderableObject testObj = (RenderableObject) nearByObjects[i].getValue();

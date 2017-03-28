@@ -32,7 +32,12 @@ public class SoundController
     }
     
     
-    private Clip clip;
+    private String backgroundMusic;
+    private Clip menuBGMClip;
+    private Clip earthBGMClip;
+    private Clip openWorldBGMClip;
+    private Clip bossBGMClip;
+    
     private Clip playerWalkClip;
     private Clip smallEnemyWalkClip;
     private Clip mediumEnemyWalkClip;
@@ -44,7 +49,11 @@ public class SoundController
      */
     private SoundController(){
         try {
-            clip = AudioSystem.getClip();
+            menuBGMClip = AudioSystem.getClip();
+            earthBGMClip = AudioSystem.getClip();
+            openWorldBGMClip = AudioSystem.getClip();
+            bossBGMClip = AudioSystem.getClip();
+            
             playerWalkClip = AudioSystem.getClip();
             smallEnemyWalkClip = AudioSystem.getClip();
             mediumEnemyWalkClip = AudioSystem.getClip();
@@ -52,6 +61,32 @@ public class SoundController
         } catch (LineUnavailableException ex) {
         }
         
+        try
+        {
+            File file = new File("src/Sounds/sol-menu2.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            menuBGMClip.open(audioIn);
+            
+            
+            file = new File("src/Sounds/sol-earthBGM.wav");
+            audioIn = AudioSystem.getAudioInputStream(file);
+            earthBGMClip.open(audioIn);
+            
+            file = new File("src/Sounds/sol-worldmap.wav");
+            audioIn = AudioSystem.getAudioInputStream(file);
+            openWorldBGMClip.open(audioIn);
+            
+            
+            
+            
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+        
+        
+        backgroundMusic = "MENU";
 
     }
     
@@ -63,7 +98,19 @@ public class SoundController
     {
         if(paused)
         {
-            clip.start();
+            if(backgroundMusic == "MENU"){
+                menuBGMClip.start();
+            }
+            else if(backgroundMusic == "EARTH"){
+                earthBGMClip.start();
+            }
+            else if(backgroundMusic == "WORLD"){
+                openWorldBGMClip.start();
+            }
+            else if(backgroundMusic == "BOSS"){
+                bossBGMClip.start();
+            }
+            
             playerWalkClip.start();
             smallEnemyWalkClip.start();
             mediumEnemyWalkClip.start();
@@ -71,36 +118,38 @@ public class SoundController
         }
         else
         {
-            clip.stop();
+            menuBGMClip.stop();
+            earthBGMClip.stop();
+            openWorldBGMClip.stop();
+            bossBGMClip.stop();
+            
             playerWalkClip.stop();
             smallEnemyWalkClip.stop();
             mediumEnemyWalkClip.stop();
             largeEnemyWalkClip.stop();
         }
         this.paused = !this.paused;
-        
-        //bug fix
-        //TODO research why this is needed
-        try {
-            clip = AudioSystem.getClip();
-            playerWalkClip = AudioSystem.getClip();
-            smallEnemyWalkClip = AudioSystem.getClip();
-            mediumEnemyWalkClip = AudioSystem.getClip();
-            largeEnemyWalkClip = AudioSystem.getClip();
-        } catch (LineUnavailableException ex) {
-        }
+
         
     }
     
     public void stop(){
         System.out.println("Sound Clear");
-        clip.stop();
+        menuBGMClip.stop();
+        earthBGMClip.stop();
+        openWorldBGMClip.stop();
+        bossBGMClip.stop();
+        
         playerWalkClip.stop();
         smallEnemyWalkClip.stop();
         mediumEnemyWalkClip.stop();
         largeEnemyWalkClip.stop();
         
-        clip.close();
+       // menuBGMClip.close();
+        //earthBGMClip.close();
+        //openWorldBGMClip.close();
+       // bossBGMClip.close();
+        
         playerWalkClip.close();
         smallEnemyWalkClip.close();
         mediumEnemyWalkClip.close();
@@ -109,19 +158,10 @@ public class SoundController
     
     public void menuBGM()
     {
-        try
-        {
-            File file = new File("src/Sounds/sol-menu2.wav");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            clip.stop();
-            clip.open(audioIn);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            if(paused)clip.stop();
-        }
-        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
-        {
-            System.out.printf("Error: %s \n", e.toString());
-        }
+        backgroundMusic = "MENU";
+        menuBGMClip.loop(Clip.LOOP_CONTINUOUSLY);
+        menuBGMClip.start();
+        if(paused)stop();
     }
     
     public void selectConfirm()
@@ -164,34 +204,46 @@ public class SoundController
     
     public void openWorldBGM()
     {
-        try
-        {
-            File file = new File("src/Sounds/sol-worldmap.wav");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            clip.open(audioIn);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            if(paused)clip.stop();
-        }
-        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
-        {
-            System.out.printf("Error: %s \n", e.toString());
-        }
+        backgroundMusic = "WORLD";
+        openWorldBGMClip.loop(Clip.LOOP_CONTINUOUSLY);
+        openWorldBGMClip.start();
+        if(paused)stop();
+        
+//        try
+//        {
+//            File file = new File("src/Sounds/sol-worldmap.wav");
+//            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+//            openWorldBGMClip.open(audioIn);
+//            openWorldBGMClip.loop(Clip.LOOP_CONTINUOUSLY);
+//            if(paused)openWorldBGMClip.stop();
+//        }
+//        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+//        {
+//            System.out.printf("Error: %s \n", e.toString());
+//        }
     }
     
     public void earthBGM()
     {
-        try
-        {
-            File file = new File("src/Sounds/sol-earthBGM.wav");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            clip.open(audioIn);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            if(paused)clip.stop();
-        }
-        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
-        {
-            System.out.printf("Error: %s \n", e.toString());
-        }
+        
+        backgroundMusic = "EARTH";
+        earthBGMClip.loop(Clip.LOOP_CONTINUOUSLY);
+        earthBGMClip.start();
+        if(paused)stop();
+        
+        
+//        try
+//        {
+//            File file = new File("src/Sounds/sol-earthBGM.wav");
+//            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+//            earthBGMClip.open(audioIn);
+//            earthBGMClip.loop(Clip.LOOP_CONTINUOUSLY);
+//            if(paused)earthBGMClip.stop();
+//        }
+//        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+//        {
+//            System.out.printf("Error: %s \n", e.toString());
+//        }
     }
     
     public void moonBGM()
@@ -216,18 +268,25 @@ public class SoundController
     
     public void bossBGM()
     {
-        try
-        {
-            File file = new File("src/Sounds/sol-bossBGM.wav");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            clip.open(audioIn);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            if(paused)clip.stop();
-        }
-        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
-        {
-            System.out.printf("Error: %s \n", e.toString());
-        }
+        
+        backgroundMusic = "BOSS";
+        bossBGMClip.loop(Clip.LOOP_CONTINUOUSLY);
+        bossBGMClip.start();
+        if(paused)stop();
+        
+        
+//        try
+//        {
+//            File file = new File("src/Sounds/sol-bossBGM.wav");
+//            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+//            bossBGMClip.open(audioIn);
+//            bossBGMClip.loop(Clip.LOOP_CONTINUOUSLY);
+//            if(paused)bossBGMClip.stop();
+//        }
+//        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+//        {
+//            System.out.printf("Error: %s \n", e.toString());
+//        }
     }
     
     public void primaryWeaponFire()
