@@ -35,6 +35,7 @@ public abstract class Actor extends RenderableObject {
     private boolean rightKeyDown;
     private boolean spaceKeyDown;
     
+    
     /**
     * Constructor 
     * 
@@ -77,11 +78,11 @@ public abstract class Actor extends RenderableObject {
     public void update(){
 
         if(leftKeyDown){
-                if(pyc.canMove(DIRECTION.LEFT)){
-                    pyc.getLeftMovementForce().setForcePerSecond(.00000000000005);
+                if(pyc.canMove(DIRECTION.DOWN)){
+                    pyc.getLeftMovementForce().setForcePerSecond(.00000000000001);
                 }
                 else{
-                    pyc.getLeftMovementForce().setForcePerSecond(.00000000000001);
+                    pyc.getLeftMovementForce().setForcePerSecond(.00000000000005);
                 }
                 pyc.getLeftMovementForce().setActive(true);
         }
@@ -91,11 +92,11 @@ public abstract class Actor extends RenderableObject {
         }
         
         if(rightKeyDown){
-                if(pyc.canMove(DIRECTION.RIGHT)){
-                    pyc.getRightMovementForce().setForcePerSecond(.00000000000005);
+                if(pyc.canMove(DIRECTION.DOWN)){
+                    pyc.getRightMovementForce().setForcePerSecond(.00000000000001);
                 }
                 else{
-                    pyc.getRightMovementForce().setForcePerSecond(.00000000000001);
+                    pyc.getRightMovementForce().setForcePerSecond(.00000000000005);
                 }
                 pyc.getRightMovementForce().setActive(true);
         }

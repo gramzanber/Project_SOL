@@ -17,6 +17,7 @@ import model.ID;
 import view.BufferedImageLoader;
 import view.gameobjects.Laser;
 import view.gameobjects.Background;
+import view.gameobjects.EarthBoss;
 import view.menus.GameButton;
 import view.gameobjects.Goal;
 import view.worldmap.Earth;
@@ -637,6 +638,12 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     GameData.getInstance().addGameObject(smallEnemy); //Add tile to game object array
                 }
                 
+                // Small enemy type
+                // Pinkish color pixal
+                if(red == 255 && green == 0 && blue == 0){
+                    EarthBoss boss = new EarthBoss(tileLoc); //create object
+                    GameData.getInstance().addGameObject(boss); //Add object
+                }
                
             }
         }
