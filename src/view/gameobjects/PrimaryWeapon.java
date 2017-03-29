@@ -19,6 +19,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import model.GameData;
 
 public class PrimaryWeapon extends GameFigure
 {
@@ -89,6 +90,12 @@ public class PrimaryWeapon extends GameFigure
             updateLocation();
         }
         else if (state == STATE_DYING) {
+        }
+        
+        
+        //check collision
+        if(GameData.getInstance().checkCollision(this.getBoundingBox(), this)){
+            
         }
     }
 
