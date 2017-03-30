@@ -118,7 +118,6 @@ public class EarthBoss extends RenderableObject {
         //get translation from physics controller
         Point.Double p = pyc.getNextTranslation();
         
-        System.out.println(p.x +" " + p.y);
         
         //translate object
         if(p.x >0){
