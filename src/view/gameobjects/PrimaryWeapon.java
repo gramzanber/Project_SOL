@@ -17,14 +17,16 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import model.GameData;
 
-public class PrimaryWeapon extends GameFigure
+public class PrimaryWeapon extends RenderableObject
 {
     // missile size
-    private Image missileImage;
-    private int health;
+    //private Image missileImage;
+    //private int health;
     private static int weaponLevel = 1;
 
     private static final int UNIT_TRAVEL_DISTANCE = 2; // per frame move
@@ -39,9 +41,9 @@ public class PrimaryWeapon extends GameFigure
     public PrimaryWeapon(float sx, float sy)
     {
         super(new Point((int)sx, (int)sy));
-        super.boundingBox = new Rectangle(loc.x, loc.y, 20, 10);
+        super.boundingBox = new Rectangle(loc.x, loc.y, 30, 30);
         
-        state = STATE_ALIVE;
+        //state = STATE_ALIVE;
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "primary1_right");
         animationController.setFps(8);  
@@ -53,6 +55,16 @@ public class PrimaryWeapon extends GameFigure
             animationController.setSpriteSheet("primary1_left");
         }        
 
+        
+        //check collisions
+//        ArrayList<RenderableObject> collisions = GameData.getInstance().getCollisions(this);
+//        for(int i=0; i< collisions.size(); i++){
+//            RenderableObject obj = collisions.get(i);
+//            if(!(obj instanceof Hero)){
+//                GameData.getInstance().removeGameObject(this);
+//                return;
+//            }
+//        }
         
         
         //missileImage = null;
@@ -70,8 +82,13 @@ public class PrimaryWeapon extends GameFigure
     @Override
     public void render(Graphics2D g2,Rectangle viewport){
 
+        //draw in relation to the viewport
+        int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
+        int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
+            
+            
             BufferedImage sprite = animationController.getFrame(); 
-            g2.drawImage(sprite, (int) loc.x, (int) loc.y, 30, 30, null); 
+            g2.drawImage(sprite, translatedX, translatedY, 30, 30, null); 
             animationController.update();
 
     }
@@ -82,20 +99,23 @@ public class PrimaryWeapon extends GameFigure
 //        g.drawImage(missileImage, (int) (super.x - size / 2), (int) (super.y - size / 2), 10, 10, null);
 //    }
 
-    @Override
-    public void update() {
-        //updateState();
-        if (state == STATE_ALIVE) {
-            updateLocation();
-        }
-        else if (state == STATE_DYING) {
-        }
-    }
+//    @Override
+//    public void update() {
+//        //updateState();
+//        if (state == STATE_ALIVE) {
+//            updateLocation();
+//        }
+//        else if (state == STATE_DYING) {
+//        }
+//        
+//        
+//        
+//    }
 
-    public void updateLocation()
+    public void update()
     {
         loc.x = loc.x + UNIT_TRAVEL_DISTANCE;
-        super.boundingBox.setLocation(loc);
+        boundingBox.setLocation(loc);
     }
 
     public void updateState() {
@@ -117,7 +137,7 @@ public class PrimaryWeapon extends GameFigure
 //        return new Rectangle2D.Double(this.x - this.size / 2, this.y - this.size / 2, .9 * this.size, .9 * this.size);
 //    }
     
-    @Override
+    //@Override
     public String getObjectType()
     {
         return "Missile";
@@ -129,11 +149,11 @@ public class PrimaryWeapon extends GameFigure
     //    return 3;
     //}
 
-    @Override
-    public int getHealth() { return this.health; }
-
-    @Override
-    public void damageFigure() { this.health = this.health - 1; }
+//    @Override
+//    public int getHealth() { return this.health; }
+//
+//    @Override
+//    public void damageFigure() { this.health = this.health - 1; }
 
     /**
     * {@inheritDoc}
