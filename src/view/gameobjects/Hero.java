@@ -173,6 +173,7 @@ public class Hero extends Actor {
                 movingRight = false;
                 
                 animationController.update();
+                SoundController.getInstance().playerMove();
             }
             else if(movingLeft){
                 facingRight = false;
@@ -184,6 +185,7 @@ public class Hero extends Actor {
                 movingLeft = false;
                 
                 animationController.update();
+                SoundController.getInstance().playerMove();
             }            
             else{
                 animationController.setFrame(0);
