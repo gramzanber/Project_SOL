@@ -79,10 +79,10 @@ public abstract class Actor extends RenderableObject {
 
         if(leftKeyDown){
                 if(pyc.canMove(DIRECTION.DOWN)){
-                    pyc.getLeftMovementForce().setForcePerSecond(.00000000000001);
+                    pyc.getLeftMovementForce().setForcePerSecond(.5);
                 }
                 else{
-                    pyc.getLeftMovementForce().setForcePerSecond(.00000000000005);
+                    pyc.getLeftMovementForce().setForcePerSecond(2);
                 }
                 pyc.getLeftMovementForce().setActive(true);
         }
@@ -93,10 +93,10 @@ public abstract class Actor extends RenderableObject {
         
         if(rightKeyDown){
                 if(pyc.canMove(DIRECTION.DOWN)){
-                    pyc.getRightMovementForce().setForcePerSecond(.00000000000001);
+                    pyc.getRightMovementForce().setForcePerSecond(.5);
                 }
                 else{
-                    pyc.getRightMovementForce().setForcePerSecond(.00000000000005);
+                    pyc.getRightMovementForce().setForcePerSecond(2);
                 }
                 pyc.getRightMovementForce().setActive(true);
         }

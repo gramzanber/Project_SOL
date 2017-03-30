@@ -68,10 +68,10 @@ public class PhysicsController {
         this.o = o; 
         
         //initialize force variables
-        gravityForce = new Force(DIRECTION.DOWN, .0000000000001, true);
-        rightMovementForce = new Force(DIRECTION.RIGHT, .0000000000001, false);
-        leftMovementForce = new Force(DIRECTION.LEFT, .0000000000001, false);
-        upMovementForce = new Force(DIRECTION.UP, .0000000000001, false);
+        gravityForce = new Force(DIRECTION.DOWN, 1, true);
+        rightMovementForce = new Force(DIRECTION.RIGHT, 1, false);
+        leftMovementForce = new Force(DIRECTION.LEFT, 1, false);
+        upMovementForce = new Force(DIRECTION.UP, 1, false);
         
         
         upForceValue = 0;
@@ -79,12 +79,12 @@ public class PhysicsController {
         leftForceValue = 0;
         rightForceValue = 0;
         
-        lastUpdateTime = System.nanoTime();
+        lastUpdateTime = System.currentTimeMillis();
         
     }
     
     public void update(){
-        double timeSinceLastUpdate = ((System.nanoTime() - lastUpdateTime));
+        double timeSinceLastUpdate = ((System.currentTimeMillis() - lastUpdateTime));
         
         lastUpdateTime = System.currentTimeMillis();
         
