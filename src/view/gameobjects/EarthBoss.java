@@ -78,7 +78,7 @@ public class EarthBoss extends RenderableObject {
         if(direction == PhysicsController.DIRECTION.LEFT){
 
             if(pyc.canMove(PhysicsController.DIRECTION.LEFT)){
-                pyc.getLeftMovementForce().setForcePerSecond(.00000000000001);
+                pyc.getLeftMovementForce().setForcePerSecond(.5);
                 pyc.getLeftMovementForce().setActive(true);
             }
             else{
@@ -92,7 +92,7 @@ public class EarthBoss extends RenderableObject {
         else{
 
             if(pyc.canMove(PhysicsController.DIRECTION.RIGHT)){
-                pyc.getRightMovementForce().setForcePerSecond(.00000000000001);
+                pyc.getRightMovementForce().setForcePerSecond(.5);
                 pyc.getRightMovementForce().setActive(true);
             }
             else{
