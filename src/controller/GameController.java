@@ -378,9 +378,6 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         //clear all game objects
         clear();
         
-        //play background music
-        SoundController.getInstance().moonBGM();        
-        
         //loading the level
         BufferedImage levelMap = BufferedImageLoader.getInstance().loadImage("/Images/level2_map.png");
         
@@ -394,9 +391,6 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         //clear all game objects
         clear();
         
-        //play background music
-        SoundController.getInstance().venusBGM();        
-        
         //loading the level
         BufferedImage levelMap = BufferedImageLoader.getInstance().loadImage("/Images/level3_map.png");
         
@@ -409,9 +403,6 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         
         //clear all game objects
         clear();
-        
-        //play background music
-        SoundController.getInstance().mercuryBGM();        
         
         //loading the level
         BufferedImage levelMap = BufferedImageLoader.getInstance().loadImage("/Images/level4_map.png");
