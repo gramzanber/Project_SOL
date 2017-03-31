@@ -76,6 +76,10 @@ public class Hero extends Actor {
         if(SwingUtilities.isRightMouseButton(e))
         {
             System.out.println("Secondary Weapon!");
+            Weapon s = new GrenadeWeapon(translatedX, translatedY);
+            SoundController.getInstance().primaryWeaponFire();
+            
+            synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(s); }
         }
         else if(SwingUtilities.isLeftMouseButton(e))
         {

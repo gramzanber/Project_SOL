@@ -259,6 +259,36 @@ public class PhysicsController {
         //check collision and return
         return !GameData.getInstance().checkCollision(testRect, o);
     }
+    
+    //Attempting to create a method for objects to travel in an arc
+    //angleRad will be the angle of arc
+    //Direction is left or right
+    //amount is how much force behind the object
+    public void atAngle(double angleRad, DIRECTION horizontal, double amount){
+        //Need angle in radians
+        angleRad = Math.toRadians(angleRad);
+        
+        //If we have the hypotenuse (amount) and angle, we can get Xvalue
+        //by amount * sin(angle) and yval by using cos
+        double x = amount * Math.sin(angleRad);
+        double y = amount * Math.cos(angleRad);
+        
+        //add horizontal force 
+        addForce(DIRECTION.UP, (int)amount);
+        switch(horizontal) {
+            case LEFT:
+                addForce(DIRECTION.LEFT, (int)x);
+                break;
+            case RIGHT:
+                addForce(DIRECTION.RIGHT, (int)-x);
+                break;
+            default:
+                break;
+        }
+        
+    }
+    
+    
 
     public Force getRightMovementForce() {
         return rightMovementForce;
