@@ -31,18 +31,28 @@ public class GrenadeWeapon extends Weapon {
     private boolean alive = false; 
     public GrenadeWeapon(float sx, float sy) {
         super(sx, sy);
+        
+        //TODO: this should be passed in via parameters im just overiding it here for quick debuging
+        int x = GameData.getInstance().getHero().getBoundingBox().x;
+        int y = GameData.getInstance().getHero().getBoundingBox().y;
+        super.boundingBox = new Rectangle(x, y, 20, 10);
+        
         pyc = new PhysicsController(this);
-        super.boundingBox = new Rectangle(loc.x, loc.y, 20, 10);
+        
         //state = STATE_ALIVE;
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "primary1_right");
         animationController.setFps(48);
         animationController.setSpriteSheet("primary1_right");
+        
+        pyc.addForce(DIRECTION.UP, 100);
         if(Hero.facingRight){
-            pyc.atAngle(70, PhysicsController.DIRECTION.RIGHT, 25);
+            //pyc.atAngle(70, PhysicsController.DIRECTION.RIGHT, 25);
+            pyc.addForce(DIRECTION.RIGHT, 300);
         }
         else if(!Hero.facingRight){
-            pyc.atAngle(70, PhysicsController.DIRECTION.LEFT, 25);
+            //pyc.atAngle(70, PhysicsController.DIRECTION.LEFT, 25);
+            pyc.addForce(DIRECTION.LEFT, 300);
         }
     }
     
@@ -54,7 +64,7 @@ public class GrenadeWeapon extends Weapon {
         Rectangle boundingBoxForRendering = new Rectangle(translatedX-166/3, translatedY, 166, 155);
         
         BufferedImage sprite = animationController.getFrame();
-        g2.drawImage(sprite, (int)loc.x, (int)loc.y, 30, 30, null);
+        g2.drawImage(sprite, translatedX, translatedY, 30, 30, null);
         animationController.update();
         
         if(Main.debug){
@@ -69,7 +79,7 @@ public class GrenadeWeapon extends Weapon {
     public void update() {
         pyc.update();
         
-        /*Point.Double p = pyc.getNextTranslation();
+        Point.Double p = pyc.getNextTranslation();
         
         //translate object
         if(p.x >0){
@@ -93,7 +103,13 @@ public class GrenadeWeapon extends Weapon {
             }
         }
         
+        //stop when hits the ground
+        if(!pyc.canMove(DIRECTION.DOWN)){
+            pyc.clear();
+        }
         
+        
+        /*
         //one last thing, since this is a side scroller we need to move the
         //viewport when we get close to the edge of the screen
         if(boundingBox.getX() + 300 >= GameData.getInstance().viewport.getX()+(int) GameData.getInstance().viewport.getWidth()){
@@ -112,7 +128,7 @@ public class GrenadeWeapon extends Weapon {
         
     
     }
-   /* 
+    
     public void translate(int dx, int dy){
         
         //Make sure we can actually move by creating a testrect object and trying it first
@@ -129,21 +145,21 @@ public class GrenadeWeapon extends Weapon {
         
         //if test rect was successful its safe to move the real object
         if(!GameData.getInstance().checkCollision(testRect, this)){
-            if(dx == -1){
-                Hero.movingLeft = true;
-            }
-            else if(dx == 1){
-                Hero.movingRight = true;
-            }
-            if(dy == -1){
-                Hero.movingUp = true;
-            }
-            else if(dy == 1){
-                Hero.movingDown = true;
-            }
+//            if(dx == -1){
+//                this.movingLeft = true;
+//            }
+//            else if(dx == 1){
+//                this.movingRight = true;
+//            }
+//            if(dy == -1){
+//                this.movingUp = true;
+//            }
+//            else if(dy == 1){
+//                this.movingDown = true;
+//            }
             boundingBox.setLocation(newLoc);
         }
-    }*/
+    }
    
 
     @Override
