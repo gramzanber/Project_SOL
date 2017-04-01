@@ -612,6 +612,65 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     tile.setSolid(true);
                 }
                 
+                //platform middle lvl-2
+                //light green color pixal
+                if(red == 128 && green == 255 && blue == 128){
+                    Tile tile = new Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(11, 2); //green platform right
+                    tile.setTrim(1); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }
+                
+                //platform left end lvl-2
+                //light green color pixal
+                if(red == 128 && green == 254 && blue == 128){
+                    Tile tile = new Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(11, 3); //green platform right
+                    tile.setTrim(1); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }
+                
+                //platform right end lvl-2
+                //light green color pixal
+                if(red == 128 && green == 253 && blue == 128){
+                    Tile tile = new Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(11, 1); //green platform right
+                    tile.setTrim(1); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }
+                
+                //platform middle lvl-3
+                //light purple color pixal
+                if(red == 128 && green == 128 && blue == 255){
+                    Tile tile = new Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(4, 8); //green platform right
+                    tile.setTrim(1); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }
+                
+                //platform left end lvl-3
+                //light purple color pixal
+                if(red == 128 && green == 128 && blue == 254){
+                    Tile tile = new Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(5, 9); //green platform right
+                    tile.setTrim(1); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }
+                
+                //platform right end lvl-3
+                //light purple color pixal
+                if(red == 128 && green == 128 && blue == 253){
+                    Tile tile = new Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(5, 7); //green platform right
+                    tile.setTrim(1); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }
                 
                 //gold coin
                 //yellow color pixal
