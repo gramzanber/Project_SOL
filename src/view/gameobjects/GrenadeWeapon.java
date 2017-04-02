@@ -29,8 +29,8 @@ public class GrenadeWeapon extends Weapon {
     private PhysicsController pyc;
     private AnimationController animationController;
     private boolean alive = false; 
-    public GrenadeWeapon(float sx, float sy) {
-        super(sx, sy);
+    public GrenadeWeapon(float sx, float sy, RenderableObject owner) {
+        super(sx, sy, owner);
         
         //TODO: this should be passed in via parameters im just overiding it here for quick debuging
         int x = GameData.getInstance().getHero().getBoundingBox().x;
@@ -77,6 +77,7 @@ public class GrenadeWeapon extends Weapon {
     
     @Override
     public void update() {
+        super.update();
         pyc.update();
         
         Point.Double p = pyc.getNextTranslation();
