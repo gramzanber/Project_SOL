@@ -29,19 +29,23 @@ public class PrimaryWeapon extends RenderableObject
     //private int health;
     private static int weaponLevel = 1;
 
-    private static final int UNIT_TRAVEL_DISTANCE = 2; // per frame move
+    private static final int UNIT_TRAVEL_DISTANCE = 10; // per frame move
     
     private AnimationController animationController;
 
+    private RenderableObject owner;
+    
     /**
      *
      * @param sx start x of the missile
      * @param sy start y of the missile
      */
-    public PrimaryWeapon(float sx, float sy)
+    public PrimaryWeapon(float sx, float sy, RenderableObject owner)
     {
         super(new Point((int)sx, (int)sy));
         super.boundingBox = new Rectangle(loc.x, loc.y, 30, 30);
+        
+        this.owner = owner;
         
         //state = STATE_ALIVE;
         
@@ -116,6 +120,20 @@ public class PrimaryWeapon extends RenderableObject
     {
         loc.x = loc.x + UNIT_TRAVEL_DISTANCE;
         boundingBox.setLocation(loc);
+        
+        //check collisions
+        ArrayList<RenderableObject> collisions = GameData.getInstance().getCollisions(this);
+        
+        for(int i=0; i<collisions.size(); i++){
+            RenderableObject obj = collisions.get(i);
+            if(obj != owner){
+               GameData.getInstance().removeGameObject(this);
+               break;
+            }
+        }
+
+
+        
     }
 
     public void updateState() {

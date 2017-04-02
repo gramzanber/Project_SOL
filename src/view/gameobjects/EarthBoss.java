@@ -154,6 +154,7 @@ public class EarthBoss extends RenderableObject {
             }
             else if(obj instanceof PrimaryWeapon){
                 this.setShield(-10);
+                //GameData.getInstance().removeGameObject(obj);
                 System.out.println("hit!");
             }
         }

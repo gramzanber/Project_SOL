@@ -83,7 +83,7 @@ public class Hero extends Actor {
         }
         else if(SwingUtilities.isLeftMouseButton(e))
         {
-            PrimaryWeapon m = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+60);
+            PrimaryWeapon m = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+60, this);
             SoundController.getInstance().primaryWeaponFire();
 
             synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m); }
