@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -63,6 +64,9 @@ public class EarthBoss extends RenderableObject {
         
         lastJumpTime = 0;
         
+        health = 100;
+        displayHealth = 100;
+        
         //update bounding box for the object
         super.boundingBox = new Rectangle(loc.x, loc.y, 50*2, 155*2);
     }
@@ -73,7 +77,7 @@ public class EarthBoss extends RenderableObject {
     @Override
     public void update(){
         super.update();
-        //healthBound();     
+        healthBound();     
       
         if(direction == PhysicsController.DIRECTION.LEFT){
 
@@ -140,6 +144,19 @@ public class EarthBoss extends RenderableObject {
                 translate(0, -1);
             }
         }
+        
+        //check collisions
+        ArrayList<RenderableObject> collisions = GameData.getInstance().getCollisions(this);
+        for(int i=0; i< collisions.size(); i++){
+            RenderableObject obj = collisions.get(i);
+            if(obj instanceof Hero){
+                ((Hero)obj).setShield(-1);
+            }
+            else if(obj instanceof PrimaryWeapon){
+                this.setShield(-10);
+                System.out.println("hit!");
+            }
+        }
     }
     
     /**
@@ -187,6 +204,9 @@ public class EarthBoss extends RenderableObject {
     @Override
     public void render(Graphics2D g2,Rectangle viewport)
     {
+        if(viewport.intersects(this.getBoundingBox())){
+            
+        
             //draw in relation to the viewport
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
@@ -305,16 +325,17 @@ public class EarthBoss extends RenderableObject {
             
             
         
-//        float tempHealth = displayHealth;
-//        if(tempHealth > 100) tempHealth =100;
-//
-//        g2.setColor(Color.darkGray);
-//        g2.fillRect(2,5,(int)(100 * 2.5), 15);
-//        g2.setColor(new Color(10,50,(int)blueValue));
-//        g2.fillRect(2, 5, (int) (tempHealth * 2.5), 15);
-//        g2.setColor(Color.white);
-//        g2.drawRect(2,5,(int)(100 *2.5), 15);
-//        
+        float tempHealth = displayHealth;
+        if(tempHealth > 100) tempHealth =100;
+        
+        int healthBarX = (int)(viewport.width-2-(100 * 2.5));
+        g2.setColor(Color.darkGray);
+        g2.fillRect(healthBarX,5,(int)(100 * 2.5), 15);
+        g2.setColor(new Color(10,50,(int)blueValue));
+        g2.fillRect(healthBarX, 5, (int) (tempHealth * 2.5), 15);
+        g2.setColor(Color.white);
+        g2.drawRect(healthBarX,5,(int)(100 *2.5), 15);
+        
 //        for(int i=0; i<healthPacks-1; i++){
 //         //g2.setColor(Color.red);
 //         g2.setColor(new Color(10,50,(int)blueValue)); //the rectangles below the health bar have same color as health bar
@@ -323,38 +344,40 @@ public class EarthBoss extends RenderableObject {
 //             g2.fillRect((2*i)*7, 22, 10, 15);
 //         }
 //        }
+
+        }
     }
 
-//    private void healthBound() {
-//        //the health is depleated constatntly but just as a demo. will be changed when there are enemies in the game
-//        if(displayHealth > 100){
-//            displayHealth = 100;
-//        }
-//        if(displayHealth <=0 && health>0){
-//            health -= 100;
-//            displayHealth = health;
-//        }
-//        blueValue = displayHealth*5;
-//        if(health <=0){
-//            health =0;
-//        }
-//        if(blueValue > 255){
-//            blueValue = 255;
-//        }
-//        if(blueValue < 75){
-//            blueValue =75;
-//        }
-//        
-//        healthPacks = (int)health/100;
-//    }
+    private void healthBound() {
+        //the health is depleated constatntly but just as a demo. will be changed when there are enemies in the game
+        if(displayHealth > 100){
+            displayHealth = 100;
+        }
+        if(displayHealth <=0 && health>0){
+            health -= 100;
+            displayHealth = health;
+        }
+        blueValue = displayHealth*5;
+        if(health <=0){
+            health =0;
+        }
+        if(blueValue > 255){
+            blueValue = 255;
+        }
+        if(blueValue < 75){
+            blueValue =75;
+        }
+        
+        healthPacks = (int)health/100;
+    }
     
-//    public float getShield(){
-//        return displayHealth;
-//    }
-//    public void setShield(float powerUp){
-//        this.displayHealth += powerUp;
-//        this.health += powerUp;
-//    }
+    public float getShield(){
+        return displayHealth;
+    }
+    public void setShield(float powerUp){
+        this.displayHealth += powerUp;
+        this.health += powerUp;
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {

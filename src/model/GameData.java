@@ -93,6 +93,36 @@ public class GameData{
         }
     }
 
+    
+    public ArrayList<RenderableObject> getCollisions(RenderableObject obj){
+        ArrayList<RenderableObject> collisions = new ArrayList();
+//        QuadTree qt = Animator.getInstance().getQuadTree();
+//        model.quadtree.Point[] nearByObjects = qt.searchIntersect(obj.getBoundingBox().x-100, obj.getBoundingBox().y-100, obj.getBoundingBox().x+obj.getBoundingBox().width+100, obj.getBoundingBox().y+obj.getBoundingBox().height+100);
+//        for(int i=0; i < nearByObjects.length; i++){
+//            RenderableObject testObj = (RenderableObject) nearByObjects[i].getValue();
+//            if(obj != testObj && obj.getBoundingBox().intersects( testObj.getBoundingBox() )){
+//                collisions.add(testObj);
+//            }
+//        }
+
+        synchronized (gameObjects){
+            try{
+                //loop over every game object
+                for(int i=0; i < gameObjects.size(); i++){
+                    RenderableObject testObj = (RenderableObject) gameObjects.get(i);
+                    if(obj != testObj && obj.getBoundingBox().intersects( testObj.getBoundingBox() )){
+                        collisions.add(testObj);
+                    }
+                }
+            }
+            catch(Exception e) {
+                System.out.println(e.getMessage()); 
+            }
+        }
+
+        return collisions;
+    }
+    
     /**
     * Check if any solid game objects intersect a given rectangle
     * 
@@ -101,7 +131,6 @@ public class GameData{
     public boolean checkCollision(Rectangle boundingBox, RenderableObject obj) {
         
         QuadTree qt = Animator.getInstance().getQuadTree();
-        
         model.quadtree.Point[] nearByObjects = qt.searchIntersect(obj.getBoundingBox().x-100, obj.getBoundingBox().y-100, obj.getBoundingBox().x+obj.getBoundingBox().width+100, obj.getBoundingBox().y+obj.getBoundingBox().height+100);
         //detecting collision anywhere here causes a bit of a problem
         /*if(hero.getBoundingBox().contains(obj.getBoundingBox()) && obj.getId() == ID.SmallEnemy){

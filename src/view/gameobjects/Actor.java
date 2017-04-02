@@ -83,7 +83,7 @@ public abstract class Actor extends RenderableObject {
                     pyc.getLeftMovementForce().setForcePerSecond(.5);
                 }
                 else{
-                    pyc.getLeftMovementForce().setForcePerSecond(2);
+                    pyc.getLeftMovementForce().setForcePerSecond(.75);
                 }
                 pyc.getLeftMovementForce().setActive(true);
         }
@@ -97,7 +97,7 @@ public abstract class Actor extends RenderableObject {
                     pyc.getRightMovementForce().setForcePerSecond(.5);
                 }
                 else{
-                    pyc.getRightMovementForce().setForcePerSecond(2);
+                    pyc.getRightMovementForce().setForcePerSecond(.75);
                 }
                 pyc.getRightMovementForce().setActive(true);
         }
