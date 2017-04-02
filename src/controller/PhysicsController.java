@@ -270,8 +270,8 @@ public class PhysicsController {
         
         //If we have the hypotenuse (amount) and angle, we can get Xvalue
         //by amount * sin(angle) and yval by using cos
-        double x = amount * Math.sin(angleRad);
-        double y = amount * Math.cos(angleRad);
+        double x = amount * Math.cos(angleRad);
+        double y = amount * Math.sin(angleRad);
         
         //add horizontal force 
         addForce(DIRECTION.UP, (int)amount);

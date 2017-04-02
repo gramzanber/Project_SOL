@@ -134,6 +134,8 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
             
             //System.out.println("Health::"+ GameData.getInstance().getHero().getShield());
         }
+        //collision for projectiles
+        //if(GameData.getInstance().)
     }
     
 }

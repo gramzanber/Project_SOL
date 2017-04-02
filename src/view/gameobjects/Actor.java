@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import model.GameData;
 import view.swingcomponents.MainWindow;
+import controller.Animator;
 
 /**
 * An abstract class extended by all friendly and non friendly characters.
@@ -336,6 +337,8 @@ public abstract class Actor extends RenderableObject {
                 
                 break;
             case KeyEvent.VK_C:
+                //pause game before menu pops up
+                //Animator.getInstance().stop();
                 MenuWindow dialogMenu = new MenuWindow(MainWindow.getInstance(), false);
                 int parentX = MainWindow.getInstance().getX();
                 int parentY = MainWindow.getInstance().getY();

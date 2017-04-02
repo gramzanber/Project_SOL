@@ -25,8 +25,6 @@ public abstract class Weapon extends RenderableObject{
         super(new Point((int)sx, (int)sy));
         pyc = new PhysicsController(this);
         super.boundingBox = new Rectangle(loc.x, loc.y, 20, 10);
-        
-        
     }
     
     

@@ -7,6 +7,7 @@ package view.swingcomponents;
 
 import java.awt.Color;
 import controller.GameController;
+import controller.Animator;
 /**
  *
  * @author alebel
@@ -171,6 +172,7 @@ public class MenuWindow extends javax.swing.JDialog {
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         //TODO add your handling ce here:
+        //Animator.getInstance().start();
         this.dispose();
     }//GEN-LAST:event_okButtonActionPerformed
 

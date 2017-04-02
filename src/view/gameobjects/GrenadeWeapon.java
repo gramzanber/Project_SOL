@@ -35,15 +35,15 @@ public class GrenadeWeapon extends Weapon {
         //TODO: this should be passed in via parameters im just overiding it here for quick debuging
         int x = GameData.getInstance().getHero().getBoundingBox().x;
         int y = GameData.getInstance().getHero().getBoundingBox().y;
-        super.boundingBox = new Rectangle(x, y, 20, 10);
+        super.boundingBox = new Rectangle(x, y, 60, 30);
         
         pyc = new PhysicsController(this);
         
         //state = STATE_ALIVE;
         
-        animationController = new AnimationController(AnimationController.Mode.AUTO, "primary1_right");
-        animationController.setFps(48);
-        animationController.setSpriteSheet("primary1_right");
+        animationController = new AnimationController(AnimationController.Mode.AUTO, "grenade");
+        animationController.setFps(32);
+        animationController.setSpriteSheet("grenade");
         
         pyc.addForce(DIRECTION.UP, 100);
         if(Hero.facingRight){
@@ -64,7 +64,7 @@ public class GrenadeWeapon extends Weapon {
         Rectangle boundingBoxForRendering = new Rectangle(translatedX-166/3, translatedY, 166, 155);
         
         BufferedImage sprite = animationController.getFrame();
-        g2.drawImage(sprite, translatedX, translatedY, 30, 30, null);
+        g2.drawImage(sprite, translatedX, translatedY, 40, 40, null);
         animationController.update();
         
         if(Main.debug){

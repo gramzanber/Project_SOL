@@ -43,7 +43,7 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("hero_jump_right", "/Images/hero_jump_right.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("primary1_left", "/Images/primary1_left.png", 51, 13, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("primary1_right", "/Images/primary1_right.png", 51, 13, 0, 0);        
-        
+        ImageLibrary.getInstance().loadSpriteSheet("grenade", "/Images/grenade.png", 144, 82, 0, 0);
 
         
         
