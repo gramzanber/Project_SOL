@@ -70,9 +70,9 @@ public class Hero extends Actor {
     @Override
     public void mouseClicked(MouseEvent e)
     {
-       // Rectangle viewportMain = GameData.getInstance().viewport;
-        //int translatedX =  ((int)boundingBox.getX() - (int)viewportMain.getX())+(int)boundingBox.getWidth();
-        //int translatedY =  ((int)boundingBox.getY() - (int)viewportMain.getY())+(int)boundingBox.getHeight()/2;
+        Rectangle viewportMain = GameData.getInstance().viewport;
+        int translatedX =  ((int)boundingBox.getX() - (int)viewportMain.getX())+(int)boundingBox.getWidth();
+        int translatedY =  ((int)boundingBox.getY() - (int)viewportMain.getY())+(int)boundingBox.getHeight()/2;
         if(SwingUtilities.isRightMouseButton(e))
         {
             System.out.println("Secondary Weapon!");
