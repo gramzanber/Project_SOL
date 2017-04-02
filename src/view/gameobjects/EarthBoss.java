@@ -152,7 +152,7 @@ public class EarthBoss extends RenderableObject {
             if(obj instanceof Hero){
                 ((Hero)obj).setShield(-1);
             }
-            else if(obj instanceof PrimaryWeapon){
+            else if(obj instanceof PrimaryWeapon || obj instanceof Weapon){
                 this.setShield(-10);
                 //GameData.getInstance().removeGameObject(obj);
                 System.out.println("hit!");
