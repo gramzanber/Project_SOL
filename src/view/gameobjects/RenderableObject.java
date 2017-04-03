@@ -20,6 +20,7 @@ import view.swingcomponents.MainWindow;
 public abstract class RenderableObject implements MouseListener,KeyListener,MouseMotionListener{
     
     protected Point loc; //the location of this object
+    protected boolean rightProjectile;
     protected Rectangle boundingBox;
     protected boolean solid;
     protected ID id;

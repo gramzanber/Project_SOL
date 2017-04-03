@@ -54,9 +54,11 @@ public class PrimaryWeapon extends RenderableObject
         
         if(Hero.facingRight){
             animationController.setSpriteSheet("primary1_right");
+            this.rightProjectile = true;
         }
         else{
             animationController.setSpriteSheet("primary1_left");
+            this.rightProjectile = false;
         }        
 
         
@@ -118,7 +120,13 @@ public class PrimaryWeapon extends RenderableObject
 
     public void update()
     {
-        loc.x = loc.x + UNIT_TRAVEL_DISTANCE;
+        if(this.rightProjectile){
+            loc.x = loc.x + UNIT_TRAVEL_DISTANCE;            
+        }
+        else{
+            loc.x = loc.x - UNIT_TRAVEL_DISTANCE;            
+        }
+
         boundingBox.setLocation(loc);
         
         //check collisions
