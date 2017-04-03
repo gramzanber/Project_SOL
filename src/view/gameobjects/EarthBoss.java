@@ -41,8 +41,10 @@ public class EarthBoss extends RenderableObject {
     
     private PhysicsController pyc;
     private AnimationController animationController;
-    
     private PhysicsController.DIRECTION direction;
+    private boolean renderHealthBar;
+    
+    
     
     private long lastJumpTime;
     /**
@@ -64,6 +66,7 @@ public class EarthBoss extends RenderableObject {
         
         lastJumpTime = 0;
         
+        renderHealthBar = false;
         health = 100;
         displayHealth = 100;
         
@@ -82,7 +85,7 @@ public class EarthBoss extends RenderableObject {
         if(direction == PhysicsController.DIRECTION.LEFT){
 
             if(pyc.canMove(PhysicsController.DIRECTION.LEFT)){
-                pyc.getLeftMovementForce().setForcePerSecond(.5);
+                pyc.getLeftMovementForce().setForcePerSecond(.25);
                 pyc.getLeftMovementForce().setActive(true);
             }
             else{
@@ -96,7 +99,7 @@ public class EarthBoss extends RenderableObject {
         else{
 
             if(pyc.canMove(PhysicsController.DIRECTION.RIGHT)){
-                pyc.getRightMovementForce().setForcePerSecond(.5);
+                pyc.getRightMovementForce().setForcePerSecond(.25);
                 pyc.getRightMovementForce().setActive(true);
             }
             else{
@@ -324,18 +327,7 @@ public class EarthBoss extends RenderableObject {
             }
 
             
-            
-        
-        float tempHealth = displayHealth;
-        if(tempHealth > 100) tempHealth =100;
-        
-        int healthBarX = (int)(viewport.width-2-(100 * 2.5));
-        g2.setColor(Color.darkGray);
-        g2.fillRect(healthBarX,5,(int)(100 * 2.5), 15);
-        g2.setColor(new Color(10,50,(int)blueValue));
-        g2.fillRect(healthBarX, 5, (int) (tempHealth * 2.5), 15);
-        g2.setColor(Color.white);
-        g2.drawRect(healthBarX,5,(int)(100 *2.5), 15);
+        renderHealthBar = true;    
         
 //        for(int i=0; i<healthPacks-1; i++){
 //         //g2.setColor(Color.red);
@@ -346,6 +338,20 @@ public class EarthBoss extends RenderableObject {
 //         }
 //        }
 
+        }
+        
+        
+        if(renderHealthBar){
+            float tempHealth = displayHealth;
+            if(tempHealth > 100) tempHealth =100;
+
+            int healthBarX = (int)(viewport.width-2-(100 * 2.5));
+            g2.setColor(Color.darkGray);
+            g2.fillRect(healthBarX,5,(int)(100 * 2.5), 15);
+            g2.setColor(new Color(10,50,(int)blueValue));
+            g2.fillRect(healthBarX, 5, (int) (tempHealth * 2.5), 15);
+            g2.setColor(Color.white);
+            g2.drawRect(healthBarX,5,(int)(100 *2.5), 15);
         }
     }
 
