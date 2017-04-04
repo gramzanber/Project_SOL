@@ -378,6 +378,10 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         //clear all game objects
         clear();
 
+        //add background
+        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
+        
+        
         //play background music
         SoundController.getInstance().moonBGM();
         
@@ -386,13 +390,17 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         
         loadImageLevel(levelMap);
         
-        System.out.println("Level 2 under construction");
+//        System.out.println("Level 2 under construction");
     }
     public void showLevel3(){
         screen = "Level3";
         
         //clear all game objects
         clear();
+        
+        //add background
+        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
+
         
         //play background music
         SoundController.getInstance().venusBGM();        
@@ -411,7 +419,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        //GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));        
+        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));        
 
         //play background music
         SoundController.getInstance().mercuryBGM();
@@ -425,6 +433,10 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     }
     public void showLevel5(){
         screen = "Level5";
+        
+        //add background
+        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
+
         
         System.out.println("Level 5 under construction");
     }
