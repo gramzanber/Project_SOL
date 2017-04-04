@@ -376,7 +376,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         screen = "Level2";
         
         //clear all game objects
-        clear();
+        clear();       
 
         //play background music
         SoundController.getInstance().moonBGM();
@@ -408,10 +408,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         screen = "Level4";
         
         //clear all game objects
-        clear();
-        
-        //add background
-        //GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));        
+        clear();       
 
         //play background music
         SoundController.getInstance().mercuryBGM();
