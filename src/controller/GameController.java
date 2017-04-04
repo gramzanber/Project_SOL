@@ -379,7 +379,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();       
 
         //add background
-        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
+        GameData.getInstance().gameObjects.add(new Background("/Images/moonBG.jpg", Background.Stretch.WORLD, true, false));
         
         
         //play background music
@@ -399,7 +399,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
+        GameData.getInstance().gameObjects.add(new Background("/Images/venusBG.jpg", Background.Stretch.WORLD, true, false));
 
         
         //play background music
@@ -419,7 +419,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));        
+        GameData.getInstance().gameObjects.add(new Background("/Images/mercuryBG.jpg", Background.Stretch.WORLD, true, false));        
 
         //play background music
         SoundController.getInstance().mercuryBGM();
@@ -434,9 +434,19 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     public void showLevel5(){
         screen = "Level5";
         
+        //clear all game objects
+        clear();        
+        
         //add background
-        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
-
+        GameData.getInstance().gameObjects.add(new Background("/Images/sunBG.jpg", Background.Stretch.NONE, true, false));
+        
+        //play background music
+        SoundController.getInstance().sunBGM();
+        
+        //loading the level
+        BufferedImage levelMap = BufferedImageLoader.getInstance().loadImage("/Images/level5_map.png");
+        
+        loadImageLevel(levelMap);
         
         System.out.println("Level 5 under construction");
     }
