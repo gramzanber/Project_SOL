@@ -412,7 +412,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         SoundController.getInstance().venusBGM();        
         
         //loading the level
-        BufferedImage levelMap = BufferedImageLoader.getInstance().loadImage("/Images/level3_map.png");
+        BufferedImage levelMap = BufferedImageLoader.getInstance().loadImage("/Images/level.png");
         
         loadImageLevel(levelMap);
         
