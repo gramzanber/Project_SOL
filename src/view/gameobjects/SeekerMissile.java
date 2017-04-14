@@ -68,6 +68,11 @@ public class SeekerMissile extends Weapon {
     public void render(Graphics2D g2, Rectangle viewport){
         int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
         int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
+        //test
+        mouseX = mouseX - (int)viewport.getX();
+        //mouseY = mouseY - (int)viewport.getY();
+        
+        //
         Point xy = this.loc;
         int x = xy.x;
         int y = xy.y;
@@ -128,17 +133,23 @@ public class SeekerMissile extends Weapon {
         //System.out.print("The bounding box stretches from : " + boundingBox.getX() + " To " + (boundingBox.getX() + boundingBox.getWidth()) + " ");
         //System.out.print("And from : " + boundingBox.getY() + " To " + (boundingBox.getY() + boundingBox.getHeight()));
         //System.out.println("The mouse is located at : " + mouseX + "and " + mouseY);
-        Point mouseloc = new Point(mouseX, mouseY);
+        //Point mouseloc = new Point(mouseX, mouseY);
         
-        if(boundingBox.getLocation() == mouseloc)
-            GameData.getInstance().removeGameObject(this);
+        //if(boundingBox.getLocation() == mouseloc)
+            //GameData.getInstance().removeGameObject(this);
+        
+        
         
         double deltaX = boundingBox.getX() - mouseX;
         double deltaY = boundingBox.getY() - mouseY;
-        //if(deltaX > 25 || deltaX < 25 || deltaY > 25 || deltaY < 25){
-        //    GameData.getInstance().removeGameObject(this);
-        //    System.out.println("Removed!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        //}
+        //double deltaX = boundingBox.getX();
+        //double deltaY = boundingBox.getY();
+        System.out.println("DeltaY made from : " + boundingBox.getY() + " - " + mouseY);
+        System.out.println("Delta : " + deltaX + " - " + deltaY);
+        if((deltaX < 75 && deltaX > -75) && (deltaY > -120 && deltaY < 120)){
+            GameData.getInstance().removeGameObject(this);
+            System.out.println("Removed!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
         
         
         
