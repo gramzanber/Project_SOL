@@ -45,6 +45,21 @@ public abstract class Weapon extends RenderableObject{
         }
     }
     
+    public PhysicsController getPyc(){
+        return pyc;
+    }
     
+    public void setPyc(PhysicsController p){
+        this.pyc = p;
+    }
+    
+    public AnimationController getAnimationController(){
+        return animationController;
+    }
+    
+    public void setAnimationController(AnimationController a){
+        this.animationController = a;
+    }
     
 }
+    

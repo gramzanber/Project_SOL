@@ -35,7 +35,7 @@ public class Hero extends Actor {
     static boolean movingUp = false;
     static boolean movingDown = false;
     static boolean facingRight;
-    private int secondaryWeap = 1; //0 = grenade, 1 = seeker weapon, 
+    private int secondaryWeap; //0 = grenade, 1 = seeker weapon, 2 = FlakCannon 
     
     
     private AnimationController animationController;
@@ -55,6 +55,8 @@ public class Hero extends Actor {
         
         //update bounding box for the object
         super.boundingBox = new Rectangle(loc.x, loc.y, 50, 155);
+        
+        //Change this to try out secondary weapons
         this.secondaryWeap = 1;
     }
     
@@ -81,15 +83,22 @@ public class Hero extends Actor {
             
             switch(secondaryWeap){
                 case 0:
+                    System.out.println("Grenade Weapon");
                     Weapon g = new GrenadeWeapon(translatedX, translatedY, this);
                     synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(g); }
                     SoundController.getInstance().primaryWeaponFire();
                     break;
                 case 1:
-                    System.out.println("Not implemented yet!");
+                    System.out.println("Seeker Missile");
                     Weapon s = new SeekerMissile(translatedX, translatedY, e.getX(), e.getY(), this);
                     synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(s); }
                     SoundController.getInstance().seekerMissileFire();
+                    break;
+                case 2:
+                    System.out.println("Flak Cannon");
+                    Weapon f = new FlakCannon(translatedX, translatedY, this);
+                    synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(f);}
+                    SoundController.getInstance().primaryWeaponFire();
                     break;
                 default:
                     System.out.println("SecondaryWeap:Default");

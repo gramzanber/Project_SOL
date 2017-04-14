@@ -29,7 +29,6 @@ public class SeekerMissile extends Weapon {
 
     private PhysicsController pyc;
     private AnimationController animationController;
-    private boolean alive = false;
     private int mouseX = 0;//mouseclick location x
     private int mouseY = 0;//mouseclick location y
     
@@ -38,6 +37,9 @@ public class SeekerMissile extends Weapon {
         //All this mess and experimentation
         this.mouseX = mx + GameData.getInstance().viewport.x; //get mouselocation passed from Hero when mouse clicked
         this.mouseY = my + GameData.getInstance().viewport.y;
+        
+        //get delta x and y from the mouse loc - the spawn loc of this missile
+        //so I know how much force to add and in which direction
         int travelX = mx - (int)sx;
         int travelY = my - (int)sy;
      
@@ -74,10 +76,6 @@ public class SeekerMissile extends Weapon {
         int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
         int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
         
-        
-        Point xy = this.loc;
-        int x = xy.x;
-        int y = xy.y;
         Rectangle boundingBoxForRendering = new Rectangle(translatedX, translatedY, 130, 40);
         
         BufferedImage sprite = animationController.getFrame();
@@ -96,7 +94,6 @@ public class SeekerMissile extends Weapon {
     @Override
     public void update() {
         super.update();
-        //pyc.update(); 
         Point.Double p = pyc.getNextTranslation();
         
         //translate object
@@ -179,20 +176,8 @@ public class SeekerMissile extends Weapon {
     @Override
     public void mouseMoved(MouseEvent e) {
     }
-
-    
     
     public String getObjectType(){
-        return "Grenade Weapon";
+        return "Seeker Missile";
     }
-    
-    public boolean isAlive(){
-        return this.alive;
-    }
-    
-    public void setAlive(boolean a){
-        alive = a;
-    }
-    
-    
 }
