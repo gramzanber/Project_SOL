@@ -36,8 +36,8 @@ public class SeekerMissile extends Weapon {
     public SeekerMissile(float sx, float sy, int mx, int my, RenderableObject owner) {
         super(sx, sy, owner);
         //All this mess and experimentation
-        this.mouseX = mx; //get mouselocation passed from Hero when mouse clicked
-        this.mouseY = my;
+        this.mouseX = mx + GameData.getInstance().viewport.x; //get mouselocation passed from Hero when mouse clicked
+        this.mouseY = my + GameData.getInstance().viewport.y;
         int travelX = mx - (int)sx;
         int travelY = my - (int)sy;
      
