@@ -157,24 +157,25 @@ public class SeekerMissile extends Weapon {
     }
     
     public void translate(int dx, int dy){
-        //get Point of mouse click
-        Point mouseClick = new Point(mouseX,mouseY);
-        //Make sure we can actually move by creating a testrect object and trying it first
-        
+//        //get Point of mouse click
+//        Point mouseClick = new Point(mouseX,mouseY);
+//        //Make sure we can actually move by creating a testrect object and trying it first
+//        
         //the location to move to
         Point newLoc = new Point(boundingBox.x+dx, boundingBox.y + dy); 
+        boundingBox.setLocation(newLoc);
         
-        //the location for testing, subject 1 from y so we dont count ground
-        Point testLoc = new Point(boundingBox.x+dx, boundingBox.y + dy - 1);
-        
-        //build testRect
-        Rectangle testRect = new Rectangle(boundingBox.width, boundingBox.height);
-        testRect.setLocation(testLoc);
-        
-        //if test rect was successful its safe to move the real object
-        if(!GameData.getInstance().checkCollision(testRect, this)){
-            boundingBox.setLocation(newLoc);
-        }
+//        //the location for testing, subject 1 from y so we dont count ground
+//        Point testLoc = new Point(boundingBox.x+dx, boundingBox.y + dy - 1);
+//        
+//        //build testRect
+//        Rectangle testRect = new Rectangle(boundingBox.width, boundingBox.height);
+//        testRect.setLocation(testLoc);
+//        
+//        //if test rect was successful its safe to move the real object
+//        if(!GameData.getInstance().checkCollision(testRect, this)){
+//            boundingBox.setLocation(newLoc);
+//        }
     }
    
 
