@@ -35,6 +35,7 @@ public class Hero extends Actor {
     static boolean movingUp = false;
     static boolean movingDown = false;
     static boolean facingRight;
+    private int secondaryWeap = 1; //0 = grenade, 1 = seeker weapon, 
     
     
     private AnimationController animationController;
@@ -54,6 +55,7 @@ public class Hero extends Actor {
         
         //update bounding box for the object
         super.boundingBox = new Rectangle(loc.x, loc.y, 50, 155);
+        this.secondaryWeap = 1;
     }
     
     /**
@@ -76,10 +78,23 @@ public class Hero extends Actor {
         if(SwingUtilities.isRightMouseButton(e))
         {
             System.out.println("Secondary Weapon!");
-            Weapon s = new GrenadeWeapon(translatedX, translatedY, this);
-            SoundController.getInstance().primaryWeaponFire();
             
-            synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(s); }
+            switch(secondaryWeap){
+                case 0:
+                    Weapon g = new GrenadeWeapon(translatedX, translatedY, this);
+                    synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(g); }
+                    SoundController.getInstance().primaryWeaponFire();
+                    break;
+                case 1:
+                    System.out.println("Not implemented yet!");
+                    Weapon s = new SeekerMissile(translatedX, translatedY, e.getX(), e.getY(), this);
+                    synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(s); }
+                    break;
+                default:
+                    System.out.println("SecondaryWeap:Default");
+                    break;
+            }
+            
         }
         else if(SwingUtilities.isLeftMouseButton(e))
         {
@@ -266,5 +281,13 @@ public class Hero extends Actor {
     public void setShield(float powerUp){
         this.displayHealth += powerUp;
         this.health += powerUp;
+    }
+    
+    public int getSecondaryWeap(){
+        return secondaryWeap;
+    }
+    
+    public void setSecondaryWeap(int w){
+        this.secondaryWeap = w;
     }
 }

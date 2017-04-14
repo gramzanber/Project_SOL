@@ -44,8 +44,8 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("primary1_left", "/Images/primary1_left.png", 51, 26, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("primary1_right", "/Images/primary1_right.png", 51, 26, 0, 0);        
         ImageLibrary.getInstance().loadSpriteSheet("grenade", "/Images/grenade.png", 144, 82, 0, 0);
-
-        
+        ImageLibrary.getInstance().loadSpriteSheet("seeker", "/Images/seeker.png", 350, 80, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("seekerleft", "/Images/seekerleft.png", 350, 80, 0, 0);
         
         
         //build and display the gui
