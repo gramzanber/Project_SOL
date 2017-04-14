@@ -50,8 +50,13 @@ public class SeekerMissile extends Weapon {
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "seeker");
         animationController.setFps(8);
-        animationController.setSpriteSheet("seeker");
-        
+        //animationController.setSpriteSheet("seeker");
+        if(travelX > 0){
+            animationController.setSpriteSheet("seeker");
+        }
+        else
+            animationController.setSpriteSheet("seekerleft");
+            
         if(travelY > 0)
             pyc.addForce(DIRECTION.DOWN, travelY * 2);
         else 
@@ -60,7 +65,7 @@ public class SeekerMissile extends Weapon {
             pyc.addForce(DIRECTION.RIGHT, travelX);
         else
             pyc.addForce(DIRECTION.LEFT, -travelX);
-        System.out.println(travelX + " - " + travelY);
+        
          
     }
     
@@ -68,11 +73,8 @@ public class SeekerMissile extends Weapon {
     public void render(Graphics2D g2, Rectangle viewport){
         int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
         int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
-        //test
-        mouseX = mouseX - (int)viewport.getX();
-        //mouseY = mouseY - (int)viewport.getY();
         
-        //
+        
         Point xy = this.loc;
         int x = xy.x;
         int y = xy.y;
@@ -89,8 +91,6 @@ public class SeekerMissile extends Weapon {
             g2.drawRect(translatedX, translatedY, boundingBox.width, boundingBox.height);
             
         }
-        
-        
     }
     
     @Override
@@ -126,56 +126,17 @@ public class SeekerMissile extends Weapon {
             pyc.clear();
         }
         
+        Point mouseloc = new Point(mouseX, mouseY);
         
-        //All of this below is testing
-       //None of this worked obviously
-   
-        //System.out.print("The bounding box stretches from : " + boundingBox.getX() + " To " + (boundingBox.getX() + boundingBox.getWidth()) + " ");
-        //System.out.print("And from : " + boundingBox.getY() + " To " + (boundingBox.getY() + boundingBox.getHeight()));
-        //System.out.println("The mouse is located at : " + mouseX + "and " + mouseY);
-        //Point mouseloc = new Point(mouseX, mouseY);
-        
-        //if(boundingBox.getLocation() == mouseloc)
-            //GameData.getInstance().removeGameObject(this);
-        
-        
-        
-        double deltaX = boundingBox.getX() - mouseX;
-        double deltaY = boundingBox.getY() - mouseY;
-        //double deltaX = boundingBox.getX();
-        //double deltaY = boundingBox.getY();
-        System.out.println("DeltaY made from : " + boundingBox.getY() + " - " + mouseY);
-        System.out.println("Delta : " + deltaX + " - " + deltaY);
-        if((deltaX < 75 && deltaX > -75) && (deltaY > -120 && deltaY < 120)){
+        if(boundingBox.contains(mouseloc))
             GameData.getInstance().removeGameObject(this);
-            System.out.println("Removed!!!!!!!!!!!!!!!!!!!!!!!!!");
-        }
-        
-        
-        
-       
     }
     
     public void translate(int dx, int dy){
-//        //get Point of mouse click
-//        Point mouseClick = new Point(mouseX,mouseY);
-//        //Make sure we can actually move by creating a testrect object and trying it first
 //        
         //the location to move to
         Point newLoc = new Point(boundingBox.x+dx, boundingBox.y + dy); 
         boundingBox.setLocation(newLoc);
-        
-//        //the location for testing, subject 1 from y so we dont count ground
-//        Point testLoc = new Point(boundingBox.x+dx, boundingBox.y + dy - 1);
-//        
-//        //build testRect
-//        Rectangle testRect = new Rectangle(boundingBox.width, boundingBox.height);
-//        testRect.setLocation(testLoc);
-//        
-//        //if test rect was successful its safe to move the real object
-//        if(!GameData.getInstance().checkCollision(testRect, this)){
-//            boundingBox.setLocation(newLoc);
-//        }
     }
    
 
