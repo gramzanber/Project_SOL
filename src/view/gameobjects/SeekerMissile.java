@@ -44,12 +44,12 @@ public class SeekerMissile extends Weapon {
         //TODO: this should be passed in via parameters im just overiding it here for quick debuging
         int x = GameData.getInstance().getHero().getBoundingBox().x;
         int y = GameData.getInstance().getHero().getBoundingBox().y;
-        super.boundingBox = new Rectangle(x, y, 90, 60);
+        super.boundingBox = new Rectangle(x, y, 140, 50);
         
         pyc = new PhysicsController(this);
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "seeker");
-        animationController.setFps(32);
+        animationController.setFps(8);
         animationController.setSpriteSheet("seeker");
         
         if(travelY > 0)
@@ -71,10 +71,10 @@ public class SeekerMissile extends Weapon {
         Point xy = this.loc;
         int x = xy.x;
         int y = xy.y;
-        Rectangle boundingBoxForRendering = new Rectangle(translatedX, translatedY, 80, 50);
+        Rectangle boundingBoxForRendering = new Rectangle(translatedX, translatedY, 130, 40);
         
         BufferedImage sprite = animationController.getFrame();
-        g2.drawImage(sprite, translatedX, translatedY, 80, 50, null);
+        g2.drawImage(sprite, translatedX, translatedY, 120, 30, null);
         animationController.update();
         
         if(Main.debug){
