@@ -364,29 +364,23 @@ public class SoundController
         }
     }
     
-    public void grenadeLauncherFire()
-    {
-        
-    }
-    
     public void seekerMissileFire()
     {
-        
-    }
-    
-    public void flakeCannonFire()
-    {
-        
-    }
-    
-    public void forceBlasterFire()
-    {
-        
-    }
-    
-    public void weaponPickUp()
-    {
-        
+        try
+        {
+            File file = new File("src/Sounds/sol-missile.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
     }
     
     public void coinPickUp()
