@@ -1,6 +1,7 @@
 package view.gameobjects;
 
 import controller.PhysicsController;
+import controller.SoundController;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -78,6 +79,8 @@ public class EarthSmallEnemy extends RenderableObject
     @Override
     public void update()
     {
+        SoundController.getInstance().repurposedFleshMove();
+        
         if(!pyc.canMove(PhysicsController.DIRECTION.LEFT))
             directionLeft = false;
         if(!pyc.canMove(PhysicsController.DIRECTION.RIGHT))

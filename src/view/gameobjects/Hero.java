@@ -89,6 +89,7 @@ public class Hero extends Actor {
                     System.out.println("Not implemented yet!");
                     Weapon s = new SeekerMissile(translatedX, translatedY, e.getX(), e.getY(), this);
                     synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(s); }
+                    SoundController.getInstance().seekerMissileFire();
                     break;
                 default:
                     System.out.println("SecondaryWeap:Default");
