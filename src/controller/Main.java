@@ -44,6 +44,10 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("primary1_left", "/Images/primary1_left.png", 51, 26, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("primary1_right", "/Images/primary1_right.png", 51, 26, 0, 0);        
         ImageLibrary.getInstance().loadSpriteSheet("grenade", "/Images/grenade.png", 144, 82, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("alien_5-walkleft", "/Images/alien_5-walkleft.png", 428, 298, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("alien_5-walkright", "/Images/alien_5-walkright.png", 428, 298, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("alien_1-walkleft", "/Images/alien_1-walkleft.png", 687, 632, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("alien_1-walkright", "/Images/alien_1-walkright.png", 687, 632, 0, 0);
 
         
         
