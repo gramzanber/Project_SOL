@@ -27,6 +27,8 @@ import view.gameobjects.Goal;
 import view.worldmap.Earth;
 import view.gameobjects.EarthSmallEnemy;
 import view.gameobjects.Gold;
+import view.gameobjects.MoonLargeEnemy;
+import view.gameobjects.MoonSmallEnemy;
 import view.menus.Menu;
 import view.worldmap.Mercury;
 import view.worldmap.Moon;
@@ -655,7 +657,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 if(red == 128 && green == 255 && blue == 128){
                     Tile tile = new Tile(tileLoc); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
-                    tile.setSprite(11, 2); //green platform right
+                    tile.setSprite(11, 2); //grey platform middle
                     tile.setTrim(1); //over size the tile to hide the gap
                     tile.setSolid(true);
                 }
@@ -665,7 +667,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 if(red == 128 && green == 254 && blue == 128){
                     Tile tile = new Tile(tileLoc); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
-                    tile.setSprite(11, 3); //green platform right
+                    tile.setSprite(11, 3); //grey platform left
                     tile.setTrim(1); //over size the tile to hide the gap
                     tile.setSolid(true);
                 }
@@ -675,7 +677,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 if(red == 128 && green == 253 && blue == 128){
                     Tile tile = new Tile(tileLoc); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
-                    tile.setSprite(11, 1); //green platform right
+                    tile.setSprite(11, 1); //grey platform right
                     tile.setTrim(1); //over size the tile to hide the gap
                     tile.setSolid(true);
                 }
@@ -685,7 +687,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 if(red == 128 && green == 128 && blue == 255){
                     Tile tile = new Tile(tileLoc); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
-                    tile.setSprite(4, 8); //green platform right
+                    tile.setSprite(4, 8); //sandy platform middle
                     tile.setTrim(1); //over size the tile to hide the gap
                     tile.setSolid(true);
                 }
@@ -695,7 +697,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 if(red == 128 && green == 128 && blue == 254){
                     Tile tile = new Tile(tileLoc); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
-                    tile.setSprite(5, 9); //green platform right
+                    tile.setSprite(5, 9); //sandy platform left
                     tile.setTrim(1); //over size the tile to hide the gap
                     tile.setSolid(true);
                 }
@@ -705,7 +707,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 if(red == 128 && green == 128 && blue == 253){
                     Tile tile = new Tile(tileLoc); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
-                    tile.setSprite(5, 7); //green platform right
+                    tile.setSprite(5, 7); //sandy platform right
                     tile.setTrim(1); //over size the tile to hide the gap
                     tile.setSolid(true);
                 }
@@ -746,6 +748,22 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 if(red == 251 && green == 0 && blue == 0){
                     VenusBoss boss = new VenusBoss(tileLoc); //create object
                     GameData.getInstance().addGameObject(boss); //Add object
+                }
+                    
+                // Small enemy type for moon level
+                // light purple color pixal
+                if(red == 128 && green == 128 && blue == 252)
+                {
+                    MoonSmallEnemy smallEnemy = new MoonSmallEnemy(tileLoc, ID.SmallEnemy); //Create tile object
+                    GameData.getInstance().addGameObject(smallEnemy); //Add tile to game object array
+                }
+                
+                // Large enemy type for moon level
+                // light purple color pixal
+                if(red == 128 && green == 128 && blue == 251)
+                {
+                    MoonLargeEnemy largeEnemy = new MoonLargeEnemy(tileLoc, ID.LargeEnemyCollision); //Create tile object
+                    GameData.getInstance().addGameObject(largeEnemy); //Add tile to game object array
                 }
                
             }
