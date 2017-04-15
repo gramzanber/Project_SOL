@@ -47,6 +47,19 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("seeker", "/Images/seeker.png", 350, 80, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("seekerleft", "/Images/seekerleft.png", 350, 80, 0, 0);
         
+        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_10_walk_right_300x226", "/Images/sprite_sheet_alian_10_walk_right_300x226.png", 300, 226, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_10_walk_left_300x226", "/Images/sprite_sheet_alian_10_walk_left_300x226.png", 300, 226, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_9_walk_left_300x452", "/Images/sprite_sheet_alian_9_walk_left_300x452.png", 300, 452, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_9_walk_right_300x452", "/Images/sprite_sheet_alian_9_walk_right_300x452.png", 300, 452, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_8_walk_left_400x210", "/Images/sprite_sheet_alian_8_walk_left_400x210.png", 400, 210, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_8_walk_right_400x210", "/Images/sprite_sheet_alian_8_walk_right_400x210.png", 400, 210, 0, 0);
+        
+        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_6_walk_left_300x427", "/Images/sprite_sheet_alian_6_walk_left_300x427.png", 300, 427, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_6_walk_right_300x427", "/Images/sprite_sheet_alian_6_walk_right_300x427.png", 300, 427, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_7_walk_left_300x351", "/Images/sprite_sheet_alian_7_walk_left_300x351.png", 300, 351, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_7_walk_right_300x351", "/Images/sprite_sheet_alian_7_walk_right_300x351.png", 300, 351, 0, 0);
+
+        
         
         //build and display the gui
         MainWindow.getInstance().setVisible(true);

@@ -1,4 +1,4 @@
-package view.gameobjects;
+package view.gameobjects.Bosses;
 
 import controller.AnimationController;
 import controller.Main;
@@ -18,6 +18,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import model.GameData;
+import view.gameobjects.Hero;
+import view.gameobjects.PrimaryWeapon;
+import view.gameobjects.RenderableObject;
+import view.gameobjects.Weapon;
 
 /**
 * Render a hero object to the screen.
@@ -26,7 +30,7 @@ import model.GameData;
 * @version 1.0
 * @since   2017-02-18 
 */
-public class EarthBoss extends RenderableObject {
+public abstract class AbstractBoss extends RenderableObject {
     
     private Rectangle viewportMain;
     private float health = 0;
@@ -41,38 +45,52 @@ public class EarthBoss extends RenderableObject {
     
     private PhysicsController pyc;
     private AnimationController animationController;
-    private PhysicsController.DIRECTION direction;
+    
     private boolean renderHealthBar;
     
+    private String leftWalkSpriteSheet;
+    private String rightWalkSpriteSheet;
+    private String leftJumpSpriteSheet;
+    private String rightJumpSpriteSheet;
     
     
-    private long lastJumpTime;
     /**
     * Constructor 
     * 
     * @param loc
     */
-    public EarthBoss(Point loc) {
+    public AbstractBoss(Point loc, String leftWalkSpriteSheet, String rightWalkSpriteSheet) {
         //call superclass constructor
         super(loc);
         facingRight = true;
         
-        animationController = new AnimationController(AnimationController.Mode.AUTO, "hero_run_right");
+        this.leftWalkSpriteSheet = leftWalkSpriteSheet;
+        this.rightWalkSpriteSheet = rightWalkSpriteSheet;
+        this.leftJumpSpriteSheet = leftWalkSpriteSheet;
+        this.rightJumpSpriteSheet = rightWalkSpriteSheet;
+        
+        
+        animationController = new AnimationController(AnimationController.Mode.AUTO, leftWalkSpriteSheet);
         animationController.setFps(48);
         
         
         pyc = new PhysicsController(this);
-        direction = PhysicsController.DIRECTION.LEFT;
         
-        lastJumpTime = 0;
+        
+        
         
         renderHealthBar = false;
         health = 100;
         displayHealth = 100;
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle(loc.x, loc.y, 50*2, 155*2);
+        super.boundingBox = new Rectangle(loc.x, loc.y, animationController.getFrame().getWidth(), animationController.getFrame().getHeight());
     }
+    
+    public AnimationController getAnimationController(){
+        return animationController;
+    }
+    
     
     /**
     * {@inheritDoc}
@@ -82,41 +100,7 @@ public class EarthBoss extends RenderableObject {
         super.update();
         healthBound();     
       
-        if(direction == PhysicsController.DIRECTION.LEFT){
-
-            if(pyc.canMove(PhysicsController.DIRECTION.LEFT)){
-                pyc.getLeftMovementForce().setForcePerSecond(.25);
-                pyc.getLeftMovementForce().setActive(true);
-            }
-            else{
-                direction = PhysicsController.DIRECTION.RIGHT;
-            }
-
-            //if moving left make sure right movement has stopped
-            pyc.getRightMovementForce().setActive(false);
-            pyc.setForce(PhysicsController.DIRECTION.RIGHT, 0);
-        }
-        else{
-
-            if(pyc.canMove(PhysicsController.DIRECTION.RIGHT)){
-                pyc.getRightMovementForce().setForcePerSecond(.25);
-                pyc.getRightMovementForce().setActive(true);
-            }
-            else{
-                direction = PhysicsController.DIRECTION.LEFT;
-            }
-
-            //if moving right make sure left movement has stopped
-            pyc.getLeftMovementForce().setActive(false);
-            pyc.setForce(PhysicsController.DIRECTION.LEFT, 0);
-        }
-    
-        //jump
         
-        if(System.currentTimeMillis() - lastJumpTime >= 2000){
-            pyc.setForce(PhysicsController.DIRECTION.UP, 2000);
-            lastJumpTime = System.currentTimeMillis();
-        }
       
       
       //update physics controller
@@ -215,11 +199,11 @@ public class EarthBoss extends RenderableObject {
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
             
-            Rectangle boundingBoxForRendering = new Rectangle(translatedX-166/3, translatedY, 166*2, 155*2);
+            Rectangle boundingBoxForRendering = new Rectangle(translatedX-166/3, translatedY, boundingBox.width, boundingBox.height);
             
             if(movingUp){
                 if(facingRight){
-                    animationController.setSpriteSheet("hero_jump_right");
+                    animationController.setSpriteSheet(rightJumpSpriteSheet);
                     
                     if(animationController.getIndex() == 4){
                         BufferedImage sprite = animationController.getFrame();
@@ -234,7 +218,7 @@ public class EarthBoss extends RenderableObject {
                     }                  
                 }
                 else{
-                    animationController.setSpriteSheet("hero_jump_left");
+                    animationController.setSpriteSheet(leftJumpSpriteSheet);
                     
                     if(animationController.getIndex() == 4){
                         BufferedImage sprite = animationController.getFrame();
@@ -251,7 +235,7 @@ public class EarthBoss extends RenderableObject {
             }
             else if(movingDown){
                 if(facingRight){
-                    animationController.setSpriteSheet("hero_jump_right");
+                    animationController.setSpriteSheet(rightJumpSpriteSheet);
                     
                     if(animationController.getIndex() == 23){
                         BufferedImage sprite = animationController.getFrame();
@@ -266,7 +250,7 @@ public class EarthBoss extends RenderableObject {
                     }                    
                 }
                 else{
-                    animationController.setSpriteSheet("hero_jump_left");
+                    animationController.setSpriteSheet(leftJumpSpriteSheet);
                     
                     if(animationController.getIndex() == 23){
                         BufferedImage sprite = animationController.getFrame();
@@ -284,7 +268,7 @@ public class EarthBoss extends RenderableObject {
             else if(movingRight){
                 facingRight = true;
                 
-                animationController.setSpriteSheet("hero_run_right");
+                animationController.setSpriteSheet(rightWalkSpriteSheet);
                 BufferedImage sprite = animationController.getFrame();
                 g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null); 
                 
@@ -295,7 +279,7 @@ public class EarthBoss extends RenderableObject {
             else if(movingLeft){
                 facingRight = false;
 
-                animationController.setSpriteSheet("hero_run_left");
+                animationController.setSpriteSheet(leftWalkSpriteSheet);
                 BufferedImage sprite = animationController.getFrame();
                 
                 g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null); 
@@ -307,12 +291,12 @@ public class EarthBoss extends RenderableObject {
                 animationController.setFrame(0);
                 
                 if(facingRight){
-                    animationController.setSpriteSheet("hero_stand_right");
+                    animationController.setSpriteSheet(rightWalkSpriteSheet);
                     BufferedImage sprite = animationController.getFrame();
                     g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null);  
                 }
                 else{
-                    animationController.setSpriteSheet("hero_stand_left");
+                    animationController.setSpriteSheet(leftWalkSpriteSheet);
                     BufferedImage sprite = animationController.getFrame();
                     g2.drawImage(sprite, boundingBoxForRendering.x, boundingBoxForRendering.y, (int)boundingBoxForRendering.getWidth(), (int)boundingBoxForRendering.getHeight(), null);
                 }                      
@@ -384,6 +368,10 @@ public class EarthBoss extends RenderableObject {
     public void setShield(float powerUp){
         this.displayHealth += powerUp;
         this.health += powerUp;
+    }
+
+    public PhysicsController getPyc() {
+        return pyc;
     }
 
     @Override

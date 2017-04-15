@@ -17,7 +17,11 @@ import model.ID;
 import view.BufferedImageLoader;
 import view.gameobjects.Laser;
 import view.gameobjects.Background;
-import view.gameobjects.EarthBoss;
+import view.gameobjects.Bosses.EarthBoss;
+import view.gameobjects.Bosses.MercuryBoss;
+import view.gameobjects.Bosses.MoonBoss;
+import view.gameobjects.Bosses.SunBoss;
+import view.gameobjects.Bosses.VenusBoss;
 import view.menus.GameButton;
 import view.gameobjects.Goal;
 import view.worldmap.Earth;
@@ -722,10 +726,25 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     GameData.getInstance().addGameObject(smallEnemy); //Add tile to game object array
                 }
                 
-                // Small enemy type
-                // Pinkish color pixal
+                // Bosses
                 if(red == 255 && green == 0 && blue == 0){
                     EarthBoss boss = new EarthBoss(tileLoc); //create object
+                    GameData.getInstance().addGameObject(boss); //Add object
+                }
+                if(red == 254 && green == 0 && blue == 0){
+                    MercuryBoss boss = new MercuryBoss(tileLoc); //create object
+                    GameData.getInstance().addGameObject(boss); //Add object
+                }
+                if(red == 253 && green == 0 && blue == 0){
+                    MoonBoss boss = new MoonBoss(tileLoc); //create object
+                    GameData.getInstance().addGameObject(boss); //Add object
+                }
+                if(red == 252 && green == 0 && blue == 0){
+                    SunBoss boss = new SunBoss(tileLoc); //create object
+                    GameData.getInstance().addGameObject(boss); //Add object
+                }
+                if(red == 251 && green == 0 && blue == 0){
+                    VenusBoss boss = new VenusBoss(tileLoc); //create object
                     GameData.getInstance().addGameObject(boss); //Add object
                 }
                
