@@ -35,9 +35,7 @@ public class MenuWindow extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        info1Label = new javax.swing.JLabel();
-        info2Label = new javax.swing.JLabel();
-        info3Label = new javax.swing.JLabel();
+        healthLbl = new javax.swing.JLabel();
         primWeapLabel = new javax.swing.JLabel();
         secondWeapLabel = new javax.swing.JLabel();
         okButton = new javax.swing.JButton();
@@ -45,9 +43,7 @@ public class MenuWindow extends javax.swing.JDialog {
         levellbl = new javax.swing.JLabel();
         primarylbl = new javax.swing.JLabel();
         secondarylbl = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        heroHealth = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Character Menu");
@@ -56,17 +52,11 @@ public class MenuWindow extends javax.swing.JDialog {
         setUndecorated(true);
         setSize(new java.awt.Dimension(500, 300));
 
-        info1Label.setForeground(new java.awt.Color(240, 0, 0));
-        info1Label.setText("Info1:");
-
-        info2Label.setForeground(new java.awt.Color(240, 0, 0));
-        info2Label.setText("Info2:");
-
-        info3Label.setForeground(new java.awt.Color(240, 0, 0));
-        info3Label.setText("Info3:");
+        healthLbl.setForeground(new java.awt.Color(240, 0, 0));
+        healthLbl.setText("Health");
 
         primWeapLabel.setForeground(new java.awt.Color(240, 0, 0));
-        primWeapLabel.setText("Primary Weapon:");
+        primWeapLabel.setText("Primary Weapon Level:");
 
         secondWeapLabel.setForeground(new java.awt.Color(240, 0, 0));
         secondWeapLabel.setText("Secondary Weapon:");
@@ -92,14 +82,8 @@ public class MenuWindow extends javax.swing.JDialog {
         secondarylbl.setForeground(new java.awt.Color(240, 0, 0));
         secondarylbl.setText("None");
 
-        jLabel3.setForeground(new java.awt.Color(240, 0, 0));
-        jLabel3.setText("info1Here");
-
-        jLabel4.setForeground(new java.awt.Color(240, 0, 0));
-        jLabel4.setText("Info2Here");
-
-        jLabel5.setForeground(new java.awt.Color(240, 0, 0));
-        jLabel5.setText("Info3Here");
+        heroHealth.setForeground(new java.awt.Color(240, 0, 0));
+        heroHealth.setText("info1Here");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,17 +104,13 @@ public class MenuWindow extends javax.swing.JDialog {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(primWeapLabel)
                                     .addComponent(secondWeapLabel)
-                                    .addComponent(info3Label)
-                                    .addComponent(info2Label)
-                                    .addComponent(info1Label))))
+                                    .addComponent(healthLbl))))
                         .addGap(56, 56, 56)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(primarylbl)
                             .addComponent(levellbl)
                             .addComponent(secondarylbl)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))))
+                            .addComponent(heroHealth))))
                 .addContainerGap(127, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -140,27 +120,19 @@ public class MenuWindow extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(currLevelLabel)
                     .addComponent(levellbl))
-                .addGap(26, 26, 26)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(info1Label)
-                    .addComponent(jLabel3))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(info2Label)
-                    .addComponent(jLabel4))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(info3Label)
-                    .addComponent(jLabel5))
-                .addGap(31, 31, 31)
+                    .addComponent(healthLbl)
+                    .addComponent(heroHealth))
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(primWeapLabel)
                     .addComponent(primarylbl))
-                .addGap(28, 28, 28)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(secondWeapLabel)
                     .addComponent(secondarylbl))
-                .addGap(37, 37, 37)
+                .addGap(79, 79, 79)
                 .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -221,12 +193,8 @@ public class MenuWindow extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel currLevelLabel;
-    private javax.swing.JLabel info1Label;
-    private javax.swing.JLabel info2Label;
-    private javax.swing.JLabel info3Label;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel healthLbl;
+    public javax.swing.JLabel heroHealth;
     public javax.swing.JLabel levellbl;
     private javax.swing.JButton okButton;
     private javax.swing.JLabel primWeapLabel;

@@ -348,6 +348,8 @@ public abstract class Actor extends RenderableObject {
                 dialogMenu.getContentPane().setBackground(Color.BLACK);
                 dialogMenu.levellbl.setText(GameController.getScreen());
                 dialogMenu.primarylbl.setText(Integer.toString(PrimaryWeapon.getWeaponType()));
+                dialogMenu.secondarylbl.setText(GameData.getInstance().getHero().getSecondaryWeap());
+                dialogMenu.heroHealth.setText(Float.toString(GameData.getInstance().getHero().getShield()));
                 dialogMenu.setResizable(true);
                 dialogMenu.setAlwaysOnTop(true);
                 dialogMenu.setVisible(true);

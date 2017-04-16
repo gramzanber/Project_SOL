@@ -57,7 +57,8 @@ public class Hero extends Actor {
         super.boundingBox = new Rectangle(loc.x, loc.y, 50, 155);
         
         //Change this to try out secondary weapons
-        this.secondaryWeap = 1;
+
+        this.secondaryWeap = 2;
     }
     
     /**
@@ -293,8 +294,18 @@ public class Hero extends Actor {
         this.health += powerUp;
     }
     
-    public int getSecondaryWeap(){
-        return secondaryWeap;
+    public String getSecondaryWeap(){
+        switch(secondaryWeap){
+            case 0:
+                return "Grenade Launcher";
+            case 1:
+                return "Seeker Missile";
+            case 2:
+                return "Flak Cannon";
+            default:
+                return "None Equipped";
+        }
+        
     }
     
     public void setSecondaryWeap(int w){
