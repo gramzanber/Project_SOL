@@ -4,6 +4,7 @@
 
 package view.worldmap;
 
+import controller.GameController;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import model.GameData;
 import view.gameobjects.GameFigure;
 import view.swingcomponents.MainWindow;
 
@@ -22,11 +24,16 @@ public class Shooter extends GameFigure
     private Image launcherImageLeft, launcherImageRight;
     private boolean direction;
     private int health;
-    private float extraSpeed = 2.5f;
-
+    private float extraSpeed = 3f;
+    
+    /*Earth earth;
+    Sun sun;
+    Moon moon;
+    Venus venus;
+    Mercury mercury;
+*/
     public Shooter(Point loc) {
         super(loc);
-        
         super.state = STATE_ALIVE;
 
         try { 
@@ -253,39 +260,59 @@ public class Shooter extends GameFigure
                 //System.out.println("KEY PRESSED");
                 //boolVenus = true;   
             //}
-            if(boolEarth == true && e.getKeyCode() == KeyEvent.VK_RIGHT){
-                System.out.println("KEY PRESSED");
-                boolEarth = false;
-                boolMoon = true;
-            }else if(boolMoon == true && e.getKeyCode() == KeyEvent.VK_LEFT){
-                System.out.println("KEY PRESSED");
-                boolMoon = false;
-                boolEarth = true;
-            }else if(boolEarth == true && e.getKeyCode() == KeyEvent.VK_LEFT){
-                System.out.println("KEY PRESSED");
-                boolEarth = false;
-                boolVenus = true;
-            }else if(boolVenus == true && e.getKeyCode() == KeyEvent.VK_LEFT){
-                System.out.println("KEY PRESSED");
-                boolMercury = true;
-                boolVenus = false;
-            }else if(boolMercury == true && e.getKeyCode() == KeyEvent.VK_LEFT){
-                System.out.println("KEY PRESSED");
-                boolMercury = false;
-                boolSun = true;
-            }else if(boolSun == true && e.getKeyCode() == KeyEvent.VK_RIGHT){
-                System.out.println("KEY PRESSED");
-                boolSun = false;
-                boolMercury = true;
-            }else if(boolMercury == true && e.getKeyCode() == KeyEvent.VK_RIGHT){
-                System.out.println("KEY PRESSED");
-                boolMercury = false;
-                boolVenus = true;
-            }else if(boolVenus == true && e.getKeyCode() == KeyEvent.VK_RIGHT){
-                System.out.println("KEY PRESSED");
-                boolVenus = false;
-                boolEarth = true;
-            }
+//            if(isOnStar){
+                if(boolEarth == true && e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    if(GameData.getInstance().getShooter().getBoundingBox().intersects(GameController.getInstance().earth.getBoundingBox())){
+                    
+                        System.out.println("KEY PRESSED");
+                        boolEarth = false;
+                        boolMoon = true;
+                    }
+                }else if(boolMoon == true && e.getKeyCode() == KeyEvent.VK_LEFT){
+                    if(GameData.getInstance().getShooter().getBoundingBox().intersects(GameController.getInstance().moon.getBoundingBox())){
+                        System.out.println("KEY PRESSED");
+                        boolMoon = false;
+                        boolEarth = true;
+                    }
+                }else if(boolEarth == true && e.getKeyCode() == KeyEvent.VK_LEFT){
+                    if(GameData.getInstance().getShooter().getBoundingBox().intersects(GameController.getInstance().earth.getBoundingBox())){
+                        System.out.println("KEY PRESSED");
+                        boolEarth = false;
+                        boolVenus = true;
+                    }
+                }else if(boolVenus == true && e.getKeyCode() == KeyEvent.VK_LEFT){
+                    if(GameData.getInstance().getShooter().getBoundingBox().intersects(GameController.getInstance().venus.getBoundingBox())){
+                        System.out.println("KEY PRESSED");
+                        boolMercury = true;
+                        boolVenus = false;
+                    }
+                }else if(boolMercury == true && e.getKeyCode() == KeyEvent.VK_LEFT){
+                    if(GameData.getInstance().getShooter().getBoundingBox().intersects(GameController.getInstance().mercury.getBoundingBox())){
+                        System.out.println("KEY PRESSED");
+                        boolMercury = false;
+                        boolSun = true;
+                    }
+                }else if(boolSun == true && e.getKeyCode() == KeyEvent.VK_RIGHT ){
+                    if(GameData.getInstance().getShooter().getBoundingBox().intersects(GameController.getInstance().sun.getBoundingBox())){
+                        System.out.println("KEY PRESSED");
+                        boolSun = false;
+                        boolMercury = true;
+                    }
+                }else if(boolMercury == true && e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    if(GameData.getInstance().getShooter().getBoundingBox().intersects(GameController.getInstance().mercury.getBoundingBox())){
+                        System.out.println("KEY PRESSED");
+                        boolMercury = false;
+                        boolVenus = true;
+                    }
+                }else if(boolVenus == true && e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    if(GameData.getInstance().getShooter().getBoundingBox().intersects(GameController.getInstance().venus.getBoundingBox())){
+                        System.out.println("KEY PRESSED");
+                        boolVenus = false;
+                        boolEarth = true;
+                    }
+                }
+           // }
+            
         
         
     }
