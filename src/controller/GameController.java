@@ -93,6 +93,9 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     Moon moon;
     Venus venus;
     Mercury mercury;
+    public static String levelNumber = "1";
+    public static String levelName = "Earth";
+    public static Text levelText;
     //we can either create a new background obj each time we load a new menu
     //which will cause the animation to restart and look awkward
     //or we can define the background as a class var and reuse the same one that
@@ -234,6 +237,10 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         Text text = new Text(new Point(GameData.getInstance().viewport.width/2, 10),gameNameString, font, true);
         text.setColor(Color.WHITE);
         GameData.getInstance().addGameObject(text);
+           
+        levelText = new Text(new Point(GameData.getInstance().viewport.width/2, 50),"Level "+levelNumber+" - "+levelName, font, true);
+        levelText.setColor(Color.WHITE);
+        GameData.getInstance().addGameObject(levelText);        
         
         //add the shooter object
         GameData.getInstance().getShooter();
@@ -262,6 +269,14 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         
         
         //GameData.getInstance().addGameObject(new Shooter(new Point(100, 100)));
+    }
+    
+    public static void updateLevelText(){
+        GameData.getInstance().removeGameObject(levelText); 
+        Font font = new Font("TimesRoman", Font.BOLD, 30);        
+        levelText = new Text(new Point(GameData.getInstance().viewport.width/2, 50),"Level "+levelNumber+" - "+levelName, font, true);
+        levelText.setColor(Color.WHITE);
+        GameData.getInstance().addGameObject(levelText);            
     }
     
    /**
