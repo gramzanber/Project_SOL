@@ -35,6 +35,11 @@ public class Main
         
         //load images
         ImageLibrary.getInstance().loadSpriteSheet("gold_coin", "/Images/spinning-coin-spritesheet.png", 171, 171, 0, 0);
+        
+        ImageLibrary.getInstance().loadSpriteSheet("grenade_pickup", "/Images/grenade_pickup.png", 16, 16, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("missile_pickup", "/Images/missile_pickup.png", 16, 16, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("flak_pickup", "/Images/flak_pickup.png", 16, 16, 0, 0);        
+                
         ImageLibrary.getInstance().loadSpriteSheet("hero_run_left", "/Images/hero_run_left.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("hero_run_right", "/Images/hero_run_right.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("hero_stand_left", "/Images/hero_stand_left.png", 166, 155, 0, 0);
