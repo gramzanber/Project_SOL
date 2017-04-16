@@ -4,6 +4,7 @@ import controller.AnimationController;
 import controller.Main;
 import controller.SoundController;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -263,7 +264,9 @@ public class Hero extends Actor {
          }
         }
         
-        g2.drawString("Score: "+score, 10, 40);
+        g2.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
+        g2.setColor(Color.WHITE);
+        g2.drawString("Score: "+score, 10, 50);
     }
 
     private void healthBound() {
