@@ -1,14 +1,16 @@
 package view.gameobjects;
 
-import controller.AnimationController;
-import controller.SoundController;
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import model.GameData;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 /**
 *
@@ -16,47 +18,59 @@ import model.GameData;
 * @version 1.0
 * @since   2017-02-18 
 */
-public class Gold extends Tile {
+public class Level5Tile extends RenderableObject {
 
-
-    private static BufferedImage coinSpriteSheet = null;
-    private int step;
-    private long lastStep;
+    public static final int TILESIZE = 32;
     
-    private AnimationController animationController;
+    private static BufferedImage spriteSheet = null;
+    private int spriteX;
+    private int spriteY;
+    
+    private int trim; //amount to oversize tile for hiding gaps in sprite
     
     /**
     * Constructor 
     * 
     * @param loc
     */
-    public Gold(Point loc) {
+    public Level5Tile(Point loc) {
         //call superclass constructor
         super(loc);
+        solid = true;
         
-        animationController = new AnimationController(AnimationController.Mode.AUTO, "gold_coin");
-        animationController.setFps(13);
+        //load spritesheet if not already loaded
+        if(spriteSheet == null){
+            try {
+                spriteSheet = ImageIO.read(getClass().getResource("/Images/level5_tiles.png"));
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Error: Cannot open future_tile sprite sheet");
+                System.exit(-1);
+            }
+        }
+
+        spriteX = 0;
+        spriteY = 0;
+        trim = 0;
         
-        this.solid = false;
+        //update bounding box for the object
+        super.boundingBox = new Rectangle(loc.x, loc.y, TILESIZE, TILESIZE);
     }
+    
+    public void setSprite(int x, int y){
+        this.spriteX = x;
+        this.spriteY = y;
+    }
+
+    public void setTrim(int trim) {
+        this.trim = trim;
+    }
+    
     
     /**
     * {@inheritDoc}
     */
     @Override
     public void update(){
-        animationController.update();
-
-        //check collision
-        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
-            SoundController.getInstance().coinPickUp();
-            
-            this.clear();
-            GameData.getInstance().removeGameObject(this);
-            
-            Score.setScore(1);
-        }
-        
     }
     
     /**
@@ -70,9 +84,12 @@ public class Gold extends Tile {
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
             
+            
+            //get sprite image from sprite sheet
+            Image sprite = spriteSheet.getSubimage(spriteX*34, spriteY*34, 32, 32);
+            
             //draw sprite
-            BufferedImage frame = animationController.getFrame();
-            g2.drawImage(frame, translatedX, translatedY, TILESIZE, TILESIZE, null);
+            g2.drawImage(sprite, translatedX-trim, translatedY-trim, TILESIZE+trim, TILESIZE+trim, null);
         }
     }
     

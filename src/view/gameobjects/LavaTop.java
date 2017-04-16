@@ -16,10 +16,10 @@ import model.GameData;
 * @version 1.0
 * @since   2017-02-18 
 */
-public class Gold extends Tile {
+public class LavaTop extends Tile {
 
 
-    private static BufferedImage coinSpriteSheet = null;
+    private static BufferedImage lavaTopSpriteSheet = null;
     private int step;
     private long lastStep;
     
@@ -30,12 +30,12 @@ public class Gold extends Tile {
     * 
     * @param loc
     */
-    public Gold(Point loc) {
+    public LavaTop(Point loc) {
         //call superclass constructor
         super(loc);
         
-        animationController = new AnimationController(AnimationController.Mode.AUTO, "gold_coin");
-        animationController.setFps(13);
+        animationController = new AnimationController(AnimationController.Mode.AUTO, "lava_top");
+        animationController.setFps(10);
         
         this.solid = false;
     }
@@ -49,12 +49,7 @@ public class Gold extends Tile {
 
         //check collision
         if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
-            SoundController.getInstance().coinPickUp();
-            
-            this.clear();
-            GameData.getInstance().removeGameObject(this);
-            
-            Score.setScore(1);
+            //damage
         }
         
     }

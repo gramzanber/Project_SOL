@@ -8,5 +8,6 @@ public enum ID {
     LargeEnemyProjectile,//10
     LargeEnemyCollision,//30
     BossProjectile,//20
-    BossCollision//40
+    BossCollision,//40
+    Lava//10
 }

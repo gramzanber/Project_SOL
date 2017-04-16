@@ -134,6 +134,9 @@ public class Shooter extends GameFigure
             
             loc.x += (extraSpeed * velX);
             loc.y += (extraSpeed * velY);
+            GameController.levelNumber = "1";
+            GameController.levelName = "Earth";
+            GameController.updateLevelText();
         }    
     }
     //MOON 
@@ -148,6 +151,9 @@ public class Shooter extends GameFigure
             
             loc.x += (extraSpeed * velX);
             loc.y += (extraSpeed * velY);
+            GameController.levelNumber = "2";
+            GameController.levelName = "Moon";    
+            GameController.updateLevelText();            
         }    
     }
     //VENUS 
@@ -162,6 +168,9 @@ public class Shooter extends GameFigure
             
             loc.x += (extraSpeed * velX);
             loc.y += (extraSpeed * velY);
+            GameController.levelNumber = "3";
+            GameController.levelName = "Venus";
+            GameController.updateLevelText();            
         }    
     }
     //MERCURY 
@@ -176,6 +185,9 @@ public class Shooter extends GameFigure
             
             loc.x += (extraSpeed * velX);
             loc.y += (extraSpeed * velY);
+            GameController.levelNumber = "4";
+            GameController.levelName = "Mercury"; 
+            GameController.updateLevelText();            
         }    
     }
     //SUN
@@ -190,6 +202,9 @@ public class Shooter extends GameFigure
             
             loc.x += (extraSpeed * velX);
             loc.y += (extraSpeed * velY);
+            GameController.levelNumber = "5";
+            GameController.levelName = "The Sun";  
+            GameController.updateLevelText();            
         }    
     }
     

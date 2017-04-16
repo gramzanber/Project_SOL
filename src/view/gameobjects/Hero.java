@@ -4,6 +4,7 @@ import controller.AnimationController;
 import controller.Main;
 import controller.SoundController;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -29,13 +30,14 @@ public class Hero extends Actor {
     private float health = 0;
     private float displayHealth =0;
     private float blueValue = 255;
+    private static int score = 0;
     private int healthPacks =0;
     static boolean movingLeft = false;
     static boolean movingRight = false;
     static boolean movingUp = false;
     static boolean movingDown = false;
     static boolean facingRight;
-    private int secondaryWeap = 1; //0 = grenade, 1 = seeker weapon, 
+    private static int secondaryWeap; //0 = grenade, 1 = seeker weapon, 2 = FlakCannon 
     
     
     private AnimationController animationController;
@@ -55,7 +57,10 @@ public class Hero extends Actor {
         
         //update bounding box for the object
         super.boundingBox = new Rectangle(loc.x, loc.y, 50, 155);
-        this.secondaryWeap = 1;
+        
+        //Change this to try out secondary weapons
+
+        this.secondaryWeap = 3;
     }
     
     /**
@@ -81,15 +86,22 @@ public class Hero extends Actor {
             
             switch(secondaryWeap){
                 case 0:
+                    System.out.println("Grenade Weapon");
                     Weapon g = new GrenadeWeapon(translatedX, translatedY, this);
                     synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(g); }
                     SoundController.getInstance().primaryWeaponFire();
                     break;
                 case 1:
-                    System.out.println("Not implemented yet!");
+                    System.out.println("Seeker Missile");
                     Weapon s = new SeekerMissile(translatedX, translatedY, e.getX(), e.getY(), this);
                     synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(s); }
                     SoundController.getInstance().seekerMissileFire();
+                    break;
+                case 2:
+                    System.out.println("Flak Cannon");
+                    Weapon f = new FlakCannon(translatedX, translatedY, this);
+                    synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(f);}
+                    SoundController.getInstance().primaryWeaponFire();
                     break;
                 default:
                     System.out.println("SecondaryWeap:Default");
@@ -251,6 +263,10 @@ public class Hero extends Actor {
              g2.fillRect((2*i)*7, 22, 10, 15);
          }
         }
+        
+        g2.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
+        g2.setColor(Color.WHITE);
+        g2.drawString("Score: "+score, 10, 50);
     }
 
     private void healthBound() {
@@ -284,11 +300,29 @@ public class Hero extends Actor {
         this.health += powerUp;
     }
     
-    public int getSecondaryWeap(){
-        return secondaryWeap;
+    public String getSecondaryWeap(){
+        switch(secondaryWeap){
+            case 0:
+                return "Grenade Launcher";
+            case 1:
+                return "Seeker Missile";
+            case 2:
+                return "Flak Cannon";
+            default:
+                return "None Equipped";
+        }
+        
     }
     
-    public void setSecondaryWeap(int w){
-        this.secondaryWeap = w;
+    public static void setSecondaryWeap(int w){
+        secondaryWeap = w;
+    }
+    
+    public static int getScore(){
+        return score;
+    }
+    
+    public static void setScore(int s){
+        score = s;
     }
 }

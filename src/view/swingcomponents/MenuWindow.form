@@ -47,9 +47,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="primWeapLabel" min="-2" max="-2" attributes="0"/>
                                   <Component id="secondWeapLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="info3Label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="info2Label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="info1Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="healthLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -58,9 +56,7 @@
                           <Component id="primarylbl" min="-2" max="-2" attributes="0"/>
                           <Component id="levellbl" min="-2" max="-2" attributes="0"/>
                           <Component id="secondarylbl" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <Component id="heroHealth" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -76,32 +72,22 @@
                   <Component id="currLevelLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="levellbl" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="info1Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="healthLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="heroHealth" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="info2Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="info3Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="primWeapLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="primarylbl" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="secondWeapLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="secondarylbl" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
               <Component id="okButton" min="-2" pref="34" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -109,28 +95,12 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="info1Label">
+    <Component class="javax.swing.JLabel" name="healthLbl">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="f0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Info1:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="info2Label">
-      <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="f0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Info2:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="info3Label">
-      <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="f0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Info3:"/>
+        <Property name="text" type="java.lang.String" value="Health"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="primWeapLabel">
@@ -138,7 +108,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="f0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Primary Weapon:"/>
+        <Property name="text" type="java.lang.String" value="Primary Weapon Level:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="secondWeapLabel">
@@ -207,29 +177,16 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="heroHealth">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="f0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="info1Here"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
-      <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="f0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Info2Here"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="f0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Info3Here"/>
-      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

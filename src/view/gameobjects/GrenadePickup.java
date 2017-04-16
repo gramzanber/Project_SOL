@@ -16,10 +16,10 @@ import model.GameData;
 * @version 1.0
 * @since   2017-02-18 
 */
-public class Gold extends Tile {
+public class GrenadePickup extends Tile {
 
 
-    private static BufferedImage coinSpriteSheet = null;
+    private static BufferedImage grenadeSpriteSheet = null;
     private int step;
     private long lastStep;
     
@@ -30,11 +30,11 @@ public class Gold extends Tile {
     * 
     * @param loc
     */
-    public Gold(Point loc) {
+    public GrenadePickup(Point loc) {
         //call superclass constructor
         super(loc);
         
-        animationController = new AnimationController(AnimationController.Mode.AUTO, "gold_coin");
+        animationController = new AnimationController(AnimationController.Mode.AUTO, "grenade_pickup");
         animationController.setFps(13);
         
         this.solid = false;
@@ -50,11 +50,10 @@ public class Gold extends Tile {
         //check collision
         if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
             SoundController.getInstance().coinPickUp();
+            Hero.setSecondaryWeap(0);
             
             this.clear();
             GameData.getInstance().removeGameObject(this);
-            
-            Score.setScore(1);
         }
         
     }

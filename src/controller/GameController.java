@@ -26,7 +26,15 @@ import view.menus.GameButton;
 import view.gameobjects.Goal;
 import view.worldmap.Earth;
 import view.gameobjects.EarthSmallEnemy;
+import view.gameobjects.FlakPickup;
+import view.gameobjects.Level5Tile;
 import view.gameobjects.Gold;
+import view.gameobjects.GrenadePickup;
+import view.gameobjects.LavaBottom;
+import view.gameobjects.LavaMid;
+import view.gameobjects.LavaTop;
+import view.gameobjects.Level4Tile;
+import view.gameobjects.MissilePickup;
 import view.gameobjects.MoonLargeEnemy;
 import view.gameobjects.MoonSmallEnemy;
 import view.menus.Menu;
@@ -87,6 +95,9 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     public Moon moon;
     public Venus venus;
     public Mercury mercury;
+    public static String levelNumber = "1";
+    public static String levelName = "Earth";
+    public static Text levelText;
     //we can either create a new background obj each time we load a new menu
     //which will cause the animation to restart and look awkward
     //or we can define the background as a class var and reuse the same one that
@@ -228,6 +239,10 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         Text text = new Text(new Point(GameData.getInstance().viewport.width/2, 10),gameNameString, font, true);
         text.setColor(Color.WHITE);
         GameData.getInstance().addGameObject(text);
+           
+        levelText = new Text(new Point(GameData.getInstance().viewport.width/2, 50),"Level "+levelNumber+" - "+levelName, font, true);
+        levelText.setColor(Color.WHITE);
+        GameData.getInstance().addGameObject(levelText);        
         
         //add the shooter object
         GameData.getInstance().getShooter();
@@ -256,6 +271,14 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         
         
         //GameData.getInstance().addGameObject(new Shooter(new Point(100, 100)));
+    }
+    
+    public static void updateLevelText(){
+        GameData.getInstance().removeGameObject(levelText); 
+        Font font = new Font("TimesRoman", Font.BOLD, 30);        
+        levelText = new Text(new Point(GameData.getInstance().viewport.width/2, 50),"Level "+levelNumber+" - "+levelName, font, true);
+        levelText.setColor(Color.WHITE);
+        GameData.getInstance().addGameObject(levelText);            
     }
     
    /**
@@ -387,7 +410,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();       
 
         //add background
-        GameData.getInstance().gameObjects.add(new Background("/Images/moonBG.jpg", Background.Stretch.WORLD, true, false));
+        GameData.getInstance().gameObjects.add(new Background("/Images/moonBG.jpg", Background.Stretch.NONE, true, false));
         
         
         //play background music
@@ -407,7 +430,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        GameData.getInstance().gameObjects.add(new Background("/Images/venusBG.jpg", Background.Stretch.WORLD, true, false));
+        GameData.getInstance().gameObjects.add(new Background("/Images/venusBG.jpg", Background.Stretch.NONE, true, false));
 
         
         //play background music
@@ -427,7 +450,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        GameData.getInstance().gameObjects.add(new Background("/Images/mercuryBG.jpg", Background.Stretch.WORLD, true, false));        
+        GameData.getInstance().gameObjects.add(new Background("/Images/mercuryBG.jpg", Background.Stretch.NONE, true, false));        
 
         //play background music
         SoundController.getInstance().mercuryBGM();
@@ -713,6 +736,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     tile.setSolid(true);
                 }
                 
+                //level 3-----
                 //platform middle lvl-4
                 //light gray color pixal
                 else if(red == 100 && green == 100 && blue == 100){
@@ -776,6 +800,241 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     VenusSmallEnemy smallEnemy = new VenusSmallEnemy(tileLoc, ID.SmallEnemy);
                     GameData.getInstance().addGameObject(smallEnemy);
                 }
+                //level 3-----end
+                
+                //foliage 1/4 lvl-4
+                //light green color pixal
+                if(red == 255 && green == 220 && blue == 135){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(0, 8); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(false);
+                }     
+                
+                //foliage 2/4 lvl-4
+                //light green color pixal
+                if(red == 80 && green == 0 && blue == 185){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(1, 8); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(false);
+                }    
+                
+                //foliage 3/4 lvl-4
+                //light green color pixal
+                if(red == 250 && green == 175 && blue == 175){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(2, 8); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(false);
+                }  
+
+                //foliage 4/4 lvl-4
+                //light green color pixal
+                if(red == 175 && green == 242 && blue == 250){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(3, 8); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(false);
+                }   
+                
+                //surface 1/4 lvl-4
+                //purple color pixal
+                if(red == 135 && green == 20 && blue == 135){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(0, 9); 
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }    
+                
+                //surface 2/4 lvl-4
+                //yellow color pixal
+                if(red == 135 && green == 135 && blue == 20){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(1, 9);
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }   
+                
+                //surface 3/4 lvl-4
+                //pink color pixal
+                if(red == 255 && green == 85 && blue == 255){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(2, 9); 
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                } 
+                
+                //surface 4/4 lvl-4
+                //brown color pixal
+                if(red == 135 && green == 50 && blue == 50){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(3, 9);
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }      
+                
+                //underground lvl-4
+                //dark green color pixal
+                if(red == 30 && green == 150 && blue == 30){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(1, 4);
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }   
+
+                //left wall lvl-4
+                //light grey color pixal
+                if(red == 193 && green == 206 && blue == 200){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(3, 4); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }  
+                
+                //right wall lvl-4
+                //dark gray color pixal
+                if(red == 193 && green == 206 && blue == 201){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(0, 4); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }    
+                
+                //ceiling 1/2 lvl-4
+                //light blue color pixal
+                if(red == 170 && green == 90 && blue == 70){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(1, 2); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }     
+                
+                //ceiling 2/2 lvl-4
+                //blue color pixal
+                if(red == 170 && green == 90 && blue == 70){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(1, 2); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                } 
+                
+                //platform left lvl-4
+                //red color pixal
+                if(red == 240 && green == 0 && blue == 30){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(0, 10); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }     
+                
+                //platform 1/2 mid lvl-4
+                //red color pixal
+                if(red == 60 && green == 200 && blue == 60){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(1, 10); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }    
+                
+                //platform 2/2 mid lvl-4
+                //light green color pixal
+                if(red == 60 && green == 200 && blue == 61){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(2, 10); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }  
+
+                //platform right lvl-4
+                //yellow color pixal
+                if(red == 240 && green == 240 && blue == 17){
+                    Level4Tile tile = new Level4Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(3, 10); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }                 
+                
+                //platform middle lvl-5
+                //brown color pixal
+                if(red == 170 && green == 90 && blue == 70){
+                    Level5Tile tile = new Level5Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(1, 2); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }
+                
+                //underground lvl-5
+                //orange color pixal
+                if(red == 255 && green == 132 && blue == 0){
+                    Level5Tile tile = new Level5Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(1, 8); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }    
+                
+                //underground lvl-5
+                //left wall pixal
+                if(red == 170 && green == 89 && blue == 70){
+                    Level5Tile tile = new Level5Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(3, 0); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }   
+
+                //underground lvl-5
+                //right wall pixal
+                if(red == 170 && green == 91 && blue == 70){
+                    Level5Tile tile = new Level5Tile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(0, 0); //lava platform middle
+                    tile.setTrim(2); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }    
+                
+                //lava top lvl-5
+                //turquoise color pixal
+                if(red == 0 && green == 255 && blue == 240){
+                    Tile tile = new LavaTop(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }    
+                
+                //lava mid lvl-5
+                //turquoise color pixal
+                if(red == 0 && green == 255 && blue == 241){
+                    Tile tile = new LavaMid(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }  
+
+                //lava bottom lvl-5
+                //turquoise color pixal
+                if(red == 0 && green == 255 && blue == 242){
+                    Tile tile = new LavaBottom(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }                  
                 
                 //gold coin
                 //yellow color pixal
@@ -784,6 +1043,30 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }
+                
+                //grenade pickup
+                //yellow color pixal
+                if(red == 255 && green == 243 && blue == 0){
+                    Tile tile = new GrenadePickup(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }
+
+                //missile pickup
+                //yellow color pixal
+                if(red == 255 && green == 244 && blue == 0){
+                    Tile tile = new MissilePickup(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }
+
+                //flak pickup
+                //yellow color pixal
+                if(red == 255 && green == 245 && blue == 0){
+                    Tile tile = new FlakPickup(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }                
                 
 		// Small enemy type
                 // Pinkish color pixal

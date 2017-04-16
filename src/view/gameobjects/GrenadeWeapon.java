@@ -28,7 +28,6 @@ public class GrenadeWeapon extends Weapon {
 
     private PhysicsController pyc;
     private AnimationController animationController;
-    private boolean alive = false; 
     public GrenadeWeapon(float sx, float sy, RenderableObject owner) {
         super(sx, sy, owner);
         
@@ -38,8 +37,6 @@ public class GrenadeWeapon extends Weapon {
         super.boundingBox = new Rectangle(x, y, 60, 30);
         
         pyc = new PhysicsController(this);
-        
-        //state = STATE_ALIVE;
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "grenade");
         animationController.setFps(32);
@@ -108,58 +105,12 @@ public class GrenadeWeapon extends Weapon {
         if(!pyc.canMove(DIRECTION.DOWN)){
             pyc.clear();
         }
-        
-        
-        /*
-        //one last thing, since this is a side scroller we need to move the
-        //viewport when we get close to the edge of the screen
-        if(boundingBox.getX() + 300 >= GameData.getInstance().viewport.getX()+(int) GameData.getInstance().viewport.getWidth()){
-            GameData.getInstance().viewport.setLocation((int)boundingBox.getX() + 300 - (int)GameData.getInstance().viewport.getWidth(), (int)GameData.getInstance().viewport.getY());
-        }
-        else if(boundingBox.getX() - 100 <= GameData.getInstance().viewport.getX()){
-            GameData.getInstance().viewport.setLocation((int)boundingBox.getX() - 100 , (int)GameData.getInstance().viewport.getY());
-        }
-        
-        if(boundingBox.getY() + 200 >= GameData.getInstance().viewport.getY()+(int) GameData.getInstance().viewport.getHeight()){
-            GameData.getInstance().viewport.setLocation((int)GameData.getInstance().viewport.getX(), (int)boundingBox.getY() + 200 - (int)GameData.getInstance().viewport.getHeight());
-        }
-        else if(boundingBox.getY() - 200 <= GameData.getInstance().viewport.getY()){
-            GameData.getInstance().viewport.setLocation((int)GameData.getInstance().viewport.getX(), (int)boundingBox.getY() - 200);
-        }*/
-        
-    
     }
     
     public void translate(int dx, int dy){
-        
-        //Make sure we can actually move by creating a testrect object and trying it first
-        
-        //the location to move to
+        //Move bounding box to new location
         Point newLoc = new Point(boundingBox.x+dx, boundingBox.y + dy); 
-        
-        //the location for testing, subject 1 from y so we dont count ground
-        Point testLoc = new Point(boundingBox.x+dx, boundingBox.y + dy - 1);
-        
-        //build testRect
-        Rectangle testRect = new Rectangle(boundingBox.width, boundingBox.height);
-        testRect.setLocation(testLoc);
-        
-        //if test rect was successful its safe to move the real object
-        if(!GameData.getInstance().checkCollision(testRect, this)){
-//            if(dx == -1){
-//                this.movingLeft = true;
-//            }
-//            else if(dx == 1){
-//                this.movingRight = true;
-//            }
-//            if(dy == -1){
-//                this.movingUp = true;
-//            }
-//            else if(dy == 1){
-//                this.movingDown = true;
-//            }
-            boundingBox.setLocation(newLoc);
-        }
+        boundingBox.setLocation(newLoc);
     }
    
 
@@ -203,19 +154,7 @@ public class GrenadeWeapon extends Weapon {
     public void mouseMoved(MouseEvent e) {
     }
 
-    
-    
     public String getObjectType(){
         return "Grenade Weapon";
-    }
-    
-    public boolean isAlive(){
-        return this.alive;
-    }
-    
-    public void setAlive(boolean a){
-        alive = a;
-    }
-    
-    
+    } 
 }

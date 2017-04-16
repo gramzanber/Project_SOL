@@ -35,6 +35,15 @@ public class Main
         
         //load images
         ImageLibrary.getInstance().loadSpriteSheet("gold_coin", "/Images/spinning-coin-spritesheet.png", 171, 171, 0, 0);
+        
+        ImageLibrary.getInstance().loadSpriteSheet("grenade_pickup", "/Images/grenade_pickup.png", 16, 16, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("missile_pickup", "/Images/missile_pickup.png", 16, 16, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("flak_pickup", "/Images/flak_pickup.png", 16, 16, 0, 0);   
+        
+        ImageLibrary.getInstance().loadSpriteSheet("lava_top", "/Images/lava_top.png", 32, 32, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("lava_mid", "/Images/lava_mid.png", 32, 32, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("lava_bottom", "/Images/lava_bottom.png", 32, 32, 0, 0);          
+                
         ImageLibrary.getInstance().loadSpriteSheet("hero_run_left", "/Images/hero_run_left.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("hero_run_right", "/Images/hero_run_right.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("hero_stand_left", "/Images/hero_stand_left.png", 166, 155, 0, 0);
@@ -51,6 +60,7 @@ public class Main
 
         ImageLibrary.getInstance().loadSpriteSheet("seeker", "/Images/seeker.png", 350, 80, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("seekerleft", "/Images/seekerleft.png", 350, 80, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("FlakCannon", "/Images/FlakCannon.png", 101, 111, 0, 0);
         
         ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_10_walk_right_300x226", "/Images/sprite_sheet_alian_10_walk_right_300x226.png", 300, 226, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_10_walk_left_300x226", "/Images/sprite_sheet_alian_10_walk_left_300x226.png", 300, 226, 0, 0);
