@@ -408,7 +408,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();       
 
         //add background
-        GameData.getInstance().gameObjects.add(new Background("/Images/moonBG.jpg", Background.Stretch.WORLD, true, false));
+        GameData.getInstance().gameObjects.add(new Background("/Images/moonBG.jpg", Background.Stretch.NONE, true, false));
         
         
         //play background music
@@ -428,7 +428,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        GameData.getInstance().gameObjects.add(new Background("/Images/venusBG.jpg", Background.Stretch.WORLD, true, false));
+        GameData.getInstance().gameObjects.add(new Background("/Images/venusBG.jpg", Background.Stretch.NONE, true, false));
 
         
         //play background music

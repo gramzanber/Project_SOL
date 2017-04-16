@@ -53,6 +53,8 @@ public class Gold extends Tile {
             
             this.clear();
             GameData.getInstance().removeGameObject(this);
+            
+            Score.setScore(1);
         }
         
     }

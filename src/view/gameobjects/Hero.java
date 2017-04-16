@@ -29,6 +29,7 @@ public class Hero extends Actor {
     private float health = 0;
     private float displayHealth =0;
     private float blueValue = 255;
+    private static int score = 0;
     private int healthPacks =0;
     static boolean movingLeft = false;
     static boolean movingRight = false;
@@ -58,7 +59,7 @@ public class Hero extends Actor {
         
         //Change this to try out secondary weapons
 
-        this.secondaryWeap = 2;
+        this.secondaryWeap = 3;
     }
     
     /**
@@ -261,6 +262,8 @@ public class Hero extends Actor {
              g2.fillRect((2*i)*7, 22, 10, 15);
          }
         }
+        
+        g2.drawString("Score: "+score, 10, 40);
     }
 
     private void healthBound() {
@@ -310,5 +313,13 @@ public class Hero extends Actor {
     
     public static void setSecondaryWeap(int w){
         secondaryWeap = w;
+    }
+    
+    public static int getScore(){
+        return score;
+    }
+    
+    public static void setScore(int s){
+        score = s;
     }
 }
