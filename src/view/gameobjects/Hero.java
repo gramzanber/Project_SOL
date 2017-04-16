@@ -57,6 +57,7 @@ public class Hero extends Actor {
         super.boundingBox = new Rectangle(loc.x, loc.y, 50, 155);
         
         //Change this to try out secondary weapons
+
         this.secondaryWeap = 2;
     }
     
