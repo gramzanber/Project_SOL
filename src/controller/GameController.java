@@ -26,7 +26,10 @@ import view.menus.GameButton;
 import view.gameobjects.Goal;
 import view.worldmap.Earth;
 import view.gameobjects.EarthSmallEnemy;
+import view.gameobjects.FlakPickup;
 import view.gameobjects.Gold;
+import view.gameobjects.GrenadePickup;
+import view.gameobjects.MissilePickup;
 import view.gameobjects.MoonLargeEnemy;
 import view.gameobjects.MoonSmallEnemy;
 import view.menus.Menu;
@@ -719,6 +722,30 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }
+                
+                //grenade pickup
+                //yellow color pixal
+                if(red == 255 && green == 243 && blue == 0){
+                    Tile tile = new GrenadePickup(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }
+
+                //missile pickup
+                //yellow color pixal
+                if(red == 255 && green == 244 && blue == 0){
+                    Tile tile = new MissilePickup(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }
+
+                //flak pickup
+                //yellow color pixal
+                if(red == 255 && green == 245 && blue == 0){
+                    Tile tile = new FlakPickup(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }                
                 
 		// Small enemy type
                 // Pinkish color pixal

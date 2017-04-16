@@ -35,7 +35,7 @@ public class Hero extends Actor {
     static boolean movingUp = false;
     static boolean movingDown = false;
     static boolean facingRight;
-    private int secondaryWeap; //0 = grenade, 1 = seeker weapon, 2 = FlakCannon 
+    private static int secondaryWeap; //0 = grenade, 1 = seeker weapon, 2 = FlakCannon 
     
     
     private AnimationController animationController;
@@ -308,7 +308,7 @@ public class Hero extends Actor {
         
     }
     
-    public void setSecondaryWeap(int w){
-        this.secondaryWeap = w;
+    public static void setSecondaryWeap(int w){
+        secondaryWeap = w;
     }
 }

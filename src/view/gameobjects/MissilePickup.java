@@ -50,6 +50,7 @@ public class MissilePickup extends Tile {
         //check collision
         if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
             SoundController.getInstance().coinPickUp();
+            Hero.setSecondaryWeap(1);            
             
             this.clear();
             GameData.getInstance().removeGameObject(this);

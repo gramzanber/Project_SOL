@@ -50,6 +50,7 @@ public class FlakPickup extends Tile {
         //check collision
         if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
             SoundController.getInstance().coinPickUp();
+            Hero.setSecondaryWeap(2);            
             
             this.clear();
             GameData.getInstance().removeGameObject(this);
