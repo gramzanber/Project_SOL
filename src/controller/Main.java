@@ -73,8 +73,11 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_6_walk_right_300x427", "/Images/sprite_sheet_alian_6_walk_right_300x427.png", 300, 427, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_7_walk_left_300x351", "/Images/sprite_sheet_alian_7_walk_left_300x351.png", 300, 351, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_7_walk_right_300x351", "/Images/sprite_sheet_alian_7_walk_right_300x351.png", 300, 351, 0, 0);
-
         
+        ImageLibrary.getInstance().loadSpriteSheet("blueEnemyWalkingLeft", "/Images/blueEnemyWalkingLeft.png", 300, 226, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("blueEnemyWalkingRight", "/Images/blueEnemyWalkingRight.png", 300, 226, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("greenSmallEnemyWalkingLeft", "/Images/greenSmallAlienWalkingLeft.png", 250, 182, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("greenSmallEnemyWalkingRight", "/Images/greenSmallAlienWalkingRight.png", 250, 182, 0, 0);
         
         //build and display the gui
         MainWindow.getInstance().setVisible(true);
