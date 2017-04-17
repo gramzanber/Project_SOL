@@ -16,6 +16,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import model.GameData;
+import view.swingcomponents.DeathScreen;
+import view.swingcomponents.MainWindow;
 
 /**
 * Render a hero object to the screen.
@@ -37,6 +39,7 @@ public class Hero extends Actor {
     static boolean movingUp = false;
     static boolean movingDown = false;
     static boolean facingRight;
+    public static boolean dead = false;
     private static int secondaryWeap; //0 = grenade, 1 = seeker weapon, 2 = FlakCannon 
     
     
@@ -69,7 +72,7 @@ public class Hero extends Actor {
     @Override
     public void update(){
       super.update();
-      healthBound();     
+      if(!dead)healthBound();     
       
     }
     
@@ -268,28 +271,38 @@ public class Hero extends Actor {
         g2.setColor(Color.WHITE);
         g2.drawString("Score: "+score, 10, 50);
     }
+    
+    public static void fallDeath(){
+        playerDied();
+    }
 
     private void healthBound() {
         //the health is depleated constatntly but just as a demo. will be changed when there are enemies in the game
-        if(displayHealth > 100){
-            displayHealth = 100;
+        
+        if(health <= 0){
+            this.playerDied();
         }
-        if(displayHealth <=0 && health>0){
-            health -= 100;
-            displayHealth = health;
-        }
-        blueValue = displayHealth*5;
-        if(health <=0){
-            health =0;
-        }
-        if(blueValue > 255){
-            blueValue = 255;
-        }
-        if(blueValue < 75){
-            blueValue =75;
-        }
+        else{
+            if(displayHealth > 100){
+                displayHealth = 100;
+            }
+            if(displayHealth <=0 && health>0){
+                health -= 100;
+                displayHealth = health;
+            }
+            blueValue = displayHealth*5;
+            if(health <=0){
+                health =0;
+            }
+            if(blueValue > 255){
+                blueValue = 255;
+            }
+            if(blueValue < 75){
+                blueValue =75;
+            }
         
         healthPacks = (int)health/100;
+        }
     }
     
     public float getShield(){
@@ -325,4 +338,20 @@ public class Hero extends Actor {
     public static void setScore(int s){
         score = s;
     }
+    
+    private static void playerDied(){
+        dead = true;
+        DeathScreen dialogMenu = new DeathScreen(MainWindow.getInstance(), false);
+        int parentX = MainWindow.getInstance().getX();
+        int parentY = MainWindow.getInstance().getY();
+        int parentWidth = MainWindow.getInstance().getWidth();
+        int parentHeight = MainWindow.getInstance().getHeight();
+        dialogMenu.setLocation(parentX + parentWidth/2 - dialogMenu.getWidth()/2, parentY + parentHeight/2 - dialogMenu.getHeight()/2);
+        dialogMenu.getContentPane().setBackground(Color.BLACK);
+        dialogMenu.setResizable(true);
+        dialogMenu.setAlwaysOnTop(true);
+        dialogMenu.setVisible(true);
+    }
+    
+    
 }

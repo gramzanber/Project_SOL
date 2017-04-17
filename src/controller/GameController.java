@@ -22,6 +22,7 @@ import view.gameobjects.Bosses.MercuryBoss;
 import view.gameobjects.Bosses.MoonBoss;
 import view.gameobjects.Bosses.SunBoss;
 import view.gameobjects.Bosses.VenusBoss;
+import view.gameobjects.DeathTile;
 import view.menus.GameButton;
 import view.gameobjects.Goal;
 import view.worldmap.Earth;
@@ -1034,7 +1035,17 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     Tile tile = new LavaBottom(tileLoc); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
-                }                  
+                }  
+
+                //death tile
+                //bright red pixel
+                else if(red == 200 && green == 0 && blue == 0){
+                    DeathTile tile = new DeathTile(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+                    tile.setSprite(0, 0); //green platform right
+                    tile.setTrim(0); //over size the tile to hide the gap
+                    tile.setSolid(true);
+                }                
                 
                 //gold coin
                 //yellow color pixal
