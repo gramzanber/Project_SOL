@@ -15,6 +15,9 @@ import javax.swing.JFrame;
 import model.GameData;
 import model.ID;
 import view.BufferedImageLoader;
+import view.gameobjects.AcidBottom;
+import view.gameobjects.AcidMid;
+import view.gameobjects.AcidTop;
 import view.gameobjects.Laser;
 import view.gameobjects.Background;
 import view.gameobjects.Bosses.EarthBoss;
@@ -393,7 +396,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
+        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.NONE, true, false));
         
         //play background music
         SoundController.getInstance().earthBGM();
@@ -736,6 +739,30 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     tile.setTrim(1); //over size the tile to hide the gap
                     tile.setSolid(true);
                 }
+                
+                //acid top lvl-3
+                //turquoise color pixal
+                if(red == 0 && green == 255 && blue == 237){
+                    Tile tile = new AcidTop(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }    
+                
+                //acid mid lvl-3
+                //turquoise color pixal
+                if(red == 0 && green == 255 && blue == 238){
+                    Tile tile = new AcidMid(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }  
+
+                //acid bottom lvl-3
+                //turquoise color pixal
+                if(red == 0 && green == 255 && blue == 239){
+                    Tile tile = new AcidBottom(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }                  
                 
                 //level 3-----
                 //platform middle lvl-4

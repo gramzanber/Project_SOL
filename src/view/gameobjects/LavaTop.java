@@ -35,7 +35,7 @@ public class LavaTop extends Tile {
         super(loc);
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "lava_top");
-        animationController.setFps(10);
+        animationController.setFps(7);
         
         this.solid = false;
     }

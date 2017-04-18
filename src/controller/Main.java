@@ -39,10 +39,15 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("grenade_pickup", "/Images/grenade_pickup.png", 16, 16, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("missile_pickup", "/Images/missile_pickup.png", 16, 16, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("flak_pickup", "/Images/flak_pickup.png", 16, 16, 0, 0);   
+        ImageLibrary.getInstance().loadSpriteSheet("energy_tank", "/Images/energy_tank.png", 16, 16, 0, 0);           
         
         ImageLibrary.getInstance().loadSpriteSheet("lava_top", "/Images/lava_top.png", 32, 32, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("lava_mid", "/Images/lava_mid.png", 32, 32, 0, 0);
-        ImageLibrary.getInstance().loadSpriteSheet("lava_bottom", "/Images/lava_bottom.png", 32, 32, 0, 0);          
+        ImageLibrary.getInstance().loadSpriteSheet("lava_bottom", "/Images/lava_bottom.png", 32, 32, 0, 0);      
+        
+        ImageLibrary.getInstance().loadSpriteSheet("acid_top", "/Images/acid_top.png", 32, 32, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("acid_mid", "/Images/acid_mid.png", 32, 32, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("acid_bottom", "/Images/acid_bottom.png", 32, 32, 0, 0);          
                 
         ImageLibrary.getInstance().loadSpriteSheet("hero_run_left", "/Images/hero_run_left.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("hero_run_right", "/Images/hero_run_right.png", 166, 155, 0, 0);

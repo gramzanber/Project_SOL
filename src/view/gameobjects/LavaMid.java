@@ -35,7 +35,7 @@ public class LavaMid extends Tile {
         super(loc);
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "lava_mid");
-        animationController.setFps(7);
+        animationController.setFps(4);
         
         this.solid = false;
     }
