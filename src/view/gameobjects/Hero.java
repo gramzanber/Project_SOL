@@ -280,7 +280,7 @@ public class Hero extends Actor {
         //the health is depleated constatntly but just as a demo. will be changed when there are enemies in the game
         
         if(health <= 0){
-            this.playerDied();
+            playerDied();
         }
         else{
             if(displayHealth > 100){
