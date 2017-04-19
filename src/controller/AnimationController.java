@@ -1,11 +1,14 @@
 
 package controller;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
+import model.GameData;
 import model.ImageLibrary;
+import view.gameobjects.ExplosionEffect;
 
 public class AnimationController {
-    
+
     public static enum Mode{
         AUTO, MANUAL
     }
@@ -15,6 +18,7 @@ public class AnimationController {
     private long lastStep;
     private String spriteSheet;
     private Mode m;
+    private int loopCount;
     
     public AnimationController(Mode m, String spriteSheet){
         this.m = m;
@@ -22,6 +26,7 @@ public class AnimationController {
         
         this.fps = fps;
         index = 0;
+        loopCount = 0;
         this.lastStep = 0;
         fps = ImageLibrary.getInstance().getSprites(spriteSheet).size();
     }
@@ -44,6 +49,7 @@ public class AnimationController {
         //loop animation
         if(index > ImageLibrary.getInstance().getSprites(spriteSheet).size()-1){
             index = 0;
+            loopCount += 1;
         }
         
     }
@@ -59,6 +65,12 @@ public class AnimationController {
         return null;
     }
     
+    
+    public static void explosionEffect(Point point) {
+        GameData.getInstance().addGameObject(new ExplosionEffect(point));
+    }
+    
+    
     public int getIndex(){       
         return index;
     }
@@ -73,6 +85,10 @@ public class AnimationController {
     
     public void setFrame(int index){
         this.index = index;
+    }
+
+    public int getLoopCount() {
+        return loopCount;
     }
     
     
