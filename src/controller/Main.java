@@ -85,6 +85,10 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("greenSmallEnemyWalkingLeft", "/Images/greenSmallAlienWalkingLeft.png", 250, 182, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("greenSmallEnemyWalkingRight", "/Images/greenSmallAlienWalkingRight.png", 250, 182, 0, 0);
         
+        ImageLibrary.getInstance().loadSpriteSheet("explosion", "/Images/explosion.png", 128, 128, 0, 0);
+
+        
+        
         //build and display the gui
         MainWindow.getInstance().setVisible(true);
 

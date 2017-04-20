@@ -43,6 +43,8 @@ public abstract class AbstractBoss extends RenderableObject {
     static boolean movingDown = false;
     static boolean facingRight;
     
+    private boolean alive;
+    
     private PhysicsController pyc;
     private AnimationController animationController;
     
@@ -82,6 +84,7 @@ public abstract class AbstractBoss extends RenderableObject {
         renderHealthBar = false;
         health = 100;
         displayHealth = 100;
+        alive = true;
         
         //update bounding box for the object
         super.boundingBox = new Rectangle(loc.x, loc.y, animationController.getFrame().getWidth(), animationController.getFrame().getHeight());
@@ -92,6 +95,12 @@ public abstract class AbstractBoss extends RenderableObject {
     }
     
     
+    public void die(){
+        alive = false;
+        AnimationController.explosionEffect(new Point((int)getBoundingBox().getCenterX(), (int)getBoundingBox().getCenterY()));
+        GameData.getInstance().removeGameObject(this);
+    }
+    
     /**
     * {@inheritDoc}
     */
@@ -101,7 +110,10 @@ public abstract class AbstractBoss extends RenderableObject {
         healthBound();     
       
         
-      
+        if(alive = true && health <= 0){
+            die();
+            return;
+        }
       
       //update physics controller
         pyc.update();
