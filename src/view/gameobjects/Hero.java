@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import model.GameData;
 import view.swingcomponents.DeathScreen;
+
 import view.swingcomponents.MainWindow;
 
 /**
@@ -63,7 +64,7 @@ public class Hero extends Actor {
         
         //Change this to try out secondary weapons
 
-        this.secondaryWeap = 3;
+        this.secondaryWeap = 2;
     }
     
     /**
@@ -274,6 +275,7 @@ public class Hero extends Actor {
     
     public static void fallDeath(){
         playerDied();
+       
     }
 
     private void healthBound() {
