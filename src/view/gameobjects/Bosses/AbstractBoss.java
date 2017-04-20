@@ -22,6 +22,8 @@ import view.gameobjects.Hero;
 import view.gameobjects.PrimaryWeapon;
 import view.gameobjects.RenderableObject;
 import view.gameobjects.Weapon;
+import view.swingcomponents.VictoryScreen;
+import view.swingcomponents.MainWindow;
 
 /**
 * Render a hero object to the screen.
@@ -99,6 +101,19 @@ public abstract class AbstractBoss extends RenderableObject {
         alive = false;
         AnimationController.explosionEffect(new Point((int)getBoundingBox().getCenterX(), (int)getBoundingBox().getCenterY()));
         GameData.getInstance().removeGameObject(this);
+        
+            //Thread.sleep(4000);
+        VictoryScreen dialogMenu = new VictoryScreen(MainWindow.getInstance(), false);
+        int parentX = MainWindow.getInstance().getX();
+        int parentY = MainWindow.getInstance().getY();
+        int parentWidth = MainWindow.getInstance().getWidth();
+        int parentHeight = MainWindow.getInstance().getHeight();
+        dialogMenu.setLocation(parentX + parentWidth / 2 - dialogMenu.getWidth() / 2, parentY + parentHeight / 2 - dialogMenu.getHeight() / 2);
+        dialogMenu.getContentPane().setBackground(Color.BLACK);
+        dialogMenu.setResizable(true);
+        dialogMenu.setAlwaysOnTop(true);
+        dialogMenu.setVisible(true);
+        
     }
     
     /**

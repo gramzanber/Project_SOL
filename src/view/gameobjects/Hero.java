@@ -64,7 +64,7 @@ public class Hero extends Actor {
         
         //Change this to try out secondary weapons
 
-        this.secondaryWeap = 2;
+        this.secondaryWeap = 1;
     }
     
     /**

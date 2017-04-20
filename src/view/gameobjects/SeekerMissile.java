@@ -125,8 +125,10 @@ public class SeekerMissile extends Weapon {
         
         Point mouseloc = new Point(mouseX, mouseY);
         
-        if(boundingBox.contains(mouseloc))
+        if(boundingBox.contains(mouseloc)){
+            animationController.explosionEffect(new Point((int)getBoundingBox().getX(), (int)getBoundingBox().getY()));
             GameData.getInstance().removeGameObject(this);
+        }
     }
     
     public void translate(int dx, int dy){
