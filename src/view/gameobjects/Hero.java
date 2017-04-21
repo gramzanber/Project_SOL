@@ -270,7 +270,7 @@ public class Hero extends Actor {
         
         g2.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
         g2.setColor(Color.WHITE);
-        g2.drawString("Score: "+score, 10, 50);
+        g2.drawString("Score: "+score, 10, 80);
     }
     
     public static void fallDeath(){

@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 */
 public class Level4Tile extends RenderableObject {
 
-    public static final int TILESIZE = 32;
+    public static final int TILESIZE = 30;
     
     private static BufferedImage spriteSheet = null;
     private int spriteX;
@@ -86,7 +86,7 @@ public class Level4Tile extends RenderableObject {
             
             
             //get sprite image from sprite sheet
-            Image sprite = spriteSheet.getSubimage(spriteX*34, spriteY*34, 32, 32);
+            Image sprite = spriteSheet.getSubimage((spriteX*34)+1, (spriteY*34)+1, 30, 30);
             
             //draw sprite
             g2.drawImage(sprite, translatedX-trim, translatedY-trim, TILESIZE+trim, TILESIZE+trim, null);
