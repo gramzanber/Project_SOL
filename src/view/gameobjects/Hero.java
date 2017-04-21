@@ -93,7 +93,7 @@ public class Hero extends Actor {
                     System.out.println("Grenade Weapon");
                     Weapon g = new GrenadeWeapon(translatedX, translatedY, this);
                     synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(g); }
-                    SoundController.getInstance().primaryWeaponFire();
+                    SoundController.getInstance().grenadeFire();
                     break;
                 case 1:
                     System.out.println("Seeker Missile");
@@ -105,7 +105,7 @@ public class Hero extends Actor {
                     System.out.println("Flak Cannon");
                     Weapon f = new FlakCannon(translatedX, translatedY, this);
                     synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(f);}
-                    SoundController.getInstance().primaryWeaponFire();
+                    SoundController.getInstance().flakFire();
                     break;
                 default:
                     System.out.println("SecondaryWeap:Default");

@@ -364,6 +364,25 @@ public class SoundController
         }
     }
     
+    public void grenadeFire()
+    {
+        try
+        {
+            File file = new File("src/Sounds/grenade.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }    
+    
     public void seekerMissileFire()
     {
         try
@@ -382,6 +401,25 @@ public class SoundController
             System.out.printf("Error: %s \n", e.toString());
         }
     }
+    
+    public void flakFire()
+    {
+        try
+        {
+            File file = new File("src/Sounds/flak.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }    
     
     public void coinPickUp()
     {
@@ -502,7 +540,7 @@ public class SoundController
     {
         try
         {
-            File file = new File("src/Sounds/sol-player-ver2.wav");
+            File file = new File("src/Sounds/step.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
             if(!paused)
             {
