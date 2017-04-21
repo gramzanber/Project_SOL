@@ -440,6 +440,25 @@ public class SoundController
         }
     }
     
+        public void largeEnemyDeath()
+    {
+        try
+        {
+            File file = new File("src/Sounds/roar.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }   
+    
     public void repurposedFleshMove()
     {
         try

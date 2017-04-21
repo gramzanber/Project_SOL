@@ -2,6 +2,7 @@ package view.gameobjects;
 
 import controller.AnimationController;
 import controller.PhysicsController;
+import controller.SoundController;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -52,7 +53,7 @@ public class SunLargeEnemy extends RenderableObject
         animationController.setFps(48);
         
         //update bounding box for the object
-        super.boundingBox = new Rectangle(loc.x, loc.y, 120, 120);
+        super.boundingBox = new Rectangle(loc.x, loc.y, 240, 240);
         
         //enemyImage = null;
         /*try {
@@ -164,7 +165,7 @@ public class SunLargeEnemy extends RenderableObject
         {
             // draw in  relation to the viewport
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
-            int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
+            int translatedY =  (int)boundingBox.getY() - (int)viewport.getY() + 10;
             int border = 2;
             
             if (directionLeft) {
@@ -185,13 +186,14 @@ public class SunLargeEnemy extends RenderableObject
     
     public void die(){
         alive = false;
+        SoundController.getInstance().largeEnemyDeath();        
         if(directionLeft){
-            AnimationController.sunLargeEnemyLeftDeathEffect(new Point((int)getBoundingBox().getCenterX()-60, (int)getBoundingBox().getCenterY()-40));
+            AnimationController.sunLargeEnemyLeftDeathEffect(new Point((int)getBoundingBox().getCenterX()-120, (int)getBoundingBox().getCenterY()-80));
             this.clear();
             GameData.getInstance().removeGameObject(this);                 
         }
         else{
-            AnimationController.sunLargeEnemyRightDeathEffect(new Point((int)getBoundingBox().getCenterX()-50, (int)getBoundingBox().getCenterY()-50));
+            AnimationController.sunLargeEnemyRightDeathEffect(new Point((int)getBoundingBox().getCenterX()-120, (int)getBoundingBox().getCenterY()-80));
             this.clear();
             GameData.getInstance().removeGameObject(this);                 
         }  

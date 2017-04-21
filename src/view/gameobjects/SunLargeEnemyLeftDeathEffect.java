@@ -57,7 +57,7 @@ public class SunLargeEnemyLeftDeathEffect extends RenderableObject {
             
         BufferedImage sprite = animationController.getFrame();
         if(viewport.intersects(this.getBoundingBox())){
-            g2.drawImage(sprite, translatedX-60, translatedY-40, sprite.getWidth()+20, sprite.getHeight()+20, null);                 
+            g2.drawImage(sprite, translatedX-120, translatedY-80, sprite.getWidth()*2, sprite.getHeight()*2, null);                 
         }
         if(animationController.getLoopCount() > 0){
             AnimationController.explosionEffect(new Point((int)getBoundingBox().getCenterX(), (int)getBoundingBox().getCenterY()));
