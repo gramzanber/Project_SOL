@@ -41,6 +41,7 @@ import view.gameobjects.Level4Tile;
 import view.gameobjects.MissilePickup;
 import view.gameobjects.MoonLargeEnemy;
 import view.gameobjects.MoonSmallEnemy;
+import view.gameobjects.SunLargeEnemy;
 import view.menus.Menu;
 import view.worldmap.Mercury;
 import view.worldmap.Moon;
@@ -1063,6 +1064,14 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }  
+                
+                // Large enemy type for sun level
+                // light red color pixal
+                if(red == 200 && green == 10 && blue == 10)
+                {
+                    SunLargeEnemy largeEnemy = new SunLargeEnemy(tileLoc, ID.LargeEnemyCollision); //Create tile object
+                    GameData.getInstance().addGameObject(largeEnemy); //Add tile to game object array
+                }                
 
                 //death tile
                 //bright red pixel

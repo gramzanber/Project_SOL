@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import model.GameData;
 import model.ImageLibrary;
 import view.gameobjects.ExplosionEffect;
+import view.gameobjects.SunLargeEnemyLeftDeathEffect;
+import view.gameobjects.SunLargeEnemyRightDeathEffect;
 
 public class AnimationController {
 
@@ -68,6 +70,14 @@ public class AnimationController {
     
     public static void explosionEffect(Point point) {
         GameData.getInstance().addGameObject(new ExplosionEffect(point));
+    }
+    
+    public static void sunLargeEnemyLeftDeathEffect(Point point) {
+        GameData.getInstance().addGameObject(new SunLargeEnemyLeftDeathEffect(point));
+    }
+    
+    public static void sunLargeEnemyRightDeathEffect(Point point) {
+        GameData.getInstance().addGameObject(new SunLargeEnemyRightDeathEffect(point));
     }
     
     

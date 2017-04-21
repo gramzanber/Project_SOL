@@ -84,6 +84,12 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("blueEnemyWalkingRight", "/Images/blueEnemyWalkingRight.png", 300, 226, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("greenSmallEnemyWalkingLeft", "/Images/greenSmallAlienWalkingLeft.png", 250, 182, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("greenSmallEnemyWalkingRight", "/Images/greenSmallAlienWalkingRight.png", 250, 182, 0, 0);
+
+        ImageLibrary.getInstance().loadSpriteSheet("sun_large_enemy_run_left", "/Images/sun_large_enemy_run_left.png", 218, 147, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sun_large_enemy_run_right", "/Images/sun_large_enemy_run_right.png", 218, 147, 0, 0);
+        
+        ImageLibrary.getInstance().loadSpriteSheet("sun_large_enemy_die_left", "/Images/sun_large_enemy_die_left.png", 218, 147, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sun_large_enemy_die_right", "/Images/sun_large_enemy_die_right.png", 218, 147, 0, 0);        
         
         ImageLibrary.getInstance().loadSpriteSheet("explosion", "/Images/explosion.png", 128, 128, 0, 0);
 

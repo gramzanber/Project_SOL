@@ -33,6 +33,7 @@ public class ExplosionEffect extends RenderableObject {
         super(loc);
         animationController = new AnimationController(AnimationController.Mode.AUTO, "explosion");
         animationController.setFps(12);
+        SoundController.getInstance().grenadeFire();        
     }
     
     /**
