@@ -3,25 +3,21 @@ package view.gameobjects.Bosses;
 import controller.AnimationController;
 import controller.Main;
 import controller.PhysicsController;
-import controller.SoundController;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import model.GameData;
 import view.gameobjects.Hero;
 import view.gameobjects.PrimaryWeapon;
 import view.gameobjects.RenderableObject;
 import view.gameobjects.Weapon;
+import view.swingcomponents.VictoryScreen;
+import view.swingcomponents.MainWindow;
 
 /**
 * Render a hero object to the screen.
@@ -42,6 +38,8 @@ public abstract class AbstractBoss extends RenderableObject {
     static boolean movingUp = false;
     static boolean movingDown = false;
     static boolean facingRight;
+    
+    private boolean alive;
     
     private PhysicsController pyc;
     private AnimationController animationController;
@@ -82,6 +80,7 @@ public abstract class AbstractBoss extends RenderableObject {
         renderHealthBar = false;
         health = 100;
         displayHealth = 100;
+        alive = true;
         
         //update bounding box for the object
         super.boundingBox = new Rectangle(loc.x, loc.y, animationController.getFrame().getWidth(), animationController.getFrame().getHeight());
@@ -92,6 +91,25 @@ public abstract class AbstractBoss extends RenderableObject {
     }
     
     
+    public void die(){
+        alive = false;
+        AnimationController.explosionEffect(new Point((int)getBoundingBox().getCenterX(), (int)getBoundingBox().getCenterY()));
+        GameData.getInstance().removeGameObject(this);
+        
+            //Thread.sleep(4000);
+        VictoryScreen dialogMenu = new VictoryScreen(MainWindow.getInstance(), false);
+        int parentX = MainWindow.getInstance().getX();
+        int parentY = MainWindow.getInstance().getY();
+        int parentWidth = MainWindow.getInstance().getWidth();
+        int parentHeight = MainWindow.getInstance().getHeight();
+        dialogMenu.setLocation(parentX + parentWidth / 2 - dialogMenu.getWidth() / 2, parentY + parentHeight / 2 - dialogMenu.getHeight() / 2);
+        dialogMenu.getContentPane().setBackground(Color.BLACK);
+        dialogMenu.setResizable(true);
+        dialogMenu.setAlwaysOnTop(true);
+        dialogMenu.setVisible(true);
+        
+    }
+    
     /**
     * {@inheritDoc}
     */
@@ -101,7 +119,10 @@ public abstract class AbstractBoss extends RenderableObject {
         healthBound();     
       
         
-      
+        if(alive = true && health <= 0){
+            die();
+            return;
+        }
       
       //update physics controller
         pyc.update();

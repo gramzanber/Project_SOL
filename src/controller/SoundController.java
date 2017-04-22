@@ -364,6 +364,44 @@ public class SoundController
         }
     }
     
+    public void primaryUpgradeWeaponFire()
+    {
+        try
+        {
+            File file = new File("src/Sounds/primary_upgrade.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }    
+    
+    public void grenadeFire()
+    {
+        try
+        {
+            File file = new File("src/Sounds/grenade.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }    
+    
     public void seekerMissileFire()
     {
         try
@@ -383,6 +421,25 @@ public class SoundController
         }
     }
     
+    public void flakFire()
+    {
+        try
+        {
+            File file = new File("src/Sounds/flak.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }    
+    
     public void coinPickUp()
     {
         try
@@ -401,6 +458,63 @@ public class SoundController
             System.out.printf("Error: %s \n", e.toString());
         }
     }
+    
+    public void itemPickUp()
+    {
+        try
+        {
+            File file = new File("src/Sounds/item.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    } 
+    
+    public void healthPickUp()
+    {
+        try
+        {
+            File file = new File("src/Sounds/health.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }    
+    
+        public void largeEnemyDeath()
+    {
+        try
+        {
+            File file = new File("src/Sounds/roar.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }   
     
     public void repurposedFleshMove()
     {
@@ -502,7 +616,7 @@ public class SoundController
     {
         try
         {
-            File file = new File("src/Sounds/sol-player-ver2.wav");
+            File file = new File("src/Sounds/step.wav");
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
             if(!paused)
             {

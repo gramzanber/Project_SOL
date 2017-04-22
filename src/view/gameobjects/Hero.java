@@ -6,17 +6,14 @@ import controller.SoundController;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import model.GameData;
 import view.swingcomponents.DeathScreen;
+
 import view.swingcomponents.MainWindow;
 
 /**
@@ -29,11 +26,11 @@ import view.swingcomponents.MainWindow;
 public class Hero extends Actor {
     
     private Rectangle viewportMain;
-    private float health = 0;
+    private static float health = 0;
     private float displayHealth =0;
     private float blueValue = 255;
     private static int score = 0;
-    private int healthPacks =0;
+    private static int healthPacks = 0;
     static boolean movingLeft = false;
     static boolean movingRight = false;
     static boolean movingUp = false;
@@ -41,6 +38,7 @@ public class Hero extends Actor {
     static boolean facingRight;
     public static boolean dead = false;
     private static int secondaryWeap; //0 = grenade, 1 = seeker weapon, 2 = FlakCannon 
+    private static int primaryWeap; //0 = grenade, 1 = seeker weapon, 2 = FlakCannon 
     
     
     private AnimationController animationController;
@@ -63,7 +61,8 @@ public class Hero extends Actor {
         
         //Change this to try out secondary weapons
 
-        this.secondaryWeap = 3;
+        this.secondaryWeap = 1;
+        this.primaryWeap = 1;
     }
     
     /**
@@ -92,7 +91,7 @@ public class Hero extends Actor {
                     System.out.println("Grenade Weapon");
                     Weapon g = new GrenadeWeapon(translatedX, translatedY, this);
                     synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(g); }
-                    SoundController.getInstance().primaryWeaponFire();
+                    SoundController.getInstance().grenadeFire();
                     break;
                 case 1:
                     System.out.println("Seeker Missile");
@@ -104,7 +103,7 @@ public class Hero extends Actor {
                     System.out.println("Flak Cannon");
                     Weapon f = new FlakCannon(translatedX, translatedY, this);
                     synchronized (GameData.getInstance().gameObjects) {GameData.getInstance().addGameObject(f);}
-                    SoundController.getInstance().primaryWeaponFire();
+                    SoundController.getInstance().flakFire();
                     break;
                 default:
                     System.out.println("SecondaryWeap:Default");
@@ -114,10 +113,22 @@ public class Hero extends Actor {
         }
         else if(SwingUtilities.isLeftMouseButton(e))
         {
-            PrimaryWeapon m = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+60, this);
-            SoundController.getInstance().primaryWeaponFire();
+            if(primaryWeap==1){
+                PrimaryWeapon m = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+60, this);
+                SoundController.getInstance().primaryWeaponFire();
 
-            synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m); }
+                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m); }                
+            }
+            else{
+                PrimaryWeapon u = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+60, this);
+                PrimaryWeapon v = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+90, this);
+                PrimaryWeapon w = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+30, this);                
+                SoundController.getInstance().primaryUpgradeWeaponFire();
+
+                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(u); }   
+                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(v); } 
+                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(w); }                 
+            }
         }
         else { System.out.printf("Mouse click error, Package: Controller; Class: view.Hero.java"); }
     }
@@ -279,18 +290,19 @@ public class Hero extends Actor {
         
         g2.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
         g2.setColor(Color.WHITE);
-        g2.drawString("Score: "+score, 10, 50);
+        g2.drawString("Score: "+score, 10, 80);
     }
     
     public static void fallDeath(){
         playerDied();
+       
     }
 
     private void healthBound() {
         //the health is depleated constatntly but just as a demo. will be changed when there are enemies in the game
         
         if(health <= 0){
-            this.playerDied();
+            playerDied();
         }
         else{
             if(displayHealth > 100){
@@ -341,12 +353,20 @@ public class Hero extends Actor {
         secondaryWeap = w;
     }
     
+    public static void setPrimaryWeap(int w){
+        secondaryWeap = w;
+    }    
+    
     public static int getScore(){
         return score;
     }
     
     public static void setScore(int s){
         score = s;
+    }
+    
+    public static void addHealthPack(){
+        health += 100;
     }
     
     private static void playerDied(){

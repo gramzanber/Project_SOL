@@ -1,7 +1,5 @@
 package controller;
 
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import model.ImageLibrary;
 import view.swingcomponents.MainWindow;
 
@@ -38,11 +36,17 @@ public class Main
         
         ImageLibrary.getInstance().loadSpriteSheet("grenade_pickup", "/Images/grenade_pickup.png", 16, 16, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("missile_pickup", "/Images/missile_pickup.png", 16, 16, 0, 0);
-        ImageLibrary.getInstance().loadSpriteSheet("flak_pickup", "/Images/flak_pickup.png", 16, 16, 0, 0);   
+        ImageLibrary.getInstance().loadSpriteSheet("flak_pickup", "/Images/flak_pickup.png", 16, 16, 0, 0); 
+        ImageLibrary.getInstance().loadSpriteSheet("primary_pickup", "/Images/primary_pickup.png", 16, 16, 0, 0);         
+        ImageLibrary.getInstance().loadSpriteSheet("energy_tank", "/Images/energy_tank.png", 16, 16, 0, 0);           
         
         ImageLibrary.getInstance().loadSpriteSheet("lava_top", "/Images/lava_top.png", 32, 32, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("lava_mid", "/Images/lava_mid.png", 32, 32, 0, 0);
-        ImageLibrary.getInstance().loadSpriteSheet("lava_bottom", "/Images/lava_bottom.png", 32, 32, 0, 0);          
+        ImageLibrary.getInstance().loadSpriteSheet("lava_bottom", "/Images/lava_bottom.png", 32, 32, 0, 0);      
+        
+        ImageLibrary.getInstance().loadSpriteSheet("acid_top", "/Images/acid_top.png", 32, 32, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("acid_mid", "/Images/acid_mid.png", 32, 32, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("acid_bottom", "/Images/acid_bottom.png", 32, 32, 0, 0);          
                 
         ImageLibrary.getInstance().loadSpriteSheet("hero_run_left", "/Images/hero_run_left.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("hero_run_right", "/Images/hero_run_right.png", 166, 155, 0, 0);
@@ -59,7 +63,9 @@ public class Main
         
         
         ImageLibrary.getInstance().loadSpriteSheet("primary1_left", "/Images/primary1_left.png", 51, 26, 0, 0);
-        ImageLibrary.getInstance().loadSpriteSheet("primary1_right", "/Images/primary1_right.png", 51, 26, 0, 0);        
+        ImageLibrary.getInstance().loadSpriteSheet("primary1_right", "/Images/primary1_right.png", 51, 26, 0, 0); 
+        ImageLibrary.getInstance().loadSpriteSheet("primary2_left", "/Images/primary_upgrade_left.png", 45, 9, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("primary2_right", "/Images/primary_upgrade_right.png", 45, 9, 0, 0);         
         ImageLibrary.getInstance().loadSpriteSheet("grenade", "/Images/grenade.png", 144, 82, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("alien_5-walkleft", "/Images/alien_5-walkleft.png", 428, 298, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("alien_5-walkright", "/Images/alien_5-walkright.png", 428, 298, 0, 0);
@@ -68,7 +74,11 @@ public class Main
 
         ImageLibrary.getInstance().loadSpriteSheet("seeker", "/Images/seeker.png", 350, 80, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("seekerleft", "/Images/seekerleft.png", 350, 80, 0, 0);
-        ImageLibrary.getInstance().loadSpriteSheet("FlakCannon", "/Images/FlakCannon.png", 101, 111, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("FlakCannonRight", "/Images/sprite_sheet_FlakCannon_right_100X100.png", 100, 100, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("FlakCannonLeft", "/Images/sprite_sheet_FlakCannon_left_100X100.png", 100, 100, 0, 0);
+        
+        ImageLibrary.getInstance().loadSpriteSheet("earth_small_enemy_walk_left", "/Images/earth_small_enemy_walk_left.png", 234, 327, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("earth_small_enemy_walk_right", "/Images/earth_small_enemy_walk_right.png", 234, 327, 0, 0);
         
         ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_10_walk_right_300x226", "/Images/sprite_sheet_alian_10_walk_right_300x226.png", 300, 226, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_alian_10_walk_left_300x226", "/Images/sprite_sheet_alian_10_walk_left_300x226.png", 300, 226, 0, 0);
@@ -86,6 +96,22 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("blueEnemyWalkingRight", "/Images/blueEnemyWalkingRight.png", 300, 226, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("greenSmallEnemyWalkingLeft", "/Images/greenSmallAlienWalkingLeft.png", 250, 182, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("greenSmallEnemyWalkingRight", "/Images/greenSmallAlienWalkingRight.png", 250, 182, 0, 0);
+        
+        ImageLibrary.getInstance().loadSpriteSheet("mercury_large_enemy_attack_left", "/Images/mercury_large_enemy_attack_left.png", 360, 420, 0, 0);    
+        ImageLibrary.getInstance().loadSpriteSheet("mercury_large_enemy_hit_left", "/Images/mercury_large_enemy_hit_left.png", 360, 420, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("mercury_large_enemy_die_left", "/Images/mercury_large_enemy_die_left.png", 360, 420, 0, 0);
+        
+        ImageLibrary.getInstance().loadSpriteSheet("sun_small_enemy_attack_left", "/Images/sun_small_enemy_attack_left.png", 180, 210, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sun_small_enemy_attack_right", "/Images/sun_small_enemy_attack_right.png", 180, 210, 0, 0);        
+        ImageLibrary.getInstance().loadSpriteSheet("sun_large_enemy_run_left", "/Images/sun_large_enemy_run_left.png", 218, 147, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sun_large_enemy_run_right", "/Images/sun_large_enemy_run_right.png", 218, 147, 0, 0);
+        
+        ImageLibrary.getInstance().loadSpriteSheet("sun_large_enemy_die_left", "/Images/sun_large_enemy_die_left.png", 218, 147, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("sun_large_enemy_die_right", "/Images/sun_large_enemy_die_right.png", 218, 147, 0, 0);        
+        
+        ImageLibrary.getInstance().loadSpriteSheet("explosion", "/Images/explosion.png", 128, 128, 0, 0);
+
+        
         
         //build and display the gui
         MainWindow.getInstance().setVisible(true);

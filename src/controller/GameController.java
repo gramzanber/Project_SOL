@@ -15,6 +15,9 @@ import javax.swing.JFrame;
 import model.GameData;
 import model.ID;
 import view.BufferedImageLoader;
+import view.gameobjects.AcidBottom;
+import view.gameobjects.AcidMid;
+import view.gameobjects.AcidTop;
 import view.gameobjects.Laser;
 import view.gameobjects.Background;
 import view.gameobjects.Bosses.EarthBoss;
@@ -31,13 +34,17 @@ import view.gameobjects.FlakPickup;
 import view.gameobjects.Level5Tile;
 import view.gameobjects.Gold;
 import view.gameobjects.GrenadePickup;
+import view.gameobjects.HealthPickup;
 import view.gameobjects.LavaBottom;
 import view.gameobjects.LavaMid;
 import view.gameobjects.LavaTop;
 import view.gameobjects.Level4Tile;
+import view.gameobjects.MercuryLargeEnemy;
 import view.gameobjects.MissilePickup;
 import view.gameobjects.MoonLargeEnemy;
 import view.gameobjects.MoonSmallEnemy;
+import view.gameobjects.PrimaryPickup;
+import view.gameobjects.SunLargeEnemy;
 import view.menus.Menu;
 import view.worldmap.Mercury;
 import view.worldmap.Moon;
@@ -393,7 +400,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
         clear();
         
         //add background
-        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.WORLD, true, false));
+        GameData.getInstance().gameObjects.add(new Background("/Images/BG Apocalyptic 2.jpg", Background.Stretch.NONE, true, false));
         
         //play background music
         SoundController.getInstance().earthBGM();
@@ -737,6 +744,30 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     tile.setSolid(true);
                 }
                 
+                //acid top lvl-3
+                //turquoise color pixal
+                if(red == 0 && green == 255 && blue == 237){
+                    Tile tile = new AcidTop(tileLoc, ID.Environmental); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }    
+                
+                //acid mid lvl-3
+                //turquoise color pixal
+                if(red == 0 && green == 255 && blue == 238){
+                    Tile tile = new AcidMid(tileLoc, ID.Environmental); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }  
+
+                //acid bottom lvl-3
+                //turquoise color pixal
+                if(red == 0 && green == 255 && blue == 239){
+                    Tile tile = new AcidBottom(tileLoc, ID.Environmental); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }                  
+                
                 //level 3-----
                 //platform middle lvl-4
                 //light gray color pixal
@@ -971,7 +1002,15 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     tile.setSprite(3, 10); //lava platform middle
                     tile.setTrim(2); //over size the tile to hide the gap
                     tile.setSolid(true);
-                }                 
+                }  
+                
+                // Large enemy type for mercury level
+                // purple color pixal
+                if(red == 203 && green == 3 && blue == 203)
+                {
+                    MercuryLargeEnemy largeEnemy = new MercuryLargeEnemy(tileLoc, ID.LargeEnemyCollision); //Create tile object
+                    GameData.getInstance().addGameObject(largeEnemy); //Add tile to game object array
+                }                  
                 
                 //platform middle lvl-5
                 //brown color pixal
@@ -1016,7 +1055,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //lava top lvl-5
                 //turquoise color pixal
                 if(red == 0 && green == 255 && blue == 240){
-                    Tile tile = new LavaTop(tileLoc); //Create tile object
+                    Tile tile = new LavaTop(tileLoc, ID.Environmental); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }    
@@ -1032,10 +1071,18 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //lava bottom lvl-5
                 //turquoise color pixal
                 if(red == 0 && green == 255 && blue == 242){
-                    Tile tile = new LavaBottom(tileLoc); //Create tile object
+                    Tile tile = new LavaBottom(tileLoc, ID.Environmental); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }  
+                
+                // Large enemy type for sun level
+                // light red color pixal
+                if(red == 200 && green == 10 && blue == 10)
+                {
+                    SunLargeEnemy largeEnemy = new SunLargeEnemy(tileLoc, ID.LargeEnemyCollision); //Create tile object
+                    GameData.getInstance().addGameObject(largeEnemy); //Add tile to game object array
+                }                
 
                 //death tile
                 //bright red pixel
@@ -1075,6 +1122,22 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //yellow color pixal
                 if(red == 255 && green == 245 && blue == 0){
                     Tile tile = new FlakPickup(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                } 
+                
+                //primary upgrade pickup
+                //green color pixal
+                if(red == 30 && green == 230 && blue == 130){
+                    Tile tile = new PrimaryPickup(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }
+
+                //health upgrade pickup
+                //blue color pixal
+                if(red == 30 && green == 130 && blue == 230){
+                    Tile tile = new HealthPickup(tileLoc); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }                

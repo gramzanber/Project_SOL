@@ -1,7 +1,6 @@
 package view.gameobjects;
 
 import controller.AnimationController;
-import controller.SoundController;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -35,7 +34,7 @@ public class LavaMid extends Tile {
         super(loc);
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "lava_mid");
-        animationController.setFps(7);
+        animationController.setFps(4);
         
         this.solid = false;
     }

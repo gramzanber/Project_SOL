@@ -5,21 +5,18 @@
  */
 package view.gameobjects;
 
-import com.sun.javafx.scene.traversal.Direction;
 import controller.AnimationController;
 import controller.Main;
 import controller.PhysicsController;
 import controller.PhysicsController.DIRECTION;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import model.GameData;
-import static view.gameobjects.GameFigure.STATE_ALIVE;
 
 /**
  *
@@ -125,8 +122,10 @@ public class SeekerMissile extends Weapon {
         
         Point mouseloc = new Point(mouseX, mouseY);
         
-        if(boundingBox.contains(mouseloc))
+        if(boundingBox.contains(mouseloc)){
+            animationController.explosionEffect(new Point((int)getBoundingBox().getX(), (int)getBoundingBox().getY()));
             GameData.getInstance().removeGameObject(this);
+        }
     }
     
     public void translate(int dx, int dy){

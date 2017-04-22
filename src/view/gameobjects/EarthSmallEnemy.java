@@ -1,33 +1,35 @@
 package view.gameobjects;
 
+import controller.AnimationController;
 import controller.PhysicsController;
 import controller.SoundController;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
+import java.awt.image.BufferedImage;
 import model.GameData;
 import model.ID;
 
 /**
-* Render a hero object to the screen.
+* Render a small alien object to the screen.
 *
 * @author  SATAS
 * @version 1.0
 * @since   2017-02-18 
 */
 public class EarthSmallEnemy extends RenderableObject
-{
-    
-    private Image enemyImage;
+{   
+    //private Image enemyImage;
 
     private PhysicsController pyc = new PhysicsController(this);
+    
     boolean directionLeft = true;
+    private boolean alive;
+    
+    private AnimationController animationController;
+    
     
     /**
     * Constructor 
@@ -41,16 +43,21 @@ public class EarthSmallEnemy extends RenderableObject
         //call superclass constructor
         super(loc);
         this.id = id;
-        //update bounding box for the object
-        super.boundingBox = new Rectangle(loc.x, loc.y, 32, 83);
+        this.alive = true;
         
-        enemyImage = null;
-        try {
-            enemyImage = ImageIO.read(getClass().getResource("/Images/zombie1_walk0.png"));
+        animationController = new AnimationController(AnimationController.Mode.AUTO, "earth_small_enemy_walk_left");
+        animationController.setFps(24);
+        
+        //update bounding box for the object
+        super.boundingBox = new Rectangle(loc.x, loc.y, 90, 83);
+        
+        //enemyImage = null;
+        /*try {
+            enemyImage = ImageIO.read(getClass().getResource("/Images/alien_5-walk0.png"));
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error: Cannot open small enemy.png");
             System.exit(-1);
-        }
+        }*/
     }
     
     public void translate(int dx, int dy){
@@ -79,6 +86,7 @@ public class EarthSmallEnemy extends RenderableObject
     @Override
     public void update()
     {
+        super.update();
         SoundController.getInstance().repurposedFleshMove();
         
         if(!pyc.canMove(PhysicsController.DIRECTION.LEFT))
@@ -117,8 +125,30 @@ public class EarthSmallEnemy extends RenderableObject
             }
         }
         super.collide();
-        
+        /*if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox))
+        {
+            System.out.println("Killed Enemy! By walking into it.");
+            
+            this.clear();
+            GameData.getInstance().gameObjects.remove(this);
+            GameData.getInstance().getHero().setShield(-10);
+        }*/
+        for(int i = 0; i < GameData.getInstance().gameObjects.size(); i++)
+        if((GameData.getInstance().gameObjects.get(i) instanceof PrimaryWeapon || GameData.getInstance().gameObjects.get(i) instanceof Weapon) &&
+                GameData.getInstance().gameObjects.get(i).boundingBox.intersects(boundingBox))
+        {
+            System.out.println("hit");
+            die();
+        }
     }
+    
+    public void die(){
+        alive = false;
+
+        AnimationController.explosionEffect(new Point((int)getBoundingBox().getCenterX(), (int)getBoundingBox().getCenterY()-100));
+        this.clear();
+        GameData.getInstance().removeGameObject(this); 
+    }       
     
     @Override
     public void mouseClicked(MouseEvent e)
@@ -132,13 +162,26 @@ public class EarthSmallEnemy extends RenderableObject
     @Override
     public void render(Graphics2D g2, Rectangle viewport)
     {
-        if(viewport.contains(boundingBox.getLocation()))
+        //if(viewport.contains(boundingBox.getLocation()))
+        if(viewport.intersects(this.getBoundingBox()))
         {
+            // draw in  relation to the viewport
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
-
             int border = 2;
-            g2.drawImage(enemyImage, translatedX, translatedY, (int)boundingBox.getWidth()-border*2, (int)boundingBox.getHeight()-border*2, null); 
+            
+            if (directionLeft) {
+                animationController.setSpriteSheet("earth_small_enemy_walk_left");
+                BufferedImage sprite = animationController.getFrame();
+                g2.drawImage(sprite, translatedX, translatedY, (int) boundingBox.getWidth() - border * 2, (int) boundingBox.getHeight() - border * 2, null);
+                animationController.update();
+            }
+            else {
+                animationController.setSpriteSheet("earth_small_enemy_walk_right");
+                BufferedImage sprite = animationController.getFrame();
+                g2.drawImage(sprite, translatedX, translatedY, (int) boundingBox.getWidth() - border * 2, (int) boundingBox.getHeight() - border * 2, null);
+                animationController.update();
+            }
         }
         
     }
@@ -180,3 +223,4 @@ public class EarthSmallEnemy extends RenderableObject
     public void mouseMoved(MouseEvent e) {
     }
 }
+    

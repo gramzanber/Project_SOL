@@ -9,5 +9,6 @@ public enum ID {
     LargeEnemyCollision,//30
     BossProjectile,//20
     BossCollision,//40
-    Lava//10
+    Lava,//10
+    Environmental// Acid and lava
 }

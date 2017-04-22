@@ -4,7 +4,6 @@ import view.swingcomponents.MenuWindow;
 import controller.GameController;
 import controller.PhysicsController;
 import controller.PhysicsController.DIRECTION;
-import controller.SoundController;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -12,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import model.GameData;
 import view.swingcomponents.MainWindow;
-import controller.Animator;
 
 /**
 * An abstract class extended by all friendly and non friendly characters.

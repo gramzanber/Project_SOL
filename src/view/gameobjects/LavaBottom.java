@@ -1,7 +1,6 @@
 package view.gameobjects;
 
 import controller.AnimationController;
-import controller.SoundController;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -9,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import model.GameData;
+import model.ID;
 
 /**
 *
@@ -30,12 +30,13 @@ public class LavaBottom extends Tile {
     * 
     * @param loc
     */
-    public LavaBottom(Point loc) {
+    public LavaBottom(Point loc, ID id) {
         //call superclass constructor
         super(loc);
+        this.id = id;
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "lava_bottom");
-        animationController.setFps(4);
+        animationController.setFps(1);
         
         this.solid = false;
     }
@@ -48,9 +49,7 @@ public class LavaBottom extends Tile {
         animationController.update();
 
         //check collision
-        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
-            //damage
-        }
+        super.collide();
         
     }
     

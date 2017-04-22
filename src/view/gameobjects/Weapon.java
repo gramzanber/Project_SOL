@@ -7,7 +7,6 @@ package view.gameobjects;
 
 import controller.AnimationController;
 import controller.PhysicsController;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -37,7 +36,8 @@ public abstract class Weapon extends RenderableObject{
         
         for(int i=0; i<collisions.size(); i++){
             RenderableObject obj = collisions.get(i);
-            if(obj != owner){
+            if(obj != owner && !(this instanceof FlakCannon)){
+               AnimationController.explosionEffect(new Point((int)this.getBoundingBox().getX(), (int)this.getBoundingBox().getY()));
                GameData.getInstance().removeGameObject(this);
                break;
             }

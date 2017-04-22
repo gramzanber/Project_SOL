@@ -49,7 +49,7 @@ public class GrenadePickup extends Tile {
 
         //check collision
         if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
-            SoundController.getInstance().coinPickUp();
+            SoundController.getInstance().itemPickUp();
             Hero.setSecondaryWeap(0);
             
             this.clear();
