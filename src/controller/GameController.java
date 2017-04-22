@@ -39,6 +39,7 @@ import view.gameobjects.LavaBottom;
 import view.gameobjects.LavaMid;
 import view.gameobjects.LavaTop;
 import view.gameobjects.Level4Tile;
+import view.gameobjects.MercuryLargeEnemy;
 import view.gameobjects.MissilePickup;
 import view.gameobjects.MoonLargeEnemy;
 import view.gameobjects.MoonSmallEnemy;
@@ -1001,7 +1002,15 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                     tile.setSprite(3, 10); //lava platform middle
                     tile.setTrim(2); //over size the tile to hide the gap
                     tile.setSolid(true);
-                }                 
+                }  
+                
+                // Large enemy type for mercury level
+                // purple color pixal
+                if(red == 203 && green == 3 && blue == 203)
+                {
+                    MercuryLargeEnemy largeEnemy = new MercuryLargeEnemy(tileLoc, ID.LargeEnemyCollision); //Create tile object
+                    GameData.getInstance().addGameObject(largeEnemy); //Add tile to game object array
+                }                  
                 
                 //platform middle lvl-5
                 //brown color pixal
