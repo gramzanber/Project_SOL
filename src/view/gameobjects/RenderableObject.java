@@ -104,7 +104,7 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
             
             this.clear();
             GameData.getInstance().gameObjects.remove(this);
-            GameData.getInstance().getHero().setShield(-10);
+            GameData.getInstance().getHero().setShield(-100);
             
             //System.out.println("Health::"+ GameData.getInstance().getHero().getShield());
         }

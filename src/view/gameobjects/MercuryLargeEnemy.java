@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import model.GameData;
 import model.ID;
+import model.ImageLibrary;
 
 /**
 * Render a small alien object to the screen.
@@ -28,6 +29,9 @@ public class MercuryLargeEnemy extends RenderableObject
     
     boolean directionLeft = true;
     private boolean alive;
+    private boolean active;
+    private boolean fired;
+    private int wait;
     
     private AnimationController animationController;
     
@@ -45,9 +49,12 @@ public class MercuryLargeEnemy extends RenderableObject
         super(loc);
         this.id = id;
         alive = true;
+        active = false;
+        fired = false;
+        wait = 0;
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "mercury_large_enemy_attack_left");
-        animationController.setFps(16);
+        animationController.setFps(11);
         
         //update bounding box for the object
         super.boundingBox = new Rectangle(loc.x, loc.y, 360, 420);
@@ -159,6 +166,9 @@ public class MercuryLargeEnemy extends RenderableObject
         //if(viewport.contains(boundingBox.getLocation()))
         if(viewport.intersects(this.getBoundingBox()))
         {
+            active = true;
+        }
+        if(active){
             // draw in  relation to the viewport
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY()+10;
@@ -167,7 +177,23 @@ public class MercuryLargeEnemy extends RenderableObject
                 animationController.setSpriteSheet("mercury_large_enemy_attack_left");
                 BufferedImage sprite = animationController.getFrame();
                 g2.drawImage(sprite, translatedX, translatedY, (int) boundingBox.getWidth() - border * 2, (int) boundingBox.getHeight() - border * 2, null);
-                animationController.update();
+                
+                if(animationController.getIndex()==5 && fired == false){
+                    LargeEnemyBlast leb = new LargeEnemyBlast((int)boundingBox.getX()-150, (int)boundingBox.getY()+100, this, ID.LargeEnemyProjectile);
+                    SoundController.getInstance().largeEnemyBlastFire();
+
+                    synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(leb); }   
+                    fired = true;
+                }
+                else if(animationController.getIndex()==5 && fired == true){
+                    wait++;
+                    if(wait >= 4 ){
+                        wait = 0;
+                        fired = false;
+                    }
+                }
+                
+                animationController.update();            
         }
         
     }

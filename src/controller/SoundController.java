@@ -440,6 +440,25 @@ public class SoundController
         }
     }    
     
+    public void largeEnemyBlastFire()
+    {
+        try
+        {
+            File file = new File("src/Sounds/large_enemy_blast.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }      
+    
     public void coinPickUp()
     {
         try
