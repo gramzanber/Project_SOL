@@ -1,6 +1,7 @@
 package view.gameobjects;
 
 import controller.AnimationController;
+import controller.SoundController;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -8,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import model.GameData;
+import model.ID;
 
 /**
 *
@@ -29,9 +31,10 @@ public class AcidMid extends Tile {
     * 
     * @param loc
     */
-    public AcidMid(Point loc) {
+    public AcidMid(Point loc, ID id) {
         //call superclass constructor
         super(loc);
+        this.id = id;
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "acid_mid");
         animationController.setFps(4);
@@ -47,9 +50,7 @@ public class AcidMid extends Tile {
         animationController.update();
 
         //check collision
-        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
-            //damage
-        }
+        super.collide();
         
     }
     
