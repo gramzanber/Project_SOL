@@ -36,7 +36,8 @@ public class Main
         
         ImageLibrary.getInstance().loadSpriteSheet("grenade_pickup", "/Images/grenade_pickup.png", 16, 16, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("missile_pickup", "/Images/missile_pickup.png", 16, 16, 0, 0);
-        ImageLibrary.getInstance().loadSpriteSheet("flak_pickup", "/Images/flak_pickup.png", 16, 16, 0, 0);   
+        ImageLibrary.getInstance().loadSpriteSheet("flak_pickup", "/Images/flak_pickup.png", 16, 16, 0, 0); 
+        ImageLibrary.getInstance().loadSpriteSheet("primary_pickup", "/Images/primary_pickup.png", 16, 16, 0, 0);         
         ImageLibrary.getInstance().loadSpriteSheet("energy_tank", "/Images/energy_tank.png", 16, 16, 0, 0);           
         
         ImageLibrary.getInstance().loadSpriteSheet("lava_top", "/Images/lava_top.png", 32, 32, 0, 0);
@@ -54,7 +55,9 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("hero_jump_left", "/Images/hero_jump_left.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("hero_jump_right", "/Images/hero_jump_right.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("primary1_left", "/Images/primary1_left.png", 51, 26, 0, 0);
-        ImageLibrary.getInstance().loadSpriteSheet("primary1_right", "/Images/primary1_right.png", 51, 26, 0, 0);        
+        ImageLibrary.getInstance().loadSpriteSheet("primary1_right", "/Images/primary1_right.png", 51, 26, 0, 0); 
+        ImageLibrary.getInstance().loadSpriteSheet("primary2_left", "/Images/primary_upgrade_left.png", 45, 9, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("primary2_right", "/Images/primary_upgrade_right.png", 45, 9, 0, 0);         
         ImageLibrary.getInstance().loadSpriteSheet("grenade", "/Images/grenade.png", 144, 82, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("alien_5-walkleft", "/Images/alien_5-walkleft.png", 428, 298, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("alien_5-walkright", "/Images/alien_5-walkright.png", 428, 298, 0, 0);

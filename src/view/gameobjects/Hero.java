@@ -111,10 +111,22 @@ public class Hero extends Actor {
         }
         else if(SwingUtilities.isLeftMouseButton(e))
         {
-            PrimaryWeapon m = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+60, this);
-            SoundController.getInstance().primaryWeaponFire();
+            if(PrimaryWeapon.getWeaponType()==1){
+                PrimaryWeapon m = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+60, this);
+                SoundController.getInstance().primaryWeaponFire();
 
-            synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m); }
+                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m); }                
+            }
+            else{
+                PrimaryWeapon m = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+60, this);
+                PrimaryWeapon m1 = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+90, this);
+                PrimaryWeapon m2 = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+30, this);                
+                SoundController.getInstance().primaryUpgradeWeaponFire();
+
+                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m); }   
+                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m1); } 
+                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m2); }                 
+            }
         }
         else { System.out.printf("Mouse click error, Package: Controller; Class: view.Hero.java"); }
     }

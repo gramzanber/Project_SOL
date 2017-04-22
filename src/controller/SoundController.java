@@ -364,6 +364,25 @@ public class SoundController
         }
     }
     
+    public void primaryUpgradeWeaponFire()
+    {
+        try
+        {
+            File file = new File("src/Sounds/primary_upgrade.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }    
+    
     public void grenadeFire()
     {
         try
@@ -439,6 +458,44 @@ public class SoundController
             System.out.printf("Error: %s \n", e.toString());
         }
     }
+    
+    public void itemPickUp()
+    {
+        try
+        {
+            File file = new File("src/Sounds/item.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    } 
+    
+    public void healthPickUp()
+    {
+        try
+        {
+            File file = new File("src/Sounds/health.wav");
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
+            Clip clipNew = AudioSystem.getClip();
+            if(!paused)
+            {
+                clipNew.open(audioIn);
+                clipNew.start();
+            }
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) 
+        {
+            System.out.printf("Error: %s \n", e.toString());
+        }
+    }    
     
         public void largeEnemyDeath()
     {

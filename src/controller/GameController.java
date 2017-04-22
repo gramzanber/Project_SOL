@@ -41,6 +41,7 @@ import view.gameobjects.Level4Tile;
 import view.gameobjects.MissilePickup;
 import view.gameobjects.MoonLargeEnemy;
 import view.gameobjects.MoonSmallEnemy;
+import view.gameobjects.PrimaryPickup;
 import view.gameobjects.SunLargeEnemy;
 import view.menus.Menu;
 import view.worldmap.Mercury;
@@ -1111,6 +1112,14 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //yellow color pixal
                 if(red == 255 && green == 245 && blue == 0){
                     Tile tile = new FlakPickup(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                } 
+                
+                //primary upgrade pickup
+                //green color pixal
+                if(red == 30 && green == 230 && blue == 130){
+                    Tile tile = new PrimaryPickup(tileLoc); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }                

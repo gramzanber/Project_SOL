@@ -21,7 +21,7 @@ public class PrimaryWeapon extends RenderableObject
     //private int health;
     private static int weaponLevel = 1;
 
-    private static final int UNIT_TRAVEL_DISTANCE = 10; // per frame move
+    private static int UNIT_TRAVEL_DISTANCE = 10; // per frame move
     
     private AnimationController animationController;
 
@@ -35,43 +35,41 @@ public class PrimaryWeapon extends RenderableObject
     public PrimaryWeapon(float sx, float sy, RenderableObject owner)
     {
         super(new Point((int)sx, (int)sy));
-        super.boundingBox = new Rectangle(loc.x, loc.y, 30, 30);
+        if(weaponLevel == 1){
+            super.boundingBox = new Rectangle(loc.x, loc.y, 30, 30);
         
-        this.owner = owner;
+            this.owner = owner;
+                
+            animationController = new AnimationController(AnimationController.Mode.AUTO, "primary1_right");
+            animationController.setFps(4);  
         
-        //state = STATE_ALIVE;
-        
-        animationController = new AnimationController(AnimationController.Mode.AUTO, "primary1_right");
-        animationController.setFps(8);  
-        
-        if(Hero.facingRight){
-            animationController.setSpriteSheet("primary1_right");
-            this.rightProjectile = true;
+            if(Hero.facingRight){
+                animationController.setSpriteSheet("primary1_right");
+                this.rightProjectile = true;
+            }
+            else{
+                animationController.setSpriteSheet("primary1_left");
+                this.rightProjectile = false;
+            }            
         }
         else{
-            animationController.setSpriteSheet("primary1_left");
-            this.rightProjectile = false;
-        }        
+            super.boundingBox = new Rectangle(loc.x, loc.y, 90, 18);        
+        
+            this.owner = owner;
+               
+            animationController = new AnimationController(AnimationController.Mode.AUTO, "primary2_right");
+            animationController.setFps(4);  
+        
+            if(Hero.facingRight){
+                animationController.setSpriteSheet("primary2_right");
+                this.rightProjectile = true;
+            }
+            else{
+                animationController.setSpriteSheet("primary2_left");
+                this.rightProjectile = false;
+            }            
+        }
 
-        
-        //check collisions
-//        ArrayList<RenderableObject> collisions = GameData.getInstance().getCollisions(this);
-//        for(int i=0; i< collisions.size(); i++){
-//            RenderableObject obj = collisions.get(i);
-//            if(!(obj instanceof Hero)){
-//                GameData.getInstance().removeGameObject(this);
-//                return;
-//            }
-//        }
-        
-        
-        //missileImage = null;
-        //try {
-        //    missileImage = ImageIO.read(getClass().getResource("/Images/Missile.bmp"));
-        //} catch (IOException ex) {
-        //    JOptionPane.showMessageDialog(null, "Error: Cannot open shooter.png");
-        //    System.exit(-1);
-        //}
     }
     
     /**
@@ -79,15 +77,24 @@ public class PrimaryWeapon extends RenderableObject
     */
     @Override
     public void render(Graphics2D g2,Rectangle viewport){
-
-        //draw in relation to the viewport
-        int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
-        int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
-            
-            
+        if(weaponLevel == 1){
+            //draw in relation to the viewport
+            int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
+            int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
+                        
             BufferedImage sprite = animationController.getFrame(); 
             g2.drawImage(sprite, translatedX, translatedY, 30, 30, null); 
-            animationController.update();
+            animationController.update();        
+        }
+        else{
+            //draw in relation to the viewport
+            int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
+            int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
+            
+            BufferedImage sprite = animationController.getFrame(); 
+            g2.drawImage(sprite, translatedX, translatedY, 90, 18, null); 
+            animationController.update();       
+        }
 
     }
 
@@ -247,4 +254,9 @@ public class PrimaryWeapon extends RenderableObject
     public static int getWeaponType(){
         return weaponLevel;
     }
+    
+    public static void setWeaponType(int l){
+        weaponLevel = l;
+        UNIT_TRAVEL_DISTANCE = l*10;
+    }    
 }
