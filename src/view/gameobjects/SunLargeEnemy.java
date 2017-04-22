@@ -146,7 +146,7 @@ public class SunLargeEnemy extends RenderableObject
     @Override
     public void mouseClicked(MouseEvent e)
     {
-        boundingBox.x = boundingBox.x + 5;
+        //boundingBox.x = boundingBox.x + 5;
     }
     
     /**
