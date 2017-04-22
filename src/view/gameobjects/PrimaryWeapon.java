@@ -5,21 +5,13 @@
 package view.gameobjects;
 
 import controller.AnimationController;
-import view.gameobjects.GameFigure;
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 import model.GameData;
 
 public class PrimaryWeapon extends RenderableObject
@@ -118,6 +110,7 @@ public class PrimaryWeapon extends RenderableObject
 //        
 //    }
 
+    @Override
     public void update()
     {
         if(this.rightProjectile){

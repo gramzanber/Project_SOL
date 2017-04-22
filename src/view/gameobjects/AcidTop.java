@@ -1,7 +1,6 @@
 package view.gameobjects;
 
 import controller.AnimationController;
-import controller.SoundController;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;

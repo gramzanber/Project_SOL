@@ -4,12 +4,9 @@
 
 package view.swingcomponents;
 
-import controller.Animator;
 import controller.GameController;
-import controller.Main;
 import static controller.Main.WIN_HEIGHT;
 import static controller.Main.WIN_WIDTH;
-import java.awt.Container;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;

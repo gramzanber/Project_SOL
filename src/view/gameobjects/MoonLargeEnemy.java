@@ -3,15 +3,11 @@ package view.gameobjects;
 import controller.AnimationController;
 import controller.PhysicsController;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 import model.GameData;
 import model.ID;
 
@@ -134,10 +130,9 @@ public class MoonLargeEnemy extends RenderableObject
             GameData.getInstance().getHero().setShield(-10);
         }*/
         for(int i = 0; i < GameData.getInstance().gameObjects.size(); i++)
-        if(GameData.getInstance().gameObjects.get(i) instanceof PrimaryWeapon || GameData.getInstance().gameObjects.get(i) instanceof Weapon &&
+        if((GameData.getInstance().gameObjects.get(i) instanceof PrimaryWeapon || GameData.getInstance().gameObjects.get(i) instanceof Weapon) &&
                 GameData.getInstance().gameObjects.get(i).boundingBox.intersects(boundingBox))
         {
-            System.out.println("Killed Enemy! By missle.");
             
             this.clear();
             GameData.getInstance().gameObjects.remove(this);

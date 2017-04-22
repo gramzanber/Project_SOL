@@ -1,15 +1,11 @@
 package controller;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Transparency;
-import java.awt.image.BufferedImage;
-import static javax.swing.Spring.height;
-import static javax.swing.Spring.width;
 import model.GameData;
 import model.quadtree.QuadTree;
 import view.gameobjects.RenderableObject;

@@ -5,13 +5,10 @@
  */
 package model;
 
-import controller.Animator;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import model.quadtree.QuadTree;
 import view.BufferedImageLoader;
 
 /**

@@ -5,9 +5,6 @@
  */
 package view.swingcomponents;
 
-import java.awt.Color;
-import controller.GameController;
-import controller.Animator;
 import view.gameobjects.Hero;
 /**
  *

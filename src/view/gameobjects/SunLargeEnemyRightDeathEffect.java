@@ -1,23 +1,12 @@
 package view.gameobjects;
 
-import view.gameobjects.Bosses.*;
 import controller.AnimationController;
-import controller.Main;
-import controller.PhysicsController;
-import controller.SoundController;
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import model.GameData;
 
 /**
@@ -57,10 +46,10 @@ public class SunLargeEnemyRightDeathEffect extends RenderableObject {
             
         BufferedImage sprite = animationController.getFrame();
         if(viewport.intersects(this.getBoundingBox())){
-            g2.drawImage(sprite, translatedX-1200, translatedY-80, sprite.getWidth()*2, sprite.getHeight()*2, null);                 
+            g2.drawImage(sprite, translatedX-120, translatedY-80, sprite.getWidth()*2, sprite.getHeight()*2, null);                 
         }
         if(animationController.getLoopCount() > 0){
-            AnimationController.explosionEffect(new Point((int)getBoundingBox().getCenterX(), (int)getBoundingBox().getCenterY()));            
+            AnimationController.explosionEffect(new Point((int)getBoundingBox().getCenterX(), (int)getBoundingBox().getCenterY()+80));            
             GameData.getInstance().removeGameObject(this);
         }
     }
