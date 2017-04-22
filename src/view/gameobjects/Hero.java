@@ -136,7 +136,10 @@ public class Hero extends Actor {
             
             if(movingUp){
                 if(facingRight){
-                    animationController.setSpriteSheet("hero_jump_right");
+                    //animationController.setSpriteSheet("hero_jump_right");
+                    animationController.setSpriteSheet("hero_run_right");
+                    
+                    animationController.setFrame(16);
                     
                     if(animationController.getIndex() == 4){
                         BufferedImage sprite = animationController.getFrame();
@@ -151,7 +154,9 @@ public class Hero extends Actor {
                     }                  
                 }
                 else{
-                    animationController.setSpriteSheet("hero_jump_left");
+                   //animationController.setSpriteSheet("hero_jump_left");
+                    animationController.setSpriteSheet("hero_run_left");
+                    animationController.setFrame(16);
                     
                     if(animationController.getIndex() == 4){
                         BufferedImage sprite = animationController.getFrame();
@@ -168,7 +173,9 @@ public class Hero extends Actor {
             }
             else if(movingDown){
                 if(facingRight){
-                    animationController.setSpriteSheet("hero_jump_right");
+                    animationController.setSpriteSheet("hero_run_right");
+                    
+                    animationController.setFrame(18);
                     
                     if(animationController.getIndex() == 23){
                         BufferedImage sprite = animationController.getFrame();
@@ -183,7 +190,10 @@ public class Hero extends Actor {
                     }                    
                 }
                 else{
-                    animationController.setSpriteSheet("hero_jump_left");
+                    //animationController.setSpriteSheet("hero_jump_left");
+                    animationController.setSpriteSheet("hero_run_left");
+                    animationController.setFrame(18);
+                    
                     
                     if(animationController.getIndex() == 23){
                         BufferedImage sprite = animationController.getFrame();

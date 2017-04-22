@@ -48,8 +48,16 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("hero_run_right", "/Images/hero_run_right.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("hero_stand_left", "/Images/hero_stand_left.png", 166, 155, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("hero_stand_right", "/Images/hero_stand_right.png", 166, 155, 0, 0);
-        ImageLibrary.getInstance().loadSpriteSheet("hero_jump_left", "/Images/hero_jump_left.png", 166, 155, 0, 0);
-        ImageLibrary.getInstance().loadSpriteSheet("hero_jump_right", "/Images/hero_jump_right.png", 166, 155, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("hero_jump_left", "/Images/hero_jump_left.png", 166, 374, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("hero_jump_right", "/Images/hero_jump_right.png", 166, 374, 0, 0);
+        
+//        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_robot_9_walk_left_166x203", "/Images/sprite_sheet_robot_9_walk_left_166x203.png", 166, 203, 0, 0);
+//        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_robot_9_walk_right_166x203", "/Images/sprite_sheet_robot_9_walk_right_166x203.png", 166, 203, 0, 0);
+//        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_robot_9_jump_left_191X265", "/Images/sprite_sheet_robot_9_jump_left_191X265.png", 191, 265, 0, 0);
+//        ImageLibrary.getInstance().loadSpriteSheet("sprite_sheet_robot_9_jump_right_191X265", "/Images/sprite_sheet_robot_9_jump_right_191X265.png", 191, 265, 0, 0);
+
+        
+        
         ImageLibrary.getInstance().loadSpriteSheet("primary1_left", "/Images/primary1_left.png", 51, 26, 0, 0);
         ImageLibrary.getInstance().loadSpriteSheet("primary1_right", "/Images/primary1_right.png", 51, 26, 0, 0);        
         ImageLibrary.getInstance().loadSpriteSheet("grenade", "/Images/grenade.png", 144, 82, 0, 0);
