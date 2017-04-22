@@ -24,7 +24,9 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
     protected Rectangle boundingBox;
     protected boolean solid;
     protected ID id;
-    
+    protected long delay = 1000;
+    protected long start;
+    protected boolean colliding = false;
     /**
     * A simple constructor 
     * 
@@ -95,7 +97,7 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
             //}
             
         }
-        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox) && getId() == ID.LargeEnemyProjectile)
+        else if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox) && getId() == ID.LargeEnemyProjectile)
         {
             System.out.println("Killed Enemy! By walking into it.");
             
@@ -105,7 +107,7 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
             
             //System.out.println("Health::"+ GameData.getInstance().getHero().getShield());
         }
-        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)&& getId() == ID.LargeEnemyCollision)
+        else if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)&& getId() == ID.LargeEnemyCollision)
         {
             System.out.println("Killed Enemy! By walking into it.");
             
@@ -115,7 +117,7 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
             
             //System.out.println("Health::"+ GameData.getInstance().getHero().getShield());
         }
-        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox) && getId() == ID.BossProjectile)
+        else if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox) && getId() == ID.BossProjectile)
         {
             System.out.println("Killed Enemy! By walking into it.");
             
@@ -125,7 +127,7 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
             
             //System.out.println("Health::"+ GameData.getInstance().getHero().getShield());
         }
-        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox) && getId() == ID.BossCollision)
+        else if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox) && getId() == ID.BossCollision)
         {
             System.out.println("Killed Enemy! By walking into it.");
             
@@ -135,8 +137,33 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
             
             //System.out.println("Health::"+ GameData.getInstance().getHero().getShield());
         }
+        else if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox) && getId() == ID.Environmental)
+        {
+            System.out.println("Walked into death");
+            
+            this.clear();
+            
+            //new java.util.Timer().schedule(
+              //  new java.util.TimerTask() {
+                //    @Override
+                  //  public void run() {
+                        if(!colliding){
+                            start = System.currentTimeMillis();
+                        }
+                        colliding = true;
+                        if(System.currentTimeMillis() - start > delay){
+                            GameData.getInstance().getHero().setShield(-1);
+                            colliding = false;
+                        }
+                        
+                    //}
+                //},
+                //5000
+            //);
+                        
+            //System.out.println("Health::"+ GameData.getInstance().getHero().getShield());
+        }
         //collision for projectiles
-        //if(GameData.getInstance().)
     }
     
 }

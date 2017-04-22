@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import model.GameData;
+import model.ID;
 
 /**
 *
@@ -30,9 +31,10 @@ public class LavaTop extends Tile {
     * 
     * @param loc
     */
-    public LavaTop(Point loc) {
+    public LavaTop(Point loc, ID id) {
         //call superclass constructor
         super(loc);
+        this.id = id;
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "lava_top");
         animationController.setFps(7);
@@ -48,9 +50,7 @@ public class LavaTop extends Tile {
         animationController.update();
 
         //check collision
-        if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
-            //damage
-        }
+        super.collide();
         
     }
     
