@@ -105,6 +105,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     public Mercury mercury;
     public static String levelNumber = "1";
     public static String levelName = "Earth";
+    public static int currentLevel;
     public static Text levelText;
     //we can either create a new background obj each time we load a new menu
     //which will cause the animation to restart and look awkward
@@ -395,6 +396,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
    */
     public void showLevel1(){
         screen = "Level1";
+        currentLevel = 1;
         
         //clear all game objects
         clear();
@@ -413,6 +415,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     }
     public void showLevel2(){
         screen = "Level2";
+        currentLevel = 2;
         
         //clear all game objects
         clear();       
@@ -433,6 +436,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     }
     public void showLevel3(){
         screen = "Level3";
+        currentLevel = 3;
         
         //clear all game objects
         clear();
@@ -453,6 +457,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     }
     public void showLevel4(){
         screen = "Level4";
+        currentLevel = 4;
         
         //clear all game objects
         clear();
@@ -472,6 +477,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
     }
     public void showLevel5(){
         screen = "Level5";
+        currentLevel = 5;
         
         //clear all game objects
         clear();        

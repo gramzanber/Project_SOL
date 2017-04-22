@@ -5,6 +5,7 @@
  */
 package view.swingcomponents;
 
+import controller.GameController;
 import view.gameobjects.Hero;
 /**
  *
@@ -183,10 +184,36 @@ public class DeathScreen extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_highScoresButtonActionPerformed
 
-    private void restartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartButtonActionPerformed
-        controller.GameController.getInstance().showLevel1();
-        Hero.dead = false;
-        this.dispose();
+    private void restartButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_restartButtonActionPerformed
+        switch (GameController.currentLevel) {
+            case 1:
+                controller.GameController.getInstance().showLevel1();
+                Hero.dead = false;        
+                this.dispose();
+                break;
+            case 2:
+                controller.GameController.getInstance().showLevel2();
+                Hero.dead = false;
+                this.dispose();
+                break;
+            case 3:
+                controller.GameController.getInstance().showLevel3();
+                Hero.dead = false;
+                this.dispose();
+                break;
+            case 4:
+                controller.GameController.getInstance().showLevel4();
+                Hero.dead = false;
+                this.dispose();
+                break;
+            case 5:
+                controller.GameController.getInstance().showLevel5();
+                Hero.dead = false;
+                this.dispose();
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_restartButtonActionPerformed
 
     private void worldMapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_worldMapButtonActionPerformed
