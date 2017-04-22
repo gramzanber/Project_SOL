@@ -51,7 +51,7 @@ public class PrimaryPickup extends Tile {
         if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
             SoundController.getInstance().itemPickUp();
             PrimaryWeapon.setWeaponType(2);
-            //Hero.setSecondaryWeap(1);            
+            Hero.setPrimaryWeap(2);            
             
             this.clear();
             GameData.getInstance().removeGameObject(this);
