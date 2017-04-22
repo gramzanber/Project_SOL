@@ -38,7 +38,6 @@ public class Hero extends Actor {
     static boolean facingRight;
     public static boolean dead = false;
     private static int secondaryWeap; //0 = grenade, 1 = seeker weapon, 2 = FlakCannon 
-    private static int primaryWeap; //0 = grenade, 1 = seeker weapon, 2 = FlakCannon 
     
     
     private AnimationController animationController;
@@ -62,7 +61,6 @@ public class Hero extends Actor {
         //Change this to try out secondary weapons
 
         this.secondaryWeap = 1;
-        this.primaryWeap = 1;
     }
     
     /**
@@ -113,21 +111,21 @@ public class Hero extends Actor {
         }
         else if(SwingUtilities.isLeftMouseButton(e))
         {
-            if(primaryWeap==1){
+            if(PrimaryWeapon.getWeaponType()==1){
                 PrimaryWeapon m = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+60, this);
                 SoundController.getInstance().primaryWeaponFire();
 
                 synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m); }                
             }
             else{
-                PrimaryWeapon u = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+60, this);
-                PrimaryWeapon v = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+90, this);
-                PrimaryWeapon w = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+30, this);                
+                PrimaryWeapon m = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+60, this);
+                PrimaryWeapon m1 = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+90, this);
+                PrimaryWeapon m2 = new PrimaryWeapon((int)boundingBox.getX(), (int)boundingBox.getY()+30, this);                
                 SoundController.getInstance().primaryUpgradeWeaponFire();
 
-                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(u); }   
-                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(v); } 
-                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(w); }                 
+                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m); }   
+                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m1); } 
+                synchronized (GameData.getInstance().gameObjects) { GameData.getInstance().addGameObject(m2); }                 
             }
         }
         else { System.out.printf("Mouse click error, Package: Controller; Class: view.Hero.java"); }

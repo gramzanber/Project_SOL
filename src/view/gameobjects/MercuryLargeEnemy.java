@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import model.GameData;
 import model.ID;
 
@@ -46,7 +47,7 @@ public class MercuryLargeEnemy extends RenderableObject
         alive = true;
         
         animationController = new AnimationController(AnimationController.Mode.AUTO, "mercury_large_enemy_attack_left");
-        animationController.setFps(48);
+        animationController.setFps(16);
         
         //update bounding box for the object
         super.boundingBox = new Rectangle(loc.x, loc.y, 360, 420);
@@ -93,8 +94,8 @@ public class MercuryLargeEnemy extends RenderableObject
         if(!pyc.canMove(PhysicsController.DIRECTION.RIGHT))
             directionLeft = true;
         
-        if(directionLeft)pyc.addForce(PhysicsController.DIRECTION.LEFT, 2);
-        else pyc.addForce(PhysicsController.DIRECTION.RIGHT, 2);
+        //if(directionLeft)pyc.addForce(PhysicsController.DIRECTION.LEFT, 2);
+        //else pyc.addForce(PhysicsController.DIRECTION.RIGHT, 2);
         
         //update physics controller
         pyc.update();
@@ -103,16 +104,16 @@ public class MercuryLargeEnemy extends RenderableObject
         Point.Double p = pyc.getNextTranslation();
         
         //translate object
-        if(p.x >0){
-            for(int i=0; i<p.x; i++){
-                translate(1, 0);
-            }
-        }
-        else if(p.x < 0){
-            for(int i=0; i<-p.x; i++){
-                translate(-1, 0);
-            }
-        }
+        //if(p.x >0){
+            //for(int i=0; i<p.x; i++){
+                //translate(1, 0);
+            //}
+        //}
+        //else if(p.x < 0){
+            //for(int i=0; i<-p.x; i++){
+                //translate(-1, 0);
+            //}
+        //}
         if(p.y >0){
             for(int i=0; i<p.y; i++){
                 translate(0, 1);
@@ -132,14 +133,14 @@ public class MercuryLargeEnemy extends RenderableObject
             GameData.getInstance().gameObjects.remove(this);
             GameData.getInstance().getHero().setShield(-10);
         }*/
-        for(int i = 0; i < GameData.getInstance().gameObjects.size(); i++)
-        if((GameData.getInstance().gameObjects.get(i) instanceof PrimaryWeapon || GameData.getInstance().gameObjects.get(i) instanceof Weapon) &&
+       
+        for(int i = 0; i < GameData.getInstance().gameObjects.size(); i++){
+            if((GameData.getInstance().gameObjects.get(i) instanceof PrimaryWeapon || GameData.getInstance().gameObjects.get(i) instanceof Weapon) &&
                 GameData.getInstance().gameObjects.get(i).boundingBox.intersects(boundingBox))
-        {
-            die();
-            
-            //this.clear();
-            //GameData.getInstance().gameObjects.remove(this);
+            {
+                
+                die();
+            }
         }
     }
     
@@ -160,7 +161,7 @@ public class MercuryLargeEnemy extends RenderableObject
         {
             // draw in  relation to the viewport
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
-            int translatedY =  (int)boundingBox.getY() - (int)viewport.getY() + 10;
+            int translatedY =  (int)boundingBox.getY() - (int)viewport.getY()+10;
             int border = 2;
             
                 animationController.setSpriteSheet("mercury_large_enemy_attack_left");
@@ -174,7 +175,7 @@ public class MercuryLargeEnemy extends RenderableObject
     public void die(){
         alive = false;
         SoundController.getInstance().largeEnemyDeath();        
-            AnimationController.mercuryLargeEnemyDeathEffect(new Point((int)getBoundingBox().getCenterX()-120, (int)getBoundingBox().getCenterY()-80));
+            AnimationController.mercuryLargeEnemyDeathEffect(new Point((int)getBoundingBox().getCenterX()-200, (int)getBoundingBox().getCenterY()-300));
             this.clear();
             GameData.getInstance().removeGameObject(this);                  
     }    

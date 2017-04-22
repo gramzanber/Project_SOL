@@ -26,6 +26,7 @@ public class PrimaryWeapon extends RenderableObject
     private AnimationController animationController;
 
     private RenderableObject owner;
+
     
     /**
      *
@@ -40,6 +41,7 @@ public class PrimaryWeapon extends RenderableObject
             super.boundingBox = new Rectangle(loc.x, loc.y, 30, 30);
         
             this.owner = owner;
+            this.distanceTraveled = 0;
                 
             animationController = new AnimationController(AnimationController.Mode.AUTO, "primary1_right");
             animationController.setFps(4);  
@@ -54,7 +56,7 @@ public class PrimaryWeapon extends RenderableObject
             }            
         }
         else{
-            super.boundingBox = new Rectangle(loc.x, loc.y, 90, 18);        
+            super.boundingBox = new Rectangle(loc.x, loc.y, 90, 18);          
         
             this.owner = owner;
                
@@ -80,11 +82,16 @@ public class PrimaryWeapon extends RenderableObject
     public void render(Graphics2D g2,Rectangle viewport){
         if(weaponLevel == 1){
             //draw in relation to the viewport
+            if(this.distanceTraveled >= 30){
+                GameData.getInstance().removeGameObject(this);
+            }
+
             int translatedX =  (int)boundingBox.getX() - (int)viewport.getX();
             int translatedY =  (int)boundingBox.getY() - (int)viewport.getY();
                         
             BufferedImage sprite = animationController.getFrame(); 
             g2.drawImage(sprite, translatedX, translatedY, 30, 30, null); 
+            distanceTraveled++;
             animationController.update();        
         }
         else{
@@ -135,7 +142,7 @@ public class PrimaryWeapon extends RenderableObject
         
         for(int i=0; i<collisions.size(); i++){
             RenderableObject obj = collisions.get(i);
-            if(obj != owner){
+            if(obj instanceof Tile || obj instanceof Level4Tile || obj instanceof Level5Tile){
                GameData.getInstance().removeGameObject(this);
                break;
             }

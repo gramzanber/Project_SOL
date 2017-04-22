@@ -110,6 +110,7 @@ public class Main
         ImageLibrary.getInstance().loadSpriteSheet("sun_large_enemy_die_right", "/Images/sun_large_enemy_die_right.png", 218, 147, 0, 0);        
         
         ImageLibrary.getInstance().loadSpriteSheet("explosion", "/Images/explosion.png", 128, 128, 0, 0);
+        ImageLibrary.getInstance().loadSpriteSheet("large_enemy_blast", "/Images/large_enemy_blast.png", 330, 327, 0, 0);        
 
         
         

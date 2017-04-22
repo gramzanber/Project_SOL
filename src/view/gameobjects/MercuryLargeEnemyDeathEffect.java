@@ -49,7 +49,7 @@ public class MercuryLargeEnemyDeathEffect extends RenderableObject {
             g2.drawImage(sprite, translatedX-120, translatedY-80, sprite.getWidth()*2, sprite.getHeight()*2, null);                 
         }
         if(animationController.getLoopCount() > 0){
-            AnimationController.explosionEffect(new Point((int)getBoundingBox().getCenterX(), (int)getBoundingBox().getCenterY()+80));
+            AnimationController.explosionEffect(new Point((int)getBoundingBox().getCenterX()+250, (int)getBoundingBox().getCenterY()+400));
             GameData.getInstance().removeGameObject(this);
         }
     }

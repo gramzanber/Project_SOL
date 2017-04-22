@@ -27,6 +27,7 @@ public abstract class RenderableObject implements MouseListener,KeyListener,Mous
     protected long delay = 1000;
     protected long start;
     protected boolean colliding = false;
+    protected int distanceTraveled;
     /**
     * A simple constructor 
     * 

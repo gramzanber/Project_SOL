@@ -50,8 +50,7 @@ public class PrimaryPickup extends Tile {
         //check collision
         if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
             SoundController.getInstance().itemPickUp();
-            PrimaryWeapon.setWeaponType(2);
-            Hero.setPrimaryWeap(2);            
+            PrimaryWeapon.setWeaponType(2);          
             
             this.clear();
             GameData.getInstance().removeGameObject(this);
