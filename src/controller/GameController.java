@@ -34,6 +34,7 @@ import view.gameobjects.FlakPickup;
 import view.gameobjects.Level5Tile;
 import view.gameobjects.Gold;
 import view.gameobjects.GrenadePickup;
+import view.gameobjects.HealthPickup;
 import view.gameobjects.LavaBottom;
 import view.gameobjects.LavaMid;
 import view.gameobjects.LavaTop;
@@ -1120,6 +1121,14 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //green color pixal
                 if(red == 30 && green == 230 && blue == 130){
                     Tile tile = new PrimaryPickup(tileLoc); //Create tile object
+                    GameData.getInstance().addGameObject(tile); //Add tile to game object array
+
+                }
+
+                //health upgrade pickup
+                //blue color pixal
+                if(red == 30 && green == 130 && blue == 230){
+                    Tile tile = new HealthPickup(tileLoc); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }                

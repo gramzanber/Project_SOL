@@ -50,7 +50,7 @@ public class HealthPickup extends Tile {
         //check collision
         if(GameData.getInstance().getHero().getBoundingBox().intersects(boundingBox)){
             SoundController.getInstance().healthPickUp();
-            //Hero.setSecondaryWeap(1);        
+            Hero.addHealthPack();
             
             this.clear();
             GameData.getInstance().removeGameObject(this);

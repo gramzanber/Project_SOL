@@ -26,11 +26,11 @@ import view.swingcomponents.MainWindow;
 public class Hero extends Actor {
     
     private Rectangle viewportMain;
-    private float health = 0;
+    private static float health = 0;
     private float displayHealth =0;
     private float blueValue = 255;
     private static int score = 0;
-    private int healthPacks =0;
+    private static int healthPacks = 0;
     static boolean movingLeft = false;
     static boolean movingRight = false;
     static boolean movingUp = false;
@@ -347,6 +347,10 @@ public class Hero extends Actor {
     
     public static void setScore(int s){
         score = s;
+    }
+    
+    public static void addHealthPack(){
+        health += 100;
     }
     
     private static void playerDied(){
