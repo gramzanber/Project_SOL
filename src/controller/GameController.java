@@ -744,7 +744,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //acid top lvl-3
                 //turquoise color pixal
                 if(red == 0 && green == 255 && blue == 237){
-                    Tile tile = new AcidTop(tileLoc); //Create tile object
+                    Tile tile = new AcidTop(tileLoc, ID.Environmental); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }    
@@ -752,7 +752,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //acid mid lvl-3
                 //turquoise color pixal
                 if(red == 0 && green == 255 && blue == 238){
-                    Tile tile = new AcidMid(tileLoc); //Create tile object
+                    Tile tile = new AcidMid(tileLoc, ID.Environmental); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }  
@@ -760,7 +760,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //acid bottom lvl-3
                 //turquoise color pixal
                 if(red == 0 && green == 255 && blue == 239){
-                    Tile tile = new AcidBottom(tileLoc); //Create tile object
+                    Tile tile = new AcidBottom(tileLoc, ID.Environmental); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }                  
@@ -1044,7 +1044,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //lava top lvl-5
                 //turquoise color pixal
                 if(red == 0 && green == 255 && blue == 240){
-                    Tile tile = new LavaTop(tileLoc); //Create tile object
+                    Tile tile = new LavaTop(tileLoc, ID.Environmental); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }    
@@ -1060,7 +1060,7 @@ public class GameController implements ActionListener, KeyListener, ComponentLis
                 //lava bottom lvl-5
                 //turquoise color pixal
                 if(red == 0 && green == 255 && blue == 242){
-                    Tile tile = new LavaBottom(tileLoc); //Create tile object
+                    Tile tile = new LavaBottom(tileLoc, ID.Environmental); //Create tile object
                     GameData.getInstance().addGameObject(tile); //Add tile to game object array
 
                 }  
