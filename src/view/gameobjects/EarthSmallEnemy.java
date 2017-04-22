@@ -137,7 +137,7 @@ public class EarthSmallEnemy extends RenderableObject
         if((GameData.getInstance().gameObjects.get(i) instanceof PrimaryWeapon || GameData.getInstance().gameObjects.get(i) instanceof Weapon) &&
                 GameData.getInstance().gameObjects.get(i).boundingBox.intersects(boundingBox))
         {
-            
+            System.out.println("hit");
             die();
         }
     }

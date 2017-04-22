@@ -31,6 +31,7 @@ public class PrimaryWeapon extends RenderableObject
      *
      * @param sx start x of the missile
      * @param sy start y of the missile
+     * @param owner
      */
     public PrimaryWeapon(float sx, float sy, RenderableObject owner)
     {
