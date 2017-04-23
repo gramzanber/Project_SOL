@@ -21,7 +21,7 @@ import model.ID;
 * @version 1.0
 * @since   2017-02-18 
 */
-public class VenusSmallEnemy extends RenderableObject {
+public class VenusSmallEnemy extends VenusEnemy {
     
     private Rectangle viewportMain;
     private float health = 0;
@@ -50,7 +50,7 @@ public class VenusSmallEnemy extends RenderableObject {
     */
     public VenusSmallEnemy(Point loc, ID id) {
         //call superclass constructor
-        super(loc);
+        super(loc, id);
         facingRight = true;
         this.id = id;
         animationController = new AnimationController(AnimationController.Mode.AUTO, "greenSmallEnemyWalkingRight");
@@ -136,19 +136,6 @@ public class VenusSmallEnemy extends RenderableObject {
             }
         }
         
-        //check collisions
-        ArrayList<RenderableObject> collisions = GameData.getInstance().getCollisions(this);
-        for(int i=0; i< collisions.size(); i++){
-            RenderableObject obj = collisions.get(i);
-            if(obj instanceof Hero){
-                ((Hero)obj).setShield(-1);
-            }
-            else if(obj instanceof PrimaryWeapon || obj instanceof Weapon){
-                this.setShield(-10);
-                //GameData.getInstance().removeGameObject(obj);
-                System.out.println("hit!");
-            }
-        }
     }
     
     /**
@@ -302,43 +289,5 @@ public class VenusSmallEnemy extends RenderableObject {
         this.health += powerUp;
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
+    
 }
